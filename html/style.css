@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    display: block;
+}
+
+navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #1e2938;
+    padding: 20px;
+    gap: 0.5rem;
+    user-select: none; 
+}
+
+navbar h1 {
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 50%;
+    margin: 0;
+    font-size: 24px;
+}
+
+#juristriction {
+    display: none;
+}
+
+label[for="juristriction"] {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+    background: #ff0000;
+    border-radius: 5px;
+}
+
+#juristriction:checked+label[for="juristriction"] {
+    background: #0033ff;
+    color: white;
+    font-weight: bold;
+}
+
+.branchSelector {
+    padding-left: 0.5rem;
+    display: flex;
+    gap: 0.2rem;
+    padding: 5px;
+    font-weight: bold;
+
+}
+
+.branchSelector label {
+    border: 2px solid transparent;
+    width: 40px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.branchSelector input[type="radio"] {
+    display: none;
+
+}
+
+.branchSelector input[type="radio"]:checked+label {
+    border-radius: 5px;
+    border: 2px solid #ffffff;
+}
+
+#dev+label {
+    background: #ff0000c3;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#stage+label {
+    background: #00ff089a;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+}
+
+#prod+label {
+    background: #008cff;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+aside {}
+
+section {}
+
+footer {}
