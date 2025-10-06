@@ -2,9 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yellow Pages - Home</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-logo">📒 Yellow Pages</a>
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item">
+                    <a href="/" class="navbar-link active">Home</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/search" class="navbar-link">Search</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/categories" class="navbar-link">Categories</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/about" class="navbar-link">About</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="/contact" class="navbar-link">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to Yellow Pages</h1>
+            <p>Find local businesses and services in your area</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Mobile Menu Toggle -->
+    <script>
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const navbarMenu = document.getElementById('navbar-menu');
+
+        navbarToggle.addEventListener('click', function() {
+            navbarMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navbarToggle.contains(event.target) || navbarMenu.contains(event.target);
+            if (!isClickInsideNav && navbarMenu.classList.contains('active')) {
+                navbarMenu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
