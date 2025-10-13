@@ -58,7 +58,7 @@ public class LinkService {
     public List<Link> findByJurisdiction(Link.Jurisdiction jurisdiction) {
         return inMemoryDb.values().stream()
                 .filter(l -> {
-                    var arr =  l.getJurisdiction();
+                    var arr =  l.getJurisdictions();
                     return arr != null && Arrays.asList(arr).contains(jurisdiction);
                 })
                 .toList();
