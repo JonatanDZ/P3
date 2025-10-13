@@ -5,8 +5,10 @@ import com.example.p3.model.Link;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 public class LinkService {
@@ -56,4 +58,12 @@ public class LinkService {
     public Map<Long, Link> getAllLinks() {
         return inMemoryDb;
     }
+
+    //Filters the links so only link with the department from the URL is returned
+    public Map<Long, Link> getAllLinksByDepartment(Link.Department department) {
+        return inMemoryDb.entrySet().stream()
+            .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
 }

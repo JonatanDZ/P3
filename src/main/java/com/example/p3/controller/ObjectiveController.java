@@ -2,9 +2,11 @@ package com.example.p3.controller;
 
 
 import com.example.p3.dtos.LinkDto;
+import com.example.p3.model.Link;
 import com.example.p3.service.LinkService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable; //To get path from URL
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,4 +30,12 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+    //Call "getAllLinksByDepartment" which sort the links according to the department in the URL
+    @GetMapping("/getLinks/{department}")
+    public ResponseEntity<List<LinkDto>> getAllLinksByDepartment(@PathVariable Link.Department department){
+        List<LinkDto> list = linkService.getAllLinksByDepartment(department).values().stream()
+                .map(LinkDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
 }
