@@ -1,0 +1,211 @@
+[
+  {
+    "id": 1,
+    "name": "Spring Boot CORS Guide",
+    "url": "https://spring.io/guides/gs/rest-service-cors",
+    "tags": [
+      "spring",
+      "cors",
+      "frontend"
+    ],
+    "departments": [
+      "DEVOPS",
+      "FRONTEND"
+    ],
+    "stages": [
+      "DEVELOPMENT"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 2,
+    "name": "REST API Design Checklist",
+    "url": "https://martinfowler.com/articles/richardsonMaturityModel.html",
+    "tags": [
+      "rest",
+      "design"
+    ],
+    "departments": [
+      "PAYMENTS",
+      "PROMOTIONS"
+    ],
+    "stages": [
+      "PRODUCTION"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 3,
+    "name": "TypeScript Handbook",
+    "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "tags": [
+      "typescript",
+      "frontend",
+      "docs"
+    ],
+    "departments": [
+      "FRONTEND"
+    ],
+    "stages": [
+      "STAGING"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 4,
+    "name": "Kubernetes Production Best Practices",
+    "url": "https://kubernetes.io/docs/concepts/security/",
+    "tags": [
+      "kubernetes",
+      "devops",
+      "security"
+    ],
+    "departments": [
+      "DEVOPS"
+    ],
+    "stages": [
+      "PRODUCTION"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 5,
+    "name": "React Performance Optimization",
+    "url": "https://reactjs.org/docs/optimizing-performance.html",
+    "tags": [
+      "react",
+      "frontend",
+      "performance"
+    ],
+    "departments": [
+      "FRONTEND"
+    ],
+    "stages": [
+      "DEVELOPMENT",
+      "STAGING"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 6,
+    "name": "Microservices Pattern: Saga",
+    "url": "https://microservices.io/patterns/data/saga.html",
+    "tags": [
+      "microservices",
+      "design-pattern",
+      "architecture"
+    ],
+    "departments": [
+      "PAYMENTS"
+    ],
+    "stages": [
+      "DEVELOPMENT"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 7,
+    "name": "PostgreSQL Indexing Strategies",
+    "url": "https://www.postgresql.org/docs/current/indexes.html",
+    "tags": [
+      "postgresql",
+      "database",
+      "performance"
+    ],
+    "departments": [],
+    "stages": [
+      "PRODUCTION"
+    ],
+    "dynamic": true
+  },
+  {
+    "id": 8,
+    "name": "OWASP API Security Top 10",
+    "url": "https://owasp.org/www-project-api-security/",
+    "tags": [
+      "security",
+      "api",
+      "owasp"
+    ],
+    "departments": [
+      "DEVOPS",
+      "PAYMENTS"
+    ],
+    "stages": [
+      "DEVELOPMENT",
+      "PRODUCTION"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 9,
+    "name": "Getting Started with Docker",
+    "url": "https://docs.docker.com/get-started/",
+    "tags": [
+      "docker",
+      "devops",
+      "containers"
+    ],
+    "departments": [
+      "DEVOPS"
+    ],
+    "stages": [
+      "DEVELOPMENT"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 10,
+    "name": "GraphQL Fundamentals",
+    "url": "https://graphql.org/learn/",
+    "tags": [
+      "graphql",
+      "api",
+      "frontend",
+      "backend"
+    ],
+    "departments": [
+      "FRONTEND"
+    ],
+    "stages": [
+      "DEVELOPMENT"
+    ],
+    "dynamic": false
+  },
+  {
+    "id": 11,
+    "name": "Prometheus & Grafana Setup",
+    "url": "https://prometheus.io/docs/introduction/overview/",
+    "tags": [
+      "monitoring",
+      "grafana",
+      "prometheus",
+      "devops"
+    ],
+    "departments": [
+      "DEVOPS"
+    ],
+    "stages": [
+      "STAGING",
+      "PRODUCTION"
+    ],
+    "dynamic": true
+  },
+  {
+    "id": 12,
+    "name": "A/B Testing Statistical Significance",
+    "url": "https://www.optimizely.com/optimization-glossary/statistical-significance/",
+    "tags": [
+      "analytics",
+      "ab-testing",
+      "data"
+    ],
+    "departments": [
+      "PROMOTIONS"
+    ],
+    "stages": [
+      "PRODUCTION"
+    ],
+    "dynamic": false
+  }
+]
