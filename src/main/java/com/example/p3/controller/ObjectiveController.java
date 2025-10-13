@@ -2,6 +2,7 @@ package com.example.p3.controller;
 
 
 import com.example.p3.dtos.LinkDto;
+import com.example.p3.model.Link;
 import com.example.p3.service.LinkService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,13 @@ public class ObjectiveController {
                 .toList();
         return ResponseEntity.ok(list);
     }
+
+
     @GetMapping("/getLinksByStage")
-    public ResponseEntity<List<LinkDto>> getAllLinksByStage(){
+    public ResponseEntity<List<LinkDto>> getLinksByStage(){
+        List<LinkDto> list = linkService.getLinksByStage().values().stream().map(LinkDto::new).toList();
+        return ResponseEntity.ok(list);
+//CODE HERE YES :)
 
     }
 }
