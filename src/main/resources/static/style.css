@@ -22,11 +22,11 @@ navbar h1 {
     font-size: 24px;
 }
 
-#juristriction {
+#jurisdiction {
     display: none;
 }
 
-label[for="juristriction"] {
+label[for="jurisdiction"] {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -36,7 +36,7 @@ label[for="juristriction"] {
     border-radius: 5px;
 }
 
-#juristriction:checked+label[for="juristriction"] {
+#jurisdiction:checked+label[for="jurisdiction"] {
     background: #0033ff;
     color: white;
     font-weight: bold;
@@ -96,4 +96,21 @@ aside {}
 
 section {}
 
-footer {}
+footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #1e2938;
+    padding: 20px;
+    gap: 0.5rem;
+    user-select: none;
+}
+
+footer h1 {
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 50%;
+    margin: 0;
+    font-size: 24px;
+}
