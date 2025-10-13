@@ -104,7 +104,7 @@ aside label {
     border: 2px solid transparent;
     width: 80%;
     height: 40px;
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     align-items: center;
     background: transparent;
@@ -117,7 +117,7 @@ aside input[type="radio"] {
     display: none;
 }
 aside label:hover {
-    background: #f1f1f1;
+    background: #a1a1f1;
 }
 
 aside input[type="radio"]:checked+label {
