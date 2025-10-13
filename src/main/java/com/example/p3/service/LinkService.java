@@ -34,15 +34,20 @@ public class LinkService {
     }
 
     public void JsonParser() {
+
         ObjectMapper mapper = new ObjectMapper();
+
+        //We are creating an empty list to fill up the with the json data
         Link[] links;
 
+        // I needed to make a try/catch otherwise it complained.
         try {
             links = mapper.readValue(new File("src/main/resources/static/MOCK_DATA.json"), Link[].class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        //We are posting all the elements to the DB.
         for(Link link : links){
             inMemoryDb.put(link.getId(), link);
         }
