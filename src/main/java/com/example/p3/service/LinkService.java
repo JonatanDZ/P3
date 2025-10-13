@@ -27,32 +27,12 @@ public class LinkService {
     //  Called automatically after Spring creates the service
     @PostConstruct
     public void seedData() {
-        JsonParser();
+        JsonParser("src/main/resources/static/MOCK_DATA.json");
     }
 
     // CRUD methods
     public Map<Long, Link> getAllLinks() {
         return inMemoryDb;
-    }
-
-    public void JsonParser() {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        //We are creating an empty list to fill up the with the json data
-        Link[] links;
-
-        // I needed to make a try/catch otherwise it complained.
-        try {
-            links = mapper.readValue(new File("src/main/resources/static/MOCK_DATA.json"), Link[].class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //We are posting all the elements to the DB.
-        for(Link link : links){
-            inMemoryDb.put(link.getId(), link);
-        }
     }
 
     public List<Link> findByJurisdiction(Link.Jurisdiction jurisdiction) {
@@ -63,4 +43,27 @@ public class LinkService {
                 })
                 .toList();
     }
+
+    public void JsonParser(String src) {
+        //https://fasterxml.github.io/jackson-databind/javadoc/2.7/com/fasterxml/jackson/databind/ObjectMapper.html
+        ObjectMapper mapper = new ObjectMapper();
+
+        //We are creating an empty list to fill up the with the json data
+        Link[] links;
+
+        // I needed to make a try/catch otherwise it complained.
+        try {
+            //Reads the file that is provided and fits it to how Link looks
+            links = mapper.readValue(new File(src), Link[].class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //We are posting all the elements to the DB.
+        for(Link link : links){
+            inMemoryDb.put(link.getId(), link);
+        }
+    }
+
+
 }
