@@ -62,7 +62,6 @@ label[for="juristriction"] {
 
 .branchSelector input[type="radio"] {
     display: none;
-
 }
 
 .branchSelector input[type="radio"]:checked+label {
@@ -93,20 +92,43 @@ label[for="juristriction"] {
 }
 
 aside {
+    align-items: center;
     height: 100%;
     width: 20%;
     position: fixed;
-    /*z-index: 1;*/
-    /*top: 0;*/
-    /*left: 0;*/
     background-color: #55a;
-    /*overflow-x: hidden;*/
     padding-top: 20px;
 }
 
-/*aside input:hover {
-    color: #f1f1f1;
-}*/
+aside label {
+    border: 2px solid transparent;
+    width: 80%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+aside input[type="radio"] {
+    display: none;
+}
+aside label:hover {
+    background: #f1f1f1;
+}
+
+aside input[type="radio"]:checked+label {
+    border-radius: 5px;
+    border: 2px solid #ffffff;
+}
+
+
+
+
+
 
 section {
     margin-left: 20%;
