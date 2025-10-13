@@ -3,7 +3,7 @@ body {
     display: block;
 }
 
-navbar {
+nav {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -13,7 +13,7 @@ navbar {
     user-select: none; 
 }
 
-navbar h1 {
+nav h1 {
     text-align: center;
     color: white;
     position: absolute;
