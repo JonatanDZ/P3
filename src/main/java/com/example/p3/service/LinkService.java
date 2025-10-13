@@ -5,6 +5,7 @@ import com.example.p3.model.Link;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -52,6 +53,20 @@ public class LinkService {
         inMemoryDb.put(l3.getId(), l3);
     }
 
+    public Link createLink(String spaceId,
+                                     String name,
+                                     String url,
+                                     String tags,
+                                     Department[]) {
+        Link createdlink = new Link();
+        createdlink.setId(useCounter());
+        createdlink.setName(name);
+        createdlink.setUrl(url);
+        createdlink.setTags(tags.split(","));
+
+        inMemoryDb.put(createdlink.getId(), createdlink);
+        return createdlink;
+    }
     // CRUD methods
     public Map<Long, Link> getAllLinks() {
         return inMemoryDb;

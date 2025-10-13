@@ -3,10 +3,10 @@ package com.example.p3.controller;
 
 import com.example.p3.dtos.LinkDto;
 import com.example.p3.service.LinkService;
+import com.example.p3.model.Link;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +28,21 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+    @PostMapping("/addlink")
+    public ResponseEntity<Link> createLink(@RequestBody Link link){
+        if (link==null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        Link createdLink = linkService.createLink(
+                null,
+                link.getName(),
+                link.getUrl(),
+                String.join(",", link.getTags() !=null ? link.getTags() : new String[]{})
+        );
+
+        return ResponseEntity.ok(createdLink);
+    }
+
 }
+
