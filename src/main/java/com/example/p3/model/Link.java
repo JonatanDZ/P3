@@ -26,8 +26,10 @@ public class Link {
         DEVELOPMENT, STAGING, PRODUCTION
     }
 
-    private Jurisdiction[] Jurisdiction;
+
+    private Jurisdiction[] jurisdictions;
     public enum Jurisdiction {
-            denmark, england
+        DK, UK
     }
+
 }

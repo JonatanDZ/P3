@@ -13,13 +13,6 @@ public class P3Application {
 
         SpringApplication.run(P3Application.class, args);
 
-
-        LinkService l = new LinkService();
-
-
-        l.JsonParser();
-
-
     }
 
 }

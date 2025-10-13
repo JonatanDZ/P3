@@ -28,6 +28,6 @@ public class LinkDto {
         this.tags = l.getTags();
         this.departments = l.getDepartments();
         this.stages = l.getStages();
-        this.jurisdictions = l.getJurisdiction();
+        this.jurisdictions = l.getJurisdictions();
     }
 }
