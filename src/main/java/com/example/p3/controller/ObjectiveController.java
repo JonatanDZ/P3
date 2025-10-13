@@ -28,4 +28,10 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/getLinksByStage")
+    public ResponseEntity<List<LinkDto>> getAllLinksByStage(){
+
+    }
+
+
 }
