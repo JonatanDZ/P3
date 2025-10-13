@@ -1,32 +1,40 @@
 body {
     margin: 0;
-    display: block;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    box-sizing: border-box;
 }
 
-navbar {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     background-color: #1e2938;
     padding: 20px;
+    display: flex;
+    align-items: center;
     gap: 0.5rem;
-    user-select: none; 
+    user-select: none;
+    z-index: 10000;
+    box-sizing: border-box;
 }
 
-navbar h1 {
-    text-align: center;
-    color: white;
+nav h1 {
     position: absolute;
     left: 50%;
+    transform: translateX(-50%);
     margin: 0;
     font-size: 24px;
+    color: white;
+    font-weight: bold;
 }
 
-#juristriction {
+#jurisdiction {
     display: none;
 }
 
-label[for="juristriction"] {
+label[for="jurisdiction"] {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -34,21 +42,20 @@ label[for="juristriction"] {
     height: 40px;
     background: #ff0000;
     border-radius: 5px;
+    color: white;
+    cursor: pointer;
 }
 
-#juristriction:checked+label[for="juristriction"] {
+#jurisdiction:checked+label[for="jurisdiction"] {
     background: #0033ff;
-    color: white;
     font-weight: bold;
 }
 
 .branchSelector {
-    padding-left: 0.5rem;
     display: flex;
     gap: 0.2rem;
     padding: 5px;
     font-weight: bold;
-
 }
 
 .branchSelector label {
@@ -58,6 +65,7 @@ label[for="juristriction"] {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 }
 
 .branchSelector input[type="radio"] {
@@ -65,7 +73,6 @@ label[for="juristriction"] {
 }
 
 .branchSelector input[type="radio"]:checked+label {
-    border-radius: 5px;
     border: 2px solid #ffffff;
 }
 
@@ -73,22 +80,18 @@ label[for="juristriction"] {
     background: #ff0000c3;
     color: white;
     padding: 5px;
-    border-radius: 5px;
 }
 
 #stage+label {
     background: #00ff089a;
-    padding: 5px;
     color: white;
-    border-radius: 5px;
+    padding: 5px;
 }
 
 #prod+label {
     background: #008cff;
     color: white;
     padding: 5px;
-    border-radius: 5px;
-
 }
 
 aside {
@@ -134,4 +137,22 @@ section {
     margin-left: 20%;
 }
 
-footer {}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1e2938;
+    /* Skal skiftes når vi får js op og kørrer så den følger branchen man er på */
+    padding: 20px 0;
+    text-align: center;
+    z-index: 9999;
+}
+
+footer #branch {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
