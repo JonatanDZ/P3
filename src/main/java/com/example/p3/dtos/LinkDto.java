@@ -18,6 +18,8 @@ public class LinkDto {
     // there can be multiple stages to a link
     private Link.Stage[] stages;
 
+    private Link.Jurisdiction[] jurisdictions;
+
     public LinkDto(Link l) {
         this.id = l.getId();
         this.name = l.getName();

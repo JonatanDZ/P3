@@ -5,6 +5,8 @@ import com.example.p3.model.Link;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -31,6 +33,7 @@ public class LinkService {
         l1.setDepartments(new Link.Department[]{Link.Department.DEVOPS, Link.Department.FRONTEND});
         // If your Link has a Stage enum, set it here (safe to ignore if not present)
         l1.setStages(new Link.Stage[]{Link.Stage.DEVELOPMENT});
+        l1.setJurisdiction(new Link.Jurisdiction[]{Link.Jurisdiction.Denmark});
         inMemoryDb.put(l1.getId(), l1);
 
         Link l2 = new Link();
@@ -40,6 +43,7 @@ public class LinkService {
         l2.setTags(new String[]{"rest", "design"});
         l2.setDepartments(new Link.Department[]{Link.Department.PAYMENTS, Link.Department.PROMOTIONS});
         l2.setStages(new Link.Stage[]{Link.Stage.PRODUCTION});
+        l2.setJurisdiction(new Link.Jurisdiction[]{Link.Jurisdiction.Denmark});
         inMemoryDb.put(l2.getId(), l2);
 
         Link l3 = new Link();
@@ -49,11 +53,21 @@ public class LinkService {
         l3.setTags(new String[]{"typescript", "frontend", "docs"});
         l3.setDepartments(new Link.Department[]{Link.Department.FRONTEND});
         l3.setStages(new Link.Stage[]{Link.Stage.STAGING});
+        l3.setJurisdiction(new Link.Jurisdiction[]{Link.Jurisdiction.England});
         inMemoryDb.put(l3.getId(), l3);
     }
 
     // CRUD methods
     public Map<Long, Link> getAllLinks() {
         return inMemoryDb;
+    }
+
+    public List<Link> findByJurisdiction(Link.Jurisdiction jurisdiction) {
+        return inMemoryDb.values().stream()
+                .filter(l -> {
+                    var arr =  l.getJurisdiction();
+                    return arr != null && Arrays.asList(arr).contains(jurisdiction);
+                })
+                .toList();
     }
 }
