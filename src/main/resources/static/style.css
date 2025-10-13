@@ -92,8 +92,24 @@ label[for="juristriction"] {
 
 }
 
-aside {}
+aside {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    /*z-index: 1;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    background-color: #55a;
+    /*overflow-x: hidden;*/
+    padding-top: 20px;
+}
 
-section {}
+/*aside input:hover {
+    color: #f1f1f1;
+}*/
+
+section {
+    margin-left: 20%;
+}
 
 footer {}
