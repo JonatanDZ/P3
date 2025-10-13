@@ -28,6 +28,6 @@ public class Link {
 
     private Jurisdiction[] Jurisdiction;
     public enum Jurisdiction {
-            Denmark, England
+            denmark, england
     }
 }
