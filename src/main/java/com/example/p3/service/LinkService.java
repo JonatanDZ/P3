@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -36,17 +37,20 @@ public class LinkService {
         return inMemoryDb;
     }
 
-    public Map<Long, Link> getLinksByStage(){
+    public List<LinkDto> getLinksByStage(String dep){
         List<LinkDto> list = inMemoryDb.values().stream().map(LinkDto::new).toList();
+        List<LinkDto> listByStage = new ArrayList<>();
         for(int i = 0; i<inMemoryDb.size();i++){
-            if(Arrays.toString(list.get(i).getDepartments()).contains("DEVOPS")){
-                System.out.println(Arrays.toString(list.get(i).getDepartments()));
+            if(Arrays.toString(list.get(i).getDepartments()).contains(dep)){ //For testing use ex "DEVOPS"
+                //System.out.println(Arrays.toString(list.get(i).getDepartments()));
+                listByStage.add(list.get(i));
             }
 
            // System.out.println(list.get(i));
         }
+        System.out.println(listByStage);
 
-        return inMemoryDb; //PLACEHOLDER
+        return listByStage; //PLACEHOLDER
     }
 
     public void JsonParser() {
