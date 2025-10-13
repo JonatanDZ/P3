@@ -14,6 +14,8 @@ nav {
 }
 
 nav h1 {
+    display: inline-block;
+    vertical-align: middle;
     text-align: center;
     color: white;
     position: absolute;
