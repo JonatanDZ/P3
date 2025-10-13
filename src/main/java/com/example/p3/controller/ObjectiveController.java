@@ -31,11 +31,11 @@ public class ObjectiveController {
     }
 
     @GetMapping("/{jurisdiction}/getLinks")
-    public List<LinkDto> getByJurisdiction(
-            @PathVariable Link.Jurisdiction jurisdiction) {
-        return linkService.findByJurisdiction(jurisdiction).stream()
+    public ResponseEntity<List<LinkDto>> getByJurisdiction(@PathVariable Link.Jurisdiction jurisdiction) {
+        List<LinkDto> list = linkService.findByJurisdiction(jurisdiction).stream()
                 .map(LinkDto::new)
                 .toList();
+        return ResponseEntity.ok(list);
     }
 
 }
