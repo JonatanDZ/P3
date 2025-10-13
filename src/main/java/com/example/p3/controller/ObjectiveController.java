@@ -27,5 +27,4 @@ public class ObjectiveController {
                 .toList();
         return ResponseEntity.ok(list);
     }
-
 }
