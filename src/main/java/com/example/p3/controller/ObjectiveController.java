@@ -29,10 +29,19 @@ public class ObjectiveController {
                 .toList();
         return ResponseEntity.ok(list);
     }
-
+    
     @GetMapping("/{jurisdiction}/getLinks")
     public ResponseEntity<List<LinkDto>> getByJurisdiction(@PathVariable Link.Jurisdiction jurisdiction) {
         List<LinkDto> list = linkService.findByJurisdiction(jurisdiction).stream()
+                .map(LinkDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+    //Call "getAllLinksByDepartment" which sort the links according to the department in the URL
+    @GetMapping("/getLinks/{department}")
+    public ResponseEntity<List<LinkDto>> getAllLinksByDepartment(@PathVariable Link.Department department) {
+        List<LinkDto> list = linkService.getAllLinksByDepartment(department).values().stream()
                 .map(LinkDto::new)
                 .toList();
         return ResponseEntity.ok(list);

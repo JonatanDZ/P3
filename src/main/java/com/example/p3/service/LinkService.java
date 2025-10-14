@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 public class LinkService {
@@ -34,6 +35,7 @@ public class LinkService {
     public Map<Long, Link> getAllLinks() {
         return inMemoryDb;
     }
+
 
     public List<Link> findByJurisdiction(Link.Jurisdiction jurisdiction) {
         return inMemoryDb.values().stream()
@@ -65,5 +67,10 @@ public class LinkService {
         }
     }
 
-
+    //Filters the links so only link with the department from the URL is returned
+    public Map<Long, Link> getAllLinksByDepartment(Link.Department department) {
+        return getAllLinks().entrySet().stream()
+            .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
 }
