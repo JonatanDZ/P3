@@ -61,7 +61,7 @@ public class LinkService {
 
     //Filters the links so only link with the department from the URL is returned
     public Map<Long, Link> getAllLinksByDepartment(Link.Department department) {
-        return inMemoryDb.entrySet().stream()
+        return getAllLinks().entrySet().stream()
             .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
