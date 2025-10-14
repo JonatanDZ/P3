@@ -48,4 +48,16 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/getLinks/{department}/{jurisdiction}/{stage}")
+    public ResponseEntity<List<LinkDto>> getAllLinksByDepartmentJurisdictionStage(
+            @PathVariable Link.Department department,
+            @PathVariable Link.Jurisdiction jurisdiction,
+            @PathVariable Link.Stage stage
+    ){
+        List<LinkDto> list = linkService.getAllLinksByDepartmentJurisdictionStage(department, jurisdiction, stage).values().stream()
+                .map(LinkDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
 }
