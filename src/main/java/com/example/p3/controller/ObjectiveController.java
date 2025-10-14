@@ -34,11 +34,16 @@ public class ObjectiveController {
             return ResponseEntity.badRequest().build();
         }
 
+        // This is a ternary operator (just a short way to write if/else)
+        String joinedtags = String.join(", ", link.getTags() != null ? link.getTags() : new String[]{});
+
         Link createdLink = linkService.createLink(
                 null,
                 link.getName(),
                 link.getUrl(),
-                String.join(",", link.getTags() !=null ? link.getTags() : new String[]{})
+                joinedtags,
+                link.getDepartments(),
+                link.getStages()
         );
 
         return ResponseEntity.ok(createdLink);

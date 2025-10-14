@@ -53,17 +53,23 @@ public class LinkService {
         inMemoryDb.put(l3.getId(), l3);
     }
 
+
+    // Here we define how to create a link (The first string is for ID)
     public Link createLink(String spaceId,
                                      String name,
                                      String url,
                                      String tags,
-                                     Department[]) {
+                                     Link.Department[] department,
+                                     Link.Stage[] stages) {
         Link createdlink = new Link();
         createdlink.setId(useCounter());
         createdlink.setName(name);
         createdlink.setUrl(url);
-        createdlink.setTags(tags.split(","));
+        createdlink.setTags(tags.split(",")); // [.... , ..... , .... , ..]
+        createdlink.setDepartments(department);
+        createdlink.setStages(stages);
 
+        // Store the object createdlink in the Hash map (inMemoryDb), and use its ID (createdlink.getId()) as the key.
         inMemoryDb.put(createdlink.getId(), createdlink);
         return createdlink;
     }
