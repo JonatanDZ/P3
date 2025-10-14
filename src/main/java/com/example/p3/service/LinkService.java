@@ -54,13 +54,17 @@ public class LinkService {
     }
 
 
+    // Min forståelse af isDynamic er den skal gemme på "brugerens" navn
     // Here we define how to create a link (The first string is for ID)
     public Link createLink(String spaceId,
                                      String name,
                                      String url,
                                      String tags,
                                      Link.Department[] department,
-                                     Link.Stage[] stages) {
+                                     Link.Stage[] stages,
+                                     boolean isDynamic,
+                                     String  createdBy)
+    {
         Link createdlink = new Link();
         createdlink.setId(useCounter());
         createdlink.setName(name);
@@ -68,6 +72,7 @@ public class LinkService {
         createdlink.setTags(tags.split(",")); // [.... , ..... , .... , ..]
         createdlink.setDepartments(department);
         createdlink.setStages(stages);
+        createdlink.setCreatedBy(createdBy);
 
         // Store the object createdlink in the Hash map (inMemoryDb), and use its ID (createdlink.getId()) as the key.
         inMemoryDb.put(createdlink.getId(), createdlink);
@@ -78,3 +83,14 @@ public class LinkService {
         return inMemoryDb;
     }
 }
+
+
+// Test
+// {
+//  "name": "Github",
+//  "url": "https://github.com",
+//  "tags": ["code", "repository"],
+//  "departments": ["Development"],
+//  "stages": ["Production"],
+//  "isDynamic": true
+//}
