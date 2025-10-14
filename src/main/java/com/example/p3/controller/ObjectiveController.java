@@ -29,8 +29,9 @@ public class ObjectiveController {
                 .toList();
         return ResponseEntity.ok(list);
     }
-    
-    @GetMapping("/{jurisdiction}/getLinks")
+
+    // maybe change this to department/jurisdiction/stage or implement new endpoint
+    @GetMapping("/getLinks/{jurisdiction}")
     public ResponseEntity<List<LinkDto>> getByJurisdiction(@PathVariable Link.Jurisdiction jurisdiction) {
         List<LinkDto> list = linkService.findByJurisdiction(jurisdiction).stream()
                 .map(LinkDto::new)
