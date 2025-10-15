@@ -11,6 +11,7 @@ public class Link {
     private String name;
     private String url;
     private boolean isDynamic;
+    private String createdBy;
 
     private String[] tags;
 
@@ -30,6 +31,12 @@ public class Link {
     private Jurisdiction[] jurisdictions;
     public enum Jurisdiction {
         DK, UK
+    }
+
+
+    public String tagsToString(){
+        // This is a ternary operator (just a short way to write if/else)
+        return String.join(", ", this.getTags() != null ? this.getTags() : new String[]{});
     }
 
 }

@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -29,8 +30,35 @@ public class LinkService {
     @PostConstruct
     public void seedData() {
         JsonParser("src/main/resources/static/MOCK_DATA.json");
+        // --- Mock data for development ---
     }
 
+
+    // Min forståelse af isDynamic er den skal gemme på "brugerens" navn
+    // Here we define how to create a link (The first string is for ID)
+    public Link createLink(String spaceId,
+                                     String name,
+                                     String url,
+                                     String tags,
+                                     Link.Department[] department,
+                                     Link.Stage[] stages,
+                                     boolean isDynamic,
+                                     String  createdBy)
+    {
+        Link createdlink = new Link();
+        createdlink.setId(useCounter());
+        createdlink.setName(name);
+        createdlink.setUrl(url);
+        createdlink.setTags(tags.split(",")); // [.... , ..... , .... , ..]
+        createdlink.setDepartments(department);
+        createdlink.setStages(stages);
+        createdlink.setDynamic(isDynamic);
+        createdlink.setCreatedBy(createdBy);
+
+        // Store the object createdlink in the Hash map (inMemoryDb), and use its ID (createdlink.getId()) as the key.
+        inMemoryDb.put(createdlink.getId(), createdlink);
+        return createdlink;
+    }
     // CRUD methods
     public Map<Long, Link> getAllLinks() {
         return inMemoryDb;
@@ -74,3 +102,14 @@ public class LinkService {
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
+
+
+// Test
+// {
+//  "name": "Github",
+//  "url": "https://github.com",
+//  "tags": ["code", "repository"],
+//  "departments": ["Development"],
+//  "stages": ["Production"],
+//  "isDynamic": true
+//}

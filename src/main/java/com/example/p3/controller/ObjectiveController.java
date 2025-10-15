@@ -4,7 +4,10 @@ package com.example.p3.controller;
 import com.example.p3.dtos.LinkDto;
 import com.example.p3.model.Link;
 import com.example.p3.service.LinkService;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,4 +50,26 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+    @PostMapping("/addlink")
+    public ResponseEntity<Link> createLink(@RequestBody Link link){
+        if (link==null){
+            return ResponseEntity.badRequest().build();
+        }
+
+
+        Link createdLink = linkService.createLink(
+                null,
+                link.getName(),
+                link.getUrl(),
+                link.tagsToString(),
+                link.getDepartments(),
+                link.getStages(),
+                link.isDynamic(),
+                link.getCreatedBy()
+        );
+
+        return ResponseEntity.ok(createdLink);
+    }
+
 }
+
