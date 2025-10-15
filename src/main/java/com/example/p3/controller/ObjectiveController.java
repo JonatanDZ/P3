@@ -2,8 +2,10 @@ package com.example.p3.controller;
 
 
 import com.example.p3.dtos.ToolDto;
+import com.example.p3.dtos.UserDto;
 import com.example.p3.model.Tool;
 import com.example.p3.service.ToolService;
+import com.example.p3.service.UserService;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +25,22 @@ import java.util.List;
 @RequestMapping()
 public class ObjectiveController {
     private final ToolService toolService;
+    private final UserService userService;
 
-    public ObjectiveController(ToolService toolService) {
+    public ObjectiveController(ToolService toolService, UserService userService) {
         this.toolService = toolService;
+        this.userService = userService;
     }
+
+    @GetMapping("/getUsers")
+    public ResponseEntity<List<UserDto>> getAllUsers(){
+        List<UserDto> list = userService.getAllUsers().values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+
 
     @GetMapping("/getTools")
     public ResponseEntity<List<ToolDto>> getAlltools(){
