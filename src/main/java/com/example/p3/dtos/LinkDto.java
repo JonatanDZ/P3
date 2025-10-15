@@ -22,7 +22,7 @@ public class LinkDto {
     private Link.Jurisdiction[] jurisdictions;
 
     public LinkDto(Link l) {
-        this.id = new LinkService().useCounter();
+        this.id = l.getId();
         this.name = l.getName();
         this.url = l.getUrl();
         this.isDynamic = l.isDynamic();
