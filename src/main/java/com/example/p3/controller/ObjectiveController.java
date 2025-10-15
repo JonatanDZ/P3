@@ -29,8 +29,8 @@ public class ObjectiveController {
 
 
     @PostMapping("/getLinksByStage/{stage}")
-    public ResponseEntity<List<LinkDto>> getLinksByStage(@PathVariable("stage") String dep){
-        List<LinkDto> list = linkService.getLinksByStage(dep);
+    public ResponseEntity<List<LinkDto>> getLinksByStage(@PathVariable("stage") String stage){
+        List<LinkDto> list = linkService.getLinksByStage(stage);
         return ResponseEntity.ok(list);
 //CODE HERE YES :)
 

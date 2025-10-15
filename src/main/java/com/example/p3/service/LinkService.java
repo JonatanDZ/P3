@@ -37,11 +37,11 @@ public class LinkService {
         return inMemoryDb;
     }
 
-    public List<LinkDto> getLinksByStage(String dep){
+    public List<LinkDto> getLinksByStage(String stage){
         List<LinkDto> list = inMemoryDb.values().stream().map(LinkDto::new).toList();
         List<LinkDto> listByStage = new ArrayList<>();
         for(int i = 0; i<inMemoryDb.size();i++){
-            if(Arrays.toString(list.get(i).getDepartments()).contains(dep)){ //For testing use ex "DEVOPS"
+            if(Arrays.toString(list.get(i).getStages()).contains(stage)){ //For testing use ex "DEVOPS"
                 //System.out.println(Arrays.toString(list.get(i).getDepartments()));
                 listByStage.add(list.get(i));
             }
