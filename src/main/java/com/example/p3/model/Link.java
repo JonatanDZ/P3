@@ -32,4 +32,10 @@ public class Link {
         DK, UK
     }
 
+
+    public String tagsToString(){
+        // This is a ternary operator (just a short way to write if/else)
+        return String.join(", ", this.getTags() != null ? this.getTags() : new String[]{});
+    }
+
 }
