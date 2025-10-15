@@ -26,11 +26,6 @@ public class LinkService {
     // hashmap to be made her
     // in memory database:
     private final Map<Long, Link> inMemoryDb = new ConcurrentHashMap<>();
-    private long counter = 1;
-    public long useCounter() {
-        return counter++;
-    }
-
     //  Called automatically after Spring creates the service
     @PostConstruct
     public void seedData() {
@@ -49,8 +44,7 @@ public class LinkService {
                                      String tags,
                                      Link.Department[] department,
                                      Link.Stage[] stages,
-                                     boolean isDynamic,
-                                     String  createdBy)
+                                     boolean isDynamic)
     {
         Link createdlink = new Link();
         createdlink.setId(useCounter());
@@ -60,7 +54,6 @@ public class LinkService {
         createdlink.setDepartments(department);
         createdlink.setStages(stages);
         createdlink.setDynamic(isDynamic);
-        createdlink.setCreatedBy(createdBy);
 
         // Store the object createdlink in the Hash map (inMemoryDb), and use its ID (createdlink.getId()) as the key.
         inMemoryDb.put(createdlink.getId(), createdlink);
@@ -120,6 +113,18 @@ public class LinkService {
         return getAllLinks().entrySet().stream()
             .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public Map<Long, Link> getAllLinksByDepartmentJurisdictionStage(
+            Link.Department department,
+            Link.Jurisdiction jurisdiction,
+            Link.Stage stage
+    ) {
+        return getAllLinks().entrySet().stream()
+                .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
+                .filter(entry -> Arrays.asList(entry.getValue().getJurisdictions()).contains(jurisdiction))
+                .filter(entry -> Arrays.asList(entry.getValue().getStages()).contains(stage))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
 
