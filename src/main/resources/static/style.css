@@ -94,6 +94,62 @@ label[for="jurisdiction"] {
     padding: 5px;
 }
 
+/*/////////////////////////////////////////////////*/
+
+aside {
+    align-items: center;
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    background-color: #55a;
+    padding-top: 20px;
+}
+
+aside label {
+    padding: 5px 5px 5px 5px;
+    margin-left: 20px;
+    border: 2px solid transparent;
+    width: 180px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    gap: 10px;
+}
+
+aside input[type="radio"] {
+    display: none;
+}
+aside label:hover {
+    background: #a1a1f1;
+}
+
+aside input[type="radio"]:checked+label {
+    border-radius: 5px;
+    border: 2px solid #ffffff;
+}
+
+aside h1 {
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+/*/////////////////////////////////////////////////*/
+
+
+section {
+    margin-left: 20%;
+}
+
+
 footer {
     position: fixed;
     bottom: 0;
