@@ -21,7 +21,7 @@ public class LinkService {
     // hashmap to be made her
     // in memory database:
     private final Map<Long, Link> inMemoryDb = new ConcurrentHashMap<>();
-    private long counter = 1;
+    static long counter = 1;
     public long useCounter() {
         return counter++;
     }
@@ -89,7 +89,8 @@ public class LinkService {
 
         //We are posting all the elements to the DB.
         for(Link link : links){
-            inMemoryDb.put(link.getId(), link);
+            inMemoryDb.put(counter, link);
+            System.out.println(counter);
         }
     }
 

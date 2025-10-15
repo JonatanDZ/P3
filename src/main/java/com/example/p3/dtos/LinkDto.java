@@ -1,5 +1,6 @@
 package com.example.p3.dtos;
 import com.example.p3.model.Link;
+import com.example.p3.service.LinkService;
 import lombok.Data;
 
 // data transfer objects, to JSON
@@ -21,7 +22,7 @@ public class LinkDto {
     private Link.Jurisdiction[] jurisdictions;
 
     public LinkDto(Link l) {
-        this.id = l.getId();
+        this.id = new LinkService().useCounter();
         this.name = l.getName();
         this.url = l.getUrl();
         this.isDynamic = l.isDynamic();
