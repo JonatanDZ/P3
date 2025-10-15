@@ -26,11 +26,13 @@ public class LinkService {
     // hashmap to be made her
     // in memory database:
     private final Map<Long, Link> inMemoryDb = new ConcurrentHashMap<>();
-    //  Called automatically after Spring creates the service
-    private long counter = 1;
+
+    static long counter = 0;
     public long useCounter() {
-        return counter++;
+        return ++counter;
     }
+
+    //  Called automatically after Spring creates the service
     @PostConstruct
     public void seedData() {
         JsonParser("src/main/resources/static/MOCK_DATA.json");
@@ -42,6 +44,8 @@ public class LinkService {
 
     // Min forståelse af isDynamic er den skal gemme på "brugerens" navn
     // Here we define how to create a link (The first string is for ID)
+
+
     public Link createLink(String spaceId,
                                      String name,
                                      String url,
@@ -108,7 +112,7 @@ public class LinkService {
 
         //We are posting all the elements to the DB.
         for(Link link : links){
-            inMemoryDb.put(link.getId(), link);
+            inMemoryDb.put(useCounter(), link);
         }
     }
 

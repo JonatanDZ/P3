@@ -1,5 +1,6 @@
 package com.example.p3.dtos;
 import com.example.p3.model.Link;
+import com.example.p3.service.LinkService;
 import lombok.Data;
 
 // data transfer objects, to JSON
