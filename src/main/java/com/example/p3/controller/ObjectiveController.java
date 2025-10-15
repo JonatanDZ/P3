@@ -34,19 +34,12 @@ public class ObjectiveController {
             return ResponseEntity.badRequest().build();
         }
 
-        // This is a ternary operator (just a short way to write if/else)
-        String joinedtags = String.join(", ", link.getTags() != null ? link.getTags() : new String[]{});
-
-        //Hardcoded for at teste om vi kan gemme et navn på det oprettet link
-        if (link.isDynamic()) {
-            link.setCreatedBy("Bjarne Martin");
-        }
 
         Link createdLink = linkService.createLink(
                 null,
                 link.getName(),
                 link.getUrl(),
-                joinedtags,
+                link.tagsToString(),
                 link.getDepartments(),
                 link.getStages(),
                 link.isDynamic(),

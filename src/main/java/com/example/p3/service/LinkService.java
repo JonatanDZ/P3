@@ -32,6 +32,7 @@ public class LinkService {
         l1.setDepartments(new Link.Department[]{Link.Department.DEVOPS, Link.Department.FRONTEND});
         // If your Link has a Stage enum, set it here (safe to ignore if not present)
         l1.setStages(new Link.Stage[]{Link.Stage.DEVELOPMENT});
+        l1.setDynamic(false);
         inMemoryDb.put(l1.getId(), l1);
 
         Link l2 = new Link();
@@ -41,6 +42,7 @@ public class LinkService {
         l2.setTags(new String[]{"rest", "design"});
         l2.setDepartments(new Link.Department[]{Link.Department.PAYMENTS, Link.Department.PROMOTIONS});
         l2.setStages(new Link.Stage[]{Link.Stage.PRODUCTION});
+        l2.setDynamic(true);
         inMemoryDb.put(l2.getId(), l2);
 
         Link l3 = new Link();
@@ -50,6 +52,7 @@ public class LinkService {
         l3.setTags(new String[]{"typescript", "frontend", "docs"});
         l3.setDepartments(new Link.Department[]{Link.Department.FRONTEND});
         l3.setStages(new Link.Stage[]{Link.Stage.STAGING});
+        l3.setDynamic(true);
         inMemoryDb.put(l3.getId(), l3);
     }
 
@@ -72,6 +75,7 @@ public class LinkService {
         createdlink.setTags(tags.split(",")); // [.... , ..... , .... , ..]
         createdlink.setDepartments(department);
         createdlink.setStages(stages);
+        createdlink.setDynamic(isDynamic);
         createdlink.setCreatedBy(createdBy);
 
         // Store the object createdlink in the Hash map (inMemoryDb), and use its ID (createdlink.getId()) as the key.
