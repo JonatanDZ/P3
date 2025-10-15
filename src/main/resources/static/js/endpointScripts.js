@@ -1,52 +1,52 @@
-// getLinks endpoint and display
-function getLinksDisplay () {
-    fetch('/getLinks')
+// getTools endpoint and display
+function getToolsDisplay () {
+    fetch('/getTools')
         .then(response => response.json())
         .then(data => {
-            const list = document.getElementById('allLinks');
-            data.forEach(link => {
+            const list = document.getElementById('allTools');
+            data.forEach(tool => {
                 const li = document.createElement('li');
                 const a = document.createElement('a');
-                a.href = link.url;
-                a.textContent = link.name;
+                a.href = tool.url;
+                a.textContent = tool.name;
                 a.target = "_blank";
                 li.appendChild(a);
                 list.appendChild(li);
             });
         })
-        .catch(error => console.error('Error fetching links:', error));
+        .catch(error => console.error('Error fetching tool:', error));
 }
 
-// getLinksByDepartmentJurisdictionStage endpoint and display
-function getLinksByDepartmentJurisdictionStage() {
+// getToolsByDepartmentJurisdictionStage endpoint and display
+function getToolsByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in
     const department = getDepartment()//"DEVOPS";
     let jurisdiction = getJurisdiction();
     console.log(jurisdiction)
     const branch = getBranch();
     console.log(branch);
-    fetch(`/getLinks/${encodeURIComponent(department)}/${encodeURIComponent(jurisdiction)}/${encodeURIComponent(branch)}`)
+    fetch(`/getTools/${encodeURIComponent(department)}/${encodeURIComponent(jurisdiction)}/${encodeURIComponent(branch)}`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
             const list = document.getElementById('departmentSelected');
-            data.forEach(link => {
+            data.forEach(tool => {
                 const li = document.createElement('li');
                 const a = document.createElement('a');
-                a.href = link.url;
-                a.textContent = link.name;
+                a.href = tool.url;
+                a.textContent = tool.name;
                 a.target = "_blank";
                 li.appendChild(a);
                 list.appendChild(li);
             });
         })
-        .catch(error => console.error('Error fetching links:', error));
+        .catch(error => console.error('Error fetching tool:', error));
 }
 
 // functions which run when page loads
 window.addEventListener('DOMContentLoaded', () => {
-    getLinksDisplay();
-    getLinksByDepartmentJurisdictionStage(); // initial render
+    getToolsDisplay();
+    getToolsByDepartmentJurisdictionStage(); // initial render
 
     // React to changes in branch (radio group inside .branchSelector)
     const branchContainer = document.querySelector('.branchSelector');
@@ -57,12 +57,12 @@ window.addEventListener('DOMContentLoaded', () => {
             // checking if the event (a change to a branch button) matches one of the actual branch elements in html
             if (e.target && e.target.matches('input[name="branch"]')) {
                 const list = document.getElementById('departmentSelected');
-                // checking if the element exists, and looping through each link and removing them before appending to the list again
-                // this if condition ensures that the list displayed does not concatenate to the list of links
+                // checking if the element exists, and looping through each Tool and removing them before appending to the list again
+                // this if condition ensures that the list displayed does not concatenate to the list of Tools
                 if (list) {
                     list.querySelectorAll('li').forEach(li => li.remove());
                 }
-                getLinksByDepartmentJurisdictionStage();
+                getToolsByDepartmentJurisdictionStage();
             }
         });
     }
@@ -72,12 +72,12 @@ window.addEventListener('DOMContentLoaded', () => {
     if (jurEl) {
         jurEl.addEventListener('change', () => {
             const list = document.getElementById('departmentSelected');
-            // checking if the element exists, and looping through each link and removing them before appending to the list again
-            // this if condition ensures that the list displayed does not concatenate to the list of links
+            // checking if the element exists, and looping through each Tool and removing them before appending to the list again
+            // this if condition ensures that the list displayed does not concatenate to the list of Tools
             if (list) {
                 list.querySelectorAll('li').forEach(li => li.remove());
             }
-            getLinksByDepartmentJurisdictionStage();
+            getToolsByDepartmentJurisdictionStage();
         });
     }
 });
