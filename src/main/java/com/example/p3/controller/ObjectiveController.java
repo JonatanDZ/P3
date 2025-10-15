@@ -4,6 +4,7 @@ package com.example.p3.controller;
 import com.example.p3.dtos.ToolDto;
 import com.example.p3.dtos.UserDto;
 import com.example.p3.model.Tool;
+import com.example.p3.model.User;
 import com.example.p3.service.ToolService;
 import com.example.p3.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -108,5 +109,15 @@ public class ObjectiveController {
         return ResponseEntity.ok(createdTool);
     }
 
-}
+    /// /////////////////ASTA start///////////////////
+    //Call "getUserById" which selects the user according to the id (skal være initialer) in the URL
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<List<UserDto>> getUserById(@PathVariable long id) {
+        List<UserDto> list = userService.getUserById(id).values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+    /// /////////////////ASTA slut///////////////////
 
+}
