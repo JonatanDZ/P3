@@ -64,7 +64,36 @@
                     <label for="toolURL"> <b> Tool URL</b></label>
                     <input id="toolURL" type="text" placeholder="Enter URL" name="toolURL" required>
 
-                    <label for="IsDynamic"> <b> Tool URL</b></label>
+                    <label for="IsDynamic"> <b> Tool URL</b>
+                        <input id="IsDynamic" type="checkbox" placeholder="Is Dynamic?" name="IsDynamic" required> Is Dynamic?
+                    </label>
+
+
+                    <label for="Tags"> <b> Tags </b></label>
+                    <input id="Tags" type="text" placeholder="Enter Tags" name="tags" required>
+
+                    <label for="Department"> <b> Department</b></label>
+                    <div class="Select department" style="width:200px;">
+                    <select id="Department" name="Department" required>
+                        <option value="">Select Department</option>
+                        <option value="DevOps">DevOps</option>
+                        <option value="FrontEnd">FrontEnd</option>
+                        <option value="GAMES">Games</option>
+                        <option value="Payments">Payments</option>
+                        <option value="Productions">Productions</option>
+                        <option value="Promotions">Promotions</option>
+                        <option value="Players">Promotions</option>
+                    </select>
+                    </div>
+
+                    <label for="Jurisdiction"> <b> Choose jurisdiction</b></label>
+                    <div class="Select jurisdiction" style="width:200px;">
+                        <select id="Jurisdiction" name="Jurisdiction" required>
+                            <option value="">Select Jurisdiction</option>
+                            <option value="DK">DK</option>
+                            <option value="UK">UK</option>
+                        </select>
+                    </div>
                 </form>
             </div>
 
