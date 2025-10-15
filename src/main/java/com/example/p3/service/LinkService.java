@@ -42,8 +42,7 @@ public class LinkService {
                                      String tags,
                                      Link.Department[] department,
                                      Link.Stage[] stages,
-                                     boolean isDynamic,
-                                     String  createdBy)
+                                     boolean isDynamic)
     {
         Link createdlink = new Link();
         createdlink.setId(useCounter());
@@ -53,7 +52,6 @@ public class LinkService {
         createdlink.setDepartments(department);
         createdlink.setStages(stages);
         createdlink.setDynamic(isDynamic);
-        createdlink.setCreatedBy(createdBy);
 
         // Store the object createdlink in the Hash map (inMemoryDb), and use its ID (createdlink.getId()) as the key.
         inMemoryDb.put(createdlink.getId(), createdlink);

@@ -64,8 +64,7 @@ public class ObjectiveController {
                 link.tagsToString(),
                 link.getDepartments(),
                 link.getStages(),
-                link.isDynamic(),
-                link.getCreatedBy()
+                link.isDynamic()
         );
 
         return ResponseEntity.ok(createdLink);

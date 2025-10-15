@@ -11,7 +11,6 @@ public class Link {
     private String name;
     private String url;
     private boolean isDynamic;
-    private String createdBy;
 
     private String[] tags;
 
