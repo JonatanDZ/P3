@@ -1,8 +1,10 @@
 package com.example.p3.controller;
 
 
+import com.example.p3.dtos.FavoritesDto;
 import com.example.p3.dtos.ToolDto;
 import com.example.p3.model.Tool;
+import com.example.p3.service.FavoritesService;
 import com.example.p3.service.ToolService;
 import org.springframework.http.ResponseEntity;
 
@@ -23,9 +25,11 @@ import java.util.List;
 @RequestMapping()
 public class ObjectiveController {
     private final ToolService toolService;
+    private final FavoritesService favoritesService;
 
-    public ObjectiveController(ToolService toolService) {
+    public ObjectiveController(ToolService toolService, FavoritesService favoritesService) {
         this.toolService = toolService;
+        this.favoritesService = favoritesService;
     }
 
     @GetMapping("/getTools")
@@ -36,13 +40,22 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/getFavoriteTools")
+    public ResponseEntity<List<FavoritesDto>> getFavorites(){
+        List<FavoritesDto> list = favoritesService.getFavorites().values().stream()
+                .map(FavoritesDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+
+    }
+
     @PostMapping("/getToolsByStage/{stage}")
     public ResponseEntity<List<ToolDto>> gettoolsByStage(@PathVariable("stage") String stage){
         List<ToolDto> list = toolService.gettoolsByStage(stage);
         return ResponseEntity.ok(list);
     }
-
     // maybe change this to department/jurisdiction/stage or implement new endpoint
+
     @GetMapping("/getTools/{jurisdiction}")
 
     public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
@@ -51,8 +64,8 @@ public class ObjectiveController {
                 .toList();
         return ResponseEntity.ok(list);
     }
-
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
+
     @GetMapping("/getTools/{department}")
     public ResponseEntity<List<ToolDto>> getAlltoolsByDepartment(@PathVariable Tool.Department department) {
         List<ToolDto> list = toolService.getAlltoolsByDepartment(department).values().stream()
@@ -94,5 +107,8 @@ public class ObjectiveController {
         return ResponseEntity.ok(createdTool);
     }
 
-}
+
+    }
+
+
 
