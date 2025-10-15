@@ -25,6 +25,7 @@ function getToolsByDepartmentJurisdictionStage() {
     console.log(jurisdiction)
     const branch = getBranch();
     console.log(branch);
+    console.log(department)
     fetch(`/getTools/${encodeURIComponent(department)}/${encodeURIComponent(jurisdiction)}/${encodeURIComponent(branch)}`)
         .then(response => response.json())
         .then(data => {
