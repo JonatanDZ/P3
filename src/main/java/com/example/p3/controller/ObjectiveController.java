@@ -93,6 +93,7 @@ public class ObjectiveController {
                 link.tagsToString(),
                 link.getDepartments(),
                 link.getStages(),
+                link.getJurisdictions(),
                 link.isDynamic()
         );
 
