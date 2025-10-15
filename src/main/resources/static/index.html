@@ -53,6 +53,20 @@
             <div id="searchbar">
                 <input type="text" placeholder="Placeholder for search">
             </div>
+            <button id="addTool">Dette er en knap</button>
+            <div class="popUpForm" id="addToolDiv" style="display: none">
+                <form class="from-container">
+                    <h1>Add Tool</h1>
+
+                    <label for="toolName"> <b> Tool name</b></label>
+                    <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" required>
+
+                    <label for="toolURL"> <b> Tool URL</b></label>
+                    <input id="toolURL" type="text" placeholder="Enter URL" name="toolURL" required>
+
+                    <label for="IsDynamic"> <b> Tool URL</b></label>
+                </form>
+            </div>
 
             <h1>Favorites</h1>
             <div id="favorites"></div>
@@ -69,5 +83,6 @@
         <div id="branch">Dev</div>
     </footer>
     <script src="/js/endpointScripts.js"> </script>
+    <script src="/js/addTool.js"> </script>
 </body>
 </html>
