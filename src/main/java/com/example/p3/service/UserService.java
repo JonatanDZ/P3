@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -50,4 +52,12 @@ public class UserService {
             inMemoryDb.put(useCounter(), user);
         }
     }
+
+    /// /////////////////ASTA start///////////////////
+    public Map<Long, User> getUserById(long id) {
+        return getAllUsers().entrySet().stream()
+                .filter(entry -> Arrays.asList(entry.getValue().getId()).contains(id))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+    /// /////////////////ASTA slut///////////////////
 }
