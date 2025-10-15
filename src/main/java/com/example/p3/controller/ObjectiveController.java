@@ -5,7 +5,16 @@ import com.example.p3.dtos.LinkDto;
 import com.example.p3.model.Link;
 import com.example.p3.service.LinkService;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
+
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
 
 import java.util.List;
 
@@ -27,8 +36,21 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+
+
+
+    @PostMapping("/getLinksByStage/{stage}")
+    public ResponseEntity<List<LinkDto>> getLinksByStage(@PathVariable("stage") String stage){
+        List<LinkDto> list = linkService.getLinksByStage(stage);
+        return ResponseEntity.ok(list);
+    }
+
+    
+    //@GetMapping("/{jurisdiction}/getLinks")
+
     // maybe change this to department/jurisdiction/stage or implement new endpoint
     @GetMapping("/getLinks/{jurisdiction}")
+
     public ResponseEntity<List<LinkDto>> getByJurisdiction(@PathVariable Link.Jurisdiction jurisdiction) {
         List<LinkDto> list = linkService.findByJurisdiction(jurisdiction).stream()
                 .map(LinkDto::new)

@@ -1,6 +1,7 @@
 package com.example.p3.service;
 
 
+import com.example.p3.dtos.LinkDto;
 import com.example.p3.model.Link;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -10,6 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,6 +33,8 @@ public class LinkService {
         // --- Mock data for development ---
     }
 
+
+    // CRUD methods (Create, Read, Update, Delete)
 
     // Min forståelse af isDynamic er den skal gemme på "brugerens" navn
     // Here we define how to create a link (The first string is for ID)
@@ -53,10 +60,23 @@ public class LinkService {
         return createdlink;
     }
     // CRUD methods
+
     public Map<Long, Link> getAllLinks() {
         return inMemoryDb;
     }
 
+    public List<LinkDto> getLinksByStage(String stage){
+        List<LinkDto> list = inMemoryDb.values().stream().map(LinkDto::new).toList();
+        List<LinkDto> listByStage = new ArrayList<>();
+        for(int i = 0; i<inMemoryDb.size();i++){
+            if(Arrays.toString(list.get(i).getStages()).contains(stage)){
+                listByStage.add(list.get(i));
+            }
+        }
+        //System.out.println(listByStage);
+
+        return listByStage;
+    }
 
     public List<Link> findByJurisdiction(Link.Jurisdiction jurisdiction) {
         return inMemoryDb.values().stream()
