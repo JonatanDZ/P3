@@ -117,7 +117,7 @@ aside label {
     text-align: center;
     align-items: center;
     box-sizing: border-box;
-    padding: 5px 5px 5px 5px;
+    padding: 1rem 5px 1rem 5px;
     margin-left: 20px;
     margin-right: 5px;
     border: 2px solid transparent;
@@ -129,6 +129,7 @@ aside label {
     border-radius: 5px;
     font-size: 20px;
     gap: 10px;
+
 }
 
 aside input[type="radio"] {
@@ -184,7 +185,6 @@ section {
     padding: 12px;
     color: white;
     border: 1px solid;
-    box-shadow: 5px;
 }
 
 #searchbar input:focus {
@@ -242,3 +242,18 @@ footer #branch {
     color: white;
     font-weight: bold;
 }
+
+#addToolBtn {
+    display: inline-block;
+    background: #00ff089a;
+    gap: 8px;
+    box-sizing: border-box;
+    border: 1px solid #1E2938;
+    border-radius: 15px;
+    margin: auto;
+    height: 100%;
+    font-size: 25px;
+    padding: 12px;
+    color: white;
+}
+
