@@ -68,6 +68,24 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    const departmentContainer = document.querySelector('.departmentSelector');
+    // avoid crashing if it does not exist
+    if (departmentContainer) {
+        // we want to listen to changes and not reloads, since Chrome does not store state of buttons upon reload
+        departmentContainer.addEventListener('change', (e) => {
+            // checking if the event (a change to a branch button) matches one of the actual branch elements in html
+            if (e.target && e.target.matches('input[name="department"]')) {
+                const list = document.getElementById('departmentSelected');
+                // checking if the element exists, and looping through each Tool and removing them before appending to the list again
+                // this if condition ensures that the list displayed does not concatenate to the list of Tools
+                if (list) {
+                    list.querySelectorAll('li').forEach(li => li.remove());
+                }
+                getToolsByDepartmentJurisdictionStage();
+            }
+        });
+    }
+
     // React to changes in jurisdiction (checkbox with id="jurisdiction")
     const jurEl = document.getElementById('jurisdiction');
     if (jurEl) {
