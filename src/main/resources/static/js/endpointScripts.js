@@ -20,7 +20,7 @@ function getLinksDisplay () {
 // getLinksByDepartmentJurisdictionStage endpoint and display
 function getLinksByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in
-    const department = "DEVOPS";
+    const department = getDepartment()//"DEVOPS";
     let jurisdiction = getJurisdiction();
     console.log(jurisdiction)
     const branch = getBranch();
@@ -78,6 +78,12 @@ function getBranch() {
     // if a certain checkbox is checked, save the value
     // getting the checkbox class
     const container = document.querySelector('.branchSelector');
+    // get the currently selected radio
+    return container.querySelector('input[type="radio"]:checked')?.value;
+}
+
+function getDepartment(){
+    const container = document.querySelector('.departmentSelector');
     // get the currently selected radio
     return container.querySelector('input[type="radio"]:checked')?.value;
 }
