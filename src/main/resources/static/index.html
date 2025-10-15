@@ -23,35 +23,31 @@
             <input type="radio" id="prod" name="branch" value="PRODUCTION">
             <label for="prod">Prod</label><br>
         </div>
-
-        <button id="reload_button"> Reload </button>
-
         <h1>Danmark - Bob</h1>
     </nav>
-
     <div class="main">
+    <aside>
+        <h1>Departments</h1>
+        <div class = "departmentSelector">
+        <input type="radio" id="devOps" name="department" value="DEVOPS" checked>
+        <label for="devOps">DevOps</label><br>
 
+        <input type="radio" id="frontEnd" name="department" value="FRONTEND">
+        <label for="frontEnd">FrontEnd</label><br>
 
-        <aside>
-            <h1>Departments</h1>
-            <input type="radio" id="devOps" name="department" value="DEVOPS">
-            <label for="devOps">DevOps</label><br>
+        <input type="radio" id="games" name="department" value="GAMES">
+        <label for="games">Games</label><br>
 
-            <input type="radio" id="frontEnd" name="department" value="frontEnd">
-            <label for="frontEnd">FrontEnd</label><br>
+        <input type="radio" id="payments" name="department" value="PAYMENTS">
+        <label for="payments">Payments</label><br>
 
-            <input type="radio" id="games" name="department" value="games">
-            <label for="games">Games</label><br>
+        <input type="radio" id="players" name="department" value="PLAYERS">
+        <label for="players">Players</label><br>
 
-            <input type="radio" id="payments" name="department" value="payments">
-            <label for="payments">Payments</label><br>
-
-            <input type="radio" id="players" name="department" value="players">
-            <label for="players">Players</label><br>
-
-            <input type="radio" id="promotions" name="department" value="promotions">
-            <label for="promotions">Promotions</label><br>
-        </aside>
+        <input type="radio" id="promotions" name="department" value="PROMOTIONS">
+        <label for="promotions">Promotions</label><br>
+        </div>
+    </aside>
 
         <section>
             <div id="searchbar">
@@ -59,8 +55,8 @@
             </div>
 
             <h1>Favorites</h1>
-            <div id="Favorites">
-                <a href="http://">URL dlkendelkdmelkdelmædemældemædelde</a>
+            <div id="favorites">
+                <a href="http://">URL</a>
                 <a href="http://">URL</a>
                 <a href="http://">URL</a>
                 <a href="http://">URL</a>
@@ -73,8 +69,8 @@
                 <a href="http://">URL</a>
             </div>
 
-            <h1>All Links</h1>
-            <div id="allLinks">
+            <h1>All Tools</h1>
+            <div id="allTools">
                 <a href="http://">URL</a>
 
             </div>
@@ -84,7 +80,6 @@
     <footer>
         <div id="branch">Dev</div>
     </footer>
+    <script src="/js/endpointScripts.js"> </script>
 </body>
-<script src="/js/endpointScripts.js"> </script>
-
 </html>
