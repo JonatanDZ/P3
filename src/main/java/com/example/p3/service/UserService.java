@@ -1,6 +1,5 @@
 package com.example.p3.service;
 
-import com.example.p3.dtos.UserDto;
 import com.example.p3.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -13,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class UserService {
-    private final Map<Long, User> inMemoryDbUser = new ConcurrentHashMap<>();
+    private final Map<Long, User> inMemoryDb = new ConcurrentHashMap<>();
 
     static long counter = 0;
     public long useCounter() {
@@ -26,7 +25,6 @@ public class UserService {
         // --- Mock data for development ---
     }
 
-
     public void JsonParserUser(String src) {
         //https://fasterxml.github.io/jackson-databind/javadoc/2.7/com/fasterxml/jackson/databind/ObjectMapper.html
         ObjectMapper mapper = new ObjectMapper();
@@ -36,7 +34,7 @@ public class UserService {
 
         // I needed to make a try/catch otherwise it complained.
         try {
-            //Reads the file that is provided and fits it to how tool looks
+            //Reads the file that is provided and fits it to how user looks
             users = mapper.readValue(new File(src), User[].class);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -44,7 +42,7 @@ public class UserService {
 
         //We are posting all the elements to the DB.
         for (User user : users) {
-            inMemoryDbUser.put(useCounter(), user);
+            inMemoryDb.put(useCounter(), user);
         }
     }
 }
