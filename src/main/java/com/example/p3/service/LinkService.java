@@ -27,6 +27,10 @@ public class LinkService {
     // in memory database:
     private final Map<Long, Link> inMemoryDb = new ConcurrentHashMap<>();
     //  Called automatically after Spring creates the service
+    private long counter = 1;
+    public long useCounter() {
+        return counter++;
+    }
     @PostConstruct
     public void seedData() {
         JsonParser("src/main/resources/static/MOCK_DATA.json");
