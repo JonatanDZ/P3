@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yellow Pages</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
 
 <body>
@@ -53,7 +54,7 @@
             <div id="searchbar">
                 <input type="text" placeholder="Placeholder for search">
             </div>
-            <button id="addTool">Dette er en knap</button>
+            <button onclick="document.querySelector('#addToolDiv')" id="addTool">Add tool</button>
             <div class="popUpForm" id="addToolDiv" style="display: none">
                 <form class="from-container">
                     <h1>Add Tool</h1>
@@ -72,9 +73,9 @@
                     <label for="Tags"> <b> Tags </b></label>
                     <input id="Tags" type="text" placeholder="Enter Tags" name="tags" required>
 
-                    <label for="Department"> <b> Department</b></label>
+                    <label for="DepartmentInput"> <b> Department</b></label>
                     <div class="Select department" style="width:200px;">
-                    <select id="Department" name="Department" required>
+                    <select id="DepartmentInput" name="Department" required>
                         <option value="">Select Department</option>
                         <option value="DevOps">DevOps</option>
                         <option value="FrontEnd">FrontEnd</option>
@@ -86,14 +87,16 @@
                     </select>
                     </div>
 
-                    <label for="Jurisdiction"> <b> Choose jurisdiction</b></label>
+                    <label for="JurisdictionInput"> <b> Choose jurisdiction</b></label>
                     <div class="Select jurisdiction" style="width:200px;">
-                        <select id="Jurisdiction" name="Jurisdiction" required>
+                        <select id="JurisdictionInput" name="Jurisdiction" required>
                             <option value="">Select Jurisdiction</option>
                             <option value="DK">DK</option>
                             <option value="UK">UK</option>
                         </select>
                     </div>
+                    <button type="submit" class="AddTool">Add Tool</button>
+                    <button type="button" class="cancel">Cancel</button>
                 </form>
             </div>
 
