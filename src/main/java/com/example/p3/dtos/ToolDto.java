@@ -5,17 +5,17 @@ import lombok.Data;
 // data transfer objects, to JSON
 @Data
 public class ToolDto {
-    // attributes of Link
+    // attributes of Tool
     private long id;
     private String name;
     private String url;
     private boolean isDynamic;
 
     private String[] tags;
-    // there can be multiple departments to a link
+    // there can be multiple departments to a Tool
     private Tool.Department[] departments;
 
-    // there can be multiple stages to a link
+    // there can be multiple stages to a Tool
     private Tool.Stage[] stages;
 
     private Tool.Jurisdiction[] jurisdictions;

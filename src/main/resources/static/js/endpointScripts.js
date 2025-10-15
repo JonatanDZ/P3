@@ -17,6 +17,31 @@ function getToolsDisplay () {
         .catch(error => console.error('Error fetching tool:', error));
 }
 
+function getDepartmentsDisplay(){
+    console.log("Jeg bliver brugt");
+    fetch("departments/getAll")
+        .then(response=>response.json())
+        .then(data => {
+            let departmentSelector = document.querySelector("#DepartmentSelector");
+            data.forEach(department => {
+                const input = document.createElement("input");
+                input.setAttribute("type", "radio");
+                input.value = department.name.toUpperCase();
+                input.id = department.name;
+                input.name = department.name;
+
+                const label = document.createElement("label");
+                input.setAttribute("for", input.id);
+                input.textContent = department.name;
+
+                console.log(input);
+                departmentSelector.appendChild(input);
+                departmentSelector.appendChild(label);
+
+            })
+        })
+}
+
 // getToolsByDepartmentJurisdictionStage endpoint and display
 function getToolsByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in
@@ -126,3 +151,5 @@ function getDepartment(){
     // get the currently selected radio
     return container.querySelector('input[type="radio"]:checked')?.value;
 }
+
+getDepartmentsDisplay();
