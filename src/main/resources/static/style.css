@@ -3,6 +3,7 @@ body {
     padding-top: 80px;
     padding-bottom: 80px;
     box-sizing: border-box;
+    background-color: #111828;
 }
 
 nav {
@@ -94,26 +95,35 @@ label[for="jurisdiction"] {
     padding: 5px;
 }
 
-/*/////////////////////////////////////////////////*/
+.main {
+    display: flex;
+    min-height: 100vh;
+}
 
 aside {
-    align-items: center;
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    background-color: #55a;
+    width: 180px;
+    padding-right: 37px;
+    background-color: #1447E6;
     padding-top: 20px;
+    flex-shrink: 0;
+}
+
+aside h1 {
+    display: flex;
+    padding-left: 10px;
 }
 
 aside label {
+    text-align: center;
+    align-items: center;
+    box-sizing: border-box;
     padding: 5px 5px 5px 5px;
     margin-left: 20px;
+    margin-right: 5px;
     border: 2px solid transparent;
     width: 180px;
     height: 30px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     background: transparent;
     color: white;
     border-radius: 5px;
@@ -124,6 +134,7 @@ aside label {
 aside input[type="radio"] {
     display: none;
 }
+
 aside label:hover {
     background: #a1a1f1;
 }
@@ -140,15 +151,78 @@ aside h1 {
     font-weight: bold;
 }
 
-
-
-/*/////////////////////////////////////////////////*/
-
-
 section {
-    margin-left: 20%;
+    flex: 1;
+    color: white;
+    padding: 40px;
+    overflow-y: auto;
+    color: white;
+    margin-top: 10%;
 }
 
+#searchbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 880px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+#searchbar input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: #1E2938;
+    gap: 8px;
+    box-sizing: border-box;
+    border: 1px solid #1E2938;
+    border-radius: 15px;
+    margin: auto;
+    font-size: 25px;
+    padding: 12px;
+    color: white;
+    border: 1px solid;
+    box-shadow: 5px;
+}
+
+#searchbar input:focus {
+    outline: none;
+}
+
+#allLinks,
+#departmentSelected,
+#Favorites {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-left: 20px;
+    width: 100%;
+    height: auto;
+}
+
+#allLinks a,
+#departmentSelected a,
+#Favorites a {
+    display: block;
+    background-color: #1E2938;
+
+    /* Change the size of these to change the size of the cards */
+    width: 100px;
+    height: 50px;
+
+    border: 1px solid rgb(0, 0, 0);
+    margin: 0;
+    color: white;
+    border-radius: 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    text-decoration: none;
+    padding: 10px;
+    overflow: hidden;
+}
 
 footer {
     position: fixed;
