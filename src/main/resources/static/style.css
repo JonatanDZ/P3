@@ -184,7 +184,6 @@ section {
     padding: 12px;
     color: white;
     border: 1px solid;
-    box-shadow: 5px;
 }
 
 #searchbar input:focus {
@@ -241,4 +240,17 @@ footer #branch {
     font-size: 24px;
     color: white;
     font-weight: bold;
+}
+
+#addToolBtn {
+    display: inline-block;
+    background: #00ff089a;
+    gap: 8px;
+    box-sizing: border-box;
+    border: 1px solid #1E2938;
+    border-radius: 15px;
+    margin: auto;
+    height: 100%;
+    font-size: 25px;
+    padding: 12px;
 }
