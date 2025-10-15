@@ -1,8 +1,7 @@
 package com.example.p3.service;
 
-
-import com.example.p3.dtos.LinkDto;
-import com.example.p3.model.Link;
+import com.example.p3.dtos.ToolDto;
+import com.example.p3.model.Tool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -13,19 +12,17 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
-public class LinkService {
+public class ToolService {
 
     // hashmap to be made her
     // in memory database:
-    private final Map<Long, Link> inMemoryDb = new ConcurrentHashMap<>();
+    private final Map<Long, Tool> inMemoryDb = new ConcurrentHashMap<>();
 
     static long counter = 0;
     public long useCounter() {
@@ -43,41 +40,41 @@ public class LinkService {
     // CRUD methods (Create, Read, Update, Delete)
 
     // Min forståelse af isDynamic er den skal gemme på "brugerens" navn
-    // Here we define how to create a link (The first string is for ID)
+    // Here we define how to create a tool (The first string is for ID)
 
 
-    public Link createLink(String spaceId,
-                                     String name,
-                                     String url,
-                                     String tags,
-                                     Link.Department[] departments,
-                                     Link.Stage[] stages,
-                                     Link.Jurisdiction[] jurisdictions,
-                                     boolean isDynamic)
+    public Tool createTool(String spaceId,
+                           String name,
+                           String url,
+                           String tags,
+                           Tool.Department[] departments,
+                           Tool.Stage[] stages,
+                           Tool.Jurisdiction[] jurisdictions,
+                           boolean isDynamic)
     {
-        Link createdlink = new Link();
-        createdlink.setId(useCounter());
-        createdlink.setName(name);
-        createdlink.setUrl(url);
-        createdlink.setTags(tags.split(",")); // [.... , ..... , .... , ..]
-        createdlink.setDepartments(departments);
-        createdlink.setStages(stages);
-        createdlink.setJurisdictions(jurisdictions);
-        createdlink.setDynamic(isDynamic);
+        Tool createdtool = new Tool();
+        createdtool.setId(useCounter());
+        createdtool.setName(name);
+        createdtool.setUrl(url);
+        createdtool.setTags(tags.split(",")); // [.... , ..... , .... , ..]
+        createdtool.setDepartments(departments);
+        createdtool.setStages(stages);
+        createdtool.setJurisdictions(jurisdictions);
+        createdtool.setDynamic(isDynamic);
 
-        // Store the object createdlink in the Hash map (inMemoryDb), and use its ID (createdlink.getId()) as the key.
-        inMemoryDb.put(createdlink.getId(), createdlink);
-        return createdlink;
+        // Store the object createdtool in the Hash map (inMemoryDb), and use its ID (createdtool.getId()) as the key.
+        inMemoryDb.put(createdtool.getId(), createdtool);
+        return createdtool;
     }
     // CRUD methods
 
-    public Map<Long, Link> getAllLinks() {
+    public Map<Long, Tool> getAlltools() {
         return inMemoryDb;
     }
 
-    public List<LinkDto> getLinksByStage(String stage){
-        List<LinkDto> list = inMemoryDb.values().stream().map(LinkDto::new).toList();
-        List<LinkDto> listByStage = new ArrayList<>();
+    public List<ToolDto> gettoolsByStage(String stage){
+        List<ToolDto> list = inMemoryDb.values().stream().map(ToolDto::new).toList();
+        List<ToolDto> listByStage = new ArrayList<>();
         for(int i = 0; i<inMemoryDb.size();i++){
             if(Arrays.toString(list.get(i).getStages()).contains(stage)){
                 listByStage.add(list.get(i));
@@ -88,7 +85,7 @@ public class LinkService {
         return listByStage;
     }
 
-    public List<Link> findByJurisdiction(Link.Jurisdiction jurisdiction) {
+    public List<Tool> findByJurisdiction(Tool.Jurisdiction jurisdiction) {
         return inMemoryDb.values().stream()
                 .filter(l -> {
                     var arr =  l.getJurisdictions();
@@ -102,35 +99,35 @@ public class LinkService {
         ObjectMapper mapper = new ObjectMapper();
 
         //We are creating an empty list to fill up the with the json data
-        Link[] links;
+        Tool[] tools;
 
         // I needed to make a try/catch otherwise it complained.
         try {
-            //Reads the file that is provided and fits it to how Link looks
-            links = mapper.readValue(new File(src), Link[].class);
+            //Reads the file that is provided and fits it to how tool looks
+            tools = mapper.readValue(new File(src), Tool[].class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         //We are posting all the elements to the DB.
-        for(Link link : links){
-            inMemoryDb.put(useCounter(), link);
+        for(Tool tool : tools){
+            inMemoryDb.put(useCounter(), tool);
         }
     }
 
-    //Filters the links so only link with the department from the URL is returned
-    public Map<Long, Link> getAllLinksByDepartment(Link.Department department) {
-        return getAllLinks().entrySet().stream()
+    //Filters the tools so only tool with the department from the URL is returned
+    public Map<Long, Tool> getAlltoolsByDepartment(Tool.Department department) {
+        return getAlltools().entrySet().stream()
             .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    public Map<Long, Link> getAllLinksByDepartmentJurisdictionStage(
-            Link.Department department,
-            Link.Jurisdiction jurisdiction,
-            Link.Stage stage
+    public Map<Long, Tool> getAlltoolsByDepartmentJurisdictionStage(
+            Tool.Department department,
+            Tool.Jurisdiction jurisdiction,
+            Tool.Stage stage
     ) {
-        return getAllLinks().entrySet().stream()
+        return getAlltools().entrySet().stream()
                 .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
                 .filter(entry -> Arrays.asList(entry.getValue().getJurisdictions()).contains(jurisdiction))
                 .filter(entry -> Arrays.asList(entry.getValue().getStages()).contains(stage))
