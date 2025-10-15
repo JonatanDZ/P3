@@ -1,5 +1,6 @@
 package com.example.p3.service;
 
+import com.example.p3.model.Tool;
 import com.example.p3.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -23,6 +24,10 @@ public class UserService {
     public void seedData() {
         JsonParserUser("src/main/resources/static/User_MockData.json");
         // --- Mock data for development ---
+    }
+
+    public Map<Long, User> getAllUsers() {
+        return inMemoryDb;
     }
 
     public void JsonParserUser(String src) {

@@ -1,25 +1,22 @@
 package com.example.p3.dtos;
 
 import com.example.p3.model.User;
+import lombok.Data;
 
+@Data
 public class UserDto {
-    public User createUser(String spaceId,
-                           String id,
-                           String initials,
-                           String name,
-                           String email,
-                           User.Department[] department)
+    private long id;
+    private String initials;
+    private String name;
+    private String email;
+    private User.Department department;
 
-    {
-        User createdUser = new User();
-        createdUser.setId(useCounter());
-        createdUser.setName(name);
-        createdUser.setInitials(initials);
-        createdUser.setEmail(email);
-        createdUser.setDepartment(department);
+    public UserDto(User u){
+        this.id = u.getId();
+        this.initials = u.getInitials();
+        this.name = u.getName();
+        this.email = u.getEmail();
+        this.department = u.getDepartment();
 
-        // Store the object createdtool in the Hash map (inMemoryDb), and use its ID (createdtool.getId()) as the key.
-        inMemoryDb.put(createdUser.getId(), createdUser);
-        return createdUser;
     }
 }
