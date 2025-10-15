@@ -191,9 +191,9 @@ section {
     outline: none;
 }
 
-#allLinks,
+#allTools,
 #departmentSelected,
-#Favorites {
+#favorites {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -202,9 +202,9 @@ section {
     height: auto;
 }
 
-#allLinks a,
+#allTools a,
 #departmentSelected a,
-#Favorites a {
+#favorites a {
     display: block;
     background-color: #1E2938;
 
