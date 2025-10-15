@@ -1,5 +1,5 @@
 [{"id":1,"name":"DevOps","dev":true},
-{"id":2,"name":"FrontEnd","dev":true},
+{"id":2,"name":"Frontend","dev":true},
 {"id":3,"name":"Games","dev":true},
 {"id":4,"name":"Payments","dev":true},
 {"id":5,"name":"Players","dev":true},
