@@ -117,7 +117,7 @@ aside label {
     text-align: center;
     align-items: center;
     box-sizing: border-box;
-    padding: 5px 5px 5px 5px;
+    padding: 1rem 5px 1rem 5px;
     margin-left: 20px;
     margin-right: 5px;
     border: 2px solid transparent;
@@ -129,6 +129,7 @@ aside label {
     border-radius: 5px;
     font-size: 20px;
     gap: 10px;
+
 }
 
 aside input[type="radio"] {
