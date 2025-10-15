@@ -56,7 +56,7 @@ public class LinkService {
         return listByStage; //PLACEHOLDER
     }
 
-    public void JsonParser() {
+    //public void JsonParser() {
 
     public List<Link> findByJurisdiction(Link.Jurisdiction jurisdiction) {
         return inMemoryDb.values().stream()
