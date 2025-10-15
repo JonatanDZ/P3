@@ -44,19 +44,14 @@ public class LinkService {
         List<LinkDto> list = inMemoryDb.values().stream().map(LinkDto::new).toList();
         List<LinkDto> listByStage = new ArrayList<>();
         for(int i = 0; i<inMemoryDb.size();i++){
-            if(Arrays.toString(list.get(i).getStages()).contains(stage)){ //For testing use ex "DEVOPS"
-                //System.out.println(Arrays.toString(list.get(i).getDepartments()));
+            if(Arrays.toString(list.get(i).getStages()).contains(stage)){
                 listByStage.add(list.get(i));
             }
-
-           // System.out.println(list.get(i));
         }
-        System.out.println(listByStage);
+        //System.out.println(listByStage);
 
-        return listByStage; //PLACEHOLDER
+        return listByStage;
     }
-
-    //public void JsonParser() {
 
     public List<Link> findByJurisdiction(Link.Jurisdiction jurisdiction) {
         return inMemoryDb.values().stream()

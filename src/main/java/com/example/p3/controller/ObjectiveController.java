@@ -40,8 +40,6 @@ public class ObjectiveController {
     public ResponseEntity<List<LinkDto>> getLinksByStage(@PathVariable("stage") String stage){
         List<LinkDto> list = linkService.getLinksByStage(stage);
         return ResponseEntity.ok(list);
-//CODE HERE YES :)
-
     }
 
     
