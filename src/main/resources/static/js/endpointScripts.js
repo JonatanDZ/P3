@@ -47,20 +47,40 @@ function getLinksByDepartmentJurisdictionStage() {
 window.addEventListener('DOMContentLoaded', () => {
     getLinksDisplay();
     getLinksByDepartmentJurisdictionStage(); // initial render
+
+    // React to changes in branch (radio group inside .branchSelector)
+    const branchContainer = document.querySelector('.branchSelector');
+    // avoid crashing if it does not exist
+    if (branchContainer) {
+        // we want to listen to changes and not reloads, since Chrome does not store state of buttons upon reload
+        branchContainer.addEventListener('change', (e) => {
+            // checking if the event (a change to a branch button) matches one of the actual branch elements in html
+            if (e.target && e.target.matches('input[name="branch"]')) {
+                const list = document.getElementById('departmentSelected');
+                // checking if the element exists, and looping through each link and removing them before appending to the list again
+                // this if condition ensures that the list displayed does not concatenate to the list of links
+                if (list) {
+                    list.querySelectorAll('li').forEach(li => li.remove());
+                }
+                getLinksByDepartmentJurisdictionStage();
+            }
+        });
+    }
+
+    // React to changes in jurisdiction (checkbox with id="jurisdiction")
+    const jurEl = document.getElementById('jurisdiction');
+    if (jurEl) {
+        jurEl.addEventListener('change', () => {
+            const list = document.getElementById('departmentSelected');
+            // checking if the element exists, and looping through each link and removing them before appending to the list again
+            // this if condition ensures that the list displayed does not concatenate to the list of links
+            if (list) {
+                list.querySelectorAll('li').forEach(li => li.remove());
+            }
+            getLinksByDepartmentJurisdictionStage();
+        });
+    }
 });
-
-// get button from page
-// this functionality reloads the links when pressing the reload button
-// this ensures that the links do not concatenate on the page..
-const reloadButton = document.getElementById('reload_button');
-if (reloadButton) {
-    reloadButton.addEventListener('click', (e) => {
-        e.preventDefault?.();
-        // page reload
-        window.location.reload();
-    });
-}
-
 // helper methods
 function getJurisdiction() {
     // jurisdiction is a checkbox
@@ -78,6 +98,12 @@ function getBranch() {
     // if a certain checkbox is checked, save the value
     // getting the checkbox class
     const container = document.querySelector('.branchSelector');
+    // get the currently selected radio
+    return container.querySelector('input[type="radio"]:checked')?.value;
+}
+
+function getDepartment(){
+    const container = document.querySelector('.departmentSelector');
     // get the currently selected radio
     return container.querySelector('input[type="radio"]:checked')?.value;
 }
