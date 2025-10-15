@@ -17,3 +17,10 @@ function showForm(){
         formIsShown = true;
     }
 }
+
+// When the user clicks anywhere outside of the form, close it
+window.onclick = function(event) {
+    if (event.target == addToolDiv) {
+        addToolDiv.style.display = "none";
+    }
+}
