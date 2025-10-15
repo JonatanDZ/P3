@@ -1,9 +1,9 @@
 package com.example.p3.controller;
 
 
-import com.example.p3.dtos.LinkDto;
-import com.example.p3.model.Link;
-import com.example.p3.service.LinkService;
+import com.example.p3.dtos.ToolDto;
+import com.example.p3.model.Tool;
+import com.example.p3.service.ToolService;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -22,81 +22,76 @@ import java.util.List;
 @RestController
 @RequestMapping()
 public class ObjectiveController {
-    private final LinkService linkService;
+    private final ToolService toolService;
 
-    public ObjectiveController(LinkService linkService) {
-        this.linkService = linkService;
+    public ObjectiveController(ToolService toolService) {
+        this.toolService = toolService;
     }
 
-    @GetMapping("/getLinks")
-    public ResponseEntity<List<LinkDto>> getAllLinks(){
-        List<LinkDto> list = linkService.getAllLinks().values().stream()
-                .map(LinkDto::new)
+    @GetMapping("/getTools")
+    public ResponseEntity<List<ToolDto>> getAlltools(){
+        List<ToolDto> list = toolService.getAlltools().values().stream()
+                .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
-
-
-
-    @PostMapping("/getLinksByStage/{stage}")
-    public ResponseEntity<List<LinkDto>> getLinksByStage(@PathVariable("stage") String stage){
-        List<LinkDto> list = linkService.getLinksByStage(stage);
+    @PostMapping("/getToolsByStage/{stage}")
+    public ResponseEntity<List<ToolDto>> gettoolsByStage(@PathVariable("stage") String stage){
+        List<ToolDto> list = toolService.gettoolsByStage(stage);
         return ResponseEntity.ok(list);
     }
-
-    
-    //@GetMapping("/{jurisdiction}/getLinks")
 
     // maybe change this to department/jurisdiction/stage or implement new endpoint
-    @GetMapping("/getLinks/{jurisdiction}")
+    @GetMapping("/getTools/{jurisdiction}")
 
-    public ResponseEntity<List<LinkDto>> getByJurisdiction(@PathVariable Link.Jurisdiction jurisdiction) {
-        List<LinkDto> list = linkService.findByJurisdiction(jurisdiction).stream()
-                .map(LinkDto::new)
+    public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
+        List<ToolDto> list = toolService.findByJurisdiction(jurisdiction).stream()
+                .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
-    //Call "getAllLinksByDepartment" which sort the links according to the department in the URL
-    @GetMapping("/getLinks/{department}")
-    public ResponseEntity<List<LinkDto>> getAllLinksByDepartment(@PathVariable Link.Department department) {
-        List<LinkDto> list = linkService.getAllLinksByDepartment(department).values().stream()
-                .map(LinkDto::new)
+    //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
+    @GetMapping("/getTools/{department}")
+    public ResponseEntity<List<ToolDto>> getAlltoolsByDepartment(@PathVariable Tool.Department department) {
+        List<ToolDto> list = toolService.getAlltoolsByDepartment(department).values().stream()
+                .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/getLinks/{department}/{jurisdiction}/{stage}")
-    public ResponseEntity<List<LinkDto>> getAllLinksByDepartmentJurisdictionStage(
-            @PathVariable Link.Department department,
-            @PathVariable Link.Jurisdiction jurisdiction,
-            @PathVariable Link.Stage stage
+    @GetMapping("/getTools/{department}/{jurisdiction}/{stage}")
+    public ResponseEntity<List<ToolDto>> getAlltoolsByDepartmentJurisdictionStage(
+            @PathVariable Tool.Department department,
+            @PathVariable Tool.Jurisdiction jurisdiction,
+            @PathVariable Tool.Stage stage
     ){
-        List<LinkDto> list = linkService.getAllLinksByDepartmentJurisdictionStage(department, jurisdiction, stage).values().stream()
-                .map(LinkDto::new)
+        List<ToolDto> list = toolService.getAlltoolsByDepartmentJurisdictionStage(department, jurisdiction, stage).values().stream()
+                .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
-    @PostMapping("/addlink")
-    public ResponseEntity<Link> createLink(@RequestBody Link link){
-        if (link==null){
+    @PostMapping("/addTool")
+    public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
+        if (tool ==null){
             return ResponseEntity.badRequest().build();
         }
 
 
-        Link createdLink = linkService.createLink(
+        Tool createdTool = toolService.createTool(
                 null,
-                link.getName(),
-                link.getUrl(),
-                link.tagsToString(),
-                link.getDepartments(),
-                link.getStages(),
-                link.isDynamic()
+                tool.getName(),
+                tool.getUrl(),
+                tool.tagsToString(),
+                tool.getDepartments(),
+                tool.getStages(),
+                tool.getJurisdictions(),
+                tool.isDynamic()
         );
 
-        return ResponseEntity.ok(createdLink);
+        return ResponseEntity.ok(createdTool);
     }
 
 }

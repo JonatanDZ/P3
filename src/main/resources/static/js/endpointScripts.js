@@ -20,7 +20,7 @@ function getLinksDisplay () {
 // getLinksByDepartmentJurisdictionStage endpoint and display
 function getLinksByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in
-    const department = "DEVOPS";
+    const department = getDepartment()//"DEVOPS";
     let jurisdiction = getJurisdiction();
     console.log(jurisdiction)
     const branch = getBranch();
