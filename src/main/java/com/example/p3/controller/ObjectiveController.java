@@ -4,6 +4,7 @@ package com.example.p3.controller;
 import com.example.p3.dtos.ToolDto;
 import com.example.p3.dtos.UserDto;
 import com.example.p3.model.Tool;
+import com.example.p3.model.User;
 import com.example.p3.service.ToolService;
 import com.example.p3.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,8 @@ public class ObjectiveController {
         this.userService = userService;
     }
 
+    ////////////////////////////////////////////
+
     @GetMapping("/getUsers")
     public ResponseEntity<List<UserDto>> getAllUsers(){
         List<UserDto> list = userService.getAllUsers().values().stream()
@@ -40,6 +43,16 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/getUsers/{department}")
+    public ResponseEntity<List<UserDto>> getAllUsersByDepartment(@PathVariable User.Department department) {
+        List<UserDto> list = userService.getAllUsersByDepartment(department).values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+
+    ///////////////////////////////////////
 
 
     @GetMapping("/getTools")

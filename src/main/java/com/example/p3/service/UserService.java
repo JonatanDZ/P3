@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -28,6 +30,12 @@ public class UserService {
 
     public Map<Long, User> getAllUsers() {
         return inMemoryDb;
+    }
+
+    public Map<Long, User> getAllUsersByDepartment(User.Department department) {
+        return getAllUsers().entrySet().stream()
+                .filter(entry -> Arrays.asList(entry.getValue().getDepartment()).contains(department))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public void JsonParserUser(String src) {
