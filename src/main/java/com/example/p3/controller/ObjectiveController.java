@@ -1,23 +1,16 @@
 package com.example.p3.controller;
 
-
 import com.example.p3.dtos.ToolDto;
-import com.example.p3.dtos.UserDto;
 import com.example.p3.model.Tool;
-import com.example.p3.model.User;
 import com.example.p3.service.ToolService;
-import com.example.p3.service.UserService;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
-
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 
 import java.util.List;
 
@@ -26,34 +19,10 @@ import java.util.List;
 @RequestMapping()
 public class ObjectiveController {
     private final ToolService toolService;
-    private final UserService userService;
 
-    public ObjectiveController(ToolService toolService, UserService userService) {
+    public ObjectiveController(ToolService toolService) {
         this.toolService = toolService;
-        this.userService = userService;
     }
-
-    ////////////////////////////////////////////
-
-    @GetMapping("/getUsers")
-    public ResponseEntity<List<UserDto>> getAllUsers(){
-        List<UserDto> list = userService.getAllUsers().values().stream()
-                .map(UserDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
-
-    @GetMapping("/getUsers/{department}")
-    public ResponseEntity<List<UserDto>> getAllUsersByDepartment(@PathVariable User.Department department) {
-        List<UserDto> list = userService.getAllUsersByDepartment(department).values().stream()
-                .map(UserDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
-
-
-    ///////////////////////////////////////
-
 
     @GetMapping("/getTools")
     public ResponseEntity<List<ToolDto>> getAlltools(){
@@ -106,7 +75,6 @@ public class ObjectiveController {
             return ResponseEntity.badRequest().build();
         }
 
-
         Tool createdTool = toolService.createTool(
                 null,
                 tool.getName(),
@@ -120,16 +88,4 @@ public class ObjectiveController {
 
         return ResponseEntity.ok(createdTool);
     }
-
-    /// /////////////////ASTA start///////////////////
-    //Call "getUserById" which selects the user according to the id (skal være initialer) in the URL
-    @GetMapping("/getUser/{id}")
-    public ResponseEntity<List<UserDto>> getUserById(@PathVariable long id) {
-        List<UserDto> list = userService.getUserById(id).values().stream()
-                .map(UserDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
-    /// /////////////////ASTA slut///////////////////
-    
 }
