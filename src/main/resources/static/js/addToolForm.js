@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 const submitBtn = document.querySelector("#submitBtn");
 if (submitBtn) {
-    submitBtn.addEventListener("click", function(e){
+    submitBtn.addEventListener("submit", function(e){
         e.preventDefault();
         const name = document.querySelector("#toolName").value;
         const url = document.querySelector("#toolURL").value;
