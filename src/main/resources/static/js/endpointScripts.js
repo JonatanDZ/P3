@@ -22,7 +22,6 @@ function getDepartmentsDisplay(){
         .then(response=>response.json())
         .then(data => {
             let departmentSelector = document.querySelector(".departmentSelector");
-            console.log(departmentSelector);
             data.forEach(department => {
                 const input = document.createElement("input");
                 input.type = "radio";

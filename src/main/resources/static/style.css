@@ -257,3 +257,12 @@ footer #branch {
     color: white;
 }
 
+.checkBoxDiv {
+    display: inline-block;
+}
+
+#departmentInput {
+    width: 100%;
+    display: inline-block;
+}
+

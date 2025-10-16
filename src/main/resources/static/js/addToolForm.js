@@ -10,10 +10,24 @@ function loadFromOptions(){
         .then(data => {
             let departmentDropdown = document.querySelector("#DepartmentInput");
             data.forEach(department => {
-                const option = document.createElement("option");
-                option.value = department.name;
-                option.textContent = department.name;
-                departmentDropdown.appendChild(option);
+
+                const checkBoxDiv = document.createElement("div");
+                checkBoxDiv.className = "checkBoxDiv";
+
+                const input = document.createElement("input");
+                input.type = "checkbox";
+                input.id = department.name;
+                input.value = department.name;
+                input.textContent = department.name;
+
+                const label = document.createElement("label");
+                label.for = input.id;
+                label.textContent = department.name;
+
+                departmentDropdown.appendChild(checkBoxDiv);
+                checkBoxDiv.appendChild(label);
+                checkBoxDiv.appendChild(input);
+
             })
         })
 }

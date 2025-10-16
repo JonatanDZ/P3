@@ -75,16 +75,12 @@
                     <input id="Tags" type="text" placeholder="Enter Tags" name="tags" required>
 
                     <label for="DepartmentInput"> <b> Department</b></label>
-                    <div class="Select department" style="width:200px;">
-                    <select id="DepartmentInput" name="Department" required></select>
-                    </div>
+                    <div id = "DepartmentInput" class="Select department"></div>
 
                     <label for="JurisdictionInput"> <b> Choose jurisdiction</b></label>
-                    <div class="Select jurisdiction" style="width:200px;">
-                        <select id="JurisdictionInput" name="Jurisdiction" required>
-                            <option value="">Select Jurisdiction</option>
-                            <option value="DK">DK</option>
-                            <option value="UK">UK</option>
+                    <div id="JurisdictionInput" class="Select jurisdiction">
+                            <input type="checkbox" value="DK">DK</input>
+                            <input type="checkbox" value="UK">UK</input>
                         </select>
                     </div>
                     <button type="submit" class="AddTool">Add Tool</button>
@@ -107,6 +103,6 @@
         <div id="branch">Dev</div>
     </footer>
     <script src="/js/endpointScripts.js"> </script>
-    <script src="/js/addTool.js"> </script>
+    <script src="/js/addToolForm.js"> </script>
 </body>
 </html>
