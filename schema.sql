@@ -1,13 +1,11 @@
-CREATE TABLE `department`
-(
+CREATE TABLE `department`(
     `department_id`   INT,
     `department_name` VARCHAR(255),
     `is_dev`          BOOL,
     PRIMARY KEY (`department_id`)
 );
 
-CREATE TABLE `users`
-(
+CREATE TABLE `users`(
     `user_id`       INT,
     `name`          VARCHAR(255),
     `initials`      VARCHAR(255),
@@ -18,15 +16,13 @@ CREATE TABLE `users`
         REFERENCES `department` (`department_id`)
 );
 
-CREATE TABLE `jurisdiction`
-(
+CREATE TABLE `jurisdiction`(
     `jurisdiction_id`   INT,
     `jurisdiction_name` VARCHAR(255),
     PRIMARY KEY (`jurisdiction_id`)
 );
 
-CREATE TABLE `tool`
-(
+CREATE TABLE `tool`(
     `tool_id`    INT,
     `name`       VARCHAR(255),
     `url`        VARCHAR(255),
@@ -34,8 +30,7 @@ CREATE TABLE `tool`
     PRIMARY KEY (`tool_id`)
 );
 
-CREATE TABLE `department_tool`
-(
+CREATE TABLE `department_tool`(
     `department` INT,
     `tool_id`    INT,
     FOREIGN KEY (`department`)
@@ -44,15 +39,13 @@ CREATE TABLE `department_tool`
         REFERENCES `tool` (`tool_id`)
 );
 
-CREATE TABLE `stage`
-(
+CREATE TABLE `stage`(
     `stage_id` INT,
     `name`     VARCHAR(255),
     PRIMARY KEY (`stage_id`)
 );
 
-CREATE TABLE `stage_tools`
-(
+CREATE TABLE `stage_tools`(
     `tool_id`  INT,
     `stage_id` INT,
     FOREIGN KEY (`tool_id`)
@@ -61,8 +54,7 @@ CREATE TABLE `stage_tools`
         REFERENCES `stage` (`stage_id`)
 );
 
-CREATE TABLE `jurisdiction_tools`
-(
+CREATE TABLE `jurisdiction_tools`(
     `tool_id`         INT,
     `jurisdiction_id` INT,
     FOREIGN KEY (`tool_id`)
@@ -71,8 +63,7 @@ CREATE TABLE `jurisdiction_tools`
         REFERENCES `jurisdiction` (`jurisdiction_id`)
 );
 
-CREATE TABLE `favorite_tools`
-(
+CREATE TABLE `favorite_tools`(
     `user_id` INT,
     `tool_id` INT,
     PRIMARY KEY (`user_id`, `tool_id`),
