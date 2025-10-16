@@ -32,6 +32,12 @@ public class UserService {
         return inMemoryDb;
     }
 
+    public Map<Long, User> getAllUsersByDepartment(User.Department department) {
+        return getAllUsers().entrySet().stream()
+                .filter(entry -> Arrays.asList(entry.getValue().getDepartment()).contains(department))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
     public void JsonParserUser(String src) {
         //https://fasterxml.github.io/jackson-databind/javadoc/2.7/com/fasterxml/jackson/databind/ObjectMapper.html
         ObjectMapper mapper = new ObjectMapper();

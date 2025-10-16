@@ -33,6 +33,8 @@ public class ObjectiveController {
         this.userService = userService;
     }
 
+    ////////////////////////////////////////////
+
     @GetMapping("/getUsers")
     public ResponseEntity<List<UserDto>> getAllUsers(){
         List<UserDto> list = userService.getAllUsers().values().stream()
@@ -41,6 +43,16 @@ public class ObjectiveController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/getUsers/{department}")
+    public ResponseEntity<List<UserDto>> getAllUsersByDepartment(@PathVariable User.Department department) {
+        List<UserDto> list = userService.getAllUsersByDepartment(department).values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+
+    ///////////////////////////////////////
 
 
     @GetMapping("/getTools")
