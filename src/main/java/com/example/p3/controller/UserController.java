@@ -20,7 +20,7 @@ public class UserController {
                 this.userService = userService;
     }
 
-    @GetMapping("/getUsers")
+    @GetMapping("/getAll")
     public ResponseEntity<List<UserDto>> getAllUsers(){
         List<UserDto> list = userService.getAllUsers().values().stream()
                 .map(UserDto::new)
@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/getUsers/{department}")
+    @GetMapping("/getDepartment/{department}")
     public ResponseEntity<List<UserDto>> getAllUsersByDepartment(@PathVariable User.Department department) {
         List<UserDto> list = userService.getAllUsersByDepartment(department).values().stream()
                 .map(UserDto::new)
@@ -37,7 +37,7 @@ public class UserController {
     }
 
     //Call "getUserById" which selects the user according to the id (skal være initialer) in the URL
-    @GetMapping("/getUser/{id}")
+    @GetMapping("/getId/{id}")
     public ResponseEntity<List<UserDto>> getUserById(@PathVariable long id) {
         List<UserDto> list = userService.getUserById(id).values().stream()
                 .map(UserDto::new)

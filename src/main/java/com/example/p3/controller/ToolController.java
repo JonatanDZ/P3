@@ -17,10 +17,10 @@ import java.util.List;
 // This is the API http/rest controller
 @RestController
 @RequestMapping()
-public class ObjectiveController {
+public class ToolController {
     private final ToolService toolService;
 
-    public ObjectiveController(ToolService toolService) {
+    public ToolController(ToolService toolService) {
         this.toolService = toolService;
     }
 
