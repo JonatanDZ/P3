@@ -25,7 +25,7 @@ public class ToolController {
     private final ToolService toolService;
     private final FavoritesService favoritesService;
 
-    public ToolController(ToolService toolService) {
+    public ToolController(ToolService toolService, FavoritesService favoritesService) {
         this.toolService = toolService;
         this.favoritesService = favoritesService;
     }
