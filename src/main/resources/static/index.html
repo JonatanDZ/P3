@@ -66,30 +66,30 @@
                     <label for="toolURL"> <b> Tool URL</b></label>
                     <input id="toolURL" type="text" placeholder="Enter URL" name="toolURL" required>
 
-                    <label for="IsDynamic"> <b> Tool URL</b>
-                        <input id="IsDynamic" type="checkbox" placeholder="Is Dynamic?" name="IsDynamic" required> Is Dynamic?
+                    <label for="isDynamic"> <b> Tool URL</b>
+                        <input id="isDynamic" type="checkbox" placeholder="Is Dynamic?" name="IsDynamic"> Is Dynamic?
                     </label>
 
 
-                    <label for="Tags"> <b> Tags </b></label>
-                    <input id="Tags" type="text" placeholder="Enter Tags" name="tags" required>
+                    <label for="tags"> <b> Tags </b></label>
+                    <input id="tags" type="text" placeholder="Enter Tags" name="tags">
 
                     <label for="departmentsInput"> <b> Department</b></label>
                     <div id = "departmentsInput" class="inputDiv"></div>
 
 
-                    <label for="Stages"> <b> Stages</b></label>
-                    <div id = "Stages" class="Select stage">
-                        <input class="stagesChecks" type="checkbox" value="Development">Development</input>
-                        <input class="stagesChecks" type="checkbox" value="Staging"> Staging</input>
-                        <input class="stagesChecks" type="checkbox" value="Production"> Production </input>
+                    <label for="stagesInput"> <b> Stages</b></label>
+                    <div id = "stagesInput" class="inputDiv">
+                        <input class="stagesChecks" type="checkbox" value="DEVELOPMENT">Development</input>
+                        <input class="stagesChecks" type="checkbox" value="STAGING"> Staging</input>
+                        <input class="stagesChecks" type="checkbox" value="PRODUCTION"> Production </input>
                     </div>
 
 
-                    <label for="JurisdictionInput"> <b> Choose jurisdiction</b></label>
-                    <div id="JurisdictionInput" class="Select jurisdiction"> </div>
+                    <label for="jurisdictionsInput"> <b> Jurisdiction</b></label>
+                    <div id="jurisdictionsInput" class="inputDiv"> </div>
 
-                    <button type="submit" class="AddTool">Add Tool</button>
+                    <button type="submit" id="submitBtn" class="submitBtn">Add Tool</button>
                     <button type="button" class="cancel">Cancel</button>
                 </form>
             </div>
@@ -108,8 +108,8 @@
     <footer>
         <div id="branch">Dev</div>
     </footer>
-    <script src="/js/endpointScripts.js"> </script>
-    <script src="/js/addToolForm.js"> </script>
-    <script src="/js/FetchTool.js"> </script>
+    <script type="module" src="/js/endpointScripts.js"> </script>
+    <script type="module" src="/js/addToolForm.js"> </script>
+    <script type="module" src="/js/FetchTool.js"> </script>
 </body>
 </html>

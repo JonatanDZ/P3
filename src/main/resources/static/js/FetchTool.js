@@ -1,13 +1,10 @@
 // Get the input from the form
-export async function MakeToolJSON(toolName, toolURL, Tags, department, stages, isDynamic, jurisdiction) {
+export async function MakeToolJSON(name, url, tags, departments, stages, jurisdictions, dynamic) {
     try{
-
-        console.log(JSON.stringify({toolName, toolURL, Tags, department, stages, isDynamic, jurisdiction}));
-
-        const response = await fetch("./addTool", {
+        const response = await fetch("/addTool", {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({toolName, toolURL, Tags, department, stages, isDynamic, jurisdiction}),
+            body: JSON.stringify({name, url, tags, departments, stages, jurisdictions, dynamic }),
 
         });
 

@@ -1,6 +1,11 @@
-import MakeToolJSON from "./MakeToolJSON.js";
+import {MakeToolJSON} from "./FetchTool.js";
 
-document.querySelector("#addToolBtn").addEventListener("click", showForm); //Event handler for the button
+const addToolBtn = document.querySelector("#addToolBtn");
+
+console.log(addToolBtn);
+
+addToolBtn.addEventListener("click", showForm);//Event handler for the button
+
 let addToolDiv = document.querySelector("#addToolDiv"); //The div that we want to show and hide
 let formIsShown = false;
 
@@ -24,10 +29,9 @@ function loadOptions(str){
                 const input = document.createElement("input");
                 input.type = "checkbox";
                 input.id = `${item.name}Input`;
-                input.value = item.name;
+                input.value = item.name.toUpperCase();
                 input.textContent = item.name;
                 input.className = `${str}Checks`;
-
 
                 const label = document.createElement("label");
                 label.for = input.id;
@@ -51,7 +55,6 @@ function showForm(){
     }
 }
 
-// When the user clicks anywhere outside of the form, close it
 window.onclick = function(event) {
     if (event.target == addToolDiv) {
         addToolDiv.style.display = "none";
@@ -59,22 +62,31 @@ window.onclick = function(event) {
 }
 
 
-addEventListener("DOMContentLoaded", loadAllFromOptions);
+document.addEventListener("DOMContentLoaded", ()=>{
+    loadAllFromOptions();
+
+});
 
 
-const addToolBtn = document.querySelector("#addToolBtn");
-if (addToolBtn) {
-    addToolBtn.addEventListener("submit", function(e){
+const submitBtn = document.querySelector("#submitBtn");
+if (submitBtn) {
+    submitBtn.addEventListener("submit", function(e){
         e.preventDefault();
-        const toolName = document.querySelector("#toolName").value;
-        const toolURL = document.querySelector("#toolURL").value;
-        const tags = document.querySelector("#tags").value;
-        let checkedIsDynamic = document.querySelector('#isDynamic').checked;
-        let checkedStages = Array.from(document.querySelector('.stagesChecks:checked')).map(cb => cb.value);
+        const name = document.querySelector("#toolName").value;
+        const url = document.querySelector("#toolURL").value;
+        const tags = document.querySelector("#tags").value.split(",")
+                                                                .map(tag=>tag.trim())
+                                                                .filter(tag=>tag!== "");
+        let dynamic = document.querySelector('#isDynamic').checked;
+        let stages = Array.from(document.querySelectorAll('.stagesChecks:checked')).map(cb => cb.value);
         const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => cb.value);
         const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => cb.value);
-        MakeToolJSON(toolName, toolURL, tags, departments, jurisdictions, checkedIsDynamic);
+
+        //console.log(JSON.stringify({name, url, tags, departments, stages, jurisdictions, dynamic }));
+
+        MakeToolJSON(name, url, tags, departments, stages, jurisdictions, dynamic);
     });
+
 
 }
 
