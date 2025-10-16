@@ -30,7 +30,7 @@ public class ToolController {
         this.favoritesService = favoritesService;
     }
 
-    @GetMapping("/getTools")
+    @GetMapping("")
     public ResponseEntity<List<ToolDto>> getAlltools(){
         List<ToolDto> list = toolService.getAlltools().values().stream()
                 .map(ToolDto::new)
@@ -87,7 +87,7 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/getTools/{department}/{jurisdiction}/{stage}")
+    @GetMapping("/{department}/{jurisdiction}/{stage}")
     public ResponseEntity<List<ToolDto>> getAlltoolsByDepartmentJurisdictionStage(
             @PathVariable Tool.Department department,
             @PathVariable Tool.Jurisdiction jurisdiction,
