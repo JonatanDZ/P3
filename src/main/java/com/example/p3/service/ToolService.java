@@ -111,7 +111,7 @@ public class ToolService {
 
         //We are posting all the elements to the DB.
         for(Tool tool : tools){
-            inMemoryDb.put(useCounter(), tool);
+            inMemoryDb.put(tool.getId(), tool);
         }
     }
 

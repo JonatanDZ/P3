@@ -17,6 +17,24 @@ function getToolsDisplay () {
         .catch(error => console.error('Error fetching tool:', error));
 }
 
+function getFavoriteToolsDisplay () {
+    fetch('/getFavoriteTools/details')
+        .then(response => response.json())
+        .then(data => {
+            const list = document.getElementById('favorites');
+            data.forEach(tool => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = tool.url;
+                a.textContent = tool.name;
+                a.target = "_blank";
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Error fetching tool:', error));
+}
+
 // getToolsByDepartmentJurisdictionStage endpoint and display
 function getToolsByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in

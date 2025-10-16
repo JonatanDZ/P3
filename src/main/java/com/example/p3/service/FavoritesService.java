@@ -16,11 +16,6 @@ public class FavoritesService {
 
     private final Map<Long, Favorites> inMemoryFavorites = new ConcurrentHashMap<>();
 
-    static long counter = 0;
-    public long useCounter() {
-        return ++counter;
-    }
-
     public Map<Long, Favorites> getFavorites() {
         return inMemoryFavorites;
     }
@@ -29,24 +24,22 @@ public class FavoritesService {
     public void seedData() {
         JsonParser("src/main/resources/static/MOCK_FAVORITES.json");
     }
+
     public void JsonParser(String src) {
-        //https://fasterxml.github.io/jackson-databind/javadoc/2.7/com/fasterxml/jackson/databind/ObjectMapper.html
         ObjectMapper mapper = new ObjectMapper();
 
-        //We are creating an empty list to fill up the with the json data
-        Favorites[] tools;
+        Favorites[] favs;
 
         // I needed to make a try/catch otherwise it complained.
         try {
-            //Reads the file that is provided and fits it to how tool looks
-            tools = mapper.readValue(new File(src), Favorites[].class);
+            favs = mapper.readValue(new File(src), Favorites[].class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        inMemoryFavorites.clear();
         //We are posting all the elements to the DB.
-        for(Favorites tool : tools){
-            inMemoryFavorites.put(useCounter(), tool);
+        for(Favorites f : favs){
+            inMemoryFavorites.put(f.getId(), f);
         }
     }
 }

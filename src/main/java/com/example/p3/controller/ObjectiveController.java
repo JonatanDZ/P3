@@ -1,6 +1,7 @@
 package com.example.p3.controller;
 
 
+import com.example.p3.dtos.FavoritedDetailDto;
 import com.example.p3.dtos.FavoritesDto;
 import com.example.p3.dtos.ToolDto;
 import com.example.p3.model.Tool;
@@ -46,7 +47,22 @@ public class ObjectiveController {
                 .map(FavoritesDto::new)
                 .toList();
         return ResponseEntity.ok(list);
+    }
 
+    @GetMapping("/getFavoriteTools/details")
+    public ResponseEntity<List<FavoritedDetailDto>> getFavoriteTools(){
+        var allTools = toolService.getAlltools();
+        var list = favoritesService.getFavorites().values().stream()
+                .map(f -> new FavoritedDetailDto(
+                        f.getId(),
+                        f.getToolIDs().stream()
+                                .map(allTools::get)
+                                .filter(t -> t != null)
+                                .map(ToolDto::new)
+                                .toList()
+                ))
+                .toList();
+        return ResponseEntity.ok(list);
     }
 
     @PostMapping("/getToolsByStage/{stage}")

@@ -1,4 +1,4 @@
 [
-  { "id": 1, "tools": ["github", "jira", "figma"] },
-  { "id": 2, "tools": ["slack"] }
+  { "id": 1, "toolIDs": [1, 3] },
+  { "id": 2, "toolIDs": [4] }
 ]
