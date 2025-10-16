@@ -14,6 +14,7 @@ public class User {
         DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS
     }
 
+
     //Favourites
     //Admin
 }
