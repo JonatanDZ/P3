@@ -16,7 +16,7 @@ import java.util.List;
 
 // This is the API http/rest controller
 @RestController
-@RequestMapping()
+@RequestMapping("/getTools")
 public class ToolController {
     private final ToolService toolService;
 
@@ -24,7 +24,7 @@ public class ToolController {
         this.toolService = toolService;
     }
 
-    @GetMapping("/getTools")
+    @GetMapping()
     public ResponseEntity<List<ToolDto>> getAlltools(){
         List<ToolDto> list = toolService.getAlltools().values().stream()
                 .map(ToolDto::new)
@@ -39,7 +39,7 @@ public class ToolController {
     }
 
     // maybe change this to department/jurisdiction/stage or implement new endpoint
-    @GetMapping("/getTools/{jurisdiction}")
+    @GetMapping("/jurisdiction/{jurisdiction}")
 
     public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
         List<ToolDto> list = toolService.findByJurisdiction(jurisdiction).stream()
@@ -49,7 +49,7 @@ public class ToolController {
     }
 
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
-    @GetMapping("/getTools/{department}")
+    @GetMapping("/department/{department}")
     public ResponseEntity<List<ToolDto>> getAlltoolsByDepartment(@PathVariable Tool.Department department) {
         List<ToolDto> list = toolService.getAlltoolsByDepartment(department).values().stream()
                 .map(ToolDto::new)
