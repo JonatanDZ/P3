@@ -11,24 +11,21 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 import java.util.List;
 
 // This is the API http/rest controller
 @RestController
-@RequestMapping()
-public class ObjectiveController {
+@RequestMapping("/getTools")
+public class ToolController {
     private final ToolService toolService;
     private final FavoritesService favoritesService;
 
-    public ObjectiveController(ToolService toolService, FavoritesService favoritesService) {
+    public ToolController(ToolService toolService) {
         this.toolService = toolService;
         this.favoritesService = favoritesService;
     }
@@ -70,9 +67,9 @@ public class ObjectiveController {
         List<ToolDto> list = toolService.gettoolsByStage(stage);
         return ResponseEntity.ok(list);
     }
-    // maybe change this to department/jurisdiction/stage or implement new endpoint
 
-    @GetMapping("/getTools/{jurisdiction}")
+    // maybe change this to department/jurisdiction/stage or implement new endpoint
+    @GetMapping("/jurisdiction/{jurisdiction}")
 
     public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
         List<ToolDto> list = toolService.findByJurisdiction(jurisdiction).stream()
@@ -80,9 +77,9 @@ public class ObjectiveController {
                 .toList();
         return ResponseEntity.ok(list);
     }
-    //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
 
-    @GetMapping("/getTools/{department}")
+    //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
+    @GetMapping("/department/{department}")
     public ResponseEntity<List<ToolDto>> getAlltoolsByDepartment(@PathVariable Tool.Department department) {
         List<ToolDto> list = toolService.getAlltoolsByDepartment(department).values().stream()
                 .map(ToolDto::new)
@@ -108,7 +105,6 @@ public class ObjectiveController {
             return ResponseEntity.badRequest().build();
         }
 
-
         Tool createdTool = toolService.createTool(
                 null,
                 tool.getName(),
@@ -122,9 +118,4 @@ public class ObjectiveController {
 
         return ResponseEntity.ok(createdTool);
     }
-
-
-    }
-
-
-
+}

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yellow Pages</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
 
 <body>
@@ -29,29 +30,66 @@
     <aside>
         <h1>Departments</h1>
         <div class = "departmentSelector">
-        <input type="radio" id="devOps" name="department" value="DEVOPS" checked>
-        <label for="devOps">DevOps</label><br>
+<!--        <input type="radio" id="devOps" name="department" value="DEVOPS" checked>-->
+<!--        <label for="devOps">DevOps</label><br>-->
 
-        <input type="radio" id="frontEnd" name="department" value="FRONTEND">
-        <label for="frontEnd">FrontEnd</label><br>
+<!--        <input type="radio" id="frontEnd" name="department" value="FRONTEND">-->
+<!--        <label for="frontEnd">FrontEnd</label><br>-->
 
-        <input type="radio" id="games" name="department" value="GAMES">
-        <label for="games">Games</label><br>
+<!--        <input type="radio" id="games" name="department" value="GAMES">-->
+<!--        <label for="games">Games</label><br>-->
 
-        <input type="radio" id="payments" name="department" value="PAYMENTS">
-        <label for="payments">Payments</label><br>
+<!--        <input type="radio" id="payments" name="department" value="PAYMENTS">-->
+<!--        <label for="payments">Payments</label><br>-->
 
-        <input type="radio" id="players" name="department" value="PLAYERS">
-        <label for="players">Players</label><br>
+<!--        <input type="radio" id="players" name="department" value="PLAYERS">-->
+<!--        <label for="players">Players</label><br>-->
 
-        <input type="radio" id="promotions" name="department" value="PROMOTIONS">
-        <label for="promotions">Promotions</label><br>
+<!--        <input type="radio" id="promotions" name="department" value="PROMOTIONS">-->
+<!--        <label for="promotions">Promotions</label><br>-->
         </div>
     </aside>
 
         <section>
             <div id="searchbar">
                 <input type="text" placeholder="Placeholder for search">
+                <button id="addToolBtn"> &nbsp;+&nbsp; </button>
+            </div>
+
+            <div class="popUpForm" id="addToolDiv" style="display: none">
+                <form class="from-container">
+                    <h1>Add Tool</h1>
+
+                    <label for="toolName"> <b> Tool name</b></label>
+                    <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" required>
+
+                    <label for="toolURL"> <b> Tool URL</b></label>
+                    <input id="toolURL" type="text" placeholder="Enter URL" name="toolURL" required>
+
+                    <label for="IsDynamic"> <b> Tool URL</b>
+                        <input id="IsDynamic" type="checkbox" placeholder="Is Dynamic?" name="IsDynamic" required> Is Dynamic?
+                    </label>
+
+
+                    <label for="Tags"> <b> Tags </b></label>
+                    <input id="Tags" type="text" placeholder="Enter Tags" name="tags" required>
+
+                    <label for="DepartmentInput"> <b> Department</b></label>
+                    <div class="Select department" style="width:200px;">
+                    <select id="DepartmentInput" name="Department" required></select>
+                    </div>
+
+                    <label for="JurisdictionInput"> <b> Choose jurisdiction</b></label>
+                    <div class="Select jurisdiction" style="width:200px;">
+                        <select id="JurisdictionInput" name="Jurisdiction" required>
+                            <option value="">Select Jurisdiction</option>
+                            <option value="DK">DK</option>
+                            <option value="UK">UK</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="AddTool">Add Tool</button>
+                    <button type="button" class="cancel">Cancel</button>
+                </form>
             </div>
 
             <h1>Favorites</h1>
@@ -69,5 +107,6 @@
         <div id="branch">Dev</div>
     </footer>
     <script src="/js/endpointScripts.js"> </script>
+    <script src="/js/addTool.js"> </script>
 </body>
 </html>

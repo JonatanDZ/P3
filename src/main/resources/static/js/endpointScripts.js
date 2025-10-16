@@ -17,22 +17,32 @@ function getToolsDisplay () {
         .catch(error => console.error('Error fetching tool:', error));
 }
 
-function getFavoriteToolsDisplay () {
-    fetch('/getFavoriteTools/details')
-        .then(response => response.json())
+function getDepartmentsDisplay(){
+    fetch("departments/getAll")
+        .then(response=>response.json())
         .then(data => {
-            const list = document.getElementById('favorites');
-            data.forEach(tool => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = tool.url;
-                a.textContent = tool.name;
-                a.target = "_blank";
-                li.appendChild(a);
-                list.appendChild(li);
-            });
+            let departmentSelector = document.querySelector(".departmentSelector");
+            console.log(departmentSelector);
+            data.forEach(department => {
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = "department"
+                input.value = department.name.toUpperCase();
+                input.id = department.name;
+
+                const label = document.createElement("label");
+                //input.setAttribute("for", department.name);
+                label.htmlFor = department.name;
+                label.textContent = department.name;
+
+                console.log(departmentSelector);
+                departmentSelector.appendChild(input);
+                departmentSelector.appendChild(label);
+
+            })
         })
-        .catch(error => console.error('Error fetching tool:', error));
+        .catch(error => console.error('Error fetching Department:', error));
+
 }
 
 // getToolsByDepartmentJurisdictionStage endpoint and display
@@ -65,6 +75,7 @@ function getToolsByDepartmentJurisdictionStage() {
 // functions which run when page loads
 window.addEventListener('DOMContentLoaded', () => {
     getToolsDisplay();
+    getDepartmentsDisplay();
     getToolsByDepartmentJurisdictionStage(); // initial render
 
     // React to changes in branch (radio group inside .branchSelector)

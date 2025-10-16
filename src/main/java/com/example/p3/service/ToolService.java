@@ -32,7 +32,7 @@ public class ToolService {
     //  Called automatically after Spring creates the service
     @PostConstruct
     public void seedData() {
-        JsonParser("src/main/resources/static/MOCK_DATA.json");
+        JsonParserTool("src/main/resources/static/TOOL_MOCK_DATA.json");
         // --- Mock data for development ---
     }
 
@@ -94,7 +94,7 @@ public class ToolService {
                 .toList();
     }
 
-    public void JsonParser(String src) {
+    public void JsonParserTool(String src) {
         //https://fasterxml.github.io/jackson-databind/javadoc/2.7/com/fasterxml/jackson/databind/ObjectMapper.html
         ObjectMapper mapper = new ObjectMapper();
 
