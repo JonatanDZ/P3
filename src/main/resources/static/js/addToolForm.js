@@ -1,4 +1,4 @@
-import {MakeToolJSON} from "./FetchTool.js";
+import {MakeToolJSON} from "./fetchTool.js";
 
 const addToolBtn = document.querySelector("#addToolBtn");
 
@@ -17,7 +17,7 @@ function loadAllFromOptions(){
 }
 
 function loadOptions(str){
-    fetch(`${str}/getAll`)
+    fetch(`/${str}/getAll`)
         .then(response=>response.json())
         .then(data => {
             let dropdown = document.querySelector(`#${str}Input`);
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 const submitBtn = document.querySelector("#submitBtn");
 if (submitBtn) {
-    submitBtn.addEventListener("submit", function(e){
+    submitBtn.addEventListener("click", function(e){
         e.preventDefault();
         const name = document.querySelector("#toolName").value;
         const url = document.querySelector("#toolURL").value;
@@ -82,9 +82,9 @@ if (submitBtn) {
         const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => cb.value);
         const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => cb.value);
 
-        //console.log(JSON.stringify({name, url, tags, departments, stages, jurisdictions, dynamic }));
+        const jsonBody = JSON.stringify({name, url, tags, departments, stages, jurisdictions, dynamic });
 
-        MakeToolJSON(name, url, tags, departments, stages, jurisdictions, dynamic);
+        MakeToolJSON(jsonBody);
     });
 
 
