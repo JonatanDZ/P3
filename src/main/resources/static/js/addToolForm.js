@@ -4,33 +4,40 @@ let formIsShown = false;
 
 
 
-function loadFromOptions(){
-    fetch("departments/getAll")
+function loadAllFromOptions(){
+    loadOptions("departments");
+    loadOptions("jurisdictions");
+}
+
+function loadOptions(str){
+    fetch(`${str}/getAll`)
         .then(response=>response.json())
         .then(data => {
-            let departmentDropdown = document.querySelector("#DepartmentInput");
-            data.forEach(department => {
+            let dropdown = document.querySelector(`#${str}Input`);
+            data.forEach(item => {
 
                 const checkBoxDiv = document.createElement("div");
                 checkBoxDiv.className = "checkBoxDiv";
 
                 const input = document.createElement("input");
                 input.type = "checkbox";
-                input.id = department.name;
-                input.value = department.name;
-                input.textContent = department.name;
+                input.id = `${item.name}Input`;
+                input.value = item.name;
+                input.textContent = item.name;
+                input.className = `${str}Checks`;
+
 
                 const label = document.createElement("label");
                 label.for = input.id;
-                label.textContent = department.name;
+                label.textContent = item.name;
 
-                departmentDropdown.appendChild(checkBoxDiv);
+                dropdown.appendChild(checkBoxDiv);
                 checkBoxDiv.appendChild(label);
                 checkBoxDiv.appendChild(input);
-
             })
         })
 }
+
 
 function showForm(){
     if (formIsShown){
@@ -49,4 +56,4 @@ window.onclick = function(event) {
     }
 }
 
-addEventListener("DOMContentLoaded", loadFromOptions)
+addEventListener("DOMContentLoaded", loadAllFromOptions)

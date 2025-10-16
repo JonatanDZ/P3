@@ -261,7 +261,7 @@ footer #branch {
     display: inline-block;
 }
 
-#departmentInput {
+.inputDiv {
     width: 100%;
     display: inline-block;
 }
