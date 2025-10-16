@@ -1,19 +1,6 @@
 // Get the input from the form
-async function MakeToolJSON() {
+export async function MakeToolJSON(toolName, toolURL, Tags, department, stages, isDynamic, jurisdiction) {
     try{
-        /*
-        const toolName = document.querySelector('#toolName');
-        const toolURL = document.querySelector('#toolURL');
-        const isDynamic = document.querySelector('#isDynamic');
-        const Tags = document.querySelectorAll('#Tags');
-        */
-        const toolName = "Swagger";
-        const toolURL = "https://swagger.io/";
-        const Tags = ["tis", "lort"];
-        const department = ["Players"];
-        const stages = ["Stage"];
-        const isDynamic = true;
-        const jurisdiction = ["DK"];
 
         console.log(JSON.stringify({toolName, toolURL, Tags, department, stages, isDynamic, jurisdiction}));
 
