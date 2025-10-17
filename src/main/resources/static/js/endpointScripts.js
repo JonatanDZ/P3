@@ -50,10 +50,10 @@ function getToolsByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in
     const department = getDepartment()//"DEVOPS";
     let jurisdiction = getJurisdiction();
-    console.log(jurisdiction);
+    console.log(jurisdiction)
     const branch = getBranch();
     console.log(branch);
-    console.log(department);
+    console.log(department)
     fetch(`/getTools/${encodeURIComponent(department)}/${encodeURIComponent(jurisdiction)}/${encodeURIComponent(branch)}`)
         .then(response => response.json())
         .then(data => {
