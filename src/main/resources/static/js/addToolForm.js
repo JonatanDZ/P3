@@ -1,10 +1,12 @@
 import {MakeToolJSON} from "./fetchTool.js";
 
-const addToolBtn = document.querySelector("#addToolBtn");
+const toggleBtns = document.querySelectorAll(".toggleBtn");
 
-console.log(addToolBtn);
+toggleBtns.forEach(btn => {
+        btn.addEventListener("click", toggleForm);//Event handler for the button
+    }
+)
 
-addToolBtn.addEventListener("click", showForm);//Event handler for the button
 
 let addToolDiv = document.querySelector("#addToolDiv"); //The div that we want to show and hide
 let formIsShown = false;
@@ -45,7 +47,7 @@ function loadOptions(str){
 }
 
 
-function showForm(){
+function toggleForm(){
     if (formIsShown){
         addToolDiv.style.display = "none";
         formIsShown = false;
@@ -70,7 +72,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 const submitBtn = document.querySelector("#submitBtn");
 if (submitBtn) {
-    submitBtn.addEventListener("submit", function(e){
+    submitBtn.addEventListener("click", function(e){
         e.preventDefault();
         const name = document.querySelector("#toolName").value;
         const url = document.querySelector("#toolURL").value;
@@ -85,6 +87,8 @@ if (submitBtn) {
         const jsonBody = JSON.stringify({name, url, tags, departments, stages, jurisdictions, dynamic });
 
         MakeToolJSON(jsonBody);
+
+        window.location.reload();
     });
 
 
