@@ -16,12 +16,14 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
     public UserController(UserService userService) {
-                this.userService = userService;
+        this.userService = userService;
     }
-//Default
+
+    //Default
     @GetMapping()
-    public ResponseEntity<List<UserDto>> getAllUsers(){
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> list = userService.getAllUsers().values().stream()
                 .map(UserDto::new)
                 .toList();
@@ -69,3 +71,15 @@ public class UserController {
         return ResponseEntity.ok(list);
     }
 }
+
+
+    /* Potentiel samlet function?
+    @GetMapping("/{infoType}/{info}")
+    public ResponseEntity<List<UserDto>> getUserInfo(@PathVariable String infoType, @PathVariable String info) {
+        List<UserDto> list = userService.getUserInfo(infoType,info).values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+}
+     */

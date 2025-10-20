@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -60,6 +61,26 @@ public class UserService {
                 .filter(entry -> entry.getValue().getName().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
+
+    /* Potentielt samlet funtion?
+    public Map<Long, User> getUserInfo(String infoType, String info) {
+        return switch (infoType) {
+            case "id" -> getAllUsers().entrySet().stream()
+                    .filter(entry -> Arrays.asList(entry.getValue().getId()).contains(info))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            case "initials" -> getAllUsers().entrySet().stream()
+                    .filter(entry -> entry.getValue().getInitials().contains(info))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            case "email" -> getAllUsers().entrySet().stream()
+                    .filter(entry -> entry.getValue().getEmail().contains(info))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            case "name" -> getAllUsers().entrySet().stream()
+                    .filter(entry -> entry.getValue().getName().toLowerCase().contains(info.toLowerCase()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            default -> new HashMap<>();
+        };
+    }
+     */
 
     /// /////////////Mock database omformer/////////////// ///
     public void JsonParserUser(String src) {
