@@ -2,7 +2,7 @@ import {loadOptions} from "../../../main/resources/static/js/loadOptions.js";
 
 
 // https://jestjs.io/docs/mock-functions
-global.fetch = jest.fn(); //This makes the fetch return the mockdata created in mockData
+global.fetch = jest.fn(); //This prevents the real API call
 
 describe('loadOptions', () => {
     let mockResponse;
@@ -11,19 +11,12 @@ describe('loadOptions', () => {
         // Reset all mocks
         jest.clearAllMocks();
 
-        // Setup mock fetch response
-        mockResponse = {
-            json: jest.fn()
-        };
-
-        global.fetch.mockResolvedValue(mockResponse);
-
         // Mock body
         document.body.innerHTML = `
         <div id="addToolDiv" style="display:none;"></div>
         <button class="toggleBtn"></button>
         <input id="toolName" value="Test Tool"/>
-        <input id="toolURL" value="http://example.com"/>
+        <input id="toolURL" value="https://example.com"/>
         <input id="tags" value="tag1, tag2"/>
         <input type="checkbox" id="isDynamic" checked/>
         <div id="departmentsInput"></div>
@@ -32,13 +25,19 @@ describe('loadOptions', () => {
         `;
     });
 
-    test('should create checkboxes for each item in the response', async () => {
-        const mockData = [
-            {name: 'HR'},
-            {name: 'Legal'},
-            {name: 'Players'}
-        ];
-        mockResponse.json.mockResolvedValue(mockData);
+    test('Create checkboxes for each item in response', async () => {
+
+        // Setup mock fetch response
+        mockResponse = {
+            ok: true,
+            json: async () => ([ //The body that is received
+                {name: 'HR'},
+                {name: 'Legal'},
+                {name: 'Players'}
+            ])
+        }
+
+        global.fetch.mockResolvedValue(mockResponse); //No matter what receive the body above
 
         loadOptions('departments');
 
