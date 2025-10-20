@@ -259,8 +259,6 @@ footer #branch {
 
 .checkBoxDiv {
     display: inline-block;
-    position: absolute;
-    box-sizing: content-box;
 }
 
 .inputDiv {
@@ -268,3 +266,8 @@ footer #branch {
     display: inline-block;
 }
 
+.from-container{
+    margin: auto;
+    text-align: center;
+    align-items: center;
+}

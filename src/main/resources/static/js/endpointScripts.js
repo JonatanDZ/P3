@@ -48,6 +48,7 @@ function getDepartmentsDisplay(){
 function getToolsByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in
     const department = getDepartment()//"DEVOPS";
+
     let jurisdiction = getJurisdiction();
     console.log(jurisdiction);
     const branch = getBranch();

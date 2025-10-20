@@ -9,9 +9,13 @@ export async function MakeToolJSON(jsonBody) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
+            const state = 'Tool Created';
+            console.log("success", data);
+            window.alert(state);
         })
         .catch((error) => {
-            console.error('Error:', error);
+            const state = "Error: " + error;
+            console.error(state);
+            window.alert(state);
         });
 }
