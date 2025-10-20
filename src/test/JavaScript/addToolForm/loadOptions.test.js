@@ -1,12 +1,11 @@
 import {loadOptions} from "../../../main/resources/static/js/loadOptions.js";
 
-global.fetch = jest.fn(); //This makes the fetch in the function be the mockdata we have selected
-//document.querySelector = jest.fn();
+global.fetch = jest.fn(); //This makes the fetch return the mockdata created in mockData
 
 describe('loadOptions', () => {
     let mockResponse;
 
-    beforeEach(() => {
+    beforeEach(() => { // cleans the environment before each test
         // Reset all mocks
         jest.clearAllMocks();
 
@@ -15,10 +14,9 @@ describe('loadOptions', () => {
             json: jest.fn()
         };
 
-
-
         global.fetch.mockResolvedValue(mockResponse);
 
+        // Mock body
         document.body.innerHTML = `
         <div id="addToolDiv" style="display:none;"></div>
         <button class="toggleBtn"></button>
@@ -33,16 +31,16 @@ describe('loadOptions', () => {
     });
 
     test('should create checkboxes for each item in the response', async () => {
-        const testData = [
+        const mockData = [
             {name: 'HR'},
             {name: 'Legal'},
             {name: 'Players'}
         ];
-        mockResponse.json.mockResolvedValue(testData);
+        mockResponse.json.mockResolvedValue(mockData);
 
         loadOptions('departments');
 
-        await new Promise(process.nextTick);
+        await new Promise(process.nextTick); //waits until loadOptions('departments'); is done
 
         // checking if the checkboxes are made correctly
         //HR
@@ -57,10 +55,5 @@ describe('loadOptions', () => {
         expect(document.querySelector("#PlayersInput").value).toBe("PLAYERS");
         expect(document.querySelector("#PlayersInput").type).toBe("checkbox");
         expect(document.querySelector("#PlayersInput").className).toBe("departmentsChecks");
-
-        // Should create 3 checkBoxDiv elements (one for each item)
-        //expect(mockDropdown.appendChild).toHaveBeenCalledTimes(3);
     });
-
-
 });
