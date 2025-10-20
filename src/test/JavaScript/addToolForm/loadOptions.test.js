@@ -1,5 +1,7 @@
 import {loadOptions} from "../../../main/resources/static/js/loadOptions.js";
 
+
+// https://jestjs.io/docs/mock-functions
 global.fetch = jest.fn(); //This makes the fetch return the mockdata created in mockData
 
 describe('loadOptions', () => {
