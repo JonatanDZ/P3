@@ -37,7 +37,7 @@ describe('loadOptions', () => {
             ])
         }
 
-        global.fetch.mockResolvedValue(mockResponse); //No matter what receive the body above
+        global.fetch.mockResolvedValue(mockResponse); //No matter what: receive the body above (mockResponse)
 
         loadOptions('departments');
 
