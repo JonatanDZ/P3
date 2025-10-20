@@ -57,4 +57,88 @@ describe('loadOptions', () => {
         expect(document.querySelector("#PlayersInput").type).toBe("checkbox");
         expect(document.querySelector("#PlayersInput").className).toBe("departmentsChecks");
     });
+
+    test('Create checkboxes for each item in response', async () => {
+
+        // Setup mock fetch response
+        mockResponse = {
+            ok: true,
+            json: async () => ([ //The body that is received
+                {name: 'DK'},
+                {name: 'UK'},
+                {name: 'US'}
+            ])
+        }
+
+        global.fetch.mockResolvedValue(mockResponse); //No matter what: receive the body above (mockResponse)
+
+        loadOptions('jurisdictions');
+
+        await new Promise(process.nextTick); //waits until loadOptions('departments'); is done
+
+        // checking if the checkboxes are made correctly
+        //DK
+        expect(document.querySelector("#DKInput").value).toBe("DK");
+        expect(document.querySelector("#DKInput").type).toBe("checkbox");
+        expect(document.querySelector("#DKInput").className).toBe("jurisdictionsChecks");
+        //UK
+        expect(document.querySelector("#UKInput").value).toBe("UK");
+        expect(document.querySelector("#UKInput").type).toBe("checkbox");
+        expect(document.querySelector("#UKInput").className).toBe("jurisdictionsChecks");
+        //US
+        expect(document.querySelector("#USInput").value).toBe("US");
+        expect(document.querySelector("#USInput").type).toBe("checkbox");
+        expect(document.querySelector("#USInput").className).toBe("jurisdictionsChecks");
+    });
+
+    test('Handle empty response data', async () => {
+
+        // Setup mock fetch response
+        mockResponse = {
+            ok: true,
+            json: async () => ([ //The body that is received
+            ])
+        }
+
+        global.fetch.mockResolvedValue(mockResponse);
+
+        loadOptions('jurisdictions');
+
+        await new Promise(process.nextTick);
+
+        expect(document.querySelector("#jurisdictionsInput").innerHTML).toBe("");
+    });
+
+    test('Handle different different cases', async () => {
+
+        // Setup mock fetch response
+        mockResponse = {
+            ok: true,
+            json: async () => ([ //The body that is received
+                {name: 'lowercase'},
+                {name: 'MiXeDcAsE'},
+                {name: 'UPPERCASE'}
+            ])
+        }
+
+        global.fetch.mockResolvedValue(mockResponse); //No matter what: receive the body above (mockResponse)
+
+        loadOptions('departments');
+
+        await new Promise(process.nextTick); //waits until loadOptions('departments'); is done
+
+        // checking if the checkboxes are made correctly
+        //lowercase
+        expect(document.querySelector("#lowercaseInput").value).toBe("lowercase".toUpperCase());
+        expect(document.querySelector("#lowercaseInput").type).toBe("checkbox");
+        expect(document.querySelector("#lowercaseInput").className).toBe("departmentsChecks");
+        //MiXeDcAsE
+        expect(document.querySelector("#MiXeDcAsEInput").value).toBe("MiXeDcAsE".toUpperCase());
+        expect(document.querySelector("#MiXeDcAsEInput").type).toBe("checkbox");
+        expect(document.querySelector("#MiXeDcAsEInput").className).toBe("departmentsChecks");
+        //UPPERCASE
+        expect(document.querySelector("#UPPERCASEInput").value).toBe("UPPERCASE".toUpperCase());
+        expect(document.querySelector("#UPPERCASEInput").type).toBe("checkbox");
+        expect(document.querySelector("#UPPERCASEInput").className).toBe("departmentsChecks");
+    });
 });
