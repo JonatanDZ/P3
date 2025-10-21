@@ -70,7 +70,6 @@ public class ToolController {
 
     // maybe change this to department/jurisdiction/stage or implement new endpoint
     @GetMapping("/jurisdiction/{jurisdiction}")
-
     public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
         List<ToolDto> list = toolService.findByJurisdiction(jurisdiction).stream()
                 .map(ToolDto::new)
