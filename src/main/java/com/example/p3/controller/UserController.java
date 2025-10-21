@@ -12,23 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/getUsers")
 public class UserController {
 
     private final UserService userService;
+
     public UserController(UserService userService) {
-                this.userService = userService;
+        this.userService = userService;
     }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<UserDto>> getAllUsers(){
+    //Default
+    @GetMapping()
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> list = userService.getAllUsers().values().stream()
                 .map(UserDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/getDepartment/{department}")
+    @GetMapping("/department/{department}")
     public ResponseEntity<List<UserDto>> getAllUsersByDepartment(@PathVariable User.Department department) {
         List<UserDto> list = userService.getAllUsersByDepartment(department).values().stream()
                 .map(UserDto::new)
@@ -37,11 +39,47 @@ public class UserController {
     }
 
     //Call "getUserById" which selects the user according to the id (skal være initialer) in the URL
-    @GetMapping("/getId/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<List<UserDto>> getUserById(@PathVariable long id) {
         List<UserDto> list = userService.getUserById(id).values().stream()
                 .map(UserDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping("/initials/{initials}")
+    public ResponseEntity<List<UserDto>> getUserByInitials(@PathVariable String initials) {
+        List<UserDto> list = userService.getUserByInitials(initials).values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<List<UserDto>> getUserByEmail(@PathVariable String email) {
+        List<UserDto> list = userService.getUserByEmail(email).values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<UserDto>> getUserByName(@PathVariable String name) {
+        List<UserDto> list = userService.getUserByName(name).values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
 }
+
+
+    /* Potentiel samlet function?
+    @GetMapping("/{infoType}/{info}")
+    public ResponseEntity<List<UserDto>> getUserInfo(@PathVariable String infoType, @PathVariable String info) {
+        List<UserDto> list = userService.getUserInfo(infoType,info).values().stream()
+                .map(UserDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+}
+     */
