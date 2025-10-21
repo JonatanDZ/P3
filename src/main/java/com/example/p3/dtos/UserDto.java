@@ -10,6 +10,7 @@ public class UserDto {
     private String name;
     private String email;
     private User.Department department;
+    private boolean admin;
 
     public UserDto(User u){
         this.id = u.getId();
@@ -17,6 +18,6 @@ public class UserDto {
         this.name = u.getName();
         this.email = u.getEmail();
         this.department = u.getDepartment();
-
+        this.admin = u.isAdmin();
     }
 }
