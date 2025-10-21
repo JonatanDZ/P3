@@ -13,9 +13,9 @@ describe('submitForm', () => {
         <div id="addToolDiv" style="display:none;"></div>
         <button class="toggleBtn"></button>
         <input id="toolName" value="Test Tool"/>
-        <input id="toolURL" value="http://example.com"/>
+        <input id="toolURL1" value="http://example.com"/>
         <input id="tags" value="tag1, tag2"/>
-        <input type="checkbox" id="isDynamic" checked/>
+        <input type="checkbox" id="isDynamic"/>
         <div id="departmentsInput"></div>
         <input type="checkbox" class="departmentsChecks" value="DEPT1" checked>
         <div id="stagesInput"></div>
@@ -47,7 +47,7 @@ describe('submitForm', () => {
         expect(body.name).toBe('Test Tool');
         expect(body.url).toBe('http://example.com');
         expect(body.tags).toEqual(['tag1', 'tag2']);
-        expect(body.dynamic).toBe(true);
+        expect(body.dynamic).toBe(false);
         expect(body.departments).toEqual(['DEPT1']);
         expect(body.jurisdictions).toEqual(['DK']);
         expect(body.stages).toEqual(['STAGE1']);

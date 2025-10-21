@@ -28,10 +28,10 @@ export function formToJSON(){
 
 function getURLValue(dynamic){
     const url1 = document.querySelector("#toolURL1").value.toString();
-    const user = document.querySelector("#toolUser").textContent;
-    const url2 = document.querySelector("#toolURL2").value.toString();
-
     if (dynamic){
+        const user = document.querySelector("#toolUser").textContent;
+        const url2 = document.querySelector("#toolURL2").value.toString();
+
         return url1 + user + url2;
     } else {
         return url1;
