@@ -2,7 +2,16 @@ import {MakeToolJSON} from "./fetchTool.js";
 
 
 export function submitForm(){
-    console.log("Jeg bliver kaldt");
+
+    MakeToolJSON(formToJSON());
+
+    setTimeout(() => {
+        window.location.reload();
+    }, 100);
+
+}
+
+export function formToJSON(){
     const name = document.querySelector("#toolName").value;
     const url = document.querySelector("#toolURL").value;
     const tags = document.querySelector("#tags").value.split(",")
@@ -13,11 +22,5 @@ export function submitForm(){
     const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => cb.value);
     const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => cb.value);
 
-    const jsonBody = JSON.stringify({name, url, tags, departments, stages, jurisdictions, dynamic});
-
-    MakeToolJSON(jsonBody);
-
-    setTimeout(() => {
-        window.location.reload();
-    }, 100);
+    return JSON.stringify({name, url, tags, departments, stages, jurisdictions, dynamic});
 }

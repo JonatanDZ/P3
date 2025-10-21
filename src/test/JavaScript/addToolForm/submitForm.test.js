@@ -1,9 +1,15 @@
-import { toggleForm } from '../../../main/resources/static/js/toggleForm.js';
+import { submitForm, formToJSON } from '../../../main/resources/static/js/submitForm.js';
+import { MakeToolJSON } from "../../../main/resources/static/js/fetchTool.js";
+
+global.fetch = jest.fn();
 
 
+describe('submitForm', () => {
+    let mockResponse;
+    beforeEach(() => {
+        jest.clearAllMocks();
 
-beforeEach(() => {
-    document.body.innerHTML = `
+        document.body.innerHTML = `
         <div id="addToolDiv" style="display:none;"></div>
         <button class="toggleBtn"></button>
         <input id="toolName" value="Test Tool"/>
@@ -11,29 +17,42 @@ beforeEach(() => {
         <input id="tags" value="tag1, tag2"/>
         <input type="checkbox" id="isDynamic" checked/>
         <div id="departmentsInput"></div>
+        <input type="checkbox" class="departmentsChecks" value="DEPT1" checked>
+        <div id="stagesInput"></div>
+        <input type="checkbox" class="stagesChecks" value="STAGE1" checked>;
         <div id="jurisdictionsInput"></div>
+        <input type="checkbox" class="jurisdictionsChecks" value="DK" checked>
+        <input type="checkbox" class="jurisdictionsChecks" value="UK">
         <button id="submitBtn"></button>
     `;
+    });
+    test('submit form', async () => {
+
+
+        mockResponse = {
+            ok: true,
+            json: async () => ({ success: true }),
+        }
+
+        global.fetch.mockResolvedValue(mockResponse);
+        await submitForm();
+
+        expect(global.fetch).toHaveBeenCalled();
+
+        const [url, options] = global.fetch.mock.calls[0]; // first call
+        console.log("Options:", options);
+
+        const body = JSON.parse(options.body);
+        console.log(body.name)
+        expect(body.name).toBe('Test Tool');
+        expect(body.url).toBe('http://example.com');
+        expect(body.tags).toEqual(['tag1', 'tag2']);
+        expect(body.dynamic).toBe(true);
+        expect(body.departments).toEqual(['DEPT1']);
+        expect(body.jurisdictions).toEqual(['DK']);
+        expect(body.stages).toEqual(['STAGE1']);
+
+
+
+    })
 });
-
-describe('submitForm', () => {
-    test('collects form data and calls MakeToolJSON', () => {
-        document.body.innerHTML +=
-            <input type="checkbox" class="departmentsChecks" value="DEPT1" checked>
-                <input type="checkbox" class="jurisdictionsChecks" value="JUR1" checked>
-                    <input type="checkbox" class="stagesChecks" value="STAGE1" checked>
-                        ;
-
-                        const jsonBody = submitForm();
-
-                        expect(MakeToolJSON).toHaveBeenCalledTimes(1);
-                        const arg = JSON.parse(MakeToolJSON.mock.calls[0][0]);
-                        expect(arg.name).toBe('Test Tool');
-                        expect(arg.url).toBe('http://example.com'/);
-                        expect(arg.tags).toEqual(['tag1', 'tag2']);
-                        expect(arg.dynamic).toBe(true);
-                        expect(arg.departments).toEqual(['DEPT1']);
-                        expect(arg.jurisdictions).toEqual(['JUR1']);
-                        expect(arg.stages).toEqual(['STAGE1']);
-                        });
-                        });
