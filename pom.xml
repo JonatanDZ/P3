@@ -63,10 +63,29 @@
             <artifactId>lombok</artifactId>
             <scope>annotationProcessor</scope>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>11.7.2</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3306/P3?createDatabaseIfNotExist=true</url>
+                    <user>root</user>
+                    <password>Mimsedyr42!</password>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
