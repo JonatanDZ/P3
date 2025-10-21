@@ -1,4 +1,4 @@
-package com.example.p3.controller.entities;
+package com.example.p3.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
