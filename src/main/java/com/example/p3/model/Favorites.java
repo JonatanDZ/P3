@@ -10,6 +10,23 @@ import java.util.Set;
 @Setter
 public class Favorites {
     private long id;
-    private Set<Long> toolIDs = new LinkedHashSet<>();
+    private final Set<Long> toolIDs = new LinkedHashSet<>();
 
+    public Favorites(long id) {
+        this.id = id;
+    }
+
+    public boolean addTool(long toolId) {
+        return toolIDs.add(toolId);
+    }
+
+    public boolean removeTool(long toolId) {
+        return toolIDs.remove(toolId);
+    }
+
+    public boolean hasTool(long toolId) {
+        return toolIDs.contains(toolId);
+    }
 }
+
+
