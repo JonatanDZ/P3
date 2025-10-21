@@ -1,11 +1,10 @@
-import {MakeToolJSON} from "./fetchTool.js";
-import {toggleForm} from "./toggleForm.js";
+import {toggleForm, displayURLbar} from "./toggleForm.js";
 import {loadOptions} from "./loadOptions.js";
 import {submitForm} from "./submitForm.js";
 
 let toggleBtns;
 let addToolDiv;
-let submitBtn;
+let dynamicCheck;
 
 let formIsShown = false;
 
@@ -20,7 +19,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
             });
         }
     )
+    dynamicCheck = document.querySelector("#isDynamic");
+    dynamicCheck.addEventListener("change", ()=>{
+        displayURLbar(dynamicCheck.checked);
+    });
 });
+
 
 
 
