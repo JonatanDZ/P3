@@ -12,12 +12,12 @@ public class PersonDto {
     private Person.Department department;
     private boolean admin;
 
-    public PersonDto(Person u){
-        this.id = u.getId();
-        this.initials = u.getInitials();
-        this.name = u.getName();
-        this.email = u.getEmail();
-        this.department = u.getDepartment();
-        this.admin = u.isAdmin();
+    public PersonDto(Person p){
+        this.id = p.getId();
+        this.initials = p.getInitials();
+        this.name = p.getName();
+        this.email = p.getEmail();
+        this.department = p.getDepartment();
+        this.admin = p.isAdmin();
     }
 }
