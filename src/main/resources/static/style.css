@@ -257,3 +257,24 @@ footer #branch {
     color: white;
 }
 
+.checkBoxDiv {
+    display: inline-block;
+    width: 5rem;
+}
+
+.inputDiv {
+    width: 100%;
+    display: inline-block;
+}
+
+.from-container{
+    margin: auto;
+    text-align: center;
+    align-items: center;
+}
+
+.from-container b {
+
+}
+
+

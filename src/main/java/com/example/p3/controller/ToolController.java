@@ -1,11 +1,7 @@
 package com.example.p3.controller;
 
-
-import com.example.p3.dtos.FavoritedDetailDto;
-import com.example.p3.dtos.FavoritesDto;
 import com.example.p3.dtos.ToolDto;
 import com.example.p3.model.Tool;
-import com.example.p3.service.FavoritesService;
 import com.example.p3.service.ToolService;
 import org.springframework.http.ResponseEntity;
 
@@ -23,41 +19,15 @@ import java.util.List;
 @RequestMapping("/getTools")
 public class ToolController {
     private final ToolService toolService;
-    private final FavoritesService favoritesService;
 
-    public ToolController(ToolService toolService, FavoritesService favoritesService) {
+    public ToolController(ToolService toolService) {
         this.toolService = toolService;
-        this.favoritesService = favoritesService;
     }
 
     @GetMapping("")
     public ResponseEntity<List<ToolDto>> getAlltools(){
         List<ToolDto> list = toolService.getAlltools().values().stream()
                 .map(ToolDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
-
-    @GetMapping("/getFavoriteTools")
-    public ResponseEntity<List<FavoritesDto>> getFavorites(){
-        List<FavoritesDto> list = favoritesService.getFavorites().values().stream()
-                .map(FavoritesDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
-
-    @GetMapping("/getFavoriteTools/details")
-    public ResponseEntity<List<FavoritedDetailDto>> getFavoriteTools(){
-        var allTools = toolService.getAlltools();
-        var list = favoritesService.getFavorites().values().stream()
-                .map(f -> new FavoritedDetailDto(
-                        f.getId(),
-                        f.getToolIDs().stream()
-                                .map(allTools::get)
-                                .filter(t -> t != null)
-                                .map(ToolDto::new)
-                                .toList()
-                ))
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -70,7 +40,6 @@ public class ToolController {
 
     // maybe change this to department/jurisdiction/stage or implement new endpoint
     @GetMapping("/jurisdiction/{jurisdiction}")
-
     public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
         List<ToolDto> list = toolService.findByJurisdiction(jurisdiction).stream()
                 .map(ToolDto::new)
