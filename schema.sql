@@ -5,7 +5,7 @@ CREATE TABLE `department`(
     PRIMARY KEY (`department_id`)
 );
 
-CREATE TABLE `users`(
+CREATE TABLE `persons`(
     `user_id`       INT,
     `name`          VARCHAR(255),
     `initials`      VARCHAR(255),
@@ -68,5 +68,5 @@ CREATE TABLE `favorite_tools`(
     `tool_id` INT,
     PRIMARY KEY (`user_id`, `tool_id`),
     FOREIGN KEY (`tool_id`) REFERENCES `tool` (`tool_id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+    FOREIGN KEY (`user_id`) REFERENCES `persons` (`user_id`)
 );

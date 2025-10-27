@@ -1,8 +1,8 @@
 package com.example.p3.controller;
 
-import com.example.p3.dtos.UserDto;
-import com.example.p3.model.User;
-import com.example.p3.service.UserService;
+import com.example.p3.dtos.PersonDto;
+import com.example.p3.model.Person;
+import com.example.p3.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,60 +13,60 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/getUsers")
-public class UserController {
+public class PersonController {
 
-    private final UserService userService;
+    private final PersonService personService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
     //Default
     @GetMapping()
-    public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<UserDto> list = userService.getAllUsers().values().stream()
-                .map(UserDto::new)
+    public ResponseEntity<List<PersonDto>> getAllUsers() {
+        List<PersonDto> list = personService.getAllUsers().values().stream()
+                .map(PersonDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/department/{department}")
-    public ResponseEntity<List<UserDto>> getAllUsersByDepartment(@PathVariable User.Department department) {
-        List<UserDto> list = userService.getAllUsersByDepartment(department).values().stream()
-                .map(UserDto::new)
+    public ResponseEntity<List<PersonDto>> getAllUsersByDepartment(@PathVariable Person.Department department) {
+        List<PersonDto> list = personService.getAllUsersByDepartment(department).values().stream()
+                .map(PersonDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     //Call "getUserById" which selects the user according to the id (skal være initialer) in the URL
     @GetMapping("/id/{id}")
-    public ResponseEntity<List<UserDto>> getUserById(@PathVariable long id) {
-        List<UserDto> list = userService.getUserById(id).values().stream()
-                .map(UserDto::new)
+    public ResponseEntity<List<PersonDto>> getUserById(@PathVariable long id) {
+        List<PersonDto> list = personService.getUserById(id).values().stream()
+                .map(PersonDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/initials/{initials}")
-    public ResponseEntity<List<UserDto>> getUserByInitials(@PathVariable String initials) {
-        List<UserDto> list = userService.getUserByInitials(initials).values().stream()
-                .map(UserDto::new)
+    public ResponseEntity<List<PersonDto>> getUserByInitials(@PathVariable String initials) {
+        List<PersonDto> list = personService.getUserByInitials(initials).values().stream()
+                .map(PersonDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<List<UserDto>> getUserByEmail(@PathVariable String email) {
-        List<UserDto> list = userService.getUserByEmail(email).values().stream()
-                .map(UserDto::new)
+    public ResponseEntity<List<PersonDto>> getUserByEmail(@PathVariable String email) {
+        List<PersonDto> list = personService.getUserByEmail(email).values().stream()
+                .map(PersonDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<UserDto>> getUserByName(@PathVariable String name) {
-        List<UserDto> list = userService.getUserByName(name).values().stream()
-                .map(UserDto::new)
+    public ResponseEntity<List<PersonDto>> getUserByName(@PathVariable String name) {
+        List<PersonDto> list = personService.getUserByName(name).values().stream()
+                .map(PersonDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }

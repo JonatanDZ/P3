@@ -1,6 +1,6 @@
 package com.example.p3.service;
 
-import com.example.p3.model.User;
+import com.example.p3.model.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
-    private final Map<Long, User> inMemoryDb = new ConcurrentHashMap<>();
+public class PersonService {
+    private final Map<Long, Person> inMemoryDb = new ConcurrentHashMap<>();
 
     static long counter = 0;
     public long useCounter() {
@@ -28,35 +27,35 @@ public class UserService {
         // --- Mock data for development ---
     }
 
-    public Map<Long, User> getAllUsers() {
+    public Map<Long, Person> getAllUsers() {
         return inMemoryDb;
     }
 //Uses .equals since we simple compare enum values
-    public Map<Long, User> getAllUsersByDepartment(User.Department department) {
+    public Map<Long, Person> getAllUsersByDepartment(Person.Department department) {
         return getAllUsers().entrySet().stream()
                 .filter(entry -> entry.getValue().getDepartment().equals(department))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 //Array.asList makes id into a list of longs making the .contains posible to use
-    public Map<Long, User> getUserById(long id) {
+    public Map<Long, Person> getUserById(long id) {
         return getAllUsers().entrySet().stream()
                 .filter(entry -> Arrays.asList(entry.getValue().getId()).contains(id))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 //Til at søge efter
-    public Map<Long, User> getUserByInitials(String initials) {
+    public Map<Long, Person> getUserByInitials(String initials) {
         return getAllUsers().entrySet().stream()
                 .filter(entry -> entry.getValue().getInitials().contains(initials))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 //Til at søge efter
-    public Map<Long, User> getUserByEmail(String email) {
+    public Map<Long, Person> getUserByEmail(String email) {
         return getAllUsers().entrySet().stream()
                 .filter(entry -> entry.getValue().getEmail().contains(email))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 //Til at søge efter (ikke case sensitive) possible returns multiple
-    public Map<Long, User> getUserByName(String name) {
+    public Map<Long, Person> getUserByName(String name) {
         return getAllUsers().entrySet().stream()
                 .filter(entry -> entry.getValue().getName().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -88,19 +87,19 @@ public class UserService {
         ObjectMapper mapper = new ObjectMapper();
 
         //We are creating an empty list to fill up the with the json data
-        User[] users;
+        Person[] persons;
 
         // I needed to make a try/catch otherwise it complained.
         try {
             //Reads the file that is provided and fits it to how user looks
-            users = mapper.readValue(new File(src), User[].class);
+            persons = mapper.readValue(new File(src), Person[].class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         //We are posting all the elements to the DB.
-        for (User user : users) {
-            inMemoryDb.put(useCounter(), user);
+        for (Person person : persons) {
+            inMemoryDb.put(useCounter(), person);
         }
     }
 

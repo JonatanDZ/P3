@@ -4,7 +4,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class User {
+public class Person {
     private long id;
     private String initials;
     private String name;
