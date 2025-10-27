@@ -22,7 +22,6 @@ function getDepartmentsDisplay(){
         .then(response=>response.json())
         .then(data => {
             let departmentSelector = document.querySelector(".departmentSelector");
-            console.log(departmentSelector);
             data.forEach(department => {
                 const input = document.createElement("input");
                 input.type = "radio";
@@ -49,6 +48,7 @@ function getDepartmentsDisplay(){
 function getToolsByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in
     const department = getDepartment()//"DEVOPS";
+
     let jurisdiction = getJurisdiction();
     console.log(jurisdiction)
     const branch = getBranch();
