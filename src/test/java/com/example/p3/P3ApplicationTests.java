@@ -25,7 +25,7 @@ class P3ApplicationTests {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final RestTemplate restTemplate = new  RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
 
 
     @Test
@@ -37,11 +37,49 @@ class P3ApplicationTests {
         //assertThat(response.getHeaders().getContentType().toString()).contains("application/json");
 
         String expectedJson = """
-        [{"id":15,"initials":"msit","name":"Micky Sitwell","email":"msit@cego.dk","department":"PAYMENTS", "admin":true}]
-        """;
+                [{"id":15,"initials":"msit","name":"Micky Sitwell","email":"msit@cego.dk","department":"PAYMENTS", "admin":true}]
+                """;
 
         assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
     }
+
+    //Test to see if getFavoriteTools is called
+    @Test
+    void favoritesListsForAllUsers() throws Exception {
+        String url = "http://localhost:8080/getTools/getFavoriteTools";
+
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+        String expectedJson = """
+                [
+                  { "id": 1, "toolIDs": [1, 3] },
+                  { "id": 2, "toolIDs": [4] }
+                ]
+                """;
+
+        assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
+    }
+
+    @Test
+    void favoritesDetailedListsForAllUsers() throws Exception {
+        String url = "http://localhost:8080/getTools/getFavoriteTools/details/2";
+
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+        String expectedJson = """
+                {"id":2,"toolIDs":[
+                {"id":4,"name":"Kubernetes Production Best Practices",
+                "url":"https://kubernetes.io/docs/concepts/security/",
+                "tags":["kubernetes","devops","security"],
+                "departments":["DEVOPS"],
+                "stages":["PRODUCTION"],
+                "jurisdictions":["DK","UK"],
+                "dynamic":false}]}
+                """;
+
+        assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
+    }
+
 
 //    @Autowired
 //    private MockMvc mockMvc;

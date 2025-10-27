@@ -1,13 +1,11 @@
 package com.example.p3.service;
 
 import com.example.p3.model.Favorites;
-import com.example.p3.model.Tool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,31 +13,40 @@ import java.util.concurrent.ConcurrentHashMap;
 public class FavoritesService {
 
     private final Map<Long, Favorites> inMemoryFavorites = new ConcurrentHashMap<>();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public Map<Long, Favorites> getFavorites() {
         return inMemoryFavorites;
     }
 
-    //@PostConstruct
-    public void seedData() {
-        JsonParserFavorites("src/main/resources/static/MOCK_FAVORITES.json");
+    @PostConstruct
+    public void seedDataFavorites() {
+        JsonParserFavorites("classpath:static/MOCK_FAVORITES.json");
     }
 
     public void JsonParserFavorites(String src) {
-        ObjectMapper mapper = new ObjectMapper();
-
         Favorites[] favs;
 
-        // I needed to make a try/catch otherwise it complained.
-        try {
-            favs = mapper.readValue(new File(src), Favorites[].class);
+        try (InputStream is = resolveInputStream(src)) {
+            favs = mapper.readValue(is, Favorites[].class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to read favorites from '" + src + "'", e);
         }
+
         inMemoryFavorites.clear();
-        //We are posting all the elements to the DB.
-        for(Favorites f : favs){
+        for (Favorites f : favs) {
             inMemoryFavorites.put(f.getId(), f);
         }
+    }
+
+    private InputStream resolveInputStream(String src) throws IOException {
+        if (src.startsWith("classpath:")) {
+            String path = src.substring("classpath:".length());
+            if (path.startsWith("/")) path = path.substring(1);
+            InputStream is = getClass().getClassLoader().getResourceAsStream(path);
+            if (is == null) throw new FileNotFoundException("Resource not found on classpath: " + path);
+            return is;
+        }
+        return new FileInputStream(src);
     }
 }
