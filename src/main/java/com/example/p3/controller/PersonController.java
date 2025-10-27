@@ -1,7 +1,7 @@
 package com.example.p3.controller;
 
-import com.example.p3.dtos.PersonDto;
-import com.example.p3.model.Person;
+import com.example.p3.dtos.person.PersonDto;
+import com.example.p3.model.person.Person;
 import com.example.p3.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

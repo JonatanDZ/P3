@@ -1,4 +1,4 @@
-package com.example.p3.model;
+package com.example.p3.model.person;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,11 +9,10 @@ public class Person {
     private String initials;
     private String name;
     private String email;
+    private Role role;
     private Department department;
     public enum Department {
         DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS
     }
-    private boolean admin;
 
-    //Favorites tror ikke den skal være der, da der skal bruges et bridging table og derfor kommer favorites gennem initialer -> userId -> bridging table -> favorites
 }

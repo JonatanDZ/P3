@@ -1,7 +1,8 @@
-package com.example.p3.dtos;
+package com.example.p3.dtos.person;
 
-import com.example.p3.model.Person;
+import com.example.p3.model.person.Person;
 import lombok.Data;
+import com.example.p3.model.person.Role;
 
 @Data
 public class PersonDto {
@@ -10,7 +11,7 @@ public class PersonDto {
     private String name;
     private String email;
     private Person.Department department;
-    private boolean admin;
+    private Role role;
 
     public PersonDto(Person p){
         this.id = p.getId();
@@ -18,6 +19,7 @@ public class PersonDto {
         this.name = p.getName();
         this.email = p.getEmail();
         this.department = p.getDepartment();
-        this.admin = p.isAdmin();
+        this.role = p.getRole();
+
     }
 }
