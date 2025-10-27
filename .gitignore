@@ -34,3 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Node Modules ###
+node_modules/
