@@ -20,12 +20,12 @@ public class FavoritesService {
         return inMemoryFavorites;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void seedData() {
-        JsonParser("src/main/resources/static/MOCK_FAVORITES.json");
+        JsonParserFavorites("src/main/resources/static/MOCK_FAVORITES.json");
     }
 
-    public void JsonParser(String src) {
+    public void JsonParserFavorites(String src) {
         ObjectMapper mapper = new ObjectMapper();
 
         Favorites[] favs;
