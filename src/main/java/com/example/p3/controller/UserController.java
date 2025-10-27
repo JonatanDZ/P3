@@ -40,11 +40,11 @@ public class UserController {
 
     //Call "getUserById" which selects the user according to the id (skal være initialer) in the URL
     @GetMapping("/id/{id}")
-    public ResponseEntity<List<UserDto>> getUserById(@PathVariable long id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable long id) {
         List<UserDto> list = userService.getUserById(id).values().stream()
                 .map(UserDto::new)
                 .toList();
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(list.get(0));
     }
 
     @GetMapping("/initials/{initials}")
