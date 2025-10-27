@@ -33,12 +33,12 @@ public class Tool {
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<User> usersWhoFavorited = new HashSet<>();
 
-    @ManyToMany(mappedBy = "tools")
+    @ManyToMany(mappedBy = "departmentTools")
     private Set<Department> departments;
 
-    @ManyToMany(mappedBy = "tools")
+    @ManyToMany(mappedBy = "jurisdictionTools")
     private Set<Jurisdiction> jurisdictions;
 
-    @ManyToMany(mappedBy = "tools")
+    @ManyToMany(mappedBy = "stageTools")
     private Set<Stage> stages;
 }

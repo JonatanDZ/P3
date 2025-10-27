@@ -2,8 +2,10 @@ package com.example.p3.service;
 
 import com.example.p3.dtos.ToolDto;
 import com.example.p3.model.Tool;
+import com.example.p3.repositories.ToolRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -18,7 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ToolService {
+    private final ToolRepository toolRepository;
 
     // hashmap to be made her
     // in memory database:
@@ -66,8 +70,7 @@ public class ToolService {
         inMemoryDb.put(createdtool.getId(), createdtool);
         return createdtool;
     }
-    // CRUD methods
-
+    // CRUD methods using the repo
     public Map<Long, Tool> getAlltools() {
         return inMemoryDb;
     }
