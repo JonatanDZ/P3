@@ -8,14 +8,23 @@ let dynamicCheck;
 
 let formIsShown = false;
 
-
 document.addEventListener("DOMContentLoaded", ()=>{
     loadAllFromOptions();
-    addToolDiv = document.querySelector("#addToolDiv");
+
+    //  make sure the DOM element is available as a global for toggleForm.js
+    window.addToolDiv = document.querySelector("#addToolDiv");
+    addToolDiv = window.addToolDiv;
     toggleBtns = document.querySelectorAll(".toggleBtn");
     toggleBtns.forEach(btn => {
-            btn.addEventListener("click", ()=>{
+            btn.addEventListener("click", (event)=>{
+                event.stopPropagation(); // prevents the opening click from being treated as an outside click.
                 formIsShown = toggleForm(formIsShown);
+
+                if(formIsShown){
+                        document.addEventListener("click", handleOutsideClick)
+                } else {
+                    document.removeEventListener("click", handleOutsideClick)
+                }
             });
         }
     )
@@ -26,23 +35,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
 });
 
 
-
-
 function loadAllFromOptions(){
     loadOptions("departments");
     loadOptions("jurisdictions");
 }
 
 
-/*
-window.onclick = function(event) {
-    if (event.target == addToolDiv) {
-        addToolDiv.style.display = "none";
-    }
-}
-*/
-
-//
 if (document.querySelector("#submitBtn")) {
     document.querySelector("#submitBtn").addEventListener("click", function (e) {
         e.preventDefault();
@@ -50,4 +48,19 @@ if (document.querySelector("#submitBtn")) {
     });
 }
 
+function handleOutsideClick(event) {
+    // if addToolDiv is not found, do nothing
+    if (!addToolDiv) return;
+
+    // if click outside the form and not on a "toggle button", close the form
+    if (
+        formIsShown &&
+        !addToolDiv.contains(event.target) &&
+        // allow clicks on the toggle buttons (open/cancel) to behave normally
+        !event.target.closest(".toggleBtn")
+    ) {
+        formIsShown = toggleForm(formIsShown);
+        document.removeEventListener("click", handleOutsideClick);
+    }
+}
 
