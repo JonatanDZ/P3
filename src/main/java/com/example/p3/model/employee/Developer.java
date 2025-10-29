@@ -1,4 +1,4 @@
-package com.example.p3.model.person;
+package com.example.p3.model.employee;
 
 public class Developer extends Role{
     //Get jurisdiction

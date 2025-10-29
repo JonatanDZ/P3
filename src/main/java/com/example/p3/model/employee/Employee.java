@@ -1,4 +1,4 @@
-package com.example.p3.model.person;
+package com.example.p3.model.employee;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 @Setter
 @Getter
-public class Person {
+public class Employee {
     private long id;
     private String initials;
     private String name;
@@ -21,3 +21,11 @@ public class Person {
 //        roles.add(role);
 //    }
 }
+
+
+///metoder
+//Add personal tool
+//Search person + tool
+//Personal tool edited
+//Personal tool removed
+//Get favorites
