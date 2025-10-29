@@ -16,8 +16,8 @@ public class Person {
     public enum Department {
         DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS
     }
-
-    public void addRole(Role role) {
-        roles.add(role);
-    }
+//    Måde at tilføje på
+//    public void addRole(Role role) {
+//        roles.add(role);
+//    }
 }
