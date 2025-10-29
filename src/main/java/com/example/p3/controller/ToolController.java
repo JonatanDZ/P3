@@ -31,8 +31,9 @@ public class ToolController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<ToolDto>> getAlltools(){
-        List<ToolDto> list = toolService.getAlltools().values().stream()
+    public ResponseEntity<List<ToolDto>> retrieveTools() {
+        List<ToolDto> list = toolService.retreiveTools()
+                .stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);

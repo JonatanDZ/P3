@@ -70,6 +70,22 @@ public class ToolService {
         inMemoryDb.put(createdtool.getId(), createdtool);
         return createdtool;
     }
+
+    public List<Tool> retreiveTools() {
+        return toolRepository.findAll()
+                .stream()
+                .map(this::toModel)
+                .toList();
+    }
+
+    private com.example.p3.model.Tool toModel(com.example.p3.entities.Tool e) {
+        com.example.p3.model.Tool m = new com.example.p3.model.Tool();
+        m.setId(e.getId());
+        m.setName(e.getName());
+        m.setUrl(e.getUrl());
+        return m;
+    }
+
     // CRUD methods using the repo
     public Map<Long, Tool> getAlltools() {
         return inMemoryDb;

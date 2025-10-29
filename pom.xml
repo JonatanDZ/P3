@@ -82,7 +82,7 @@
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/P3?createDatabaseIfNotExist=true</url>
                     <user>root</user>
-                    <password>SKRIV DIN KODE HER!</password>
+                    <password>Mimsedyr42!</password>
                 </configuration>
             </plugin>
 
