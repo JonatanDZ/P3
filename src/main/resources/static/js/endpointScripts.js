@@ -22,7 +22,6 @@ function getDepartmentsDisplay(){
         .then(response=>response.json())
         .then(data => {
             let departmentSelector = document.querySelector(".departmentSelector");
-            console.log(departmentSelector);
             data.forEach(department => {
                 const input = document.createElement("input");
                 input.type = "radio";
@@ -49,6 +48,7 @@ function getDepartmentsDisplay(){
 function getToolsByDepartmentJurisdictionStage() {
     // mock department, should be based on the user logged in
     const department = getDepartment()//"DEVOPS";
+
     let jurisdiction = getJurisdiction();
     console.log(jurisdiction)
     const branch = getBranch();
@@ -76,7 +76,7 @@ function getToolsByDepartmentJurisdictionStage() {
 window.addEventListener('DOMContentLoaded', () => {
     getToolsDisplay();
     getDepartmentsDisplay();
-    getToolsByDepartmentJurisdictionStage(); // initial render
+    getToolsByDepartmentJurisdictionStage();// initial render
 
     // React to changes in branch (radio group inside .branchSelector)
     const branchContainer = document.querySelector('.branchSelector');
@@ -141,7 +141,7 @@ function getJurisdiction() {
     return isChecked ? "UK" : "DK";
 }
 
-function getBranch() {
+export function getBranch() {
     // class branchselector is an array of checkboxes, whose value is the desiree.
     // if a certain checkbox is checked, save the value
     // getting the checkbox class

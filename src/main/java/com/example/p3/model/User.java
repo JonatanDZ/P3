@@ -13,7 +13,7 @@ public class User {
     public enum Department {
         DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS
     }
+    private boolean admin;
 
-    //Favourites
-    //Admin
+    //Favorites tror ikke den skal være der, da der skal bruges et bridging table og derfor kommer favorites gennem initialer -> userId -> bridging table -> favorites
 }
