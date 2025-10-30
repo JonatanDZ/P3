@@ -25,17 +25,16 @@ public class ToolController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<ToolDto>> retrieveTools() {
-        List<ToolDto> list = toolService.retreiveTools()
-                .stream()
+    public ResponseEntity<List<ToolDto>> getAllTools(){
+        List<ToolDto> list = toolService.getAllTools().values().stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @PostMapping("/getToolsByStage/{stage}")
-    public ResponseEntity<List<ToolDto>> gettoolsByStage(@PathVariable("stage") String stage){
-        List<ToolDto> list = toolService.gettoolsByStage(stage);
+    public ResponseEntity<List<ToolDto>> getToolsByStage(@PathVariable("stage") String stage){
+        List<ToolDto> list = toolService.getToolsByStage(stage);
         return ResponseEntity.ok(list);
     }
 
@@ -50,20 +49,20 @@ public class ToolController {
 
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
     @GetMapping("/department/{department}")
-    public ResponseEntity<List<ToolDto>> getAlltoolsByDepartment(@PathVariable Tool.Department department) {
-        List<ToolDto> list = toolService.getAlltoolsByDepartment(department).values().stream()
+    public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable Tool.Department department) {
+        List<ToolDto> list = toolService.getAllToolsByDepartment(department).values().stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{department}/{jurisdiction}/{stage}")
-    public ResponseEntity<List<ToolDto>> getAlltoolsByDepartmentJurisdictionStage(
+    public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
             @PathVariable Tool.Department department,
             @PathVariable Tool.Jurisdiction jurisdiction,
             @PathVariable Tool.Stage stage
     ){
-        List<ToolDto> list = toolService.getAlltoolsByDepartmentJurisdictionStage(department, jurisdiction, stage).values().stream()
+        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).values().stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);

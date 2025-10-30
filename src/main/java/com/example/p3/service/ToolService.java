@@ -87,11 +87,11 @@ public class ToolService {
     }
 
     // CRUD methods using the repo
-    public Map<Long, Tool> getAlltools() {
+    public Map<Long, Tool> getAllTools() {
         return inMemoryDb;
     }
 
-    public List<ToolDto> gettoolsByStage(String stage){
+    public List<ToolDto> getToolsByStage(String stage){
         List<ToolDto> list = inMemoryDb.values().stream().map(ToolDto::new).toList();
         List<ToolDto> listByStage = new ArrayList<>();
         for(int i = 0; i<inMemoryDb.size();i++){
@@ -135,18 +135,18 @@ public class ToolService {
     }
 
     //Filters the tools so only tool with the department from the URL is returned
-    public Map<Long, Tool> getAlltoolsByDepartment(Tool.Department department) {
-        return getAlltools().entrySet().stream()
+    public Map<Long, Tool> getAllToolsByDepartment(Tool.Department department) {
+        return getAllTools().entrySet().stream()
             .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    public Map<Long, Tool> getAlltoolsByDepartmentJurisdictionStage(
+    public Map<Long, Tool> getAllToolsByDepartmentJurisdictionStage(
             Tool.Department department,
             Tool.Jurisdiction jurisdiction,
             Tool.Stage stage
     ) {
-        return getAlltools().entrySet().stream()
+        return getAllTools().entrySet().stream()
                 .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
                 .filter(entry -> Arrays.asList(entry.getValue().getJurisdictions()).contains(jurisdiction))
                 .filter(entry -> Arrays.asList(entry.getValue().getStages()).contains(stage))
