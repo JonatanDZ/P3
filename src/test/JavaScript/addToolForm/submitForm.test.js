@@ -8,7 +8,7 @@ describe('submitForm', () => {
     let mockResponse;
     beforeEach(() => {
         jest.clearAllMocks();
-
+//Data used for the tests (simply hard coded HTML)
         document.body.innerHTML = `
         <div id="addToolDiv" style="display:none;"></div>
         <button class="toggleBtn"></button>
@@ -35,7 +35,7 @@ describe('submitForm', () => {
             ok: true,
             json: async () => ({ success: true }),
         }
-
+//Uses submitForm on the hard coded HTML to make it "visible" for jest
         global.fetch.mockResolvedValue(mockResponse);
         await submitForm();
 
@@ -79,7 +79,7 @@ describe('submitForm', () => {
         expect(body.jurisdictions).toEqual(['DK']);
         expect(body.stages).toEqual(['STAGE1']);
     })
-
+//Test to see if the tags text is correctly "translated" to the JSON
     test('tags are trimmed and split correctly', () => {
         document.querySelector('#tags').value = '  tagA , tagB,tagC;..  ,  ';
         submitForm();
