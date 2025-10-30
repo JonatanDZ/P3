@@ -17,7 +17,7 @@ public class Tool {
     // there can be multiple departments to a Tool
     private Department[] departments;
     public enum Department {
-        DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS
+        DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS, HR, LEGAL
     }
 
     // there can be multiple stages to a Tool

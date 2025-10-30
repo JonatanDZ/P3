@@ -8,7 +8,7 @@ function footerUpdate() {
     const bg = styles?.backgroundColor;
     const fg = styles?.color;
 
-    const footerChip = document.getElementById('branch');
+    const footerChip = document.querySelector('footer');
     if (!footerChip) return;
 
     footerChip.textContent = label?.textContent?.trim() || checked.value;

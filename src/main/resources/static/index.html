@@ -29,31 +29,13 @@
     <div class="main">
     <aside>
         <h1>Departments</h1>
-        <div class = "departmentSelector">
-<!--        <input type="radio" id="devOps" name="department" value="DEVOPS" checked>-->
-<!--        <label for="devOps">DevOps</label><br>-->
-
-<!--        <input type="radio" id="frontEnd" name="department" value="FRONTEND">-->
-<!--        <label for="frontEnd">FrontEnd</label><br>-->
-
-<!--        <input type="radio" id="games" name="department" value="GAMES">-->
-<!--        <label for="games">Games</label><br>-->
-
-<!--        <input type="radio" id="payments" name="department" value="PAYMENTS">-->
-<!--        <label for="payments">Payments</label><br>-->
-
-<!--        <input type="radio" id="players" name="department" value="PLAYERS">-->
-<!--        <label for="players">Players</label><br>-->
-
-<!--        <input type="radio" id="promotions" name="department" value="PROMOTIONS">-->
-<!--        <label for="promotions">Promotions</label><br>-->
-        </div>
+        <div class = "departmentSelector"> </div>
     </aside>
 
         <section>
             <div id="searchbar">
                 <input type="text" placeholder="Placeholder for search">
-                <button id="addToolBtn"> &nbsp;+&nbsp; </button>
+                <button id="addToolBtn" class="toggleBtn"> &nbsp;+&nbsp; </button>
             </div>
 
             <div class="popUpForm" id="addToolDiv" style="display: none">
@@ -63,32 +45,49 @@
                     <label for="toolName"> <b> Tool name</b></label>
                     <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" required>
 
-                    <label for="toolURL"> <b> Tool URL</b></label>
-                    <input id="toolURL" type="text" placeholder="Enter URL" name="toolURL" required>
-
-                    <label for="IsDynamic"> <b> Tool URL</b>
-                        <input id="IsDynamic" type="checkbox" placeholder="Is Dynamic?" name="IsDynamic" required> Is Dynamic?
+                    <label for="isDynamic"> <b> Is Dynamic?</b>
+                        <input id="isDynamic" type="checkbox" name="IsDynamic" checked="checked">
                     </label>
 
-
-                    <label for="Tags"> <b> Tags </b></label>
-                    <input id="Tags" type="text" placeholder="Enter Tags" name="tags" required>
-
-                    <label for="DepartmentInput"> <b> Department</b></label>
-                    <div class="Select department" style="width:200px;">
-                    <select id="DepartmentInput" name="Department" required></select>
+                    <label for="toolURL"> <b> Tool URL</b></label>
+                    <div id="toolURL">
+                        <input id="toolURL1" class="toolURL" type="text" placeholder="Enter first part of URL" name="toolURL" required>
+                        <b id="toolUser">USER</b>
+                        <input id="toolURL2" class="toolURL toolURLHide" type="text" placeholder="Enter second part of URL" name="toolURL" required>
                     </div>
 
-                    <label for="JurisdictionInput"> <b> Choose jurisdiction</b></label>
-                    <div class="Select jurisdiction" style="width:200px;">
-                        <select id="JurisdictionInput" name="Jurisdiction" required>
-                            <option value="">Select Jurisdiction</option>
-                            <option value="DK">DK</option>
-                            <option value="UK">UK</option>
-                        </select>
+
+
+
+                    <label for="tags"> <b> Tags </b></label>
+                    <input id="tags" type="text" placeholder="Enter Tags" name="tags">
+
+                    <label for="departmentsInput"> <b> Department</b></label>
+                    <div id = "departmentsInput" class="inputDiv"></div>
+
+
+                    <label for="stagesInput"> <b> Stages</b></label>
+                    <div id = "stagesInput" class="inputDiv">
+                        <div class="checkBoxDiv">
+                            <label for="developmentInput"> Development </label>
+                            <input id= "developmentInput" class="stagesChecks" type="checkbox" value="DEVELOPMENT">
+                        </div>
+                        <div class="checkBoxDiv">
+                            <label for="stagingInput"> Staging </label>
+                            <input id="stagingInput" class="stagesChecks" type="checkbox" value="STAGING">
+                        </div>
+                        <div class="checkBoxDiv">
+                            <label for="productionInput"> Production </label>
+                            <input id="productionInput"class="stagesChecks" type="checkbox" value="PRODUCTION">
+                        </div>
                     </div>
-                    <button type="submit" class="AddTool">Add Tool</button>
-                    <button type="button" class="cancel">Cancel</button>
+
+
+                    <label for="jurisdictionsInput"> <b> Jurisdiction</b></label>
+                    <div id="jurisdictionsInput" class="inputDiv"> </div>
+
+                    <button type="submit" id="submitBtn" class="submitBtn">Add Tool</button>
+                    <button type="button" class="toggleBtn">Cancel</button>
                 </form>
             </div>
 
@@ -103,11 +102,12 @@
         </section>
     </div>
 
-    <footer>
-        <div id="branch"></div>
-    </footer>
-    <script src="/js/endpointScripts.js"> </script>
-    <script src="/js/footerVariable.js"></script>
-    <script src="/js/addTool.js"> </script>
+    <footer></footer>
+
+
+    <script type="module" src="/js/endpointScripts.js"> </script>
+    <script type="module" src="/js/addToolForm.js"> </script>
+    <script type="module" src="/js/fetchTool.js"> </script>
+    <script type="module" src="/js/footerVariable.js"></script>
 </body>
 </html>
