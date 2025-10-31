@@ -31,7 +31,7 @@ public class Tool {
     // mappedBy is important here. It tells Hibernate that the User class owns this relationship.
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
-    private Set<User> usersWhoFavorited = new HashSet<>();
+    private Set<Employee> employeesWhoFavorited = new HashSet<>();
 
     @ManyToMany(mappedBy = "departmentTools")
     private Set<Department> departments;
