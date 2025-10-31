@@ -5,13 +5,13 @@ CREATE TABLE `department` (
                               PRIMARY KEY (`department_id`)
 );
 
-CREATE TABLE `users` (
-                         `user_id` INT,
+CREATE TABLE `employees` (
+                         `employee_id` INT,
                          `name` VARCHAR(255),
                          `initials` VARCHAR(255),
                          `department_id` INT,
                          `is_admin` BOOL,
-                         PRIMARY KEY (`user_id`),
+                         PRIMARY KEY (`employee_id`),
                          FOREIGN KEY (`department_id`)
                              REFERENCES `department`(`department_id`)
 );
@@ -64,9 +64,9 @@ CREATE TABLE `jurisdiction_tools` (
 );
 
 CREATE TABLE favorite_tools (
-                                user_id INT NOT NULL,
+                                employee_id INT NOT NULL,
                                 tool_id INT NOT NULL,
-                                PRIMARY KEY (user_id, tool_id),
-                                FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+                                PRIMARY KEY (employee_id, tool_id),
+                                FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE,
                                 FOREIGN KEY (tool_id) REFERENCES tool(tool_id) ON DELETE CASCADE
 );
