@@ -6,12 +6,12 @@ CREATE TABLE `department`(
 );
 
 CREATE TABLE `employees`(
-    `user_id`       INT,
+    employee_id       INT,
     `name`          VARCHAR(255),
     `initials`      VARCHAR(255),
     `department_id` INT,
     `is_admin`      BOOL,
-    PRIMARY KEY (`user_id`),
+    PRIMARY KEY (employee_id),
     FOREIGN KEY (`department_id`)
         REFERENCES `department` (`department_id`)
 );
@@ -64,9 +64,9 @@ CREATE TABLE `jurisdiction_tools`(
 );
 
 CREATE TABLE `favorite_tools`(
-    `user_id` INT,
+    employee_id INT,
     `tool_id` INT,
-    PRIMARY KEY (`user_id`, `tool_id`),
+    PRIMARY KEY (employee_id, `tool_id`),
     FOREIGN KEY (`tool_id`) REFERENCES `tool` (`tool_id`),
-    FOREIGN KEY (`user_id`) REFERENCES `employees` (`user_id`)
+    FOREIGN KEY (employee_id) REFERENCES `employees` (employee_id)
 );
