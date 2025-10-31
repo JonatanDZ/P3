@@ -11,10 +11,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "users", schema = "dbtest")
-public class User {
+@Table(name = "employees", schema = "dbtest")
+public class Employee {
     @Id
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "employee_id", nullable = false)
     private Integer id;
 
     @Size(max = 255)
@@ -33,12 +33,12 @@ public class User {
     private Boolean isAdmin;
 
     // implementing the favorite_tools table.
-    // User.java
+    // employee.java
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "favorite_tools",
-            // the leftmost user_id is the column in the users table, and the rightmost is the id of favorite_tools
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            // the leftmost employee_id is the column in the employees table, and the rightmost is the id of favorite_tools
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "employee_id"),
             // inverse sounds way more complex than it is. There are two foreign keys in the favorite_tools table, therefore there are two JOIN statements.
             inverseJoinColumns = @JoinColumn(name = "tool_id", referencedColumnName = "tool_id")
     )
@@ -46,11 +46,11 @@ public class User {
 
     public void addFavorite(Tool tool) {
         favoriteTools.add(tool);
-        tool.getUsersWhoFavorited().add(this); // keep both sides in sync
+        tool.getEmployeesWhoFavorited().add(this); // keep both sides in sync
     }
 
     public void removeFavorite(Tool tool) {
         favoriteTools.remove(tool);
-        tool.getUsersWhoFavorited().remove(this);
+        tool.getEmployeesWhoFavorited().remove(this);
     }
 }
