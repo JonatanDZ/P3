@@ -26,7 +26,7 @@ public class ToolController {
 
     @GetMapping("")
     public ResponseEntity<List<ToolDto>> getAllTools(){
-        List<ToolDto> list = toolService.getAllTools().values().stream()
+        List<ToolDto> list = toolService.getAllTools().stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
@@ -48,7 +48,7 @@ public class ToolController {
     }
 
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
-    @GetMapping("/department/{department}")
+  /*  @GetMapping("/department/{department}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable Tool.Department department) {
         List<ToolDto> list = toolService.getAllToolsByDepartment(department).values().stream()
                 .map(ToolDto::new)
@@ -86,5 +86,5 @@ public class ToolController {
         );
 
         return ResponseEntity.ok(createdTool);
-    }
+    }*/
 }

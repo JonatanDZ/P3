@@ -29,6 +29,7 @@ public class ToolService {
     private final Map<Long, Tool> inMemoryDb = new ConcurrentHashMap<>();
 
     static long counter = 0;
+
     public long useCounter() {
         return ++counter;
     }
@@ -54,8 +55,7 @@ public class ToolService {
                            Tool.Department[] departments,
                            Tool.Stage[] stages,
                            Tool.Jurisdiction[] jurisdictions,
-                           boolean isDynamic)
-    {
+                           boolean isDynamic) {
         Tool createdtool = new Tool();
         createdtool.setId(useCounter());
         createdtool.setName(name);
@@ -71,7 +71,7 @@ public class ToolService {
         return createdtool;
     }
 
-    public List<Tool> retreiveTools() {
+    public List<Tool> getAllTools() {
         return toolRepository.findAll()
                 .stream()
                 .map(this::toModel)
@@ -88,15 +88,15 @@ public class ToolService {
     }
 
     // CRUD methods using the repo
-    public Map<Long, Tool> getAllTools() {
+    /*public Map<Long, Tool> getAllTools() {
         return inMemoryDb;
-    }
+    }*/
 
-    public List<ToolDto> getToolsByStage(String stage){
+    public List<ToolDto> getToolsByStage(String stage) {
         List<ToolDto> list = inMemoryDb.values().stream().map(ToolDto::new).toList();
         List<ToolDto> listByStage = new ArrayList<>();
-        for(int i = 0; i<inMemoryDb.size();i++){
-            if(Arrays.toString(list.get(i).getStages()).contains(stage)){
+        for (int i = 0; i < inMemoryDb.size(); i++) {
+            if (Arrays.toString(list.get(i).getStages()).contains(stage)) {
                 listByStage.add(list.get(i));
             }
         }
@@ -108,7 +108,7 @@ public class ToolService {
     public List<Tool> findByJurisdiction(Tool.Jurisdiction jurisdiction) {
         return inMemoryDb.values().stream()
                 .filter(l -> {
-                    var arr =  l.getJurisdictions();
+                    var arr = l.getJurisdictions();
                     return arr != null && Arrays.asList(arr).contains(jurisdiction);
                 })
                 .toList();
@@ -130,13 +130,14 @@ public class ToolService {
         }
 
         //We are posting all the elements to the DB.
-        for(Tool tool : tools){
+        for (Tool tool : tools) {
             inMemoryDb.put(tool.getId(), tool);
         }
     }
+}
 
     //Filters the tools so only tool with the department from the URL is returned
-    public Map<Long, Tool> getAllToolsByDepartment(Tool.Department department) {
+    /*public Map<Long, Tool> getAllToolsByDepartment(Tool.Department department) {
         return getAllTools().entrySet().stream()
             .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -154,7 +155,7 @@ public class ToolService {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
-
+*/
 
 // Test
 // {
