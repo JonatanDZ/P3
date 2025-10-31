@@ -1,6 +1,7 @@
 package com.example.p3.service;
 
 import com.example.p3.dtos.ToolDto;
+import com.example.p3.entities.Employee;
 import com.example.p3.model.Tool;
 import com.example.p3.repositories.ToolRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Service
 @AllArgsConstructor
 public class ToolService {
@@ -35,11 +38,11 @@ public class ToolService {
     }
 
     //  Called automatically after Spring creates the service
-    @PostConstruct
+   /* @PostConstruct
     public void seedData() {
         JsonParserTool("src/main/resources/static/TOOL_MOCK_DATA.json");
         // --- Mock data for development ---
-    }
+    }*/
 
 
     // CRUD methods (Create, Read, Update, Delete)
@@ -71,11 +74,8 @@ public class ToolService {
         return createdtool;
     }
 
-    public List<Tool> getAllTools() {
-        return toolRepository.findAll()
-                .stream()
-                .map(this::toModel)
-                .toList();
+    public List<com.example.p3.entities.Tool> getAllTools() {
+        return toolRepository.findAll();
     }
 
     //Makes model tool from entity tool
@@ -90,13 +90,14 @@ public class ToolService {
         //m.setJurisdictions(e.getJurisdictions());
         return m;
     }
+}
 
     // CRUD methods using the repo
     /*public Map<Long, Tool> getAllTools() {
         return inMemoryDb;
     }*/
 
-    public List<ToolDto> getToolsByStage(String stage) {
+   /* public List<ToolDto> getToolsByStage(String stage) {
         List<ToolDto> list = inMemoryDb.values().stream().map(ToolDto::new).toList();
         List<ToolDto> listByStage = new ArrayList<>();
         for (int i = 0; i < inMemoryDb.size(); i++) {

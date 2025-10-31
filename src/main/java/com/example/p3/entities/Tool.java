@@ -36,6 +36,11 @@ public class Tool {
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
 
     @ManyToMany(mappedBy = "departmentTools")
+    @JoinTable(
+            name = "tool_department",
+            joinColumns = @JoinColumn(name = "tool_id", referencedColumnName = "tool_id"),
+            inverseJoinColumns = @JoinColumn(name = "department", referencedColumnName = "department_id")
+    )
     private Set<Department> departments;
 
     @ManyToMany(mappedBy = "jurisdictionTools")
