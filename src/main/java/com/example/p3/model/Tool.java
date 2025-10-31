@@ -2,6 +2,8 @@ package com.example.p3.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 // adding getters and setters
 @Getter
 @Setter
@@ -15,10 +17,10 @@ public class Tool {
     private String[] tags;
 
     // there can be multiple departments to a Tool
-    private Department[] departments;
-    public enum Department {
-        DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS, HR, LEGAL
-    }
+    private Set<Department> departments;
+//   /*public enum Department {
+//        DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS, HR, LEGAL
+//    }*/
 
     // there can be multiple stages to a Tool
     private Stage[] stages;
@@ -28,9 +30,9 @@ public class Tool {
 
 
     private Jurisdiction[] jurisdictions;
-    public enum Jurisdiction {
-        DK, UK
-    }
+//    public enum Jurisdiction {
+//        DK, UK
+//    }
 
 
     public String tagsToString(){

@@ -84,6 +84,10 @@ public class ToolService {
         m.setId(e.getId());
         m.setName(e.getName());
         m.setUrl(e.getUrl());
+        m.setDynamic(e.getIsDynamic());
+        m.setDepartments(e.getDepartments());
+        //m.setStages(e.getStages());
+        m.setJurisdictions(e.getJurisdictions());
         return m;
     }
 
@@ -135,12 +139,12 @@ public class ToolService {
         }
     }
 }
-
     //Filters the tools so only tool with the department from the URL is returned
     /*public Map<Long, Tool> getAllToolsByDepartment(Tool.Department department) {
-        return getAllTools().entrySet().stream()
-            .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
+        return getAllTools().stream()
+                .filter(tool -> tool.getDepartments().contains(department))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
     }
 
     public Map<Long, Tool> getAllToolsByDepartmentJurisdictionStage(
