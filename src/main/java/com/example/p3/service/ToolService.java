@@ -78,8 +78,9 @@ public class ToolService {
                 .toList();
     }
 
-    private com.example.p3.model.Tool toModel(com.example.p3.entities.Tool e) {
-        com.example.p3.model.Tool m = new com.example.p3.model.Tool();
+    //Makes model tool from entity tool
+    private Tool toModel(com.example.p3.entities.Tool e) {
+        Tool m = new Tool();
         m.setId(e.getId());
         m.setName(e.getName());
         m.setUrl(e.getUrl());
