@@ -18,20 +18,19 @@ public class EmployeeService {
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
-
-    public List<Employee> getAllEmployeesByDepartment() {
-        return employeeRepository.findAll();
+    
+    // Get employee by ID
+    public Optional<Employee> getEmployeeById(Integer employee_id) {
+        return employeeRepository.findById(employee_id);
     }
 
-    public List<Employee> getAllEmployeesById() {
-        return employeeRepository.findAll();
+    // Get employees by initials
+    public List<Employee> getEmployeesByInitials(String initials) {
+        return employeeRepository.findByInitials(initials);
     }
 
-    public List<Employee> getAllEmployeesByInitials() {
-        return employeeRepository.findAll();
-    }
-
-    public List<Employee> getAllEmployeesByName() {
-        return employeeRepository.findAll();
+    // Get employees by name
+    public List<Employee> getEmployeesByName(String name) {
+        return employeeRepository.findByNameContainingIgnoreCase(name);
     }
 }
