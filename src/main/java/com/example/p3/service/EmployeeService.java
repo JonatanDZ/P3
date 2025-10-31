@@ -19,6 +19,19 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    public List<Employee> getAllEmployeesByDepartment() {
+        return employeeRepository.findAll();
+    }
 
+    public List<Employee> getAllEmployeesById() {
+        return employeeRepository.findAll();
+    }
 
+    public List<Employee> getAllEmployeesByInitials() {
+        return employeeRepository.findAll();
+    }
+
+    public List<Employee> getAllEmployeesByName() {
+        return employeeRepository.findAll();
+    }
 }

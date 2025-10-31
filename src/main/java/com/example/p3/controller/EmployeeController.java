@@ -24,6 +24,38 @@ public class EmployeeController {
                 .toList();
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping("/department/{department}")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeesByDepartment(@PathVariable String department) {
+        List<EmployeeDto> list = employeeService.getAllEmployeesByDepartment().stream()
+                .map(EmployeeDto::new)
+                .toList();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeesById(@PathVariable String id) {
+        List<EmployeeDto> list = employeeService.getAllEmployeesById().stream()
+                .map(EmployeeDto::new)
+                .toList();
+        return ResponseEntity.ok().body(list);
+    }
+    @GetMapping("/initials/{initials}")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeesByInitials(@PathVariable String initials) {
+        List<EmployeeDto> list = employeeService.getAllEmployeesByInitials().stream()
+                .map(EmployeeDto::new)
+                .toList();
+        return ResponseEntity.ok().body(list);
+    }
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeesByName(@PathVariable String name) {
+        List<EmployeeDto> list = employeeService.getAllEmployeesByName().stream()
+                .map(EmployeeDto::new)
+                .toList();
+        return ResponseEntity.ok().body(list);
+    }
+
+
 }
 
 /*
