@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "department", schema = "dbtest")
+@Table(name = "department", schema = "P3")
 public class Department {
     @Id
     @Column(name = "department_id", nullable = false)

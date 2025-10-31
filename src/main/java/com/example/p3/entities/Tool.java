@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "tool", schema = "dbtest")
+@Table(name = "tool", schema = "P3")
 public class Tool {
     @Id
     @Column(name = "tool_id", nullable = false)
