@@ -1,6 +1,35 @@
 package com.example.p3.controller;
 
 import com.example.p3.dtos.employee.EmployeeDto;
+import com.example.p3.entities.Employee;
+import com.example.p3.service.EmployeeService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
+        List<EmployeeDto> list = employeeService.getAllEmployees().stream()
+                .map(EmployeeDto::new)
+                .toList();
+        return ResponseEntity.ok().body(list);
+    }
+}
+
+/*
+package com.example.p3.controller;
+
+import com.example.p3.dtos.employee.EmployeeDto;
 import com.example.p3.model.employee.Employee;
 import com.example.p3.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
