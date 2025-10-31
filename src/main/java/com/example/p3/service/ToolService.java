@@ -85,9 +85,9 @@ public class ToolService {
         m.setName(e.getName());
         m.setUrl(e.getUrl());
         m.setDynamic(e.getIsDynamic());
-        m.setDepartments(e.getDepartments());
+        //m.setDepartments(e.getDepartments());
         //m.setStages(e.getStages());
-        m.setJurisdictions(e.getJurisdictions());
+        //m.setJurisdictions(e.getJurisdictions());
         return m;
     }
 
