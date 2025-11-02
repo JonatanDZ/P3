@@ -1,6 +1,6 @@
 package com.example.p3.dtos;
 
-import com.example.p3.model.Jurisdiction;
+import com.example.p3.entities.Jurisdiction;
 import lombok.Data;
 
 @Data
@@ -12,6 +12,6 @@ public class JurisdictionDto {
 
     public JurisdictionDto(Jurisdiction j){
         this.id = j.getId();
-        this.name = j.getName();
+        this.name = j.getJurisdictionName();
     }
 }

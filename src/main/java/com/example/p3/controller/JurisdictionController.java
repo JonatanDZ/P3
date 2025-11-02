@@ -20,7 +20,7 @@ public class JurisdictionController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<JurisdictionDto>> getAllJurisdictions(){
-        List<JurisdictionDto> list = JurisdictionService.getAllJurisdictions().values().stream()
+        List<JurisdictionDto> list = JurisdictionService.getAllJurisdictions().stream()
                 .map(JurisdictionDto::new)
                 .toList();
         return ResponseEntity.ok(list);
