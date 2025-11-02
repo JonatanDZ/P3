@@ -1,26 +1,17 @@
 package com.example.p3.service;
 
-import com.example.p3.dtos.ToolDto;
-import com.example.p3.entities.Employee;
-import com.example.p3.model.Tool;
+
+import com.example.p3.entities.Tool;
 import com.example.p3.repositories.ToolRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.PostConstruct;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.io.File;
-import java.io.IOException;
-
-import java.util.ArrayList;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 
 @Service
 @AllArgsConstructor
@@ -51,45 +42,46 @@ public class ToolService {
     // Here we define how to create a tool (The first string is for ID)
 
 
-    public Tool createTool(String spaceId,
-                           String name,
-                           String url,
-                           String tags,
-                           Tool.Department[] departments,
-                           Tool.Stage[] stages,
-                           Tool.Jurisdiction[] jurisdictions,
-                           boolean isDynamic) {
-        Tool createdtool = new Tool();
-        createdtool.setId(useCounter());
-        createdtool.setName(name);
-        createdtool.setUrl(url);
-        createdtool.setTags(tags.split(",")); // [.... , ..... , .... , ..]
-        createdtool.setDepartments(departments);
-        createdtool.setStages(stages);
-        createdtool.setJurisdictions(jurisdictions);
-        createdtool.setDynamic(isDynamic);
 
-        // Store the object createdtool in the Hash map (inMemoryDb), and use its ID (createdtool.getId()) as the key.
-        inMemoryDb.put(createdtool.getId(), createdtool);
-        return createdtool;
-    }
+//    public Tool createTool(String spaceId,
+//                           String name,
+//                           String url,
+//                           String tags,
+//                           Tool.Department[] departments,
+//                           Tool.Stage[] stages,
+//                           Tool.Jurisdiction[] jurisdictions,
+//                           boolean isDynamic) {
+//        Tool createdtool = new Tool();
+//        createdtool.setId(useCounter());
+//        createdtool.setName(name);
+//        createdtool.setUrl(url);
+//        createdtool.setTags(tags.split(",")); // [.... , ..... , .... , ..]
+//        createdtool.setDepartments(departments);
+//        createdtool.setStages(stages);
+//        createdtool.setJurisdictions(jurisdictions);
+//        createdtool.setDynamic(isDynamic);
+//
+//        // Store the object createdtool in the Hash map (inMemoryDb), and use its ID (createdtool.getId()) as the key.
+//        inMemoryDb.put(createdtool.getId(), createdtool);
+//        return createdtool;
+//    }
 
     public List<com.example.p3.entities.Tool> getAllTools() {
         return toolRepository.findAll();
     }
 
-    //Makes model tool from entity tool
-    private Tool toModel(com.example.p3.entities.Tool e) {
-        Tool m = new Tool();
-        m.setId(e.getId());
-        m.setName(e.getName());
-        m.setUrl(e.getUrl());
-        m.setDynamic(e.getIsDynamic());
-        //m.setDepartments(e.getDepartments());
-        //m.setStages(e.getStages());
-        //m.setJurisdictions(e.getJurisdictions());
-        return m;
-    }
+//    //Makes model tool from entity tool
+//    private Tool toModel(com.example.p3.entities.Tool e) {
+//        Tool m = new Tool();
+//        m.setId(e.getId());
+//        m.setName(e.getName());
+//        m.setUrl(e.getUrl());
+//        m.setDynamic(e.getIsDynamic());
+//        //m.setDepartments(e.getDepartments());
+//        //m.setStages(e.getStages());
+//        //m.setJurisdictions(e.getJurisdictions());
+//        return m;
+//    }
 }
 
     // CRUD methods using the repo

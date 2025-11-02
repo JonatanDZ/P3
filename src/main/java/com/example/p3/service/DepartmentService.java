@@ -1,7 +1,6 @@
 package com.example.p3.service;
 
-import com.example.p3.model.Department;
-import com.example.p3.model.Tool;
+import com.example.p3.entities.Department;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
