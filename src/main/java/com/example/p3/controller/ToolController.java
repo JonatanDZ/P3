@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
+
 import java.util.List;
 
 // This is the API http/rest controller
@@ -69,23 +73,22 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
+     */
+
     @PostMapping("/addTool")
     public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
         if (tool ==null){
             return ResponseEntity.badRequest().build();
         }
 
-        Tool createdTool = toolService.createTool(
-                null,
-                tool.getName(),
-                tool.getUrl(),
-                tool.tagsToString(),
-                tool.getDepartments(),
-                tool.getStages(),
-                tool.getJurisdictions(),
-                tool.isDynamic()
-        );
+
+        Tool createdTool = new Tool();
+        createdTool.setId(tool.getId());
+        createdTool.setName(tool.getName());
+        createdTool.setUrl(tool.getUrl());
+        createdTool.setIsDynamic(tool.getIsDynamic());
+
 
         return ResponseEntity.ok(createdTool);
-    }*/
+    }
 }
