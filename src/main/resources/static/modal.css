@@ -6,6 +6,7 @@ input[type=text], input[type=checkbox] {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    border-radius: 1rem;
 }
 
 
@@ -37,16 +38,19 @@ span.psw {
 
 /* popUpForm (background) */
 .popUpForm {
-    padding: 10%;
+    margin-top: 5%;
+    padding: 0 10% 2% 10%;
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 20%;
     top: 0;
     width: 50%; /* Full width */
-    height: 50%; /* Full height */
+    height: 75%; /* Full height */
     overflow-x: hidden; /* disable scroll if needed on x-axis */
-    background-color: rgb(0, 0, 0, 0.5);
+    overflow-y: hidden; /* disable scroll if needed on y-axis */
+    background-color: rgb(0, 0, 0, 0.9);
+    border-radius: 2rem;
 }
 
 /* Modal Content/Box */
