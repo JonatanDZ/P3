@@ -12,14 +12,14 @@ public class EmployeeDto {
     private Integer employee_id;
     private String name;
     private String initials;
-    private Department department_id;
+    private Integer department_id;
     private Boolean is_Admin;
 
     public EmployeeDto(Employee employee) {
         this.employee_id = employee.getId();
         this.name = employee.getName();
         this.initials = employee.getInitials();
-        this.department_id = employee.getDepartment();
+        this.department_id = employee.getDepartment().getId();
         this.is_Admin = employee.getIsAdmin();
     }
 }

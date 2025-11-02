@@ -30,7 +30,7 @@ public class Employee {
     private Department department;
 
     @Column(name = "is_admin")
-    private Boolean isAdmin;
+    private Boolean isAdmin; //Det var vel ikke sådan, at det skal håndteres????
 
     // implementing the favorite_tools table.
     // employee.java
