@@ -323,3 +323,21 @@ input[type="checkbox"] {
     transform: scale(1.7);
     margin: 30%;
 }
+
+.toolName{
+    width: 100%;
+    border: 1% solid #ccc;
+    border-radius: 40px;
+    padding: 1% 2%;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.tags{
+    width: 100%;
+    border: 1% solid #ccc;
+    border-radius: 40px;
+    padding: 1% 2%;
+    outline: none;
+    box-sizing: border-box;
+}
