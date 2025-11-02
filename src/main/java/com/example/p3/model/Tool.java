@@ -2,6 +2,8 @@ package com.example.p3.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 // adding getters and setters
 @Getter
 @Setter
@@ -16,7 +18,7 @@ public class Tool {
 
     // there can be multiple departments to a Tool
     private Department[] departments;
-    public enum Department {
+   public enum Department {
         DEVOPS, FRONTEND, GAMES, PAYMENTS, PLAYERS, PROMOTIONS, HR, LEGAL
     }
 

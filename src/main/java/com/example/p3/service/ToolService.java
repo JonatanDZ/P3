@@ -1,6 +1,7 @@
 package com.example.p3.service;
 
 import com.example.p3.dtos.ToolDto;
+import com.example.p3.entities.Employee;
 import com.example.p3.model.Tool;
 import com.example.p3.repositories.ToolRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @Service
 @AllArgsConstructor
 public class ToolService {
@@ -29,16 +32,17 @@ public class ToolService {
     private final Map<Long, Tool> inMemoryDb = new ConcurrentHashMap<>();
 
     static long counter = 0;
+
     public long useCounter() {
         return ++counter;
     }
 
     //  Called automatically after Spring creates the service
-    @PostConstruct
+   /* @PostConstruct
     public void seedData() {
         JsonParserTool("src/main/resources/static/TOOL_MOCK_DATA.json");
         // --- Mock data for development ---
-    }
+    }*/
 
 
     // CRUD methods (Create, Read, Update, Delete)
@@ -54,8 +58,7 @@ public class ToolService {
                            Tool.Department[] departments,
                            Tool.Stage[] stages,
                            Tool.Jurisdiction[] jurisdictions,
-                           boolean isDynamic)
-    {
+                           boolean isDynamic) {
         Tool createdtool = new Tool();
         createdtool.setId(useCounter());
         createdtool.setName(name);
@@ -71,31 +74,34 @@ public class ToolService {
         return createdtool;
     }
 
-    public List<Tool> retreiveTools() {
-        return toolRepository.findAll()
-                .stream()
-                .map(this::toModel)
-                .toList();
+    public List<com.example.p3.entities.Tool> getAllTools() {
+        return toolRepository.findAll();
     }
 
-    private com.example.p3.model.Tool toModel(com.example.p3.entities.Tool e) {
-        com.example.p3.model.Tool m = new com.example.p3.model.Tool();
+    //Makes model tool from entity tool
+    private Tool toModel(com.example.p3.entities.Tool e) {
+        Tool m = new Tool();
         m.setId(e.getId());
         m.setName(e.getName());
         m.setUrl(e.getUrl());
+        m.setDynamic(e.getIsDynamic());
+        //m.setDepartments(e.getDepartments());
+        //m.setStages(e.getStages());
+        //m.setJurisdictions(e.getJurisdictions());
         return m;
     }
+}
 
     // CRUD methods using the repo
-    public Map<Long, Tool> getAllTools() {
+    /*public Map<Long, Tool> getAllTools() {
         return inMemoryDb;
-    }
+    }*/
 
-    public List<ToolDto> getToolsByStage(String stage){
+   /* public List<ToolDto> getToolsByStage(String stage) {
         List<ToolDto> list = inMemoryDb.values().stream().map(ToolDto::new).toList();
         List<ToolDto> listByStage = new ArrayList<>();
-        for(int i = 0; i<inMemoryDb.size();i++){
-            if(Arrays.toString(list.get(i).getStages()).contains(stage)){
+        for (int i = 0; i < inMemoryDb.size(); i++) {
+            if (Arrays.toString(list.get(i).getStages()).contains(stage)) {
                 listByStage.add(list.get(i));
             }
         }
@@ -107,7 +113,7 @@ public class ToolService {
     public List<Tool> findByJurisdiction(Tool.Jurisdiction jurisdiction) {
         return inMemoryDb.values().stream()
                 .filter(l -> {
-                    var arr =  l.getJurisdictions();
+                    var arr = l.getJurisdictions();
                     return arr != null && Arrays.asList(arr).contains(jurisdiction);
                 })
                 .toList();
@@ -129,16 +135,17 @@ public class ToolService {
         }
 
         //We are posting all the elements to the DB.
-        for(Tool tool : tools){
+        for (Tool tool : tools) {
             inMemoryDb.put(tool.getId(), tool);
         }
     }
-
+}
     //Filters the tools so only tool with the department from the URL is returned
-    public Map<Long, Tool> getAllToolsByDepartment(Tool.Department department) {
-        return getAllTools().entrySet().stream()
-            .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
+    /*public Map<Long, Tool> getAllToolsByDepartment(Tool.Department department) {
+        return getAllTools().stream()
+                .filter(tool -> tool.getDepartments().contains(department))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
     }
 
     public Map<Long, Tool> getAllToolsByDepartmentJurisdictionStage(
@@ -153,7 +160,7 @@ public class ToolService {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
-
+*/
 
 // Test
 // {

@@ -1,7 +1,7 @@
 package com.example.p3.controller;
 
 import com.example.p3.dtos.ToolDto;
-import com.example.p3.model.Tool;
+import com.example.p3.entities.Tool;
 import com.example.p3.service.ToolService;
 import org.springframework.http.ResponseEntity;
 
@@ -26,36 +26,37 @@ public class ToolController {
 
     @GetMapping("")
     public ResponseEntity<List<ToolDto>> getAllTools(){
-        List<ToolDto> list = toolService.getAllTools().values().stream()
+        List<ToolDto> list = toolService.getAllTools().stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
-    @PostMapping("/getToolsByStage/{stage}")
-    public ResponseEntity<List<ToolDto>> getToolsByStage(@PathVariable("stage") String stage){
-        List<ToolDto> list = toolService.getToolsByStage(stage);
-        return ResponseEntity.ok(list);
-    }
+//    @PostMapping("/getToolsByStage/{stage}")
+//    public ResponseEntity<List<ToolDto>> getToolsByStage(@PathVariable("stage") String stage){
+//        List<ToolDto> list = toolService.getToolsByStage(stage);
+//        return ResponseEntity.ok(list);
+//    }
 
     // maybe change this to department/jurisdiction/stage or implement new endpoint
-    @GetMapping("/jurisdiction/{jurisdiction}")
+  /*  @GetMapping("/jurisdiction/{jurisdiction}")
     public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
         List<ToolDto> list = toolService.findByJurisdiction(jurisdiction).stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
-
+*/
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
-    @GetMapping("/department/{department}")
+    /*@GetMapping("/department/{department}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable Tool.Department department) {
         List<ToolDto> list = toolService.getAllToolsByDepartment(department).values().stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
-    }
+    }*/
 
+    /*
     @GetMapping("/{department}/{jurisdiction}/{stage}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
             @PathVariable Tool.Department department,
@@ -86,5 +87,5 @@ public class ToolController {
         );
 
         return ResponseEntity.ok(createdTool);
-    }
+    }*/
 }
