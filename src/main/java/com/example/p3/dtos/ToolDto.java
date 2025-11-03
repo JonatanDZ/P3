@@ -18,6 +18,7 @@ public class ToolDto {
     private Boolean isDynamic;
     //private Set<Department> departments;
     private ArrayList<Integer> departments;
+    private ArrayList
 
     /*private String[] tags;
     // there can be multiple departments to a Tool
