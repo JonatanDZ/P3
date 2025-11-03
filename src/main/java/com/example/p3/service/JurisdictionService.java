@@ -27,9 +27,7 @@ public class JurisdictionService {
 
     // Hent alle jurisdictions
     public List<Jurisdiction> getAllJurisdictions() {
-        List<Jurisdiction> jurisdictions = new ArrayList<>();
-        jurisdictionRepository.findAll().forEach(jurisdictions::add);
-        return jurisdictions;
+        return jurisdictionRepository.findAll();
     }
 }
 
