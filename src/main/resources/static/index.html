@@ -45,14 +45,15 @@
                     <label for="toolName"> <h3> Tool name</h3></label>
                     <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" class="toolName" required>
 
-                    <label for="isDynamic"> <h3> Is Dynamic?</h3>
-                        <input id="isDynamic" type="checkbox" name="IsDynamic" class="isDynamic" checked="checked">
-                    </label>
+
 
                     <label for="toolURL"> <h3> Tool URL</h3></label>
+                    <label for="isDynamic"> Is the URL Dynamic?
+                        <input id="isDynamic" type="checkbox" name="IsDynamic" class="isDynamic" checked="checked">
+                    </label>
                     <div id="toolURL">
                         <input id="toolURL1" class="toolURL" type="text" placeholder="Enter first part of URL" name="toolURL" required>
-                        <b id="toolUser">USER</b>
+                        <b id="toolUser">Initials</b>
                         <input id="toolURL2" class="toolURL toolURLHide" type="text" placeholder="Enter second part of URL" name="toolURL" required>
                     </div>
 
@@ -87,8 +88,8 @@
                     <div id="jurisdictionsInput" class="inputDiv"> </div>
 
                     <div class="buttondiv">
-                    <button type="submit" id="submitBtn" class="submitBtn submitformbtn">Add Tool</button>
-                    <button type="button" class="toggleBtn submitformbtn">Cancel</button>
+                        <button type="button" class="toggleBtn submitformbtn">Cancel</button>
+                        <button type="submit" id="submitBtn" class="submitBtn submitformbtn">Add Tool</button>
                     </div>
                 </form>
             </div>

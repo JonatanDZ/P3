@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
@@ -12,8 +13,14 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     // findByIntitials is a custome query to find initials, sql would be smt like:
     // SELECT * FROM employees WHERE initials = ?;
     // Finds employees by initials (case-sensitive)
-    List<Employee> findByInitials(String initials);
+    Optional<Employee> findByInitials(String initial);
 
+    // Starts from the Employee entity, joins the related Department table, and filters where Department.departmentName matches the given value.
+    // The "_" means JPA looks inside the Department entity to access the departmentName field.
+    List<Employee> findByDepartment_DepartmentName(String departmentName);
+    
     // Finds employees by name (case-insensitive, partial match)
-    List<Employee> findByNameContainingIgnoreCase(String name);
+    Optional<Employee> findByNameContainingIgnoreCase(String name);
+
+
 }

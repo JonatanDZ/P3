@@ -26,12 +26,16 @@ public class EmployeeService {
     }
 
     // Get employees by initials
-    public List<Employee> getEmployeesByInitials(String initials) {
-        return employeeRepository.findByInitials(initials);
+    public Optional<Employee> getEmployeeByInitial(String initial) {
+        return employeeRepository.findByInitials(initial);
     }
 
     // Get employees by name
-    public List<Employee> getEmployeesByName(String name) {
+    public Optional<Employee> getEmployeeByName(String name) {
         return employeeRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Employee> getEmployeesByDepartmentName(String departmentName) {
+        return employeeRepository.findByDepartment_DepartmentName(departmentName);
     }
 }
