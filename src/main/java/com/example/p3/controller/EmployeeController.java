@@ -57,4 +57,13 @@ public class EmployeeController {
                 .toList();
         return ResponseEntity.ok(list);
     }
+
+    @GetMapping("/department/{department}")
+    public ResponseEntity<List<EmployeeDto>> getEmployeesByDepartmentName(@PathVariable String department) {
+        List<EmployeeDto> list = employeeService.getEmployeesByDepartmentName(department)
+                .stream()
+                .map(EmployeeDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
 }

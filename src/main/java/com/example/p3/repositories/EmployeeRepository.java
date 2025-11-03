@@ -14,6 +14,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     // Finds employees by initials (case-sensitive)
     List<Employee> findByInitials(String initials);
 
+    // Starts from the Employee entity, joins the related Department table, and filters where Department.departmentName matches the given value.
+    // The "_" means JPA looks inside the Department entity to access the departmentName field.
+    List<Employee> findByDepartment_DepartmentName(String departmentName);
+
+
     // Finds employees by name (case-insensitive, partial match)
     List<Employee> findByNameContainingIgnoreCase(String name);
+
+
 }

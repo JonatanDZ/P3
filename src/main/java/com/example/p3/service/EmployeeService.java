@@ -34,4 +34,8 @@ public class EmployeeService {
     public List<Employee> getEmployeesByName(String name) {
         return employeeRepository.findByNameContainingIgnoreCase(name);
     }
+
+    public List<Employee> getEmployeesByDepartmentName(String departmentName) {
+        return employeeRepository.findByDepartment_DepartmentName(departmentName);
+    }
 }
