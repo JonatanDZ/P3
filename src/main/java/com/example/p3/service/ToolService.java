@@ -66,9 +66,15 @@ public class ToolService {
 //        return createdtool;
 //    }
 
-    public List<com.example.p3.entities.Tool> getAllTools() {
+    public List<Tool> getAllTools() {
         return toolRepository.findAll();
     }
+
+    public Tool saveTool(Tool tool) {
+        return toolRepository.saveAndFlush(tool);
+    }
+
+
 
 //    //Makes model tool from entity tool
 //    private Tool toModel(com.example.p3.entities.Tool e) {
