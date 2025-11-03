@@ -35,9 +35,9 @@ public class EmployeeController {
     }
 
     // the rest looks for list with the best match at the top.
-    @GetMapping("/initial/{initial}")
-    public ResponseEntity<EmployeeDto> getEmployeeByInitial(@PathVariable String initial) {
-        return employeeService.getEmployeeByInitial(initial)
+    @GetMapping("/initials/{initials}")
+    public ResponseEntity<EmployeeDto> getEmployeeByInitials(@PathVariable String initials) {
+        return employeeService.getEmployeeByInitials(initials)
                 .map(EmployeeDto::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

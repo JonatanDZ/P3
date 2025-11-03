@@ -26,8 +26,8 @@ public class EmployeeService {
     }
 
     // Get employees by initials
-    public Optional<Employee> getEmployeeByInitial(String initial) {
-        return employeeRepository.findByInitials(initial);
+    public Optional<Employee> getEmployeeByInitials(String initials) {
+        return employeeRepository.findByInitials(initials);
     }
 
     // Get employees by name
