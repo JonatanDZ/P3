@@ -1,10 +1,7 @@
 package com.example.p3.service;
 
 
-import com.example.p3.entities.Department;
-import com.example.p3.entities.Jurisdiction;
-import com.example.p3.entities.Stage;
-import com.example.p3.entities.Tool;
+import com.example.p3.entities.*;
 import com.example.p3.repositories.ToolRepository;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 
 @Service
@@ -25,23 +22,19 @@ public class ToolService {
         return toolRepository.findAll();
     }
 
+    public Optional<Tool> getToolById(Integer tool_id){ return toolRepository.findById(tool_id); }
+
     //Filters the tools so only tool with the department from the URL is returned
-    public List<Tool> getAllToolsByDepartment(Department department) {
-        return getAllTools().stream()
-                .filter(tool -> tool.getDepartments().contains(department))
-                .collect(Collectors.toList());
+    public List<Tool> getAllToolsByDepartmentName(String departmentName) {
+      return toolRepository.findByDepartmentName(departmentName);
     }
 
-    public List<Tool> getAllToolsByJurisdiction(Jurisdiction jurisdiction) {
-        return getAllTools().stream()
-                .filter(tool -> tool.getJurisdictions().contains(jurisdiction))
-                .collect(Collectors.toList());
+    public List<Tool> getAllToolsByJurisdictionName(String jurisdictionName) {
+        return toolRepository.findByJurisdictionName(jurisdictionName);
     }
 
-    public List<Tool> getAllToolsByStage(Stage stage) {
-        return getAllTools().stream()
-                .filter(tool -> tool.getStages().contains(stage))
-                .collect(Collectors.toList());
+    public List<Tool> getAllToolsByStageName(String stageName) {
+        return toolRepository.findByStageName(stageName);
     }
 
     public Tool saveTool(Tool tool) {

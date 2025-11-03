@@ -42,7 +42,6 @@ public class ToolDto {
         List<Department> departmentList = t.getDepartments().stream().toList();
         for (int i = 0; i < departmentList.size(); i++) {
             departmentName = departmentList.get(i).getDepartmentName();
-            System.out.println(departmentName);
             this.departments.add(departmentName);
         }
 
@@ -51,18 +50,14 @@ public class ToolDto {
         List<Jurisdiction> jurisdictionList = t.getJurisdictions().stream().toList();
         for (int i = 0; i < jurisdictionList.size(); i++) {
             jurisdictionName = jurisdictionList.get(i).getJurisdictionName();
-            System.out.println(jurisdictionName);
             this.jurisdictions.add(jurisdictionName);
         }
-
-
 
         this.stage = new ArrayList<>();
         String stageName;
         List<Stage> stageList = t.getStages().stream().toList();
         for (int i = 0; i < stageList.size(); i++) {
             stageName = stageList.get(i).getName();
-            System.out.println(stageName);
             this.stage.add(stageName);
         }
 

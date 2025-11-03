@@ -1,9 +1,6 @@
 package com.example.p3.controller;
 
-import com.example.p3.dtos.DepartmentDto;
 import com.example.p3.dtos.ToolDto;
-import com.example.p3.entities.Department;
-import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
 import com.example.p3.service.ToolService;
@@ -15,10 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.StatelessSession;
 
 import java.util.List;
 
@@ -42,24 +35,24 @@ public class ToolController {
 
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
     @GetMapping("/department/{department}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable Department department) {
-        List<ToolDto> list = toolService.getAllToolsByDepartment(department).stream()
+    public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {
+        List<ToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/jurisdiction/{jurisdiction}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable Jurisdiction jurisdiction) {
-        List<ToolDto> list = toolService.getAllToolsByJurisdiction(jurisdiction).stream()
+    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {
+        List<ToolDto> list = toolService.getAllToolsByJurisdictionName(jurisdiction).stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/stage/{stage}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByStage(@PathVariable Stage stage) {
-        List<ToolDto> list = toolService.getAllToolsByStage(stage).stream()
+    public ResponseEntity<List<ToolDto>> getAllToolsByStage(@PathVariable String stage) {
+        List<ToolDto> list = toolService.getAllToolsByStageName(stage).stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
