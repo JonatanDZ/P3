@@ -33,11 +33,6 @@ public class JurisdictionService {
         jurisdictionRepository.findAll().forEach(jurisdictions::add);
         return jurisdictions;
     }
-
-    // Hent én jurisdiction efter ID
-    public Optional<Jurisdiction> getJurisdictionById(Integer id) {
-        return jurisdictionRepository.findById(id);
-    }
 }
 
 /*@Service
