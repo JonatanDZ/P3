@@ -4,6 +4,7 @@ import com.example.p3.dtos.DepartmentDto;
 import com.example.p3.dtos.ToolDto;
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Jurisdiction;
+import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
 import com.example.p3.service.ToolService;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,14 @@ public class ToolController {
     @GetMapping("/jurisdiction/{jurisdiction}")
     public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable Jurisdiction jurisdiction) {
         List<ToolDto> list = toolService.getAllToolsByJurisdiction(jurisdiction).stream()
+                .map(ToolDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/stage/{stage}")
+    public ResponseEntity<List<ToolDto>> getAllToolsByStage(@PathVariable Stage stage) {
+        List<ToolDto> list = toolService.getAllToolsByStage(stage).stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);

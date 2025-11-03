@@ -3,6 +3,7 @@ package com.example.p3.service;
 
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Jurisdiction;
+import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
 import com.example.p3.repositories.ToolRepository;
 
@@ -35,6 +36,12 @@ public class ToolService {
     public List<com.example.p3.entities.Tool> getAllToolsByJurisdiction(Jurisdiction jurisdiction) {
         return getAllTools().stream()
                 .filter(tool -> tool.getJurisdictions().contains(jurisdiction))
+                .collect(Collectors.toList());
+    }
+
+    public List<com.example.p3.entities.Tool> getAllToolsByStage(Stage stage) {
+        return getAllTools().stream()
+                .filter(tool -> tool.getStages().contains(stage))
                 .collect(Collectors.toList());
     }
 
