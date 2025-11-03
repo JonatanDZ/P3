@@ -25,11 +25,6 @@ public class EmployeeController {
         return ResponseEntity.ok().body(list);
     }
 
-    // Get by deparments missing
-
-
-    // We maybe need to change the logic behind some of these.
-
     // This only look for one specefic id
     @GetMapping("/id/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Integer id) {
@@ -40,22 +35,20 @@ public class EmployeeController {
     }
 
     // the rest looks for list with the best match at the top.
-    @GetMapping("/initials/{initials}")
-    public ResponseEntity<List<EmployeeDto>> getEmployeesByInitials(@PathVariable String initials) {
-        List<EmployeeDto> list = employeeService.getEmployeesByInitials(initials)
-                .stream()
+    @GetMapping("/initial/{initial}")
+    public ResponseEntity<EmployeeDto> getEmployeeByInitial(@PathVariable String initial) {
+        return employeeService.getEmployeeByInitial(initial)
                 .map(EmployeeDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<List<EmployeeDto>> getEmployeesByName(@PathVariable String name) {
-        List<EmployeeDto> list = employeeService.getEmployeesByName(name)
-                .stream()
+    public ResponseEntity<EmployeeDto> getEmployeeByname(@PathVariable String name) {
+        return employeeService.getEmployeeByName(name)
                 .map(EmployeeDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/department/{department}")
