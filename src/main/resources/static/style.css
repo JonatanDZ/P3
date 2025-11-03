@@ -314,10 +314,10 @@ footer {
     background: red;
 }
 
-/*input.isDynamic {
-    transform: scale(1.5);
-    margin: 30%;
-}*/
+#isDynamic{
+    width: auto;
+    margin: 1rem;
+}
 
 input[type="checkbox"] {
     transform: scale(1.7);
