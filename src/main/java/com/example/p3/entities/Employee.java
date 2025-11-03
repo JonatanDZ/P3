@@ -11,36 +11,33 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "employees", schema = "P3")
+@Table(name = "employee", schema = "P3")
 public class Employee {
     @Id
-    @Column(name = "employee_id", nullable = false)
-    private Integer id;
+    @Column(name = "initials", nullable = false)
+    private String initials;
 
     @Size(max = 255)
     @Column(name = "name")
     private String name;
 
-    @Size(max = 255)
-    @Column(name = "initials")
-    private String initials;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @Column(name = "is_admin")
-    private Boolean isAdmin;
+    @Size(max = 255)
+    @Column(name = "email")
+    private String email;
 
     // implementing the favorite_tools table.
     // employee.java
+    // the leftmost employee_id is the column in the employees table, and the rightmost is the id of favorite_tools
+    // inverse sounds way more complex than it is. There are two foreign keys in the favorite_tools table, therefore there are two JOIN statements.
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "favorite_tools",
-            // the leftmost employee_id is the column in the employees table, and the rightmost is the id of favorite_tools
-            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "employee_id"),
-            // inverse sounds way more complex than it is. There are two foreign keys in the favorite_tools table, therefore there are two JOIN statements.
-            inverseJoinColumns = @JoinColumn(name = "tool_id", referencedColumnName = "tool_id")
+            name = "favorite_tool",
+            joinColumns = @JoinColumn(name = "employee_initials", referencedColumnName = "initials"),
+            inverseJoinColumns = @JoinColumn(name = "tool_id")
     )
     private Set<Tool> favoriteTools = new HashSet<>();
 

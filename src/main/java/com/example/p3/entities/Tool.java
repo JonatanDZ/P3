@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(name = "tool", schema = "P3")
 public class Tool {
     @Id
-    @Column(name = "tool_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Size(max = 255)
@@ -24,6 +24,9 @@ public class Tool {
     @Size(max = 255)
     @Column(name = "url")
     private String url;
+
+    @Column(name = "is_personal")
+    private Boolean isPersonal;
 
     @Column(name = "is_dynamic")
     private Boolean isDynamic;
