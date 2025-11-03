@@ -1,7 +1,5 @@
 package com.example.p3.service;
 
-import com.example.p3.model.Department;
-//import com.example.p3.model.Jurisdiction;
 import com.example.p3.entities.Jurisdiction;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
