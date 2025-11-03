@@ -37,6 +37,11 @@ public class ToolService {
         return toolRepository.findByStageName(stageName);
     }
 
+    public List<Tool> getAllToolsByDepartmentJurisdictionStage(String department, String jurisdiction, String stage){
+        return toolRepository.findByDepartmentJurisdictonStage(department, jurisdiction, stage);
+    }
+
+
     public Tool saveTool(Tool tool) {
         return toolRepository.saveAndFlush(tool);
     }

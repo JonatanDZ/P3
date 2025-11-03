@@ -63,9 +63,9 @@ public class ToolController {
 
     @GetMapping("/{department}/{jurisdiction}/{stage}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
-            @PathVariable Department department,
-            @PathVariable Jurisdiction jurisdiction,
-            @PathVariable Stage stage
+            @PathVariable String department,
+            @PathVariable String jurisdiction,
+            @PathVariable String stage
     ){
         List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
                 .map(ToolDto::new)
