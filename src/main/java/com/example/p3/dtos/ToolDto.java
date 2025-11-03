@@ -18,9 +18,9 @@ public class ToolDto {
     private String name;
     private String url;
     private Boolean isDynamic;
-    private ArrayList<Integer> departments;
-    private ArrayList<Integer> jurisdictions;
-    private ArrayList<Integer> stage;
+    private ArrayList<String> departments;
+    private ArrayList<String> jurisdictions;
+    private ArrayList<String> stage;
 
     /*private String[] tags;
     // there can be multiple departments to a Tool
@@ -38,32 +38,32 @@ public class ToolDto {
         this.isDynamic = t.getIsDynamic();
         //this.tags = t.getTags();
         this.departments = new ArrayList<>();
-        int departmentID;
+        String departmentName;
         List<Department> departmentList = t.getDepartments().stream().toList();
         for (int i = 0; i < departmentList.size(); i++) {
-            departmentID = departmentList.get(i).getId();
-            System.out.println(departmentID);
-            this.departments.add(departmentID);
+            departmentName = departmentList.get(i).getDepartmentName();
+            System.out.println(departmentName);
+            this.departments.add(departmentName);
         }
 
         this.jurisdictions = new ArrayList<>();
-        int jurisdictionID;
+        String jurisdictionName;
         List<Jurisdiction> jurisdictionList = t.getJurisdictions().stream().toList();
         for (int i = 0; i < jurisdictionList.size(); i++) {
-            jurisdictionID = jurisdictionList.get(i).getId();
-            System.out.println(jurisdictionID);
-            this.jurisdictions.add(jurisdictionID);
+            jurisdictionName = jurisdictionList.get(i).getJurisdictionName();
+            System.out.println(jurisdictionName);
+            this.jurisdictions.add(jurisdictionName);
         }
 
 
 
         this.stage = new ArrayList<>();
-        int stageID;
+        String stageName;
         List<Stage> stageList = t.getStages().stream().toList();
         for (int i = 0; i < stageList.size(); i++) {
-            stageID = stageList.get(i).getId();
-            System.out.println(stageID);
-            this.stage.add(stageID);
+            stageName = stageList.get(i).getName();
+            System.out.println(stageName);
+            this.stage.add(stageName);
         }
 
     }

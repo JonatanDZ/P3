@@ -12,17 +12,17 @@ public class JurisdictionDto {
     // attributes of Jurisdiction
     private long id;
     private String name;
-    private ArrayList<Integer> tools;
+    private ArrayList<String> tools;
 
     public JurisdictionDto(Jurisdiction j){
         this.id = j.getId();
         this.name = j.getJurisdictionName();
         this.tools = new ArrayList<>();
-        int toolID;
+        String toolName;
         List<Tool> toolList = j.getJurisdictionTools().stream().toList();
         for (int i = 0; i < toolList.size(); i++) {
-            toolID = toolList.get(i).getId();
-            this.tools.add(toolID);
+            toolName = toolList.get(i).getName();
+            this.tools.add(toolName);
         }
     }
 }
