@@ -65,6 +65,18 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/{department}/{jurisdiction}/{stage}")
+    public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
+            @PathVariable Department department,
+            @PathVariable Jurisdiction jurisdiction,
+            @PathVariable Stage stage
+    ){
+        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
+                .map(ToolDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
 //    @PostMapping("/getToolsByStage/{stage}")
 //    public ResponseEntity<List<ToolDto>> getToolsByStage(@PathVariable("stage") String stage){
 //        List<ToolDto> list = toolService.getToolsByStage(stage);
@@ -81,17 +93,7 @@ public class ToolController {
 //    }
 
 
-    /*@GetMapping("/{department}/{jurisdiction}/{stage}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
-            @PathVariable Tool.Department department,
-            @PathVariable Tool.Jurisdiction jurisdiction,
-            @PathVariable Tool.Stage stage
-    ){
-        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).values().stream()
-                .map(ToolDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }*/
+
 
 
 

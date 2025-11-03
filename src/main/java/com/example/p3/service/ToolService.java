@@ -45,15 +45,27 @@ public class ToolService {
                 .collect(Collectors.toList());
     }
 
+    public List<com.example.p3.entities.Tool> getAllToolsByDepartmentJurisdictionStage(
+            Department department,
+            Jurisdiction jurisdiction,
+            Stage stage
+    ) {
+        return getAllTools().stream()
+                .filter(tool -> tool.getDepartments().contains(department))
+                .filter(tool -> tool.getJurisdictions().contains(jurisdiction))
+                .filter(tool -> tool.getStages().contains(stage))
+                .collect(Collectors.toList());
+    }
+
     // hashmap to be made her
     // in memory database:
-    private final Map<Long, Tool> inMemoryDb = new ConcurrentHashMap<>();
-
-    static long counter = 0;
-
-    public long useCounter() {
-        return ++counter;
-    }
+//    private final Map<Long, Tool> inMemoryDb = new ConcurrentHashMap<>();
+//
+//    static long counter = 0;
+//
+//    public long useCounter() {
+//        return ++counter;
+//    }
 
     //  Called automatically after Spring creates the service
    /* @PostConstruct
@@ -108,34 +120,9 @@ public class ToolService {
 //    }
 }
 
-    // CRUD methods using the repo
-    /*public Map<Long, Tool> getAllTools() {
-        return inMemoryDb;
-    }*/
 
-   /* public List<ToolDto> getToolsByStage(String stage) {
-        List<ToolDto> list = inMemoryDb.values().stream().map(ToolDto::new).toList();
-        List<ToolDto> listByStage = new ArrayList<>();
-        for (int i = 0; i < inMemoryDb.size(); i++) {
-            if (Arrays.toString(list.get(i).getStages()).contains(stage)) {
-                listByStage.add(list.get(i));
-            }
-        }
-        //System.out.println(listByStage);
 
-        return listByStage;
-    }
-
-    public List<Tool> findByJurisdiction(Tool.Jurisdiction jurisdiction) {
-        return inMemoryDb.values().stream()
-                .filter(l -> {
-                    var arr = l.getJurisdictions();
-                    return arr != null && Arrays.asList(arr).contains(jurisdiction);
-                })
-                .toList();
-    }
-
-    public void JsonParserTool(String src) {
+   /* public void JsonParserTool(String src) {
         //https://fasterxml.github.io/jackson-databind/javadoc/2.7/com/fasterxml/jackson/databind/ObjectMapper.html
         ObjectMapper mapper = new ObjectMapper();
 
@@ -157,21 +144,11 @@ public class ToolService {
     }
 }*/
 
-   /* }
 
-    public Map<Long, Tool> getAllToolsByDepartmentJurisdictionStage(
-            Tool.Department department,
-            Tool.Jurisdiction jurisdiction,
-            Tool.Stage stage
-    ) {
-        return getAllTools().entrySet().stream()
-                .filter(entry -> Arrays.asList(entry.getValue().getDepartments()).contains(department))
-                .filter(entry -> Arrays.asList(entry.getValue().getJurisdictions()).contains(jurisdiction))
-                .filter(entry -> Arrays.asList(entry.getValue().getStages()).contains(stage))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
-}
-*/
+
+
+
+
 
 // Test
 // {
