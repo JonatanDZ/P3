@@ -16,6 +16,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployees() {
+        // Standard Jpa query method.
         return employeeRepository.findAll();
     }
 

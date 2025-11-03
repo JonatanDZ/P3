@@ -1,7 +1,5 @@
 package com.example.p3.service;
 
-import com.example.p3.model.Department;
-//import com.example.p3.model.Jurisdiction;
 import com.example.p3.entities.Jurisdiction;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -29,14 +27,7 @@ public class JurisdictionService {
 
     // Hent alle jurisdictions
     public List<Jurisdiction> getAllJurisdictions() {
-        List<Jurisdiction> jurisdictions = new ArrayList<>();
-        jurisdictionRepository.findAll().forEach(jurisdictions::add);
-        return jurisdictions;
-    }
-
-    // Hent én jurisdiction efter ID
-    public Optional<Jurisdiction> getJurisdictionById(Integer id) {
-        return jurisdictionRepository.findById(id);
+        return jurisdictionRepository.findAll();
     }
 }
 
