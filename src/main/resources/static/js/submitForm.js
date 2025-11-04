@@ -5,6 +5,7 @@ export function submitForm(){
 
     MakeToolJSON(formToJSON());
 
+
     setTimeout(() => {
         window.location.reload();
     }, 100);
@@ -13,16 +14,16 @@ export function submitForm(){
 
 export function formToJSON(){
     const name = document.querySelector("#toolName").value;
-    const dynamic = document.querySelector('#isDynamic').checked;
-    const url = getURLValue(dynamic);
+    const isDynamic = document.querySelector('#isDynamic').checked;
+    const url = getURLValue(isDynamic);
     const tags = document.querySelector("#tags").value.split(",")
         .map(tag => tag.trim())
         .filter(tag => tag !== "");
-    const stages = Array.from(document.querySelectorAll('.stagesChecks:checked')).map(cb => cb.value);
+    const stage = Array.from(document.querySelectorAll('.stagesChecks:checked')).map(cb => cb.value);
     const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => cb.value);
     const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => cb.value);
 
-    return JSON.stringify({name, url, tags, departments, stages, jurisdictions, dynamic});
+    return JSON.stringify({name, url, isDynamic ,tags, departments, stage, jurisdictions});
 
 }
 
