@@ -29,6 +29,10 @@ public class JurisdictionService {
     public List<Jurisdiction> getAllJurisdictions() {
         return jurisdictionRepository.findAll();
     }
+
+    public Optional<Jurisdiction> getByName(String name) {
+        return jurisdictionRepository.findByJurisdictionName(name);
+    }
 }
 
 /*@Service

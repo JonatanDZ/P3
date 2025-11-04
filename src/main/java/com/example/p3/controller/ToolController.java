@@ -6,6 +6,8 @@ import com.example.p3.entities.Department;
 import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
+import com.example.p3.repositories.JurisdictionRepository;
+import com.example.p3.service.JurisdictionService;
 import com.example.p3.service.ToolService;
 import org.springframework.http.ResponseEntity;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 // This is the API http/rest controller
 @RestController
@@ -73,31 +76,12 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
-//    @PostMapping("/getToolsByStage/{stage}")
-//    public ResponseEntity<List<ToolDto>> getToolsByStage(@PathVariable("stage") String stage){
-//        List<ToolDto> list = toolService.getToolsByStage(stage);
-//        return ResponseEntity.ok(list);
-//    }
-//
-//    // maybe change this to department/jurisdiction/stage or implement new endpoint
-//    @GetMapping("/jurisdiction/{jurisdiction}")
-//    public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
-//        List<ToolDto> list = toolService.findByJurisdiction(jurisdiction).stream()
-//                .map(ToolDto::new)
-//                .toList();
-//        return ResponseEntity.ok(list);
-//    }
-
-
-
-
-
-
     @PostMapping("/addTool")
     public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
         if (tool ==null){
             return ResponseEntity.badRequest().build();
         }
+
         return ResponseEntity.ok(toolService.saveTool(tool));
     }
 }
