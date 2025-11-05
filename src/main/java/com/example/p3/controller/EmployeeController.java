@@ -1,7 +1,6 @@
 package com.example.p3.controller;
 
 import com.example.p3.dtos.employee.EmployeeDto;
-import com.example.p3.entities.Employee;
 import com.example.p3.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
