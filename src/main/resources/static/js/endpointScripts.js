@@ -1,18 +1,15 @@
 // getTools endpoint and display
+import {displayFavorites} from "./displayFavorites.js";
+
 function getToolsDisplay () {
+    // clear the list each time it is called.
+    // If this is not implemented it appends to the list each time..
+    const list = document.getElementById('allTools');
+    list.innerHTML = "";
     fetch('/getTools')
         .then(response => response.json())
         .then(data => {
-            const list = document.getElementById('allTools');
-            data.forEach(tool => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = tool.url;
-                a.textContent = tool.name;
-                a.target = "_blank";
-                li.appendChild(a);
-                list.appendChild(li);
-            });
+            displayTools(data, list);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
@@ -46,28 +43,19 @@ function getDepartmentsDisplay(){
 
 // getToolsByDepartmentJurisdictionStage endpoint and display
 function getToolsByDepartmentJurisdictionStage() {
+    // clear the list each time it is called.
+    // If this is not implemented it appends to the list each time..
+    const list = document.getElementById('departmentSelected');
+    list.innerHTML = "";
     // mock department, should be based on the user logged in
-    const department = getDepartment()//"DEVOPS";
-
+    let department = getDepartment()//"DEVOPS";
     let jurisdiction = getJurisdiction();
-    console.log(jurisdiction)
-    const branch = getBranch();
-    console.log(branch);
-    console.log(department)
+    let branch = getStage();
+
     fetch(`/getTools/${encodeURIComponent(department)}/${encodeURIComponent(jurisdiction)}/${encodeURIComponent(branch)}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            const list = document.getElementById('departmentSelected');
-            data.forEach(tool => {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = tool.url;
-                a.textContent = tool.name;
-                a.target = "_blank";
-                li.appendChild(a);
-                list.appendChild(li);
-            });
+            displayTools(data, list);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
@@ -76,61 +64,44 @@ function getToolsByDepartmentJurisdictionStage() {
 window.addEventListener('DOMContentLoaded', () => {
     getToolsDisplay();
     getDepartmentsDisplay();
-    getToolsByDepartmentJurisdictionStage();// initial render
+    getToolsByDepartmentJurisdictionStage();
+    displayFavorites();// initial render
 
-    // React to changes in branch (radio group inside .branchSelector)
+    // Unified change handler — since display functions reset themselves,
+    // we only need to re-run them when filters change.
+    const onFiltersChange = () => {
+        getToolsByDepartmentJurisdictionStage();
+        displayFavorites();
+    };
+
+    // Branch (stage) radio group
     const branchContainer = document.querySelector('.branchSelector');
-    // avoid crashing if it does not exist
     if (branchContainer) {
-        // we want to listen to changes and not reloads, since Chrome does not store state of buttons upon reload
         branchContainer.addEventListener('change', (e) => {
-            // checking if the event (a change to a branch button) matches one of the actual branch elements in html
             if (e.target && e.target.matches('input[name="branch"]')) {
-                const list = document.getElementById('departmentSelected');
-                // checking if the element exists, and looping through each Tool and removing them before appending to the list again
-                // this if condition ensures that the list displayed does not concatenate to the list of Tools
-                if (list) {
-                    list.querySelectorAll('li').forEach(li => li.remove());
-                }
-                getToolsByDepartmentJurisdictionStage();
+                onFiltersChange();
             }
         });
     }
 
+    // Department radio group
     const departmentContainer = document.querySelector('.departmentSelector');
-    // avoid crashing if it does not exist
     if (departmentContainer) {
-        // we want to listen to changes and not reloads, since Chrome does not store state of buttons upon reload
         departmentContainer.addEventListener('change', (e) => {
-            // checking if the event (a change to a branch button) matches one of the actual branch elements in html
             if (e.target && e.target.matches('input[name="department"]')) {
-                const list = document.getElementById('departmentSelected');
-                // checking if the element exists, and looping through each Tool and removing them before appending to the list again
-                // this if condition ensures that the list displayed does not concatenate to the list of Tools
-                if (list) {
-                    list.querySelectorAll('li').forEach(li => li.remove());
-                }
-                getToolsByDepartmentJurisdictionStage();
+                onFiltersChange();
             }
         });
     }
 
-    // React to changes in jurisdiction (checkbox with id="jurisdiction")
+    // Jurisdiction checkbox
     const jurEl = document.getElementById('jurisdiction');
     if (jurEl) {
-        jurEl.addEventListener('change', () => {
-            const list = document.getElementById('departmentSelected');
-            // checking if the element exists, and looping through each Tool and removing them before appending to the list again
-            // this if condition ensures that the list displayed does not concatenate to the list of Tools
-            if (list) {
-                list.querySelectorAll('li').forEach(li => li.remove());
-            }
-            getToolsByDepartmentJurisdictionStage();
-        });
+        jurEl.addEventListener('change', onFiltersChange);
     }
 });
 // helper methods
-function getJurisdiction() {
+export function getJurisdiction() {
     // jurisdiction is a checkbox
     // It is UK when checked and DK when not checked
     // should get jurisdictions from /getJurisdictions, which should return an array of current jurs..
@@ -141,7 +112,7 @@ function getJurisdiction() {
     return isChecked ? "UK" : "DK";
 }
 
-export function getBranch() {
+export function getStage() {
     // class branchselector is an array of checkboxes, whose value is the desiree.
     // if a certain checkbox is checked, save the value
     // getting the checkbox class
@@ -150,8 +121,20 @@ export function getBranch() {
     return container.querySelector('input[type="radio"]:checked')?.value;
 }
 
-function getDepartment(){
+export function getDepartment(){
     const container = document.querySelector('.departmentSelector');
     // get the currently selected radio
     return container.querySelector('input[type="radio"]:checked')?.value;
+}
+
+export function displayTools(data, list) {
+    data.forEach(tool => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = tool.url;
+        a.textContent = tool.name;
+        a.target = "_blank";
+        li.appendChild(a);
+        list.appendChild(li);
+    });
 }
