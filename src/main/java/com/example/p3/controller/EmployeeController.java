@@ -22,6 +22,7 @@ public class EmployeeController {
         List<EmployeeDto> list = employeeService.getAllEmployees().stream()
                 .map(EmployeeDto::new)
                 .toList();
+        System.out.println(list);
         return ResponseEntity.ok().body(list);
     }
 

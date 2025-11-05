@@ -35,7 +35,7 @@ public class FavoritesController {
     }
 
     //this endpoint call all the favorite lists for all users, including the objects of the tools
-    @GetMapping("/getFavoriteTools/details")
+  /*  @GetMapping("/getFavoriteTools/details")
     public ResponseEntity<List<FavoritedDetailDto>> getFavoriteTools(){
         var allTools = toolService.getAllTools();
         var list = favoritesService.getFavorites().values().stream()
@@ -84,6 +84,6 @@ public class FavoritesController {
         );
 
         return ResponseEntity.ok(favorites);
-    }
+    }*/
 
 }

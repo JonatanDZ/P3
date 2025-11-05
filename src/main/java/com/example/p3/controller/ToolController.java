@@ -1,7 +1,13 @@
 package com.example.p3.controller;
 
+import com.example.p3.dtos.DepartmentDto;
 import com.example.p3.dtos.ToolDto;
-import com.example.p3.model.Tool;
+import com.example.p3.entities.Department;
+import com.example.p3.entities.Jurisdiction;
+import com.example.p3.entities.Stage;
+import com.example.p3.entities.Tool;
+import com.example.p3.repositories.JurisdictionRepository;
+import com.example.p3.service.JurisdictionService;
 import com.example.p3.service.ToolService;
 import org.springframework.http.ResponseEntity;
 
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 // This is the API http/rest controller
 @RestController
@@ -26,22 +33,7 @@ public class ToolController {
 
     @GetMapping("")
     public ResponseEntity<List<ToolDto>> getAllTools(){
-        List<ToolDto> list = toolService.getAllTools().values().stream()
-                .map(ToolDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
-
-    @PostMapping("/getToolsByStage/{stage}")
-    public ResponseEntity<List<ToolDto>> getToolsByStage(@PathVariable("stage") String stage){
-        List<ToolDto> list = toolService.getToolsByStage(stage);
-        return ResponseEntity.ok(list);
-    }
-
-    // maybe change this to department/jurisdiction/stage or implement new endpoint
-    @GetMapping("/jurisdiction/{jurisdiction}")
-    public ResponseEntity<List<ToolDto>> getByJurisdiction(@PathVariable Tool.Jurisdiction jurisdiction) {
-        List<ToolDto> list = toolService.findByJurisdiction(jurisdiction).stream()
+        List<ToolDto> list = toolService.getAllTools().stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
@@ -49,8 +41,24 @@ public class ToolController {
 
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
     @GetMapping("/department/{department}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable Tool.Department department) {
-        List<ToolDto> list = toolService.getAllToolsByDepartment(department).values().stream()
+    public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {
+        List<ToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
+                .map(ToolDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/jurisdiction/{jurisdiction}")
+    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {
+        List<ToolDto> list = toolService.getAllToolsByJurisdictionName(jurisdiction).stream()
+                .map(ToolDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/stage/{stage}")
+    public ResponseEntity<List<ToolDto>> getAllToolsByStage(@PathVariable String stage) {
+        List<ToolDto> list = toolService.getAllToolsByStageName(stage).stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
@@ -58,11 +66,11 @@ public class ToolController {
 
     @GetMapping("/{department}/{jurisdiction}/{stage}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
-            @PathVariable Tool.Department department,
-            @PathVariable Tool.Jurisdiction jurisdiction,
-            @PathVariable Tool.Stage stage
+            @PathVariable String department,
+            @PathVariable String jurisdiction,
+            @PathVariable String stage
     ){
-        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).values().stream()
+        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
                 .map(ToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
@@ -74,17 +82,6 @@ public class ToolController {
             return ResponseEntity.badRequest().build();
         }
 
-        Tool createdTool = toolService.createTool(
-                null,
-                tool.getName(),
-                tool.getUrl(),
-                tool.tagsToString(),
-                tool.getDepartments(),
-                tool.getStages(),
-                tool.getJurisdictions(),
-                tool.isDynamic()
-        );
-
-        return ResponseEntity.ok(createdTool);
+        return ResponseEntity.ok(toolService.saveTool(tool));
     }
 }
