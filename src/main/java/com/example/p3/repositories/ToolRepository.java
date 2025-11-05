@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ToolRepository extends JpaRepository<Tool, Integer> {
+    // favorites endpoint
+    // it gets the favorites based on user, current jurisdiction and current stage
     @Query("""
     SELECT DISTINCT t
     FROM Tool t
