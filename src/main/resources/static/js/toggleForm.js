@@ -1,4 +1,4 @@
-
+//Toogles om formularen er åben eller ikke
 export function toggleForm(formIsShown){
     if (formIsShown){
         addToolDiv.style.display = "none";

@@ -42,31 +42,32 @@
                 <form class="from-container">
                     <h1>Add Tool</h1>
 
-                    <label for="toolName"> <b> Tool name</b></label>
+                    <label for="toolName"> <h3> Tool name</h3></label>
                     <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" required>
 
-                    <label for="isDynamic"> <b> Is Dynamic?</b>
-                        <input id="isDynamic" type="checkbox" name="IsDynamic" checked="checked">
-                    </label>
 
-                    <label for="toolURL"> <b> Tool URL</b></label>
+
+                    <label for="toolURL"> <h3> Tool URL</h3></label>
+                    <label for="isDynamic"> Is the URL Dynamic?
+                        <input id="isDynamic" type="checkbox" name="IsDynamic" class="isDynamic" checked="checked">
+                    </label>
                     <div id="toolURL">
                         <input id="toolURL1" class="toolURL" type="text" placeholder="Enter first part of URL" name="toolURL" required>
-                        <b id="toolUser">USER</b>
+                        <b id="toolUser">Initials</b>
                         <input id="toolURL2" class="toolURL toolURLHide" type="text" placeholder="Enter second part of URL" name="toolURL" required>
                     </div>
 
 
 
 
-                    <label for="tags"> <b> Tags </b></label>
+                    <label for="tags"> <h3> Tags </h3></label>
                     <input id="tags" type="text" placeholder="Enter Tags" name="tags">
 
-                    <label for="departmentsInput"> <b> Department</b></label>
+                    <label for="departmentsInput"> <h3> Department</h3></label>
                     <div id = "departmentsInput" class="inputDiv"></div>
 
 
-                    <label for="stagesInput"> <b> Stages</b></label>
+                    <label for="stagesInput"> <h3> Stages</h3></label>
                     <div id = "stagesInput" class="inputDiv">
                         <div class="checkBoxDiv">
                             <label for="developmentInput"> Development </label>
@@ -83,11 +84,13 @@
                     </div>
 
 
-                    <label for="jurisdictionsInput"> <b> Jurisdiction</b></label>
+                    <label for="jurisdictionsInput"> <h3> Jurisdiction</h3></label>
                     <div id="jurisdictionsInput" class="inputDiv"> </div>
 
-                    <button type="submit" id="submitBtn" class="submitBtn">Add Tool</button>
-                    <button type="button" class="toggleBtn">Cancel</button>
+                    <div class="buttondiv">
+                        <button type="button" class="toggleBtn submitformbtn">Cancel</button>
+                        <button type="submit" id="submitBtn" class="submitBtn submitformbtn">Add Tool</button>
+                    </div>
                 </form>
             </div>
 

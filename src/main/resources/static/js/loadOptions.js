@@ -1,4 +1,6 @@
+//Bruges til at load department og jurisdiction
 export function loadOptions(str){
+    //Hvad kan der være i URL'ens ${str}?
     fetch(`/${str}/getAll`)
         .then(response=>response.json())
         .then(data => {
