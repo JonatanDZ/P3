@@ -26,24 +26,26 @@ public class ToolService {
 
     //Filters the tools so only tool with the department from the URL is returned
     public List<Tool> getAllToolsByDepartmentName(String departmentName) {
-      return toolRepository.findByDepartmentName(departmentName);
+      return toolRepository.findByDepartments_DepartmentName(departmentName);
     }
 
     public List<Tool> getAllToolsByJurisdictionName(String jurisdictionName) {
-        return toolRepository.findByJurisdictionName(jurisdictionName);
+        return toolRepository.findByJurisdictions_JurisdictionName(jurisdictionName);
     }
 
     public List<Tool> getAllToolsByStageName(String stageName) {
-        return toolRepository.findByStageName(stageName);
+        return toolRepository.findByStages_Name(stageName);
     }
 
     public List<Tool> getAllToolsByDepartmentJurisdictionStage(String department, String jurisdiction, String stage){
-        return toolRepository.findByDepartmentJurisdictonStage(department, jurisdiction, stage);
+        return toolRepository.findByDepartments_DepartmentNameAndJurisdictions_JurisdictionNameAndStages_Name(department, jurisdiction, stage);
     }
-
 
     public Tool saveTool(Tool tool) {
+        
+
         return toolRepository.saveAndFlush(tool);
     }
+
 
 }
