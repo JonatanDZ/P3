@@ -19,17 +19,18 @@ public class EmployeeController {
         List<EmployeeDto> list = employeeService.getAllEmployees().stream()
                 .map(EmployeeDto::new)
                 .toList();
+        System.out.println(list);
         return ResponseEntity.ok().body(list);
     }
 
     // This only look for one specefic id
-    @GetMapping("/id/{id}")
+   /* @GetMapping("/id/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Integer id) {
         return employeeService.getEmployeeById(id)
                 .map(EmployeeDto::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
+    }*/
 
     // the rest looks for list with the best match at the top.
     @GetMapping("/initials/{initials}")
