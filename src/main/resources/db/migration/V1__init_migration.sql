@@ -1,72 +1,109 @@
-CREATE TABLE `department` (
-                              `department_id` INT,
-                              `department_name` VARCHAR(255),
-                              `is_dev` BOOL,
-                              PRIMARY KEY (`department_id`)
+-- Parents first
+CREATE TABLE department (
+                            id        INT           NOT NULL,
+                            name      VARCHAR(255)  NOT NULL,
+                            is_dev    BOOL          NOT NULL DEFAULT FALSE,
+                            PRIMARY KEY (id)
 );
 
-CREATE TABLE `employees` (
-                         `employee_id` INT,
-                         `name` VARCHAR(255),
-                         `initials` VARCHAR(255),
-                         `department_id` INT,
-                         `is_admin` BOOL,
-                         PRIMARY KEY (`employee_id`),
-                         FOREIGN KEY (`department_id`)
-                             REFERENCES `department`(`department_id`)
+CREATE TABLE tool (
+                      id          INT           NOT NULL,
+                      name        VARCHAR(255)  NOT NULL,
+                      url         VARCHAR(255)  NOT NULL,
+                      is_personal BOOL          NOT NULL DEFAULT FALSE,
+                      is_dynamic  BOOL          NOT NULL DEFAULT FALSE,
+                      PRIMARY KEY (id)
 );
 
-CREATE TABLE `jurisdiction` (
-                                `jurisdiction_id` INT,
-                                `jurisdiction_name` VARCHAR(255),
-                                PRIMARY KEY (`jurisdiction_id`)
+CREATE TABLE employee (
+                          initials      VARCHAR(4)   NOT NULL,
+                          name          VARCHAR(255) NOT NULL,
+                          department_id INT          NOT NULL,
+                          email         VARCHAR(255) NOT NULL,
+                          PRIMARY KEY (initials),
+                          CONSTRAINT fk_employee_department
+                              FOREIGN KEY (department_id) REFERENCES department(id)
+                                  ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE `tool` (
-                        `tool_id` INT,
-                        `name` VARCHAR(255),
-                        `url` VARCHAR(255),
-                        `is_dynamic` BOOL,
-                        PRIMARY KEY (`tool_id`)
+CREATE TABLE jurisdiction (
+                              id    INT           NOT NULL,
+                              name  VARCHAR(255)  NOT NULL,
+                              PRIMARY KEY (id)
 );
 
-CREATE TABLE `department_tool` (
-                                   `department` INT,
-                                   `tool_id` INT,
-                                   FOREIGN KEY (`department`)
-                                       REFERENCES `department`(`department_id`),
-                                   FOREIGN KEY (`tool_id`)
-                                       REFERENCES `tool`(`tool_id`)
+CREATE TABLE stage (
+                       id    INT           NOT NULL,
+                       name  VARCHAR(255)  NOT NULL,
+                       PRIMARY KEY (id)
 );
 
-CREATE TABLE `stage` (
-                         `stage_id` INT,
-                         `name` VARCHAR(255),
-                         PRIMARY KEY (`stage_id`)
+CREATE TABLE tag (
+                     id     INT           NOT NULL,
+                     value  VARCHAR(255)  NOT NULL,
+                     PRIMARY KEY (id)
 );
 
-CREATE TABLE `stage_tools` (
-                               `tool_id` INT,
-                               `stage_id` INT,
-                               FOREIGN KEY (`stage_id`)
-                                   REFERENCES `stage`(`stage_id`),
-                               FOREIGN KEY (`tool_id`)
-                                   REFERENCES `tool`(`tool_id`)
+-- Junctions (many-to-many) – child tables hold the FKs and composite PKs
+
+CREATE TABLE department_tool (
+                                 department_id INT NOT NULL,
+                                 tool_id       INT NOT NULL,
+                                 PRIMARY KEY (department_id, tool_id),
+                                 CONSTRAINT fk_dept_tool_dept
+                                     FOREIGN KEY (department_id) REFERENCES department(id)
+                                         ON DELETE CASCADE ON UPDATE CASCADE,
+                                 CONSTRAINT fk_dept_tool_tool
+                                     FOREIGN KEY (tool_id) REFERENCES tool(id)
+                                         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `jurisdiction_tools` (
-                                      `tool_id` INT,
-                                      `jurisdiction_id` INT,
-                                      FOREIGN KEY (`tool_id`)
-                                          REFERENCES `tool`(`tool_id`),
-                                      FOREIGN KEY (`jurisdiction_id`)
-                                          REFERENCES `jurisdiction`(`jurisdiction_id`)
+CREATE TABLE tool_jurisdiction (
+                                   jurisdiction_id INT NOT NULL,
+                                   tool_id         INT NOT NULL,
+                                   PRIMARY KEY (jurisdiction_id, tool_id),
+                                   CONSTRAINT fk_tool_jur_jur
+                                       FOREIGN KEY (jurisdiction_id) REFERENCES jurisdiction(id)
+                                           ON DELETE CASCADE ON UPDATE CASCADE,
+                                   CONSTRAINT fk_tool_jur_tool
+                                       FOREIGN KEY (tool_id) REFERENCES tool(id)
+                                           ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE favorite_tools (
-                                employee_id INT NOT NULL,
-                                tool_id INT NOT NULL,
-                                PRIMARY KEY (employee_id, tool_id),
-                                FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE,
-                                FOREIGN KEY (tool_id) REFERENCES tool(tool_id) ON DELETE CASCADE
+CREATE TABLE tool_stage (
+                            stage_id INT NOT NULL,
+                            tool_id  INT NOT NULL,
+                            PRIMARY KEY (stage_id, tool_id),
+                            CONSTRAINT fk_tool_stage_stage
+                                FOREIGN KEY (stage_id) REFERENCES stage(id)
+                                    ON DELETE CASCADE ON UPDATE CASCADE,
+                            CONSTRAINT fk_tool_stage_tool
+                                FOREIGN KEY (tool_id) REFERENCES tool(id)
+                                    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE tool_tag (
+                          tool_id INT NOT NULL,
+                          tag_id  INT NOT NULL,
+                          PRIMARY KEY (tool_id, tag_id),
+                          CONSTRAINT fk_tool_tag_tool
+                              FOREIGN KEY (tool_id) REFERENCES tool(id)
+                                  ON DELETE CASCADE ON UPDATE CASCADE,
+                          CONSTRAINT fk_tool_tag_tag
+                              FOREIGN KEY (tag_id) REFERENCES tag(id)
+                                  ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Favorites (employee ↔ tool) – composite PK, correct FK direction
+-- (table name singular/plural is your call; keeping singular from your snippet)
+CREATE TABLE favorite_tool (
+                               employee_initials VARCHAR(4) NOT NULL,
+                               tool_id           INT        NOT NULL,
+                               PRIMARY KEY (employee_initials, tool_id),
+                               CONSTRAINT fk_fav_emp
+                                   FOREIGN KEY (employee_initials) REFERENCES employee(initials)
+                                       ON DELETE CASCADE ON UPDATE CASCADE,
+                               CONSTRAINT fk_fav_tool
+                                   FOREIGN KEY (tool_id) REFERENCES tool(id)
+                                       ON DELETE CASCADE ON UPDATE CASCADE
 );

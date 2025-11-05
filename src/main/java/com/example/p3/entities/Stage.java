@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(name = "stage", schema = "P3")
 public class Stage {
     @Id
-    @Column(name = "stage_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Size(max = 255)
@@ -23,9 +23,9 @@ public class Stage {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "stage_tools",
-            joinColumns = @JoinColumn(name = "stage_id", referencedColumnName = "stage_id"),
-            inverseJoinColumns = @JoinColumn(name = "tool_id", referencedColumnName = "tool_id")
+            name = "tool_stage",
+            joinColumns = @JoinColumn(name = "stage_id"),
+            inverseJoinColumns = @JoinColumn(name = "tool_id")
     )
     private Set<Tool> stageTools = new HashSet<>();
 }
