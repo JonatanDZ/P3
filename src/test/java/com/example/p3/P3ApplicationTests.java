@@ -27,25 +27,25 @@ class P3ApplicationTests {
 
 
     @Test
-    void testGetUserById() throws Exception {
-        String url = "http://localhost:8080/getUsers/id/15";
+    void testGetEmployeeByInitials() throws Exception {
+        String url = "http://localhost:8080/employee/initials/PEDO";
 
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readValue(response.getBody(), JsonNode.class);
-        String id = root.path("id").toString();
+        String initials = root.path("initials").toString();
 
-        String expectedJson = "15";
+        String expectedJson = "\"PEDO\"";
 
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
-        Assertions.assertEquals(expectedJson,id);
+        Assertions.assertEquals(expectedJson,initials);
     }
 
     //Tests for initials, email and name work the same
 
     @Test
-    void testGetUserByDepartment() throws Exception {
-        String url = "http://localhost:8080/getUsers/department/DEVOPS";
+    void testGetEmployeeByDepartment() throws Exception {
+        String url = "http://localhost:8080/employee/department/1";
 
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         ObjectMapper mapper = new ObjectMapper();

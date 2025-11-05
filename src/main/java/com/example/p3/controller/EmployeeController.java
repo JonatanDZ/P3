@@ -26,13 +26,13 @@ public class EmployeeController {
     }
 
     // This only look for one specefic id
-    @GetMapping("/id/{id}")
+   /* @GetMapping("/id/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Integer id) {
         return employeeService.getEmployeeById(id)
                 .map(EmployeeDto::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
+    }*/
 
     // the rest looks for list with the best match at the top.
     @GetMapping("/initials/{initials}")
