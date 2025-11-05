@@ -3,19 +3,17 @@ package com.example.p3.controller;
 import com.example.p3.dtos.employee.EmployeeDto;
 import com.example.p3.entities.Employee;
 import com.example.p3.service.EmployeeService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
-
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 
     @GetMapping("")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees() {

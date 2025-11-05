@@ -1,22 +1,28 @@
 package com.example.p3.service;
 
+import com.example.p3.entities.Tool;
 import com.example.p3.model.Favorites;
+import com.example.p3.repositories.ToolRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@AllArgsConstructor
 public class FavoritesService {
 
     private final Map<Long, Favorites> inMemoryFavorites = new ConcurrentHashMap<>();
     private final ObjectMapper mapper = new ObjectMapper();
+    private final ToolRepository toolRepository;
 
-    public Map<Long, Favorites> getFavorites() {
-        return inMemoryFavorites;
+    public List<Tool> getFavorites() {
+        return toolRepository.findAll();
     }
 
     @PostConstruct
