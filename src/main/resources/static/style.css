@@ -203,12 +203,14 @@ section {
 #departmentSelected,
 #favorites {
     display: flex;
+    list-style-type: none;
     flex-wrap: wrap;
     gap: 10px;
-    padding-left: 20px;
+    padding-left: 0px;
     width: 100%;
     height: auto;
 }
+
 
 #allTools a,
 #departmentSelected a,
