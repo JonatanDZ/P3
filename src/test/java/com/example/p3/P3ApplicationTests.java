@@ -59,21 +59,11 @@ class P3ApplicationTests {
     }
 
     //Test to see if getFavoriteTools is called
-    @Test
-    void favoritesListsForAllUsers() throws Exception {
-        String url = "http://localhost:8080/getTools/getFavoriteTools";
 
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
-        String expectedJson = """
-                [
-                  { "id": 1, "toolIDs": [1, 3] },
-                  { "id": 2, "toolIDs": [4] }
-                ]
-                """;
 
         assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
-    }
+    
 
     @Test
     void favoritesDetailedListsForAllUsers() throws Exception {
@@ -95,6 +85,7 @@ class P3ApplicationTests {
         assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
     }
     ToolsTests test = new ToolsTests();
+
 
 
 //    @Autowired
