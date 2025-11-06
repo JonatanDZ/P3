@@ -1,45 +1,53 @@
 import {footerUpdate} from '../../../main/resources/static/js/footerVariable.js';
 
-global.fetch = jest.fn(); //This prevents the real API call
-
-describe("footerUpdate", () => {
-    let mockResponse;
-
+describe("footerUpdate()", () => {
     beforeEach(() => {
-        jest.clearAllMocks();
-
         document.body.innerHTML = `
-        <div className="branchSelector">
-            <input type="radio" id="dev" name="branch" value="DEVELOPMENT" checked/>
-            <label htmlFor="dev">Dev</label><br/>
+            <div class="branchSelector">
+            <input type="radio" id="dev" name="branch" value="DEVELOPMENT" checked>
+            <label for="dev" style="background-color: rgb(255, 0, 0)">Dev</label><br>
 
-            <input type="radio" id="stage" name="branch" value="STAGING"/>
-            <label htmlFor="stage">Stage</label><br/>
+            <input type="radio" id="stage" name="branch" value="STAGING">
+            <label for="stage" style="background-color: rgb(0, 255, 0)">Stage</label><br>
 
-            <input type="radio" id="prod" name="branch" value="PRODUCTION"/>
-            <label htmlFor="prod">Prod</label><br/>
-        </div> 
+            <input type="radio" id="prod" name="branch" value="PRODUCTION">
+            <label for="prod" style="background-color: rgb(0, 0, 255)">Prod</label><br>
+        </div>
+        <footer></footer>
         `;
+    });
+    test("sets footer background after what stage is selected", () => {
+        const footer = document.querySelector("footer");
 
-        test("Check", async () => {
-        mockResponse = {
-            ok: true,
-            json: async () =>([
-                {name: "DEVELOPMENT"},
-                {name: "STAGING"},
-                {name: "PRODUCTION"},
-            ])
-        };
+        // Is default checked as DEV
+        footerUpdate();
 
-        global.fetch(mockResolvedValue(mockResponse));
+        expect(footer.textContent).toBe("Dev");
+        expect(footer.style.backgroundColor).toBe("rgb(255, 0, 0)")
 
-        loadOptions("DEVELOPMENT");
+        // Switching to stage
+        const stageInput = document.getElementById("stage");
+        stageInput.checked = true;
+        footerUpdate();
 
-        await new Promise(process.nextTick);
-
-        expect(document.querySelector("#dev").value).toBe("DEVELOPMENT");
+        expect(footer.textContent).toBe("Stage");
+        expect(footer.style.backgroundColor).toBe("rgb(0, 255, 0)")
 
 
-        });
+        // Switching to prod
+        const prodInput = document.getElementById("prod");
+        prodInput.checked = true;
+        footerUpdate();
+
+        expect(footer.textContent).toBe("Prod");
+        expect(footer.style.backgroundColor).toBe("rgb(0, 0, 255)")
+    });
+
+    test("No stage selected", () => {
+        document.querySelectorAll("input[name='branch']").forEach(element => (element.checked = false));
+
+        const footer = document.querySelector("footer");
+        footerUpdate();
+        expect(footer.textContent).toBe("");
     });
 });
