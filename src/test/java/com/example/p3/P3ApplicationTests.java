@@ -94,6 +94,7 @@ class P3ApplicationTests {
 
         assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
     }
+    ToolsTests test = new ToolsTests();
 
 
 //    @Autowired
