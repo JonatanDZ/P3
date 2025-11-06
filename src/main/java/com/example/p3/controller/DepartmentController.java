@@ -23,7 +23,7 @@ public class DepartmentController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<DepartmentDto>> getAllDepartments(){
-        List<DepartmentDto> list = departmentService.getAllDepartments().values().stream()
+        List<DepartmentDto> list = departmentService.getAllDepartments().stream()
                 .map(DepartmentDto::new)
                 .toList();
         return ResponseEntity.ok(list);

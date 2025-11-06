@@ -41,14 +41,18 @@ label[for="jurisdiction"] {
     align-items: center;
     width: 80px;
     height: 40px;
-    background: #ff0000;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg");
+    background-size: cover;
+    background-position: center;
     border-radius: 5px;
     color: white;
     cursor: pointer;
 }
 
 #jurisdiction:checked+label[for="jurisdiction"] {
-    background: #0033ff;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg");
+    background-size: cover;
+    background-position: center;
     font-weight: bold;
 }
 
@@ -199,12 +203,13 @@ section {
 #departmentSelected,
 #favorites {
     display: flex;
+    list-style-type: none;
     flex-wrap: wrap;
     gap: 10px;
-    padding-left: 20px;
     width: 100%;
     height: auto;
 }
+
 
 #allTools a,
 #departmentSelected a,
@@ -322,4 +327,22 @@ footer {
 input[type="checkbox"] {
     transform: scale(1.7);
     margin: 30%;
+}
+
+.toolName{
+    width: 100%;
+    border: 1% solid #ccc;
+    border-radius: 40px;
+    padding: 1% 2%;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.tags{
+    width: 100%;
+    border: 1% solid #ccc;
+    border-radius: 40px;
+    padding: 1% 2%;
+    outline: none;
+    box-sizing: border-box;
 }

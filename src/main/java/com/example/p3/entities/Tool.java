@@ -5,7 +5,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -14,7 +16,7 @@ import java.util.Set;
 @Table(name = "tool", schema = "P3")
 public class Tool {
     @Id
-    @Column(name = "tool_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Size(max = 255)
@@ -24,6 +26,9 @@ public class Tool {
     @Size(max = 255)
     @Column(name = "url")
     private String url;
+
+    @Column(name = "is_personal")
+    private Boolean isPersonal;
 
     @Column(name = "is_dynamic")
     private Boolean isDynamic;
@@ -36,9 +41,27 @@ public class Tool {
     @ManyToMany(mappedBy = "departmentTools")
     private Set<Department> departments;
 
-    @ManyToMany(mappedBy = "jurisdictionTools")
+    @ManyToMany
+    @JoinTable(
+            name = "tool_jurisdiction",
+            joinColumns = @JoinColumn(name = "tool_id"),
+            inverseJoinColumns = @JoinColumn(name = "jurisdiction_id")
+    )
     private Set<Jurisdiction> jurisdictions;
 
-    @ManyToMany(mappedBy = "stageTools")
+    @ManyToMany
+    @JoinTable(
+            name = "tool_stage",
+            joinColumns = @JoinColumn(name = "tool_id"),
+            inverseJoinColumns = @JoinColumn(name = "stage_id")
+    )
     private Set<Stage> stages;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tool_tag",
+            joinColumns = @JoinColumn(name = "tool_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
 }
