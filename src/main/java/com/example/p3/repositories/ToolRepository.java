@@ -10,16 +10,19 @@ import java.util.List;
 public interface ToolRepository extends JpaRepository<Tool, Integer> {
     // favorites endpoint
     // it gets the favorites based on user, current jurisdiction and current stage
-    @Query("""
-    SELECT DISTINCT t
-    FROM Tool t
-    JOIN t.employeesWhoFavorited e
-    JOIN t.stages s
-    JOIN t.jurisdictions j
+    @Query(value = """
+    SELECT DISTINCT t.*
+    FROM tool t
+    JOIN favorite_tool ft ON ft.tool_id = t.id
+    JOIN employee e ON e.initials = ft.employee_initials
+    JOIN tool_stage ts ON ts.tool_id = t.id
+    JOIN stage s ON s.id = ts.stage_id
+    JOIN tool_jurisdiction tj ON tj.tool_id = t.id
+    JOIN jurisdiction j ON j.id = tj.jurisdiction_id
     WHERE e.initials = :employeeInitials
-      AND j.jurisdictionName = :jurisdictionName
+      AND j.name = :jurisdictionName
       AND s.name = :stageName
-""")
+""", nativeQuery = true)
     List<Tool> findFavoritesByEmployeeAndJurisdictionAndStage(
             @Param("employeeInitials") String employeeInitials,
             @Param("jurisdictionName") String jurisdictionName,
