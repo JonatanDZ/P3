@@ -41,9 +41,27 @@ public class Tool {
     @ManyToMany(mappedBy = "departmentTools")
     private Set<Department> departments;
 
-    @ManyToMany(mappedBy = "jurisdictionTools")
+    @ManyToMany
+    @JoinTable(
+            name = "tool_jurisdiction",
+            joinColumns = @JoinColumn(name = "tool_id"),
+            inverseJoinColumns = @JoinColumn(name = "jurisdiction_id")
+    )
     private Set<Jurisdiction> jurisdictions;
 
-    @ManyToMany(mappedBy = "stageTools")
+    @ManyToMany
+    @JoinTable(
+            name = "tool_stage",
+            joinColumns = @JoinColumn(name = "tool_id"),
+            inverseJoinColumns = @JoinColumn(name = "stage_id")
+    )
     private Set<Stage> stages;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tool_tag",
+            joinColumns = @JoinColumn(name = "tool_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
 }

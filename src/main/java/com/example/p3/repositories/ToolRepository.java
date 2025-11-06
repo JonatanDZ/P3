@@ -7,7 +7,23 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ToolRepository extends JpaRepository<Tool, Integer> {
-
+    // favorites endpoint
+    // it gets the favorites based on user, current jurisdiction and current stage
+    @Query("""
+    SELECT DISTINCT t
+    FROM Tool t
+    JOIN t.employeesWhoFavorited e
+    JOIN t.stages s
+    JOIN t.jurisdictions j
+    WHERE e.initials = :employeeInitials
+      AND j.jurisdictionName = :jurisdictionName
+      AND s.name = :stageName
+    """)
+    List<Tool> findFavoritesByEmployeeAndJurisdictionAndStage(
+            @Param("employeeInitials") String employeeInitials,
+            @Param("jurisdictionName") String jurisdictionName,
+            @Param("stageName") String stageName
+    );
 
 
     /*
@@ -50,3 +66,6 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
                                                                                                String JurisdictionName,
                                                                                                String stageName);
 }
+
+
+

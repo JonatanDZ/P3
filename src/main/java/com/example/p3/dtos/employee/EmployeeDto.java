@@ -1,7 +1,6 @@
 package com.example.p3.dtos.employee;
 
 import com.example.p3.entities.Employee;
-import com.example.p3.entities.Department;
 import lombok.Data;
 
 

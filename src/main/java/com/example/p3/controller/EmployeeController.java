@@ -1,21 +1,18 @@
 package com.example.p3.controller;
 
 import com.example.p3.dtos.employee.EmployeeDto;
-import com.example.p3.entities.Employee;
 import com.example.p3.service.EmployeeService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
-
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 
     @GetMapping("")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
@@ -27,13 +24,13 @@ public class EmployeeController {
     }
 
     // This only look for one specefic id
-    @GetMapping("/id/{id}")
+   /* @GetMapping("/id/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Integer id) {
         return employeeService.getEmployeeById(id)
                 .map(EmployeeDto::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
+    }*/
 
     // the rest looks for list with the best match at the top.
     @GetMapping("/initials/{initials}")
