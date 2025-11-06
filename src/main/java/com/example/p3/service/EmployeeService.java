@@ -19,12 +19,7 @@ public class EmployeeService {
         // Standard Jpa query method.
         return employeeRepository.findAll();
     }
-
-    // Get employee by ID
-    public Optional<Employee> getEmployeeById(Integer employee_id) {
-        return employeeRepository.findById(employee_id);
-    }
-
+    
     // Get employees by initials
     public Optional<Employee> getEmployeeByInitials(String initials) {
         return employeeRepository.findByInitials(initials);
