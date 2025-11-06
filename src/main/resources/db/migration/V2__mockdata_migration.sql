@@ -1,13 +1,13 @@
 -- --- DEPARTMENTS ---
-INSERT INTO department (id, name, is_dev)
+INSERT INTO department (name, is_dev)
 VALUES
-    (1, 'DevOps', TRUE),
-    (2, 'Frontend', TRUE),
-    (3, 'Games', TRUE),
-    (4, 'Players', TRUE),
-    (5, 'Promotions', TRUE),
-    (6, 'HR', FALSE),
-    (7, 'Legal', FALSE);
+    ('DevOps', TRUE),
+    ('Frontend', TRUE),
+    ('Games', TRUE),
+    ('Players', TRUE),
+    ('Promotions', TRUE),
+    ('HR', FALSE),
+    ('Legal', FALSE);
 
 -- --- EMPLOYEES ---
 -- Using initials as PK; add simple placeholder emails
@@ -29,23 +29,23 @@ VALUES
     ('BEKO', 'Beelzebub Komseda',       7, 'beko@example.com');
 
 -- --- JURISDICTIONS ---
-INSERT INTO jurisdiction (id, name)
+INSERT INTO jurisdiction (name)
 VALUES
-    (1, 'DK'),
-    (2, 'UK');
+    ('DK'),
+    ('UK');
 
 -- --- TOOLS ---
 -- Added is_personal (set FALSE across the board, tweak if needed)
-INSERT INTO tool (id, name, url, is_personal, is_dynamic)
+INSERT INTO tool (name, url, is_personal, is_dynamic)
 VALUES
-    (1, 'Outlook',               'https://outlook.office365.com/mail/', FALSE, FALSE),
-    (2, 'Slack',                 'https://slack.com',                   FALSE, FALSE),
-    (3, 'Happy Tiger Dev',       'initials.greathippydev.co.uk',        FALSE, TRUE),
-    (4, 'Happy Tiger Stage',     'initials.stage.happytiger.co.uk',     FALSE, TRUE),
-    (5, 'Happy Tiger Production','https://happytiger.co.uk',            FALSE, TRUE),
-    (6, 'Spil Nu Dev',           'initials.lupinsdev.dk',               FALSE, TRUE),
-    (7, 'Spil Nu Stage',         'initials.stage.spilnu.dk',            FALSE, TRUE),
-    (8, 'Spil Nu Production',    'https://spilnu.dk',                   FALSE, TRUE);
+    ('Outlook',               'https://outlook.office365.com/mail/', FALSE, FALSE),
+    ('Slack',                 'https://slack.com',                   FALSE, FALSE),
+    ('Happy Tiger Dev',       'initials.greathippydev.co.uk',        FALSE, TRUE),
+    ('Happy Tiger Stage',     'initials.stage.happytiger.co.uk',     FALSE, TRUE),
+    ('Happy Tiger Production','https://happytiger.co.uk',            FALSE, TRUE),
+    ('Spil Nu Dev',           'initials.lupinsdev.dk',               FALSE, TRUE),
+    ('Spil Nu Stage',         'initials.stage.spilnu.dk',            FALSE, TRUE),
+    ('Spil Nu Production',    'https://spilnu.dk',                   FALSE, TRUE);
 
 -- --- DEPARTMENT ↔ TOOL ---
 -- Use correct column name department_id

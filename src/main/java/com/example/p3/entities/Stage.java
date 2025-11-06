@@ -15,17 +15,13 @@ import java.util.Set;
 public class Stage {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 255)
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "tool_stage",
-            joinColumns = @JoinColumn(name = "stage_id"),
-            inverseJoinColumns = @JoinColumn(name = "tool_id")
-    )
+    @ManyToMany(mappedBy = "stages")
     private Set<Tool> stageTools = new HashSet<>();
 }

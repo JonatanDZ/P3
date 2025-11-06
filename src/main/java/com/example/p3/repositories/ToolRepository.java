@@ -2,9 +2,12 @@ package com.example.p3.repositories;
 
 import com.example.p3.entities.Tool;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ToolRepository extends JpaRepository<Tool, Integer> {
     // favorites endpoint
@@ -65,6 +68,8 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     List<Tool> findByDepartments_DepartmentNameAndJurisdictions_JurisdictionNameAndStages_Name(String DepartmentName,
                                                                                                String JurisdictionName,
                                                                                                String stageName);
+
+
 }
 
 

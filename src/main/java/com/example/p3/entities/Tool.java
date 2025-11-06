@@ -17,6 +17,7 @@ import java.util.Set;
 public class Tool {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 255)
@@ -38,7 +39,13 @@ public class Tool {
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
 
-    @ManyToMany(mappedBy = "departmentTools")
+    @ManyToMany
+    @JoinTable(
+            name = "department_tool",
+            joinColumns = @JoinColumn(name = "tool_id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id")
+
+    )
     private Set<Department> departments;
 
     @ManyToMany

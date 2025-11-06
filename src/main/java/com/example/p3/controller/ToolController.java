@@ -76,8 +76,6 @@ public class ToolController {
         if (tool == null){
             return ResponseEntity.badRequest().build();
         }
-        tool.getStages().forEach(stage -> { });
-
         return ResponseEntity.ok(toolService.saveTool(tool));
     }
 }
