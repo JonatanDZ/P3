@@ -60,4 +60,43 @@ public class ToolsTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.jurisdictions").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.stage").isArray());
     }
+
+    @Test
+    public void testGetTools() throws Exception {
+        Set<Department> departmentSet = new HashSet<>();
+        Set<Jurisdiction> jurisdictionSet = new HashSet<>();
+        Set<Stage> stagesSet = new HashSet<>();
+        Set<Tag> tagSet = new HashSet<>();
+        Tool tool1 = new Tool(1,"testTool1","https://www.testing.dk",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
+        Tool tool2 = new Tool(2,"testTool2","https://www.testing2.dk",true,true,departmentSet,jurisdictionSet,stagesSet,tagSet);
+        List<Tool> toolList = new ArrayList<>();
+        toolList.add(tool1);
+        toolList.add(tool2);
+        when(toolService.getAllTools()).thenReturn(toolList);
+        //Looks insane but i think it's the right way
+        mockMvc.perform(MockMvcRequestBuilders.get("/getTools"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("testTool1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].url").value("https://www.testing.dk"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].isPersonal").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].isDynamic").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].departments").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].jurisdictions").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].stage").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("testTool2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].url").value("https://www.testing2.dk"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].isPersonal").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].isDynamic").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].departments").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].jurisdictions").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].stage").isArray());
+    }
+
+    public void testGetToolsByDepartment() throws Exception {
+        Set<Department> departmentSet = new HashSet<>();
+        
+    }
 }
