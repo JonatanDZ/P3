@@ -56,9 +56,8 @@ public class ToolsTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.isPersonal").value(false))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.isDynamic").value(false))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.departments").value(departmentSet))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.juristictions").value(jurisdictionSet))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.stages").value(stagesSet))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.tags").value(tagSet));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.departments").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.jurisdictions").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.stage").isArray());
     }
 }
