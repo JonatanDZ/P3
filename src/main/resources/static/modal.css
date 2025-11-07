@@ -10,6 +10,12 @@ input[type=text], input[type=checkbox] {
 }
 
 
+button:disabled{
+    opacity: 0;}
+
+button:hover:disabled{
+    opacity: 0;
+}
 
 button:hover {
     opacity: 0.8;

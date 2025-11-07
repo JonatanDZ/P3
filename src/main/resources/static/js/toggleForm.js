@@ -19,6 +19,7 @@ export function toggleCards(i, currentCard){
     const cardValue = parseInt(currentCard) + parseInt(i)
     if (cardValue <= 1) {
         document.querySelector("#prev").disabled = true;
+
     } else if(cardValue >= 4) {
         document.querySelector("#next").disabled = true;
     }
@@ -26,9 +27,7 @@ export function toggleCards(i, currentCard){
     document.querySelectorAll(".formCards").forEach( card => {
         card.style.display = "none";
     });
-
-    console.log(`#formCard${cardValue}`);
-
+    
     document.querySelector(`#formCard${cardValue}`).style.display = "block";
 
 
