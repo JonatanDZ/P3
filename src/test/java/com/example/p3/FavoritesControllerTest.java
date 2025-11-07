@@ -27,7 +27,6 @@ class FavoritesControllerTest {
     void favoritesListsForAllUsers() throws Exception {
         String url = "http://localhost:8080/getTools/getFavoriteTools";
 
-
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
         String expectedJson = """

@@ -31,7 +31,7 @@ public class Department {
             inverseJoinColumns = @JoinColumn(name = "tool_id")
     )
     private Set<Tool> departmentTools = new HashSet<>();
-
+    
     public Department(Integer id, String departmentName, Boolean isDev) {
         this.id = id;
         this.departmentName = departmentName;
@@ -39,6 +39,5 @@ public class Department {
     }
 
     public Department() {}
-
 
 }
