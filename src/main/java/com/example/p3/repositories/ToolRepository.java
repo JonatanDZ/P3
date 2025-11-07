@@ -11,17 +11,26 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     // favorites endpoint
     // it gets the favorites based on user, current jurisdiction and current stage
     @Query(value = """
-    SELECT DISTINCT t.*
-    FROM tool t
-    JOIN favorite_tool ft ON ft.tool_id = t.id
-    JOIN employee e ON e.initials = ft.employee_initials
-    JOIN tool_stage ts ON ts.tool_id = t.id
-    JOIN stage s ON s.id = ts.stage_id
-    JOIN tool_jurisdiction tj ON tj.tool_id = t.id
-    JOIN jurisdiction j ON j.id = tj.jurisdiction_id
-    WHERE e.initials = :employeeInitials
-      AND j.name = :jurisdictionName
-      AND s.name = :stageName
+SELECT DISTINCT 
+    tool.id,
+    tool.name,
+    tool.url,
+    tool.is_personal,
+    tool.is_dynamic
+FROM favorite_tool
+JOIN tool
+  ON favorite_tool.tool_id = tool.id
+JOIN tool_stage
+  ON tool.id = tool_stage.tool_id
+JOIN stage
+  ON tool_stage.stage_id = stage.id
+JOIN tool_jurisdiction
+  ON tool.id = tool_jurisdiction.tool_id
+JOIN jurisdiction
+  ON tool_jurisdiction.jurisdiction_id = jurisdiction.id
+WHERE favorite_tool.employee_initials = :employeeInitials
+  AND jurisdiction.name = :jurisdictionName
+  AND stage.name = :stageName;
 """, nativeQuery = true)
     List<Tool> findFavoritesByEmployeeAndJurisdictionAndStage(
             @Param("employeeInitials") String employeeInitials,
