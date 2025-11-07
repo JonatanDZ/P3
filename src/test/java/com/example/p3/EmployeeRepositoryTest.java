@@ -9,6 +9,11 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -21,9 +26,15 @@ public class EmployeeRepositoryTest {
 
     @Test
     public void testFindByInitials(){
-        Employee employee = new Employee("PEDO", "Peter Dover", "PeDo@gmail.com");
-        Employee savedEmployee = employeeRepository.save(employee);
-        assertNotNull(savedEmployee);
-        assertEquals("PEDO", savedEmployee.getInitials());
+        Optional<Employee> employees = employeeRepository.findByInitials("PEDO");
+        assertNotNull(employees);
+        assertEquals("PEDO", employees.get().getInitials());
+    }
+
+    @Test
+    public void testGetAllEmployees(){
+        List<Employee> employees = employeeRepository.findAll();
+        assertNotNull(employees);
+        assertEquals(14, employees.size());
     }
 }
