@@ -27,7 +27,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void testGetAllEmployees(){
+    public void testGetEmployeeByInitials(){
 
     }
 }

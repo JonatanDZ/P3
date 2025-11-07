@@ -51,10 +51,13 @@ public class Employee {
         tool.getEmployeesWhoFavorited().remove(this);
     }
 
-    public Employee(String initials, String name, String email, Department department) {
+    public Employee() {
+
+    }
+
+    public Employee(String initials, String name, String email) {
         this.initials = initials;
         this.name = name;
         this.email = email;
-        this.department = department;
     }
 }
