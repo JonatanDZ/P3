@@ -62,9 +62,6 @@ class P3ApplicationTests {
 
 
 
-        assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
-    
-
     @Test
     void favoritesDetailedListsForAllUsers() throws Exception {
         String url = "http://localhost:8080/getTools/getFavoriteTools/details/2";

@@ -57,4 +57,6 @@ public class Employee {
         this.email = email;
         this.department = department;
     }
+
+    public Employee(){}
 }

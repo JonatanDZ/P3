@@ -1,25 +1,64 @@
 package com.example.p3;
 
-import com.example.p3.dtos.ToolDto;
-import com.example.p3.entities.Tool;
-import com.fasterxml.jackson.databind.JsonNode;
+
+
+import com.example.p3.controller.ToolController;
+import com.example.p3.entities.*;
+import com.example.p3.service.ToolService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.Assert;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import static org.mockito.Mockito.*;
+
+
+@WebMvcTest(ToolController.class)
 public class ToolsTests {
 
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private ToolService toolService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void testGetToolById() throws Exception {
+        Set<Department> departmentSet = new HashSet<>();
+        Set<Jurisdiction> jurisdictionSet = new HashSet<>();
+        Set<Stage> stagesSet = new HashSet<>();
+        Set<Tag> tagSet = new HashSet<>();
+        Tool tool = new Tool(1,"testTool","https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
+        when(toolService.getToolById(1)).thenReturn(Optional.of(tool));
+        mockMvc.perform(MockMvcRequestBuilders.get("/getTools/id/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("testTool"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isPersonal").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isDynamic").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.departments").value(departmentSet))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.juristictions").value(jurisdictionSet))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.stages").value(stagesSet))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.tags").value(tagSet));
+    }
 }
