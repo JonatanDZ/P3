@@ -32,8 +32,10 @@ public class Department {
     )
     private Set<Tool> departmentTools = new HashSet<>();
 
-    public Department(String name) {
-        this.departmentName = name;
+    public Department(Integer id, String departmentName, Boolean isDev) {
+        this.id = id;
+        this.departmentName = departmentName;
+        this.isDev = isDev;
     }
 
     public Department() {}

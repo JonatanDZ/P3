@@ -5,15 +5,11 @@ package com.example.p3;
 import com.example.p3.controller.ToolController;
 import com.example.p3.entities.*;
 import com.example.p3.service.ToolService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -21,20 +17,20 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.*;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 
 
+
+//Tests the controller not the service
 @WebMvcTest(ToolController.class)
-public class ToolsTests {
+public class ToolControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
     private ToolService toolService;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @BeforeEach
     public void setup() {
@@ -95,8 +91,22 @@ public class ToolsTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].stage").isArray());
     }
 
+    @Test
     public void testGetToolsByDepartment() throws Exception {
         Set<Department> departmentSet = new HashSet<>();
-        
+        Department dep = new Department(1,"DevOps",true);
+        departmentSet.add(dep);
+        Set<Jurisdiction> jurisdictionSet = new HashSet<>();
+        Set<Stage> stagesSet = new HashSet<>();
+        Set<Tag> tagSet = new HashSet<>();
+        Tool tool = new Tool(1,"testTool1","https://www.testing.dk",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
+        List<Tool> toolList = new ArrayList<>();
+        toolList.add(tool);
+        when(toolService.getAllToolsByDepartmentName("DEVOPS")).thenReturn(toolList);
+        mockMvc.perform(MockMvcRequestBuilders.get("/getTools/department/DEVOPS"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$",hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1));
     }
 }
