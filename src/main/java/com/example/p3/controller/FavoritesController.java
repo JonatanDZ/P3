@@ -40,6 +40,13 @@ public class FavoritesController {
     }
     // remove an existing tool as a favorite
     // this assumes that every tool is accessible to all.
-    
+    @DeleteMapping("/employee/{employeeInitials}/favorites/{toolId}")
+    public ResponseEntity<FavoritesDto> untoggleFavorite(
+            @PathVariable String employeeInitials,
+            @PathVariable int toolId
+    ){
+        FavoritesDto toolUntoggled = new FavoritesDto(favoritesService.untoggleFavorite(employeeInitials, toolId));
+        return ResponseEntity.ok(toolUntoggled);
+    }
 }
 

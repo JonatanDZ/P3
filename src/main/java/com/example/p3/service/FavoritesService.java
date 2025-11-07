@@ -29,7 +29,21 @@ public class FavoritesService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tool does not exist");
         }
 
-        toolRepository.toggleToolAsFavorite(employeeInitials, toolId);
+        toolRepository.toggleAsFavorite(employeeInitials, toolId);
+        return toolRepository.findById(toolId).orElseThrow();
+    }
+
+    // this transaction untoggles a favorite
+    // it ensures that the tool exists, else it crashes (we do not want that)
+    // it implicitly ensures that the tool exists in favorites, if it does not it fails quietly without crashing.
+    // a custom exception could be applicable here as well.
+    @Transactional
+    public Tool untoggleFavorite(String employeeInitials, int toolId) {
+        if (!toolRepository.existsById(toolId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tool does not exist");
+        }
+
+        toolRepository.untoggleAsFavorite(employeeInitials, toolId);
         return toolRepository.findById(toolId).orElseThrow();
     }
 }

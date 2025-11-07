@@ -52,7 +52,19 @@ WHERE favorite_tool.employee_initials = :employeeInitials
           AND tool_id = :toolId
     )
     """, nativeQuery = true)
-    int toggleToolAsFavorite(
+    int toggleAsFavorite(
+            @Param("employeeInitials") String employeeInitials,
+            @Param("toolId") int toolId
+    );
+
+    // untoggle existing tool in favorites
+    @Modifying
+    @Query(value = """
+    DELETE FROM favorite_tool
+    WHERE employee_initials = :employeeInitials
+      AND tool_id = :toolId
+    """, nativeQuery = true)
+    int untoggleAsFavorite(
             @Param("employeeInitials") String employeeInitials,
             @Param("toolId") int toolId
     );
