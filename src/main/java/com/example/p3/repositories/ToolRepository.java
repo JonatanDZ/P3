@@ -2,6 +2,7 @@ package com.example.p3.repositories;
 
 import com.example.p3.entities.Tool;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -36,6 +37,24 @@ WHERE favorite_tool.employee_initials = :employeeInitials
             @Param("employeeInitials") String employeeInitials,
             @Param("jurisdictionName") String jurisdictionName,
             @Param("stageName") String stageName
+    );
+
+    //  toggle existing tool as favorite
+    //  the WHERE NOT EXISTS guard handles retoggling a favorite. It ensures that it does not crash the program
+    //  but fails silently instead.
+    @Modifying
+    @Query(value = """
+    INSERT INTO favorite_tool (employee_initials, tool_id)
+    SELECT :employeeInitials, :toolId
+    WHERE NOT EXISTS (
+        SELECT 1 FROM favorite_tool
+        WHERE employee_initials = :employeeInitials
+          AND tool_id = :toolId
+    )
+    """, nativeQuery = true)
+    int toggleToolAsFavorite(
+            @Param("employeeInitials") String employeeInitials,
+            @Param("toolId") int toolId
     );
 
     @Query("SELECT t FROM Tool t JOIN t.departments d WHERE d.departmentName = :departmentName")

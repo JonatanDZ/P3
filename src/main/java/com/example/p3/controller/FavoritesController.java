@@ -27,5 +27,19 @@ public class FavoritesController {
                 .toList();
         return ResponseEntity.ok().body(list);
     }
+
+    // Toggle an existing tool as a favorite
+    @PostMapping("/employee/{employeeInitials}/favorites/{toolId}")
+    public ResponseEntity<FavoritesDto> toggleFavorite(
+            @PathVariable String employeeInitials,
+            @PathVariable int toolId
+    ){
+        // this should simply call the method toggleFavorite
+        FavoritesDto toolToggled = new FavoritesDto(favoritesService.toggleFavorite(employeeInitials, toolId));
+        return ResponseEntity.ok(toolToggled);
+    }
+    // remove an existing tool as a favorite
+    // this assumes that every tool is accessible to all.
+    
 }
 

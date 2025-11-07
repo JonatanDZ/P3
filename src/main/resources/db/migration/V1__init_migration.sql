@@ -1,13 +1,13 @@
 -- Parents first
 CREATE TABLE department (
-                            id        INT           NOT NULL,
+                            id        INT           NOT NULL AUTO_INCREMENT,
                             name      VARCHAR(255)  NOT NULL,
                             is_dev    BOOL          NOT NULL DEFAULT FALSE,
                             PRIMARY KEY (id)
 );
 
 CREATE TABLE tool (
-                      id          INT           NOT NULL,
+                      id          INT           NOT NULL AUTO_INCREMENT,
                       name        VARCHAR(255)  NOT NULL,
                       url         VARCHAR(255)  NOT NULL,
                       is_personal BOOL          NOT NULL DEFAULT FALSE,
@@ -27,19 +27,19 @@ CREATE TABLE employee (
 );
 
 CREATE TABLE jurisdiction (
-                              id    INT           NOT NULL,
+                              id    INT           NOT NULL AUTO_INCREMENT,
                               name  VARCHAR(255)  NOT NULL,
                               PRIMARY KEY (id)
 );
 
 CREATE TABLE stage (
-                       id    INT           NOT NULL,
+                       id    INT           NOT NULL AUTO_INCREMENT,
                        name  VARCHAR(255)  NOT NULL,
                        PRIMARY KEY (id)
 );
 
 CREATE TABLE tag (
-                     id     INT           NOT NULL,
+                     id     INT           NOT NULL AUTO_INCREMENT,
                      value  VARCHAR(255)  NOT NULL,
                      PRIMARY KEY (id)
 );
