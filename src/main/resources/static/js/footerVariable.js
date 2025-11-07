@@ -1,4 +1,4 @@
-function footerUpdate() {
+export function footerUpdate() {
     const checked = document.querySelector('.branchSelector input[name="branch"]:checked');
     if (!checked) return;
 
