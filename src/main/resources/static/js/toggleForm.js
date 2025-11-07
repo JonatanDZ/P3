@@ -10,6 +10,31 @@ export function toggleForm(formIsShown){
     return formIsShown
 }
 
+export function toggleCards(i, currentCard){
+    //We do this so that you can frontwards again even after you have been at the end
+    document.querySelector("#prev").disabled = false;
+    document.querySelector("#next").disabled = false;
+
+
+    const cardValue = parseInt(currentCard) + parseInt(i)
+    if (cardValue <= 1) {
+        document.querySelector("#prev").disabled = true;
+    } else if(cardValue >= 4) {
+        document.querySelector("#next").disabled = true;
+    }
+
+    document.querySelectorAll(".formCards").forEach( card => {
+        card.style.display = "none";
+    });
+
+    console.log(`#formCard${cardValue}`);
+
+    document.querySelector(`#formCard${cardValue}`).style.display = "block";
+
+
+    return cardValue;
+}
+
 export function displayURLbar(dynamicCheck){
     const toolURLInput1 = document.querySelector("#toolURL1");
     const toolURLInput2 = document.querySelector("#toolURL2");

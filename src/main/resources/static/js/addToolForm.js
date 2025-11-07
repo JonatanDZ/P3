@@ -1,10 +1,11 @@
-import {toggleForm, displayURLbar} from "./toggleForm.js";
+import {toggleForm, displayURLbar, toggleCards} from "./toggleForm.js";
 import {loadOptions} from "./loadOptions.js";
 import {submitForm} from "./submitForm.js";
 
 let toggleBtns;
 let addToolDiv;
 let dynamicCheck;
+let toggleCard = 1;
 
 let formIsShown = false;
 
@@ -45,6 +46,15 @@ if (document.querySelector("#submitBtn")) {
     document.querySelector("#submitBtn").addEventListener("click", function (e) {
         e.preventDefault();
         submitForm();
+    });
+}
+
+if (document.querySelector(".toggleCardBtn")) {
+    document.querySelectorAll(".toggleCardBtn").forEach(btn =>{
+        btn.addEventListener("click", (e)=>{
+            e.preventDefault();
+            toggleCard = toggleCards(btn.value, toggleCard);
+        });
     });
 }
 
