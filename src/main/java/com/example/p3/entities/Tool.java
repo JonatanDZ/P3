@@ -64,4 +64,18 @@ public class Tool {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags = new HashSet<>();
+
+    public Tool(Integer id, String name, String url, Boolean isPersonal, Boolean isDynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.isPersonal = isPersonal;
+        this.isDynamic = isDynamic;
+        this.departments = departments;
+        this.jurisdictions = jurisdictions;
+        this.stages = stages;
+        this.tags = tags;
+    }
+
+    public Tool() {}
 }

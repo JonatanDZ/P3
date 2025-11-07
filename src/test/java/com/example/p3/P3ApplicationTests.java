@@ -62,6 +62,27 @@ class P3ApplicationTests {
 
 
 
+    @Test
+    void favoritesDetailedListsForAllUsers() throws Exception {
+        String url = "http://localhost:8080/getTools/getFavoriteTools/details/2";
+
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+        String expectedJson = """
+                {"id":2,"toolIDs":[
+                {"id":4,"name":"Kubernetes Production Best Practices",
+                "url":"https://kubernetes.io/docs/concepts/security/",
+                "tags":["kubernetes","devops","security"],
+                "departments":["DEVOPS"],
+                "stages":["PRODUCTION"],
+                "jurisdictions":["DK","UK"],
+                "dynamic":false}]}
+                """;
+
+        assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
+    }
+    ToolsTests test = new ToolsTests();
+
 
 
 //    @Autowired

@@ -39,6 +39,14 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ToolDto> getToolById(@PathVariable Integer id){
+        List<ToolDto> list = toolService.getToolById(id).stream()
+                .map(ToolDto::new)
+                .toList();
+        return ResponseEntity.ok(list.get(0));
+    }
+
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
     @GetMapping("/department/{department}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {

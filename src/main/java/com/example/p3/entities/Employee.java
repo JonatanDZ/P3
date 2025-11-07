@@ -60,4 +60,6 @@ public class Employee {
         this.name = name;
         this.email = email;
     }
+
+    public Employee(){}
 }
