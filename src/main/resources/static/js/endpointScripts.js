@@ -1,11 +1,12 @@
 // getTools endpoint and display
 import {displayFavorites} from "./displayFavorites.js";
 
+//Gets all tools and displays them individually
 function getToolsDisplay () {
     // clear the list each time it is called.
-    // If this is not implemented it appends to the list each time..
+    // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');
-    list.innerHTML = "";
+    list.innerText = "";
     fetch('/getTools')
         .then(response => response.json())
         .then(data => {
@@ -13,6 +14,7 @@ function getToolsDisplay () {
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
+
 
 function getDepartmentsDisplay(){
     fetch("departments/getAll")
@@ -46,7 +48,7 @@ function getToolsByDepartmentJurisdictionStage() {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById('departmentSelected');
-    list.innerHTML = "";
+    list.innerText = "";
     // mock department, should be based on the user logged in
     let department = getDepartment()//"DEVOPS";
     let jurisdiction = getJurisdiction();
@@ -100,11 +102,14 @@ window.addEventListener('DOMContentLoaded', () => {
         jurEl.addEventListener('change', onFiltersChange);
     }
 });
-// helper methods
+
+
+///////// HELPER METHODS /////////
+
 export function getJurisdiction() {
     // jurisdiction is a checkbox
     // It is UK when checked and DK when not checked
-    // should get jurisdictions from /getJurisdictions, which should return an array of current jurs..
+    // should get jurisdictions from /getJurisdictions, which should return an array of current jurs.
     // get status from element in html
     let jurElement = document.getElementById("jurisdiction");
     const isChecked = jurElement.checked;

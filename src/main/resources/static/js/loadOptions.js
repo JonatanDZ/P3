@@ -1,6 +1,6 @@
-//Bruges til at load department og jurisdiction
+//Used to load department and jurisdiction in form
 export function loadOptions(str){
-    //Hvad kan der være i URL'ens ${str}?
+    //${str} can ex. be jurisdiction or department.
     fetch(`/${str}/getAll`)
         .then(response=>response.json())
         .then(data => {
