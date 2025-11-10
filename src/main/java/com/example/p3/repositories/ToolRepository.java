@@ -2,6 +2,7 @@ package com.example.p3.repositories;
 
 import com.example.p3.entities.Tool;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -11,26 +12,26 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     // favorites endpoint
     // it gets the favorites based on user, current jurisdiction and current stage
     @Query(value = """
-SELECT DISTINCT 
+    SELECT DISTINCT 
     tool.id,
     tool.name,
     tool.url,
     tool.is_personal,
     tool.is_dynamic
-FROM favorite_tool
-JOIN tool
-  ON favorite_tool.tool_id = tool.id
-JOIN tool_stage
-  ON tool.id = tool_stage.tool_id
-JOIN stage
-  ON tool_stage.stage_id = stage.id
-JOIN tool_jurisdiction
-  ON tool.id = tool_jurisdiction.tool_id
-JOIN jurisdiction
-  ON tool_jurisdiction.jurisdiction_id = jurisdiction.id
-WHERE favorite_tool.employee_initials = :employeeInitials
-  AND jurisdiction.name = :jurisdictionName
-  AND stage.name = :stageName;
+    FROM favorite_tool
+    JOIN tool
+      ON favorite_tool.tool_id = tool.id
+    JOIN tool_stage
+      ON tool.id = tool_stage.tool_id
+    JOIN stage
+      ON tool_stage.stage_id = stage.id
+    JOIN tool_jurisdiction
+      ON tool.id = tool_jurisdiction.tool_id
+    JOIN jurisdiction
+      ON tool_jurisdiction.jurisdiction_id = jurisdiction.id
+   WHERE favorite_tool.employee_initials = :employeeInitials
+     AND jurisdiction.name = :jurisdictionName
+     AND stage.name = :stageName;
 """, nativeQuery = true)
     List<Tool> findFavoritesByEmployeeAndJurisdictionAndStage(
             @Param("employeeInitials") String employeeInitials,
@@ -102,7 +103,6 @@ WHERE favorite_tool.employee_initials = :employeeInitials
     List<Tool> findByDepartments_DepartmentNameAndJurisdictions_JurisdictionNameAndStages_Name(String DepartmentName,
                                                                                                String JurisdictionName,
                                                                                                String stageName);
-
-
+    List<Tool> findByDepartments_DepartmentName(String departmentName);
 }
 
