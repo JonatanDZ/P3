@@ -4,7 +4,7 @@ export function displayFavorites () {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById("favorites");
-    list.innerHTML = "";
+    list.innerText = "";
     // hard coded as of now
     let employeeInitials = "PEDO";
     let jurisdiction = getJurisdiction();
