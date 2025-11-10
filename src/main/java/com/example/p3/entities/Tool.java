@@ -5,9 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,7 +14,7 @@ import java.util.Set;
 @Table(name = "tool", schema = "P3")
 public class Tool {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false) //id cannot be null
     private Integer id;
 
     @Size(max = 255)
@@ -33,7 +31,7 @@ public class Tool {
     @Column(name = "is_dynamic")
     private Boolean isDynamic;
 
-    // mappedBy is important here. It tells Hibernate that the User class owns this relationship.
+    // mappedBy is important here. It tells Hibernate that the User class owns this relationship. ????????????
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
@@ -45,6 +43,7 @@ public class Tool {
     @JoinTable(
             name = "tool_jurisdiction",
             joinColumns = @JoinColumn(name = "tool_id"),
+            //Hvad er inverse join???????????????
             inverseJoinColumns = @JoinColumn(name = "jurisdiction_id")
     )
     private Set<Jurisdiction> jurisdictions;

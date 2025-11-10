@@ -68,7 +68,7 @@ WHERE favorite_tool.employee_initials = :employeeInitials
             @Param("employeeInitials") String employeeInitials,
             @Param("toolId") int toolId
     );
-
+    //Which tool should be showcased in which department
     @Query("SELECT t FROM Tool t JOIN t.departments d WHERE d.departmentName = :departmentName")
     List<Tool> findByDepartmentName(@Param("departmentName") String departmentName);
 
