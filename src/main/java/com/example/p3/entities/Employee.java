@@ -41,6 +41,10 @@ public class Employee {
     )
     private Set<Tool> favoriteTools = new HashSet<>();
 
+    public Employee() {
+
+    }
+
     public void addFavorite(Tool tool) {
         favoriteTools.add(tool);
         tool.getEmployeesWhoFavorited().add(this); // keep both sides in sync

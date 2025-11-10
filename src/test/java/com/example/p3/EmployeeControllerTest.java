@@ -31,13 +31,13 @@ class EmployeeControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-//    @Test
-//    public void getEmployeesFromDepartment() throws Exception {
-//        Department departmentSet = new Department();
-//        Employee employee =  new Employee("SOJO", "Sofus Johansen", "SoJo@gmail.com", departmentSet);
-//        when(employeeService.getEmployeeByInitials("SOJO")).thenReturn(Optional.of(employee));
-//        mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/SOJO"))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.initials").value("SOJO"));
-//    }
+    @Test
+    public void getEmployeesFromDepartment() throws Exception {
+        Department departmentSet = new Department();
+        Employee employee =  new Employee("SOJO", "Sofus Johansen", "SoJo@gmail.com", departmentSet);
+        when(employeeService.getEmployeeByInitials("SOJO")).thenReturn(Optional.of(employee));
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/SOJO"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.initials").value("SOJO"));
+    }
 }

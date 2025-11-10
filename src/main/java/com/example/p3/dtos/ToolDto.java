@@ -22,20 +22,12 @@ public class ToolDto {
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
 
-    /*private String[] tags;
-    // there can be multiple departments to a Tool
-    private Tool.Department[] departments;
-
-    // there can be multiple stages to a Tool
-    private Tool.Stage[] stages;
-
     //Takes the entities from the database and converts it into objects of the type tool
     public ToolDto(Tool t) {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
         this.isDynamic = t.getIsDynamic();
-        this.isPersonal = t.getIsPersonal();
         //this.tags = t.getTags();
         this.departments = new ArrayList<>();
         String departmentName;
