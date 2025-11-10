@@ -19,7 +19,7 @@ public class JurisdictionController {
         this.JurisdictionService = JurisdictionService;
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("")
     public ResponseEntity<List<JurisdictionDto>> getAllJurisdictions(){
         List<JurisdictionDto> list = JurisdictionService.getAllJurisdictions().stream()
                 .map(JurisdictionDto::new)
@@ -27,10 +27,14 @@ public class JurisdictionController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/getByName/{name}")
+}
+
+/*
+    @GetMapping("/name/{name}")
     public ResponseEntity<JurisdictionDto> getJurisdictionsByName(@PathVariable String name){
         return JurisdictionService.getByName(name)
                 .map(JurisdictionDto::new)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());    }
-}
+                .orElse(ResponseEntity.notFound().build());
+    }
+ */

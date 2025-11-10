@@ -1,6 +1,6 @@
 // Get the input from the form
 export async function MakeToolJSON(jsonBody) {
-    fetch('getTools/addTool', {
+    fetch('tools/addTool', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

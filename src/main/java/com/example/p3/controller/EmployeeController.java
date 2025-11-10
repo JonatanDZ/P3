@@ -17,13 +17,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
 
-    @GetMapping("")
-    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
-        List<EmployeeDto> list = employeeService.getAllEmployees().stream()
-                .map(EmployeeDto::new)
-                .toList();
-        return ResponseEntity.ok().body(list);
-    }
+
 
     // the rest looks for list with the best match at the top.
     @GetMapping("/initials/{initials}")
@@ -34,6 +28,17 @@ public class EmployeeController {
         } else {
             return ResponseEntity.ok(new EmployeeDto(employee));
         }
+    }
+}
+
+/*
+
+    @GetMapping("")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
+        List<EmployeeDto> list = employeeService.getAllEmployees().stream()
+                .map(EmployeeDto::new)
+                .toList();
+        return ResponseEntity.ok().body(list);
     }
 
     //Hvad er use casen?
@@ -55,4 +60,4 @@ public class EmployeeController {
                 .toList();
         return ResponseEntity.ok(list);
     }
-}
+ */

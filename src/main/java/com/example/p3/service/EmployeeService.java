@@ -15,22 +15,24 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Employee> getAllEmployees() {
-        // Standard Jpa query method.
-        return employeeRepository.findAll();
-    }
-    
-    // Get employees by initials
+        // Get employees by initials
     public Optional<Employee> getEmployeeByInitials(String initials) {
         return employeeRepository.findByInitials(initials);
     }
 
-    // Get employees by name
-    public Optional<Employee> getEmployeeByName(String name) {
-        return employeeRepository.findByNameContainingIgnoreCase(name);
-    }
-
-    public List<Employee> getEmployeesByDepartmentName(String departmentName) {
-        return employeeRepository.findByDepartment_DepartmentName(departmentName);
-    }
+    
 }
+
+//    public List<Employee> getAllEmployees() {
+//    // Standard Jpa query method.
+//        return employeeRepository.findAll();
+//    }
+//
+//    // Get employees by name
+//    public Optional<Employee> getEmployeeByName(String name) {
+//        return employeeRepository.findByNameContainingIgnoreCase(name);
+//    }
+//
+//    public List<Employee> getEmployeesByDepartmentName(String departmentName) {
+//        return employeeRepository.findByDepartment_DepartmentName(departmentName);
+//    }

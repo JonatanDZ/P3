@@ -23,13 +23,13 @@ public class ToolService {
       return toolRepository.findByDepartments_DepartmentName(departmentName);
     }
 
-    public List<Tool> getAllToolsByJurisdictionName(String jurisdictionName) {
-        return toolRepository.findByJurisdictions_JurisdictionName(jurisdictionName);
-    }
-
-    public List<Tool> getAllToolsByStageName(String stageName) {
-        return toolRepository.findByStages_Name(stageName);
-    }
+//    public List<Tool> getAllToolsByJurisdictionName(String jurisdictionName) {
+//        return toolRepository.findByJurisdictions_JurisdictionName(jurisdictionName);
+//    }
+//
+//    public List<Tool> getAllToolsByStageName(String stageName) {
+//        return toolRepository.findByStages_Name(stageName);
+//    }
 
     public List<Tool> getAllToolsByDepartmentJurisdictionStage(String department, String jurisdiction, String stage){
         return toolRepository.findByDepartments_DepartmentNameAndJurisdictions_JurisdictionNameAndStages_Name(department, jurisdiction, stage);

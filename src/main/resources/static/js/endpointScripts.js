@@ -6,7 +6,7 @@ function getToolsDisplay () {
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById('allTools');
     list.innerHTML = "";
-    fetch('/getTools')
+    fetch('/tools')
         .then(response => response.json())
         .then(data => {
             displayTools(data, list);
@@ -15,7 +15,7 @@ function getToolsDisplay () {
 }
 
 function getDepartmentsDisplay(){
-    fetch("departments/getAll")
+    fetch("/departments")
         .then(response=>response.json())
         .then(data => {
             let departmentSelector = document.querySelector(".departmentSelector");
@@ -52,7 +52,7 @@ function getToolsByDepartmentJurisdictionStage() {
     let jurisdiction = getJurisdiction();
     let branch = getStage();
 
-    fetch(`/getTools/${encodeURIComponent(department)}/${encodeURIComponent(jurisdiction)}/${encodeURIComponent(branch)}`)
+    fetch(`/tools/department/${encodeURIComponent(department)}/jurisdiction/${encodeURIComponent(jurisdiction)}/stage/${encodeURIComponent(branch)}`)
         .then(response => response.json())
         .then(data => {
             displayTools(data, list);
