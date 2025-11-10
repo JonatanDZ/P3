@@ -31,6 +31,6 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeesByDepartmentName(String departmentName) {
-        return employeeRepository.findByDepartment_DepartmentName(departmentName);
+        return employeeRepository.findByDepartment_Name(departmentName);
     }
 }

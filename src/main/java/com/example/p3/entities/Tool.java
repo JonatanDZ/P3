@@ -27,10 +27,10 @@ public class Tool {
     private String url;
 
     @Column(name = "is_personal")
-    private Boolean isPersonal;
+    private Boolean is_personal;
 
     @Column(name = "is_dynamic")
-    private Boolean isDynamic;
+    private Boolean is_dynamic;
 
     // mappedBy is important here. It tells Hibernate that the User class owns this relationship. ????????????
     // Each tool can be favorited by many users.

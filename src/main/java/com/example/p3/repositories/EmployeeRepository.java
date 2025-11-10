@@ -20,7 +20,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     // Starts from the Employee entity, joins the related Department table, and filters where Department.departmentName matches the given value.
     // The "_" means JPA looks inside the Department entity to access the departmentName field.
-    List<Employee> findByDepartment_DepartmentName(String departmentName);
+    List<Employee> findByDepartment_Name(String departmentName);
 
 
     

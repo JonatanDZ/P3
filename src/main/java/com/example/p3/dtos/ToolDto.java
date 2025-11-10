@@ -16,7 +16,7 @@ public class ToolDto {
     private Integer id;
     private String name;
     private String url;
-    private Boolean isDynamic;
+    private Boolean is_dynamic;
     private ArrayList<String> departments;
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
@@ -27,12 +27,13 @@ public class ToolDto {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
-        this.isDynamic = t.getIsDynamic();
+        this.is_dynamic = t.getIs_dynamic();
+
         this.departments = new ArrayList<>();
         String departmentName;
         List<Department> departmentList = t.getDepartments().stream().toList();
         for (int i = 0; i < departmentList.size(); i++) {
-            departmentName = departmentList.get(i).getDepartmentName();
+            departmentName = departmentList.get(i).getName();
             this.departments.add(departmentName);
         }
 
@@ -40,7 +41,7 @@ public class ToolDto {
         String jurisdictionName;
         List<Jurisdiction> jurisdictionList = t.getJurisdictions().stream().toList();
         for (int i = 0; i < jurisdictionList.size(); i++) {
-            jurisdictionName = jurisdictionList.get(i).getJurisdictionName();
+            jurisdictionName = jurisdictionList.get(i).getName();
             this.jurisdictions.add(jurisdictionName);
         }
 
