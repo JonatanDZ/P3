@@ -9,7 +9,7 @@ export function displayFavorites () {
     let employeeInitials = "PEDO";
     let jurisdiction = getJurisdiction();
     let stage = getStage();
-    fetch(`/employees/${employeeInitials}/favorites?jurisdiction=${jurisdiction}&stage=${stage}`)
+    fetch(`/employee/${employeeInitials}/favorites?jurisdiction=${jurisdiction}&stage=${stage}`)
         .then(response => response.json())
         .then(data => {
             displayTools(data, list);
