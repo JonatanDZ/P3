@@ -16,7 +16,7 @@ import java.util.Optional;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    // En funktion så man kan se, hvad sin sidemakker hedder
+
     @GetMapping("")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
         List<EmployeeDto> list = employeeService.getAllEmployees().stream()

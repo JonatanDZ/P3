@@ -5,14 +5,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
-@Entity
+@Entity //Used for declaring object class as an entity in the DB (Makes the hibernate possible)
 @Table(name = "tool", schema = "P3")
 public class Tool {
     @Id

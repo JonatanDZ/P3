@@ -69,8 +69,8 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
             @Param("toolId") int toolId
     );
 
-    @Query("SELECT t FROM Tool t JOIN t.departments d WHERE d.departmentName = :departmentName")
-    List<Tool> findByDepartmentName(@Param("departmentName") String departmentName);
+//    @Query("SELECT t FROM Tool t JOIN t.departments d WHERE d.departmentName = :departmentName")
+//    List<Tool> findByDepartmentName(@Param("departmentName") String departmentName);
 
     /*
     SELECT * FROM tool t
