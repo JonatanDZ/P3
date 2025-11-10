@@ -2,7 +2,6 @@ package com.example.p3.repositories;
 
 import com.example.p3.entities.Tool;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -72,22 +71,37 @@ WHERE favorite_tool.employee_initials = :employeeInitials
     @Query("SELECT t FROM Tool t JOIN t.departments d WHERE d.departmentName = :departmentName")
     List<Tool> findByDepartmentName(@Param("departmentName") String departmentName);
 
-    @Query("SELECT t FROM Tool t JOIN t.jurisdictions j WHERE j.jurisdictionName = :jurisdictionName")
-    List<Tool> findByJurisdictionName(@Param("jurisdictionName") String jurisdictionName);
+    /*
+    SELECT * FROM tool t
+    JOIN tool_jurisdiction tj ON t.id = tj.tool_id
+    JOIN jurisdiction j ON tj.jurisdiction_id = j.id
+    WHERE j.name = jurisdictionName;
+     */
+    List<Tool> findByJurisdictions_JurisdictionName(String jurisdictionName);
 
-    @Query("SELECT t FROM Tool t JOIN t.stages s WHERE s.name = :stageName")
-    List<Tool> findByStageName(@Param("stageName") String stageName);
+    /*
+    SELECT * FROM tool t
+    JOIN tool_stage ts ON t.id = ts.tool_id
+    JOIN stage s ON ts.stage_id = s.id
+    WHERE s.name = stageName;
+     */
+    List<Tool> findByStages_Name(String stageName);
 
-    @Query("SELECT t FROM Tool t " +
-            "JOIN t.departments d " +
-            "JOIN t.jurisdictions j " +
-            "JOIN t.stages s " +
-            "WHERE d.departmentName = :departmentName " +
-            "AND j.jurisdictionName = :jurisdictionName " +
-            "AND s.name = :stageName")
-    List<Tool> findByDepartmentJurisdictonStage(@Param("departmentName") String departmentName,
-                                                @Param("jurisdictionName") String jurisdictionName,
-                                                @Param("stageName") String stageName);
+    /*
+    SELECT * FROM tool t
+    JOIN department_tool dt ON t.id = dt.tool_id
+    JOIN department d ON dt.department_id = d.id
+    JOIN tool_jurisdiction tj ON t.id = tj.tool_id
+    JOIN jurisdiction j ON tj.jurisdiction_id = j.id
+    JOIN tool_stage ts ON t.id = ts.tool_id
+    JOIN stage s ON ts.stage_id = s.id
+    WHERE d.name = departmentName
+    AND j.name = jurisdictionName
+    AND s.name = stageName;
+    */
+    List<Tool> findByDepartments_DepartmentNameAndJurisdictions_JurisdictionNameAndStages_Name(String DepartmentName,
+                                                                                               String JurisdictionName,
+                                                                                               String stageName);
 
 
 }

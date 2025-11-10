@@ -13,7 +13,7 @@ export function loadOptions(str){
                 const input = document.createElement("input");
                 input.type = "checkbox";
                 input.id = `${item.name}Input`;
-                input.value = item.name.toUpperCase();
+                input.value = item.id//name.toUpperCase();
                 input.textContent = item.name;
                 input.className = `${str}Checks`;
 

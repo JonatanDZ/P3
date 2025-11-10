@@ -15,6 +15,7 @@ import java.util.Set;
 public class Department {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 255)
@@ -24,12 +25,7 @@ public class Department {
     @Column(name = "is_dev")
     private Boolean isDev;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "department_tool",
-            joinColumns = @JoinColumn(name = "department_id"),
-            inverseJoinColumns = @JoinColumn(name = "tool_id")
-    )
+    @ManyToMany(mappedBy = "departments")
     private Set<Tool> departmentTools = new HashSet<>();
 
 

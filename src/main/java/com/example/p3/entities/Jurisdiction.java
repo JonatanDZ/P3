@@ -15,6 +15,7 @@ import java.util.Set;
 public class Jurisdiction {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 255)
@@ -24,12 +25,7 @@ public class Jurisdiction {
     // starting at a Jurisdiction, Hibernate looks in tool_jurisdiction for rows whose jurisdiction_id equals this jurisdiction’s id,
     // then uses each tool_id it finds to load the corresponding Tool rows.
     // No department is involved in this relationship.
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "tool_jurisdiction",
-            joinColumns = @JoinColumn(name = "jurisdiction_id"),
-            inverseJoinColumns = @JoinColumn(name = "tool_id")
-    )
+    @ManyToMany(mappedBy = "jurisdictions")
     private Set<Tool> jurisdictionTools = new HashSet<>();
 
 }
