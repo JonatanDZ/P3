@@ -28,11 +28,16 @@ class P3ApplicationTests {
 
     @Test
     void testGetEmployeeByInitials() throws Exception {
+        // Defines the REST endpoint to test
         String url = "http://localhost:8080/employee/initials/PEDO";
 
+        // restTemplate has REST requests as methods, we use the GET request here.
+        // we pass the url into the method; this creates a GET request to the endpoint
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        // maps from JSON into tree-like objects (jsonNode or POJOs)
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readValue(response.getBody(), JsonNode.class);
+        //
         String initials = root.path("initials").toString();
 
         String expectedJson = "\"PEDO\"";
