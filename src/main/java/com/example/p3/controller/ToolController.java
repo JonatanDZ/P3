@@ -21,8 +21,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/getTools")
 public class ToolController {
-    //Gives access to tool service file (final?????????)
-    private final ToolService toolService;
+    private final ToolService toolService; //final means that we can't change the value after it has been initialized
 
     public ToolController(ToolService toolService) {
         this.toolService = toolService;
@@ -82,12 +81,11 @@ public class ToolController {
     //takes the data from the add form and sends it to the
     // PostMapping: indicates it is a post request on the given url
     @PostMapping("/addTool")
-    //RequestBody: Gets a HTTP request (JSON)????????? and converts it into a java object
+    //RequestBody: Gets a HTTP request (JSON) and converts it into a java object
     public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
         if (tool == null){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build(); 
         }
-
         return ResponseEntity.ok(toolService.saveTool(tool));
     }
 }

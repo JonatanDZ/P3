@@ -1,13 +1,11 @@
 package com.example.p3.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.*; //Enables hibernate
+import jakarta.validation.constraints.Size; //This allows us to set size limitations to our attributes
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -39,11 +37,13 @@ public class Tool {
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
 
+
+
     @ManyToMany
     @JoinTable(
-            name = "department_tool",
-            joinColumns = @JoinColumn(name = "tool_id"),
-            inverseJoinColumns = @JoinColumn(name = "department_id")
+            name = "department_tool",                                // SELECT * FROM tool t
+            joinColumns = @JoinColumn(name = "tool_id"),             //JOIN tool_department td ON t.id = td.tool_id
+            inverseJoinColumns = @JoinColumn(name = "department_id") //JOIN department d ON td.department_id = d.id
 
     )
     private Set<Department> departments;
@@ -52,7 +52,6 @@ public class Tool {
     @JoinTable(
             name = "tool_jurisdiction",
             joinColumns = @JoinColumn(name = "tool_id"),
-            //Hvad er inverse join???????????????
             inverseJoinColumns = @JoinColumn(name = "jurisdiction_id")
     )
     private Set<Jurisdiction> jurisdictions;

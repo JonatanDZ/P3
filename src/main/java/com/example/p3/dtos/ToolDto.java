@@ -21,7 +21,7 @@ public class ToolDto {
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
 
-    //Hvor får den sin data fra/ hvordan ved den hvilke juridictions der skal være i dens array ?????????????
+
     //Takes the entities from the database and converts it into objects of the type tool
     public ToolDto(Tool t) {
         this.id = t.getId();
