@@ -1,4 +1,4 @@
-package com.example.p3.dtos.employee;
+package com.example.p3.dtos;
 
 import com.example.p3.entities.Employee;
 import lombok.Data;
