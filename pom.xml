@@ -93,7 +93,7 @@
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/P3?createDatabaseIfNotExist=true</url>
                     <user>root</user>
-                    <password>Mimsedyr42!</password>
+                    <password>SoftwareTest2003</password>
                     <cleanDisabled>false</cleanDisabled>
                 </configuration>
             </plugin>

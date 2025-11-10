@@ -8,7 +8,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 // data transfer objects, to JSON
 @Data
@@ -22,21 +21,13 @@ public class ToolDto {
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
 
-    /*private String[] tags;
-    // there can be multiple departments to a Tool
-    private Tool.Department[] departments;
-
-    // there can be multiple stages to a Tool
-    private Tool.Stage[] stages;
-
-    private Tool.Jurisdiction[] jurisdictions;*/
-
+    //Hvor får den sin data fra/ hvordan ved den hvilke juridictions der skal være i dens array ?????????????
+    //Takes the entities from the database and converts it into objects of the type tool
     public ToolDto(Tool t) {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
         this.isDynamic = t.getIsDynamic();
-        //this.tags = t.getTags();
         this.departments = new ArrayList<>();
         String departmentName;
         List<Department> departmentList = t.getDepartments().stream().toList();
