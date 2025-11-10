@@ -5,6 +5,7 @@ import com.example.p3.repositories.ToolRepository;
 
 //Generates constructor for every field in a class automatically
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

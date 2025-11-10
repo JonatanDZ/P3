@@ -28,5 +28,4 @@ public class Department {
     @ManyToMany(mappedBy = "departments")
     private Set<Tool> departmentTools = new HashSet<>();
 
-
 }
