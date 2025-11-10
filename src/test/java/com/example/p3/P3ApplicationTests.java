@@ -37,11 +37,13 @@ class P3ApplicationTests {
         // maps from JSON into tree-like objects (jsonNode or POJOs)
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readValue(response.getBody(), JsonNode.class);
-        //  Using the result from response mapped to a JsonNode
+        //  Using the result from response mapped to a JsonNode.
+        // searches through the nodes and finds the one called "initials" and transforms it to a string
         String initials = root.path("initials").toString();
 
         String expectedJson = "\"PEDO\"";
 
+        // asserting that the string is the one expected.
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
         Assertions.assertEquals(expectedJson,initials);
     }
