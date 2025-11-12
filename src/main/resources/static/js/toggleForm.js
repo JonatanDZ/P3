@@ -66,18 +66,26 @@ export function displayReview(){
     let departmentString = "";
 
     document.querySelectorAll('.jurisdictionsChecks:checked').forEach(cb => {
-        jurisdictionString += cb.innerText + " ";
+        jurisdictionString += cb.textContent + " ";
     });
 
     document.querySelectorAll('.stagesChecks:checked').forEach(cb => {
-        stagesString += cb.innerText + " ";
+        stagesString += cb.value + " ";
     });
 
 
     document.querySelectorAll('.departmentsChecks:checked').forEach(cb => {
-        departmentString += cb.innerText + " ";
+        departmentString += cb.textContent + " ";
     })
 
     const para = document.querySelector("#toolToPost");
-    para.innerText = `${toolName}, ${departmentString}, ${jurisdictionString}, ${stagesString}, ${toolURL}`;
+    para.innerHTML = `
+    <div class="tool-summary">
+        <h3>${toolName}</h3>
+        <p><strong>Departments:</strong> ${departmentString}</p>
+        <p><strong>Jurisdictions:</strong> ${jurisdictionString}</p>
+        <p><strong>Stages:</strong> ${stagesString}</p>
+        <p><strong>URL:</strong> <a href="${toolURL}" target="_blank">${toolURL}</a></p>
+    </div>
+    `;
 }

@@ -101,3 +101,23 @@ span.psw {
     text-align: center;
     border-radius: 40px;
 }
+
+.tool-summary {
+    border: 0.1% solid #ddd;
+    border-radius: 3%;
+    padding: 2%;
+    margin-top: 1.5%;
+    width: 90%;
+    max-width: 100%;
+}
+
+.tool-summary h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 110%;
+}
+
+.tool-summary p {
+    margin: 0.5% 0;
+    font-size: 100%;
+}
