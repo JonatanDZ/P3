@@ -27,10 +27,10 @@ import static org.mockito.Mockito.*;
 public class ToolControllerTests {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc; // To test your web controllers without starting a full HTTP server
 
     @MockitoBean
-    private ToolService toolService;
+    private ToolService toolService; // To mock toolService
 
     @BeforeEach
     public void setup() {
@@ -39,10 +39,11 @@ public class ToolControllerTests {
 
     @Test
     public void testGetToolById() throws Exception {
-        Set<Department> departmentSet = new HashSet<>();
+        Set<Department> departmentSet = new HashSet<>(); // Creates empty sets for related entities
         Set<Jurisdiction> jurisdictionSet = new HashSet<>();
         Set<Stage> stagesSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
+        // Create a mock tool
         Tool tool = new Tool(1,"testTool","https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
         when(toolService.getToolById(1)).thenReturn(Optional.of(tool));
         mockMvc.perform(MockMvcRequestBuilders.get("/getTools/id/1"))
@@ -60,16 +61,16 @@ public class ToolControllerTests {
     @Test
     public void testGetTools() throws Exception {
         Set<Department> departmentSet = new HashSet<>();
-        Set<Jurisdiction> jurisdictionSet = new HashSet<>();
+        Set<Jurisdiction> jurisdictionSet = new HashSet<>(); //Creates empty sets for related entities
         Set<Stage> stagesSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
+        // Make mock tools
         Tool tool1 = new Tool(1,"testTool1","https://www.testing.dk",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
         Tool tool2 = new Tool(2,"testTool2","https://www.testing2.dk",true,true,departmentSet,jurisdictionSet,stagesSet,tagSet);
-        List<Tool> toolList = new ArrayList<>();
+        List<Tool> toolList = new ArrayList<>(); // Make list and add the mock tools
         toolList.add(tool1);
         toolList.add(tool2);
         when(toolService.getAllTools()).thenReturn(toolList);
-        //Looks insane but i think it's the right way
         mockMvc.perform(MockMvcRequestBuilders.get("/getTools"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
@@ -94,11 +95,12 @@ public class ToolControllerTests {
     @Test
     public void testGetToolsByDepartment() throws Exception {
         Set<Department> departmentSet = new HashSet<>();
-        Department dep = new Department(1,"DevOps",true);
-        departmentSet.add(dep);
-        Set<Jurisdiction> jurisdictionSet = new HashSet<>();
+        Department dep = new Department(1,"DevOps",true); // Making mock department
+        departmentSet.add(dep); // Add the mock department
+        Set<Jurisdiction> jurisdictionSet = new HashSet<>(); //Creates empty sets for related entities
         Set<Stage> stagesSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
+        // Making a mock tool and adding it to the tool list
         Tool tool = new Tool(1,"testTool1","https://www.testing.dk",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
         List<Tool> toolList = new ArrayList<>();
         toolList.add(tool);
