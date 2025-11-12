@@ -137,8 +137,65 @@ export function displayTools(data, list) {
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.href = tool.url;
-        a.textContent = tool.name;
         a.target = "_blank";
+
+        const header = document.createElement('div');
+        header.className = 'tool-header';
+
+        const nameE = document.createElement('div');
+        nameE.className = 'tool-name';
+        nameE.textContent = tool.name;
+
+        const starBtn = document.createElement('button');
+        starBtn.className = 'star-button';
+        starBtn.setAttribute('aria-label', 'Toggle favorite');
+
+        const star = document.createElement('span');
+        star.className = 'star';
+        star.textContent = '☆';
+
+        starBtn.appendChild(star);
+
+        starBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            let employeeInitials = "PEDO";
+
+            const toolId = starBtn.dataset.toolId;
+            const wasFilled = star.textContent === '★';
+            const nowFilled = !wasFilled;
+
+            star.textContent = nowFilled ? '★' : '☆';
+            starBtn.classList.toggle('is-filled', nowFilled);
+            starBtn.setAttribute('aria-pressed', String(nowFilled));
+
+            try {
+                const res = await fetch(`/employee/${employeeInitials}/favorites/${toolId}`, {
+                    method: nowFilled ? 'POST' : 'DELETE',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'same-origin'
+                });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+            } catch (err) {
+                console.error('Favorite toggle failed:', err);
+                star.textContent = wasFilled ? '☆' : '★';
+                starBtn.classList.toggle('is-filled', wasFilled);
+                starBtn.setAttribute('aria-pressed', String(wasFilled))
+            }
+        });
+
+        header.appendChild(nameE);
+        header.appendChild(starBtn);
+
+        const urlE = document.createElement('div');
+        urlE.className = 'tool-url';
+        urlE.textContent = tool.url;
+
+        a.appendChild(header);
+        a.appendChild(urlE);
+
         li.appendChild(a);
         list.appendChild(li);
     });

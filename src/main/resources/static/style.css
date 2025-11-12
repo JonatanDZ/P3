@@ -203,6 +203,7 @@ section {
 #departmentSelected,
 #favorites {
     display: flex;
+    flex-direction: row;
     list-style-type: none;
     flex-wrap: wrap;
     gap: 10px;
@@ -214,12 +215,13 @@ section {
 #allTools a,
 #departmentSelected a,
 #favorites a {
-    display: block;
+    display: flex;
+    flex-direction: column;
     background-color: #1E2938;
 
     /* Change the size of these to change the size of the cards */
-    width: 100px;
-    height: 50px;
+    width: 200px;
+    height: 100px;
 
     border: 1px solid rgb(0, 0, 0);
     margin: 0;
@@ -232,6 +234,50 @@ section {
     padding: 10px;
     overflow: hidden;
 }
+
+.tool-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.tool-name {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.star-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    line-height: 1;
+    cursor: pointer;
+    font-size: 24px; /* match your title size */
+}
+
+.star-button .star {
+    color: #cbd5e1;           /* outline color */
+    transition: color 140ms ease, transform 120ms ease;
+}
+
+.star-button.is-filled .star {
+    color: gold;              /* filled color */
+}
+
+.star-button:hover .star {
+    transform: scale(1.05);
+}
+
+.tool-url {
+    margin-top: auto;
+    font-size: 12px;
+    word-break: break-all;
+}
+
 
 footer {
     position: fixed;
