@@ -6,6 +6,7 @@ export function displayFavorites () {
     const list = document.getElementById("favorites");
     list.innerText = "";
     // hard coded as of now
+    // change to getEmployee method
     let employeeInitials = "PEDO";
     let jurisdiction = getJurisdiction();
     let stage = getStage();
