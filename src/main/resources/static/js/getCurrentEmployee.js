@@ -1,4 +1,3 @@
-
 export function getCurrentEmployee() {
     let initials = "PEDO";
     fetch(`/employee/initials/${initials}`)
@@ -8,5 +7,3 @@ export function getCurrentEmployee() {
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
-
-getCurrentEmployee();
