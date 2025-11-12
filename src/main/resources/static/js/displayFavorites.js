@@ -1,15 +1,16 @@
 import {displayTools, getJurisdiction, getStage} from "./endpointScripts.js";
-import {getCurrentEmployee, getCurrentEmployeeInitials} from "./getCurrentEmployee.js";
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
-export function displayFavorites () {
+export async function displayFavorites () {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById("favorites");
     list.innerText = "";
-    // hard coded as of now
-    // change to getEmployee method
-    getCurrentEmployeeInitials();
-    let employeeInitials = "PEDO";
+
+    // first gets employee, then the initials from employee
+    let employee = await getCurrentEmployee("PEDO");
+    let employeeInitials = employee.initials;
+
     let jurisdiction = getJurisdiction();
     let stage = getStage();
     fetch(`/employee/${employeeInitials}/favorites?jurisdiction=${jurisdiction}&stage=${stage}`)

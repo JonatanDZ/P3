@@ -1,8 +1,7 @@
-export function getCurrentEmployeeInitials(initials = "PEDO") {
-    return fetch(`/employee/initials/${initials}`)
-        .then(r => {
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            return r.json();
-        })
-        .then(data => data.initials); // ← the attribute
+export async function getCurrentEmployee(initials = "PEDO") {
+    const response = await fetch(`/employee/initials/${initials}`);
+    if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+    }
+    return await response.json();
 }
