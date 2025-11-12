@@ -30,8 +30,8 @@ public class Department {
     
     public Department(Integer id, String departmentName, Boolean isDev) {
         this.id = id;
-        this.departmentName = departmentName;
-        this.isDev = isDev;
+        this.name = departmentName;
+        this.is_dev = isDev;
     }
 
     public Department() {}
