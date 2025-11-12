@@ -18,7 +18,7 @@ import java.util.List;
 
 // This is the API http/rest controller
 @RestController
-@RequestMapping("/getTools")
+@RequestMapping("/tools")
 public class ToolController {
     private final ToolService toolService; //final means that we can't change the value after it has been initialized
 
@@ -50,23 +50,23 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/jurisdiction/{jurisdiction}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {
-        List<ToolDto> list = toolService.getAllToolsByJurisdictionName(jurisdiction).stream()
-                .map(ToolDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
+//    @GetMapping("/jurisdiction/{jurisdiction}")
+//    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {
+//        List<ToolDto> list = toolService.getAllToolsByJurisdictionName(jurisdiction).stream()
+//                .map(ToolDto::new)
+//                .toList();
+//        return ResponseEntity.ok(list);
+//    }
+//
+//    @GetMapping("/stage/{stage}")
+//    public ResponseEntity<List<ToolDto>> getAllToolsByStage(@PathVariable String stage) {
+//        List<ToolDto> list = toolService.getAllToolsByStageName(stage).stream()
+//                .map(ToolDto::new)
+//                .toList();
+//        return ResponseEntity.ok(list);
+//    }
 
-    @GetMapping("/stage/{stage}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByStage(@PathVariable String stage) {
-        List<ToolDto> list = toolService.getAllToolsByStageName(stage).stream()
-                .map(ToolDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
-
-    @GetMapping("/{department}/{jurisdiction}/{stage}")
+    @GetMapping("department/{department}/jurisdiction/{jurisdiction}/stage/{stage}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
             @PathVariable String department,
             @PathVariable String jurisdiction,
@@ -79,7 +79,7 @@ public class ToolController {
     }
     //takes the data from the add form and sends it to the
     // PostMapping: indicates it is a post request on the given url
-    @PostMapping("/addTool")
+    @PostMapping("")
     //RequestBody: Gets a HTTP request (JSON) and converts it into a java object
     public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
         if (tool == null){
