@@ -1,9 +1,8 @@
-export function getCurrentEmployee() {
-    let initials = "PEDO";
-    fetch(`/employee/initials/${initials}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
+function getCurrentEmployeeInitials(initials = "PEDO") {
+    return fetch(`/employee/initials/${initials}`)
+        .then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
         })
-        .catch(error => console.error('Error fetching tool:', error));
+        .then(data => data.initials); // ← the attribute
 }
