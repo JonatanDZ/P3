@@ -1,20 +1,25 @@
 import {MakeToolJSON} from "./fetchTool.js";
 
 
-export function submitForm(){
-    
-    MakeToolJSON(formToJSON());
+export async function submitForm() {
+
+    const jsonData = await formToJSON();
+
+    await MakeToolJSON(jsonData);
+
+    console.log(jsonData);
+
 
     setTimeout(() => {
-        window.location.reload();
+        //window.location.reload();
     }, 100);
-
 }
 
-export function formToJSON(){
+export async function formToJSON(){
     const isPersonal = document.querySelector("#isPersonal").checked;
     const name = document.querySelector("#toolName").value;
     const isDynamic = document.querySelector('#isDynamic').checked;
+    console.log(isDynamic);
     const url = getURLValue(isDynamic);
 /*
     const tags = document.querySelector("#tags").value.split(",")
@@ -27,7 +32,7 @@ export function formToJSON(){
     const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => ({id: cb.value}));
     const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => ({id: cb.value}));
 
-    return JSON.stringify({isPersonal, name, url, isDynamic, departments, stages, jurisdictions});//, tag});
+    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions});//, tag});
 
 }
 
