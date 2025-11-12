@@ -1,4 +1,4 @@
-import {toggleForm, displayURLbar, toggleCards} from "./toggleForm.js";
+import {toggleForm, displayURLbar, toggleCards, displayReview} from "./toggleForm.js";
 import {loadOptions} from "./loadOptions.js";
 import {submitForm} from "./submitForm.js";
 
@@ -53,6 +53,7 @@ if (document.querySelector(".toggleCardBtn")) {
     document.querySelectorAll(".toggleCardBtn").forEach(btn =>{
         btn.addEventListener("click", (e)=>{
             e.preventDefault();
+            displayReview();
             toggleCard = toggleCards(btn.value, toggleCard);
         });
     });

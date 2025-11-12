@@ -20,7 +20,7 @@ export function toggleCards(i, currentCard){
     if (cardValue <= 1) {
         document.querySelector("#prev").disabled = true;
 
-    } else if(cardValue >= 4) {
+    } else if(cardValue >= 6) {
         document.querySelector("#next").disabled = true;
     }
 
@@ -49,4 +49,35 @@ export function displayURLbar(dynamicCheck){
         toolURLInput1.placeholder = "Enter URL";
     }
     console.log(toolURLInput2);
+}
+
+export function displayReview(){
+    const toolName = document.querySelector("#toolName").value;
+
+    let toolURL = "";
+
+    if (document.querySelector("#isDynamic").checked){
+        toolURL = document.querySelector("#toolURL1").value + document.querySelector("#toolURL2").value;
+    } else {
+        toolURL = document.querySelector("#toolURL1").value;
+    }
+    let jurisdictionString = "";
+    let stagesString = "";
+    let departmentString = "";
+
+    document.querySelectorAll('.jurisdictionsChecks:checked').forEach(cb => {
+        jurisdictionString += cb.innerText + " ";
+    });
+
+    document.querySelectorAll('.stagesChecks:checked').forEach(cb => {
+        stagesString += cb.innerText + " ";
+    });
+
+
+    document.querySelectorAll('.departmentsChecks:checked').forEach(cb => {
+        departmentString += cb.innerText + " ";
+    })
+
+    const para = document.querySelector("#toolToPost");
+    para.innerText = `${toolName}, ${departmentString}, ${jurisdictionString}, ${stagesString}, ${toolURL}`;
 }
