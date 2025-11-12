@@ -1,5 +1,5 @@
 import {displayTools, getJurisdiction, getStage} from "./endpointScripts.js";
-import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {getCurrentEmployee, getCurrentEmployeeInitials} from "./getCurrentEmployee.js";
 
 export function displayFavorites () {
     // clear the list each time it is called.
@@ -8,7 +8,7 @@ export function displayFavorites () {
     list.innerText = "";
     // hard coded as of now
     // change to getEmployee method
-    getCurrentEmployee();
+    getCurrentEmployeeInitials();
     let employeeInitials = "PEDO";
     let jurisdiction = getJurisdiction();
     let stage = getStage();

@@ -1,4 +1,4 @@
-function getCurrentEmployeeInitials(initials = "PEDO") {
+export function getCurrentEmployeeInitials(initials = "PEDO") {
     return fetch(`/employee/initials/${initials}`)
         .then(r => {
             if (!r.ok) throw new Error(`HTTP ${r.status}`);
