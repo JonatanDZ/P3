@@ -1,6 +1,6 @@
 package com.example.p3.controller;
 
-import com.example.p3.dtos.ToolDto;
+import com.example.p3.dtos.toolsDto.CompanyToolDto;
 
 import com.example.p3.entities.Tool;
 
@@ -29,12 +29,12 @@ public class ToolController {
     //GetMapping: indicates it is a get request on the given url
     @GetMapping("")
     //Makes a list called List and gets all tools
-    public ResponseEntity<List<ToolDto>> getAllTools(){
+    public ResponseEntity<List<CompanyToolDto>> getAllTools(){
         //Stream makes the data into a modifiable "type"  which allows for operations like map to be performed
-        List<ToolDto> list = toolService.getAllTools().stream()
+        List<CompanyToolDto> list = toolService.getAllTools().stream()
                 //Map make a new array,
                 //the function in map: For each tool in toolService it calls "new toolDto"
-                .map(ToolDto::new)
+                .map(CompanyToolDto::new)
                 //Converts the new tools (in an array) into a list
                 .toList();
         return ResponseEntity.ok(list);
@@ -43,9 +43,9 @@ public class ToolController {
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
     @GetMapping("/department/{department}")
     //@pathVariable: get a string and inserts it into the endpoint (url)
-    public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {
-        List<ToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
-                .map(ToolDto::new)
+    public ResponseEntity<List<CompanyToolDto>> getAllToolsByDepartment(@PathVariable String department) {
+        List<CompanyToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
+                .map(CompanyToolDto::new)
                 .toList();
         return ResponseEntity.ok(list);
     }
