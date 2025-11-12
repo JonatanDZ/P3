@@ -8,7 +8,7 @@ export async function displayFavorites () {
     list.innerText = "";
 
     // first gets employee, then the initials from employee
-    let employee = await getCurrentEmployee("PEDO");
+    let employee = await getCurrentEmployee();
     let employeeInitials = employee.initials;
 
     let jurisdiction = getJurisdiction();
