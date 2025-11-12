@@ -1,18 +1,16 @@
 package com.example.p3.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.*; //Enables hibernate
+import jakarta.validation.constraints.Size; //This allows us to set size limitations to our attributes
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
 @Setter
-@Entity
+@Entity //Used for declaring object class as an entity in the DB (Makes the hibernate possible)
 @Table(name = "tool", schema = "P3")
 public class Tool {
     @Id
@@ -29,21 +27,23 @@ public class Tool {
     private String url;
 
     @Column(name = "is_personal")
-    private Boolean isPersonal;
+    private Boolean is_personal;
 
     @Column(name = "is_dynamic")
-    private Boolean isDynamic;
+    private Boolean is_dynamic;
 
-    // mappedBy is important here. It tells Hibernate that the User class owns this relationship.
+    // mappedBy is important here. It tells Hibernate that the User class owns this relationship. ????????????
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
 
+
+
     @ManyToMany
     @JoinTable(
-            name = "department_tool",
-            joinColumns = @JoinColumn(name = "tool_id"),
-            inverseJoinColumns = @JoinColumn(name = "department_id")
+            name = "department_tool",                                // SELECT * FROM tool t
+            joinColumns = @JoinColumn(name = "tool_id"),             //JOIN tool_department td ON t.id = td.tool_id
+            inverseJoinColumns = @JoinColumn(name = "department_id") //JOIN department d ON td.department_id = d.id
 
     )
     private Set<Department> departments;
@@ -71,4 +71,18 @@ public class Tool {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags = new HashSet<>();
+
+    public Tool(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.is_personal = is_personal;
+        this.is_dynamic = is_dynamic;
+        this.departments = departments;
+        this.jurisdictions = jurisdictions;
+        this.stages = stages;
+        this.tags = tags;
+    }
+
+    public Tool() {}
 }

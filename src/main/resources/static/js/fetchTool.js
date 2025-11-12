@@ -1,6 +1,6 @@
 // Get the input from the form
 export async function MakeToolJSON(jsonBody) {
-    fetch('getTools/addTool', {
+    fetch('/tools', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -11,11 +11,9 @@ export async function MakeToolJSON(jsonBody) {
         .then(data => {
             const state = 'Tool Created';
             console.log("success", data);
-            //window.alert(state);
         })
         .catch((error) => {
             const state = "Error: " + error;
             console.error(state);
-            //window.alert(state);
         });
 }

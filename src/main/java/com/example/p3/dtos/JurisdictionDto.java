@@ -16,8 +16,11 @@ public class JurisdictionDto {
 
     public JurisdictionDto(Jurisdiction j){
         this.id = j.getId();
-        this.name = j.getJurisdictionName();
+        this.name = j.getName();
         this.tools = new ArrayList<>();
+
+        // Checks all tools for jurisdiction and adds it to the jurisdiction list.
+        // TJEK LIGE DENNE COMMENT!
         String toolName;
         List<Tool> toolList = j.getJurisdictionTools().stream().toList();
         for (int i = 0; i < toolList.size(); i++) {

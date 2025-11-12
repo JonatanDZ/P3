@@ -1,4 +1,4 @@
-//Toogles om formularen er åben eller ikke
+//Toggles if the formular is open or not
 export function toggleForm(formIsShown){
     if (formIsShown){
         addToolDiv.style.display = "none";
@@ -34,6 +34,7 @@ export function toggleCards(i, currentCard){
     return cardValue;
 }
 
+//Changes the url bar to be dynamic or not
 export function displayURLbar(dynamicCheck){
     const toolURLInput1 = document.querySelector("#toolURL1");
     const toolURLInput2 = document.querySelector("#toolURL2");

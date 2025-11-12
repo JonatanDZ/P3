@@ -1,9 +1,0 @@
-[{"id":1,"name":"DevOps","dev":true},
-{"id":2,"name":"Frontend","dev":true},
-{"id":3,"name":"Games","dev":true},
-{"id":4,"name":"Payments","dev":true},
-{"id":5,"name":"Players","dev":true},
-{"id":6,"name":"Promotions","dev":true},
-{"id":7,"name":"HR","dev":false},
-{"id":9,"name":"Legal","dev":false}
-]

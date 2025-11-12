@@ -20,13 +20,12 @@ public class Department {
 
     @Size(max = 255)
     @Column(name = "name")
-    private String departmentName;
+    private String name;
 
     @Column(name = "is_dev")
-    private Boolean isDev;
+    private Boolean is_dev;
 
     @ManyToMany(mappedBy = "departments")
     private Set<Tool> departmentTools = new HashSet<>();
-
 
 }

@@ -17,31 +17,24 @@ public class ToolDto {
     private Integer id;
     private String name;
     private String url;
-    private Boolean isDynamic;
+    private Boolean is_dynamic;
     private ArrayList<String> departments;
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
 
-    /*private String[] tags;
-    // there can be multiple departments to a Tool
-    private Tool.Department[] departments;
-
-    // there can be multiple stages to a Tool
-    private Tool.Stage[] stages;
-
-    private Tool.Jurisdiction[] jurisdictions;*/
-
+    //Takes the entities from the database and converts it into objects of the type tool
     public ToolDto(Tool t) {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
-        this.isDynamic = t.getIsDynamic();
         //this.tags = t.getTags();
+        this.is_dynamic = t.getIs_dynamic();
+
         this.departments = new ArrayList<>();
         String departmentName;
         List<Department> departmentList = t.getDepartments().stream().toList();
         for (int i = 0; i < departmentList.size(); i++) {
-            departmentName = departmentList.get(i).getDepartmentName();
+            departmentName = departmentList.get(i).getName();
             this.departments.add(departmentName);
         }
 
@@ -49,7 +42,7 @@ public class ToolDto {
         String jurisdictionName;
         List<Jurisdiction> jurisdictionList = t.getJurisdictions().stream().toList();
         for (int i = 0; i < jurisdictionList.size(); i++) {
-            jurisdictionName = jurisdictionList.get(i).getJurisdictionName();
+            jurisdictionName = jurisdictionList.get(i).getName();
             this.jurisdictions.add(jurisdictionName);
         }
 

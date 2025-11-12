@@ -21,7 +21,7 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("")
     public ResponseEntity<List<DepartmentDto>> getAllDepartments(){
         List<DepartmentDto> list = departmentService.getAllDepartments().stream()
                 .map(DepartmentDto::new)

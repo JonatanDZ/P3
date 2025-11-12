@@ -5,6 +5,7 @@ export function footerUpdate() {
     const label = document.querySelector(`label[for="${checked.id}"]`) || checked.nextSibling;
     const styles = label ? getComputedStyle(label) : null;
 
+    //background & foreground
     const bg = styles?.backgroundColor;
     const fg = styles?.color;
 
