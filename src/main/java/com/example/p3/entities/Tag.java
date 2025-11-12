@@ -23,10 +23,8 @@ public class Tag {
     @Column(name = "value", nullable = false)
     private String value;
 
-    @ManyToMany
-    @JoinTable(name = "tool_tag",
-            joinColumns = @JoinColumn(name = "tag_id"),
-            inverseJoinColumns = @JoinColumn(name = "tool_id"))
+
+    @ManyToMany(mappedBy = "tags")
     private Set<Tool> tools = new LinkedHashSet<>();
 
 }
