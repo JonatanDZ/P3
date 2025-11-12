@@ -1,7 +1,7 @@
-//Bruges til at load department og jurisdiction
+//Used to load department and jurisdiction in form
 export function loadOptions(str){
-    //Hvad kan der være i URL'ens ${str}?
-    fetch(`/${str}/getAll`)
+    //${str} can ex. be jurisdiction or department.
+    fetch(`/${str}`)
         .then(response=>response.json())
         .then(data => {
             let dropdown = document.querySelector(`#${str}Input`);
@@ -13,7 +13,7 @@ export function loadOptions(str){
                 const input = document.createElement("input");
                 input.type = "checkbox";
                 input.id = `${item.name}Input`;
-                input.value = item.name.toUpperCase();
+                input.value = item.id//name.toUpperCase();
                 input.textContent = item.name;
                 input.className = `${str}Checks`;
 

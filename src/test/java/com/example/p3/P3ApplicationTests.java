@@ -76,7 +76,6 @@ class P3ApplicationTests {
     //Test to see if getFavoriteTools is called
 
 
-
     @Test
     void favoritesDetailedListsForAllUsers() throws Exception {
         String url = "http://localhost:8080/getTools/getFavoriteTools/details/2";

@@ -41,6 +41,10 @@ public class Employee {
     )
     private Set<Tool> favoriteTools = new HashSet<>();
 
+    public Employee() {
+
+    }
+
     public void addFavorite(Tool tool) {
         favoriteTools.add(tool);
         tool.getEmployeesWhoFavorited().add(this); // keep both sides in sync
@@ -51,11 +55,7 @@ public class Employee {
         tool.getEmployeesWhoFavorited().remove(this);
     }
 
-    public Employee() {
-
-    }
-
-    public Employee(String initials, String name, String email, Department department ) {
+    public Employee(String initials, String name, String email, Department department) {
         this.initials = initials;
         this.name = name;
         this.email = email;

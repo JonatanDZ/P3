@@ -1,10 +1,11 @@
-function footerUpdate() {
+export function footerUpdate() {
     const checked = document.querySelector('.branchSelector input[name="branch"]:checked');
     if (!checked) return;
 
     const label = document.querySelector(`label[for="${checked.id}"]`) || checked.nextSibling;
     const styles = label ? getComputedStyle(label) : null;
 
+    //background & foreground
     const bg = styles?.backgroundColor;
     const fg = styles?.color;
 

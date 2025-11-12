@@ -42,6 +42,10 @@
                 <form class="from-container">
                     <h1>Add Tool</h1>
 
+                    <label for="isPersonal"> Is the tool personal?
+                        <input id="isPersonal" type="checkbox" name="isPersonal" class="isPersonal" checked="checked">
+                    </label>
+
                     <label for="toolName"> <h3> Tool name</h3></label>
                     <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" class="toolName" required>
 
@@ -71,15 +75,15 @@
                     <div id = "stagesInput" class="inputDiv">
                         <div class="checkBoxDiv">
                             <label for="developmentInput"> Development </label>
-                            <input id= "developmentInput" class="stagesChecks" type="checkbox" value="DEVELOPMENT">
+                            <input id= "developmentInput" class="stagesChecks" type="checkbox" value="1">
                         </div>
                         <div class="checkBoxDiv">
                             <label for="stagingInput"> Staging </label>
-                            <input id="stagingInput" class="stagesChecks" type="checkbox" value="STAGING">
+                            <input id="stagingInput" class="stagesChecks" type="checkbox" value="2">
                         </div>
                         <div class="checkBoxDiv">
                             <label for="productionInput"> Production </label>
-                            <input id="productionInput"class="stagesChecks" type="checkbox" value="PRODUCTION">
+                            <input id="productionInput"class="stagesChecks" type="checkbox" value="3">
                         </div>
                     </div>
 

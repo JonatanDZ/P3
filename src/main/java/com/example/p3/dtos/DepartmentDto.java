@@ -8,12 +8,12 @@ public class DepartmentDto {
     // attributes of Department
     private long id;
     private String name;
-    private boolean isDev;
+    private boolean is_dev;
 
     public DepartmentDto(Department d){
         this.id = d.getId();
-        this.name = d.getDepartmentName();
-        this.isDev = d.getIsDev();
+        this.name = d.getName();
+        this.is_dev = d.getIs_dev();
     }
 
 }
