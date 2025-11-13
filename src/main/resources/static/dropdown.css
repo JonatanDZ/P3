@@ -1,3 +1,5 @@
+/* The visible bell */
+
 .dropdown {
     margin-left: auto;
 }
@@ -13,4 +15,31 @@
     align-items: center;
     justify-content: center;
     color: white;
+}
+
+/* The toggled dropdowncontent styling */
+
+.dropdownContent {
+    position: absolute;
+    right: 1em;
+    top: 3.5em;
+    display: none;
+    flex-direction: column;
+    background: #111828;
+    border-radius: 0.5rem;
+    min-width: 180px;
+    padding: 0.5rem 0;
+    z-index: 1000;
+}
+
+.dropdownContent.show {
+    display: flex;
+}
+
+.dropdownContent a {
+    color: white;
+    text-decoration: none;
+    padding: 0.75em 1em;
+    display: block;
+    font-size: 0.95em;
 }
