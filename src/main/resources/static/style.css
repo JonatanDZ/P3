@@ -260,7 +260,7 @@ section {
 }
 
 .star-button .star {
-    color: #cbd5e1;           /* outline color */
+    color: gold;           /* outline color */
     transition: color 140ms ease, transform 120ms ease;
 }
 
