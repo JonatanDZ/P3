@@ -16,6 +16,7 @@ import java.util.Set;
 public class Tag {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 255)
@@ -25,6 +26,6 @@ public class Tag {
 
 
     @ManyToMany(mappedBy = "tags")
-    private Set<Tool> tools = new LinkedHashSet<>();
+    private Set<Tool> tagTools = new LinkedHashSet<>();
 
 }
