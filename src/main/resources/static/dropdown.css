@@ -42,4 +42,19 @@
     padding: 0.75em 1em;
     display: block;
     font-size: 0.95em;
+    background-color: blue;
+
+}
+
+
+.aprbtn, .denybtn {
+    font-size: 0.9em;
+    line-height: 1;
+    background-color: transparent;
+    /* Removes the ugly bell border */
+    border: none;
+}
+
+.aprbtn:hover, .denybtn:hover {
+    cursor: pointer;
 }
