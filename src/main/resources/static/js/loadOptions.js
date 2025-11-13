@@ -27,3 +27,32 @@ export function loadOptions(str){
             })
         })
 }
+
+export function loadTags(){
+    fetch(`/tags`)
+        .then(response => response.json())
+        .then(data => {
+            let tagList = document.querySelector(`#tagList`);
+            data.forEach((item)=>{
+
+
+                const tagListElement = document.createElement("li");
+                tagListElement.className = "tagListElement";
+
+
+                const input = document.createElement("input");
+                input.type = "checkbox";
+                input.id = `${item.value}Input`;
+                input.value = item.id
+                input.textContent = item.value;
+                input.className = `tagChecks`;
+
+                const label = document.createElement("label");
+                label.for = input.id;
+                label.textContent = item.value;
+                tagList.appendChild(tagListElement);
+                tagListElement.appendChild(input);
+                tagListElement.appendChild(label);
+            })
+        })
+}

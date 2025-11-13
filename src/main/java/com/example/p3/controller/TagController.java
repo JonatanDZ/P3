@@ -1,15 +1,13 @@
 package com.example.p3.controller;
 
 import com.example.p3.dtos.TagDto;
-import com.example.p3.entities.Tool;
-import com.example.p3.repositories.TagRepository;
+
 import com.example.p3.service.TagService;
 import com.example.p3.entities.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tags")
