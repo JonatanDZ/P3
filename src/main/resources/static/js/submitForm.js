@@ -7,11 +7,7 @@ export async function submitTag(){
 
     let tag = {value: tagValue};
 
-    const response = await poster("tags", JSON.stringify(tag));
-
-
-    return response.id;
-
+    await poster("tags", JSON.stringify(tag));
 }
 
 export async function submitForm() {
