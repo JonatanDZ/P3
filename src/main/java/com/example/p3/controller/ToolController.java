@@ -3,7 +3,6 @@ package com.example.p3.controller;
 import com.example.p3.dtos.toolsDto.CompanyToolDto;
 
 import com.example.p3.dtos.toolsDto.ToolDtoCLASS;
-import com.example.p3.dtos.toolsDto.ToolInterface;
 import com.example.p3.entities.Tool;
 
 import com.example.p3.service.ToolService;

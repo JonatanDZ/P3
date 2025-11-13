@@ -2,13 +2,9 @@ package com.example.p3.dtos.toolsDto;
 
 import com.example.p3.entities.Tool;
 
-public class PersonalToolDto extends ToolDtoCLASS implements ToolInterface {
-
-    public PersonalToolDto(Tool t) {
-        super(t);
-        this.differences();
-    }
-
+public class PersonalToolDto implements  ToolDto {
     @Override
-    public void differences () {}
+    public void prepare(Tool tool){
+        //do stuff here
+    }
 }
