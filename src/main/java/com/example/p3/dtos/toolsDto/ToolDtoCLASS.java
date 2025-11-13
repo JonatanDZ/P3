@@ -8,7 +8,7 @@ import com.example.p3.entities.Tool;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ToolDto {
+public abstract class ToolDtoCLASS {
     private Integer id;
     private String name;
     private String url;
@@ -17,7 +17,7 @@ public abstract class ToolDto {
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
 
-    public ToolDto(Tool t){
+    public ToolDtoCLASS(Tool t){
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
