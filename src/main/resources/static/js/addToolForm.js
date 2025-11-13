@@ -1,6 +1,6 @@
 import {toggleForm, displayURLbar} from "./toggleForm.js";
-import {loadOptions, loadTags} from "./loadOptions.js";
-import {submitForm} from "./submitForm.js";
+import {loadOptions, loadTagAndCheck, loadTags} from "./loadOptions.js";
+import {submitForm, submitTag} from "./submitForm.js";
 
 let toggleBtns;
 let addToolDiv;
@@ -43,10 +43,19 @@ function loadAllFromOptions(){
 
 
 if (document.querySelector("#submitBtn")) {
-    document.querySelector("#submitBtn").addEventListener("click", function (e) {
+    document.querySelector("#submitBtn").addEventListener("click",  (e) => {
         e.preventDefault();
         submitForm();
     });
+}
+
+if (document.querySelector("#submitTagBtn")) {
+    document.querySelector("#submitTagBtn").addEventListener("click", async (e)  =>  {
+        e.preventDefault();
+        const tagId = await submitTag();
+
+        //loadTagAndCheck(tagId);
+    })
 }
 
 function handleOutsideClick(event) {

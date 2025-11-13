@@ -1,11 +1,11 @@
 package com.example.p3.service;
 
-import com.example.p3.entities.Tool;
 import com.example.p3.repositories.TagRepository;
 import com.example.p3.entities.Tag;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TagService {
@@ -18,6 +18,10 @@ public class TagService {
 
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
+    }
+
+    public Optional<Tag> getTagById(int id) {
+        return tagRepository.findById(id);
     }
 
     public Tag saveTag(Tag tag) {

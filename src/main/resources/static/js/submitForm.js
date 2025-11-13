@@ -1,11 +1,24 @@
-import {MakeToolJSON} from "./fetchTool.js";
+import {poster} from "./fetchTool.js";
 
+export async function submitTag(){
+
+
+    const tagValue = document.querySelector("#tags").value;
+
+    let tag = {value: tagValue};
+
+    const response = await poster("tags", JSON.stringify(tag));
+
+
+    return response.id;
+
+}
 
 export async function submitForm() {
 
     const jsonData = await formToJSON();
 
-    await MakeToolJSON(jsonData);
+    await poster("tools" , jsonData);
 
 
     //Makes sure tool can be loaded to database before displaying

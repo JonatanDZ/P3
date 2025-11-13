@@ -56,3 +56,33 @@ export function loadTags(){
             })
         })
 }
+
+export function loadTagAndCheck(id){
+    let tagList = document.querySelector(`#tagList`);
+    fetch(`/tags/id/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach((item)=>{
+
+
+                const tagListElement = document.createElement("li");
+                tagListElement.className = "tagListElement";
+
+
+                const input = document.createElement("input");
+                input.type = "checkbox";
+                input.id = `${item.value}Input`;
+                input.value = item.id
+                input.textContent = item.value;
+                input.className = `tagChecks`;
+                input.checked = true;
+
+                const label = document.createElement("label");
+                label.for = input.id;
+                label.textContent = item.value;
+                tagList.appendChild(tagListElement);
+                tagListElement.appendChild(input);
+                tagListElement.appendChild(label);
+            })
+        })
+}
