@@ -48,7 +48,7 @@ span.psw {
     width: 50%; /* Full width */
     height: 75%; /* Full height */
     overflow-x: hidden; /* disable scroll if needed on x-axis */
-    overflow-y: hidden; /* disable scroll if needed on y-axis */
+    overflow-y: visible; /* disable scroll if needed on y-axis - giver plads til tags */
     background-color: rgb(0, 0, 0, 0.9);
     border-radius: 2rem;
 }
@@ -91,7 +91,73 @@ span.psw {
 }
 
 #toolURL b {
-    width: 50px; /* Fixed width for the MAJ text */
+    width: 50px;
     text-align: center;
     border-radius: 40px;
+}
+
+#tagDiv {
+    position: relative;
+}
+
+#tagsSuggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #1c1c1c;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 5px 0;
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 999999; /* Gør at det vise som det første, og det skal være der*/
+    box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+}
+
+.tag-suggestion-item {
+    align-items: center;
+    cursor: pointer;
+    color: #eee;
+}
+
+.tag-suggestion-item:hover {
+    background: #2c2c2c;
+}
+
+.selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tag-chip {
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.tag-chip span {
+    cursor: default;
+}
+
+.tag-chip button {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.tag-chip button:hover {
+    color: #fff;
 }

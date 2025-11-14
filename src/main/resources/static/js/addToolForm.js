@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 formIsShown = toggleForm(formIsShown);
 
                 if(formIsShown){
-                        document.addEventListener("click", handleOutsideClick)
+                    document.addEventListener("click", handleOutsideClick)
                 } else {
                     document.removeEventListener("click", handleOutsideClick)
                 }

@@ -28,6 +28,118 @@ export function loadOptions(str){
         })
 }
 
+function enableTagSearch(){
+    const testTags = ["Fisse med Hår", "Store Bryster", "Fede Finn og funny boyZ", "Belzebub"]
+    const tagInput = document.querySelector('#tags');
+    const suggestionBox = document.querySelector('#tagsSuggestions');
+
+    
+    tagInput.addEventListener('input',() => {
+        const input = tagInput.value.toLowerCase();
+
+        if (input.length === 0) {
+            suggestionBox.style.display = "none";
+            return;
+        }
+
+        const matches = testTags.filter(tag =>
+        tag.toLowerCase().includes(input)
+        );
+
+        if (matches.length === 0){
+            suggestionBox.style.display = "none";
+            return;
+        }
+
+        while (suggestionBox.firstChild) {
+            suggestionBox.removeChild(suggestionBox.firstChild);
+        }
+        suggestionBox.style.display = "block";
+        matches.forEach(tag => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "tag-suggestion-item";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "tag-suggestion-checkbox";
+
+            const span = document.createElement("span");
+            span.textContent = tag;
+
+            wrapper.appendChild(checkbox);
+            wrapper.appendChild(span);
+            suggestionBox.appendChild(wrapper);
+
+            wrapper.addEventListener("click", () => {
+                const newState = !checkbox.checked;
+                checkbox.checked = newState;
+                checkTagCheckbox(tag, newState);
+
+                if (newState) {
+                    addTagChip(tag);
+                } else {
+                    uncheckTag(tag);
+                }
+                //if (!tagInput.value.toLowerCase().includes(tag.toLowerCase())) {
+                    //tagInput.value += tag + ", ";
+
+                tagInput.value = "";
+                tagInput.focus();
+                suggestionBox.style.display = "none";
+            });
+        })
+    })
+}
+
+function checkTagCheckbox(tagName, shouldCheck){
+    const checks = document.querySelectorAll('.tagChecks');
+
+    checks.forEach(cb => {
+        const label = cb.nextElementSibling.textContent.trim().toLowerCase();
+        if (label === tagName.toLowerCase()) {
+            cb.checked = shouldCheck;
+        }
+    })
+}
+
+function addTagChip(tagName){
+    const container = document.querySelector("#selectedTags");
+    if (container.querySelector(`[data-tag="${tagName}"]`)) return;
+
+    const chip = document.createElement("div");
+    chip.className = "tag-chip";
+    chip.dataset.tag = tagName;
+
+    const label = document.createElement("span");
+    label.textContent = tagName;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.textContent = "x";
+
+    removeBtn.addEventListener("click", (e) => {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        e.stopPropagation();
+        chip.remove();
+        uncheckTag(tagName);
+    })
+    chip.appendChild(label);
+    chip.appendChild(removeBtn);
+    container.appendChild(chip);
+}
+
+function uncheckTag(tagName){
+    const checks = document.querySelectorAll(".tagChecks");
+
+    checks.forEach(cb => {
+        const label = cb.nextSibling.textContent.trim().toLowerCase();
+        if (label === tagName.toLowerCase()) {
+            cb.checked = false;
+        }
+    })
+}
+
 export function loadTags(){
     fetch(`/tags`)
         .then(response => response.json())
@@ -54,6 +166,8 @@ export function loadTags(){
                 tagListElement.appendChild(input);
                 tagListElement.appendChild(label);
             })
+
+            enableTagSearch()
         })
 }
 
