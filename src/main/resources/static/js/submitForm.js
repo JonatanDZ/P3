@@ -29,13 +29,13 @@ export async function submitForm() {
         console.log("Error in submitForm:",error);
     }
 
-/*
+
     //Makes sure tool can be loaded to database before displaying
     setTimeout(() => {
         window.location.reload();
     }, 100);
 
- */
+
 
 }
 
