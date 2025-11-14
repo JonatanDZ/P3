@@ -33,7 +33,7 @@ function enableTagSearch(){
     const tagInput = document.querySelector('#tags');
     const suggestionBox = document.querySelector('#tagsSuggestions');
 
-    
+    // Responds to typing by user
     tagInput.addEventListener('input',() => {
         const input = tagInput.value.toLowerCase();
 
@@ -46,23 +46,29 @@ function enableTagSearch(){
         tag.toLowerCase().includes(input)
         );
 
+        // Hide suggestion box if no matches found
         if (matches.length === 0){
             suggestionBox.style.display = "none";
             return;
         }
 
+        // Clear previous suggestions
         while (suggestionBox.firstChild) {
             suggestionBox.removeChild(suggestionBox.firstChild);
         }
+        // Show suggestion box and create new suggestions
         suggestionBox.style.display = "block";
         matches.forEach(tag => {
+            // Create wrapper for each suggestion item
             const wrapper = document.createElement("div");
             wrapper.className = "tag-suggestion-item";
 
+            // Create checkbox element
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.className = "tag-suggestion-checkbox";
 
+            // Create text label for the tag
             const span = document.createElement("span");
             span.textContent = tag;
 
@@ -80,9 +86,8 @@ function enableTagSearch(){
                 } else {
                     uncheckTag(tag);
                 }
-                //if (!tagInput.value.toLowerCase().includes(tag.toLowerCase())) {
-                    //tagInput.value += tag + ", ";
 
+                // Clear input field but maintain focus for new searches
                 tagInput.value = "";
                 tagInput.focus();
                 suggestionBox.style.display = "none";
@@ -95,7 +100,10 @@ function checkTagCheckbox(tagName, shouldCheck){
     const checks = document.querySelectorAll('.tagChecks');
 
     checks.forEach(cb => {
+        // Get the text content from the adjacent label
         const label = cb.nextElementSibling.textContent.trim().toLowerCase();
+
+        // If this checkbox matches our tag, update its state
         if (label === tagName.toLowerCase()) {
             cb.checked = shouldCheck;
         }
@@ -104,26 +112,34 @@ function checkTagCheckbox(tagName, shouldCheck){
 
 function addTagChip(tagName){
     const container = document.querySelector("#selectedTags");
+
+    // Prevent duplicate chips for the same tag
     if (container.querySelector(`[data-tag="${tagName}"]`)) return;
 
+    // Create chip container
     const chip = document.createElement("div");
     chip.className = "tag-chip";
     chip.dataset.tag = tagName;
 
+    // Create tag label
     const label = document.createElement("span");
     label.textContent = tagName;
 
+    // Create remove button
     const removeBtn = document.createElement("button");
     removeBtn.type = "button";
     removeBtn.textContent = "x";
 
     removeBtn.addEventListener("click", (e) => {
+        // Prevent event bubbling to avoid triggering other click handlers (VERY IMPORTANT)
         e.stopImmediatePropagation();
         e.preventDefault();
         e.stopPropagation();
+        // Remove the chip and uncheck associated checkboxes
         chip.remove();
         uncheckTag(tagName);
     })
+    // Assemble chip components
     chip.appendChild(label);
     chip.appendChild(removeBtn);
     container.appendChild(chip);
@@ -133,6 +149,7 @@ function uncheckTag(tagName){
     const checks = document.querySelectorAll(".tagChecks");
 
     checks.forEach(cb => {
+        // Find checkboxes that match the tag name
         const label = cb.nextSibling.textContent.trim().toLowerCase();
         if (label === tagName.toLowerCase()) {
             cb.checked = false;
