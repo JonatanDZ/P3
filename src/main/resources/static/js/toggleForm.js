@@ -70,7 +70,7 @@ export function displayReview(){
     });
 
     document.querySelectorAll('.stagesChecks:checked').forEach(cb => {
-        stagesString += cb.value + " ";
+        stagesString += cb.name + " ";
     });
 
 
