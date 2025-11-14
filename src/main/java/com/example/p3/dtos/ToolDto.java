@@ -18,6 +18,7 @@ public class ToolDto {
     private String name;
     private String url;
     private Boolean is_dynamic;
+    private Boolean is_pending;
     private ArrayList<String> departments;
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
@@ -27,8 +28,8 @@ public class ToolDto {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
-        //this.tags = t.getTags();
         this.is_dynamic = t.getIs_dynamic();
+        this.is_pending = t.getPending();
 
         this.departments = new ArrayList<>();
         String departmentName;

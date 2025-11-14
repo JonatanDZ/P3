@@ -1,5 +1,6 @@
 package com.example.p3.controller;
 
+import com.example.p3.dtos.FavoritesDto;
 import com.example.p3.dtos.ToolDto;
 
 import com.example.p3.entities.Tool;
@@ -73,6 +74,8 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
+    // gets list of pending tools per department
+    // it is expected to pass the department of a user
     @GetMapping("/pending/department/{department}")
     public ResponseEntity<List<ToolDto>> getAllPendingToolsByUserDepartment(
             @PathVariable String department
@@ -83,6 +86,25 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
+    // delete a pending tool, in case it is declined
+    // it simply deletes a tool from the tool table
+    @DeleteMapping("/pending/{toolId}")
+    public ResponseEntity<Void> deletePendingTool(
+            @PathVariable int toolId) {
+        toolService.deleteTool(toolId);
+        // HTTP 204, no body. This is boilerplate for deletions
+        return ResponseEntity.noContent().build();
+    }
+
+    // approve a pending tool
+    // approving the pending tool simply reverts the pending attribute to false, making it an approved tool
+    @PutMapping("/pending/{toolId}")
+    public ResponseEntity<ToolDto> revertPendingAttribute(
+            @PathVariable int toolId
+    ){
+        ToolDto toolAltered = new ToolDto(toolService.revertStateOfPending(toolId));
+        return ResponseEntity.ok(toolAltered);
+    }
 
     //    @GetMapping("/jurisdiction/{jurisdiction}")
 //    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {

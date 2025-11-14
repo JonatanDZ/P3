@@ -9,6 +9,17 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ToolRepository extends JpaRepository<Tool, Integer> {
+    // revert state of pending attribute for a tool
+    @Modifying
+    @Query(value = """
+    UPDATE tool
+    SET pending = FALSE
+    WHERE id = :toolId
+    """, nativeQuery = true)
+    void revertStateOfPending(
+            @Param("toolId") int toolId
+    );
+
 
     @Query(value = """
     SELECT DISTINCT t.*
@@ -65,7 +76,7 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
           AND tool_id = :toolId
     )
     """, nativeQuery = true)
-    int toggleAsFavorite(
+    void toggleAsFavorite(
             @Param("employeeInitials") String employeeInitials,
             @Param("toolId") int toolId
     );
@@ -77,7 +88,7 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     WHERE employee_initials = :employeeInitials
       AND tool_id = :toolId
     """, nativeQuery = true)
-    int untoggleAsFavorite(
+    void untoggleAsFavorite(
             @Param("employeeInitials") String employeeInitials,
             @Param("toolId") int toolId
     );
