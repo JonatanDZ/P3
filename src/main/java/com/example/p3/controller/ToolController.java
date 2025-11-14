@@ -1,6 +1,6 @@
 package com.example.p3.controller;
 
-import com.example.p3.dtos.ToolDto;
+import com.example.p3.dtos.toolsDto.*;
 
 import com.example.p3.entities.Tool;
 
@@ -20,10 +20,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/tools")
 public class ToolController {
-    private final ToolService toolService; //final means that we can't change the value after it has been initialized
+    private final ToolService toolService;//final means that we can't change the value after it has been initialized
+    private final PersonalToolFactory  personalToolFactory;
+    private final CompanyToolFactory  companyToolFactory;
 
     public ToolController(ToolService toolService) {
         this.toolService = toolService;
+        this.personalToolFactory = new PersonalToolFactory();
+        this.companyToolFactory = new CompanyToolFactory();
     }
 
     //GetMapping: indicates it is a get request on the given url
@@ -34,7 +38,7 @@ public class ToolController {
         List<ToolDto> list = toolService.getAllTools().stream()
                 //Map make a new array,
                 //the function in map: For each tool in toolService it calls "new toolDto"
-                .map(ToolDto::new)
+                .map(t->t.getIs_personal().equals(true)? personalToolFactory.determineTool(t) : companyToolFactory.determineTool(t))
                 //Converts the new tools (in an array) into a list
                 .toList();
         return ResponseEntity.ok(list);
@@ -45,11 +49,11 @@ public class ToolController {
     //@pathVariable: get a string and inserts it into the endpoint (url)
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {
         List<ToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
-                .map(ToolDto::new)
+                .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
     }
-
+    
 //    @GetMapping("/jurisdiction/{jurisdiction}")
 //    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {
 //        List<ToolDto> list = toolService.getAllToolsByJurisdictionName(jurisdiction).stream()
@@ -73,7 +77,7 @@ public class ToolController {
             @PathVariable String stage
     ){
         List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
-                .map(ToolDto::new)
+                .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
     }
