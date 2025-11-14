@@ -17,8 +17,6 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
 
-
-
     // the rest looks for list with the best match at the top.
     @GetMapping("/initials/{initials}")
     public ResponseEntity<EmployeeDto> getEmployeeByInitials(@PathVariable String initials) {
@@ -29,6 +27,8 @@ public class EmployeeController {
             return ResponseEntity.ok(new EmployeeDto(employee));
         }
     }
+
+
 }
 
 /*

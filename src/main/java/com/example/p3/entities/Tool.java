@@ -32,6 +32,9 @@ public class Tool {
     @Column(name = "is_dynamic")
     private Boolean is_dynamic;
 
+    @Column(name = "pending")
+    private Boolean pending;
+
     // mappedBy is important here. It tells Hibernate that the User class owns this relationship. ????????????
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)

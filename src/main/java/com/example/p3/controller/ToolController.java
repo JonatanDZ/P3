@@ -25,6 +25,17 @@ public class ToolController {
     public ToolController(ToolService toolService) {
         this.toolService = toolService;
     }
+    //takes the data from the add form and sends it to the
+    // PostMapping: indicates it is a post request on the given url
+    @PostMapping("")
+    //RequestBody: Gets a HTTP request (JSON) and converts it into a java object
+    public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
+        if (tool == null){
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(toolService.saveTool(tool));
+    }
+
 
     //GetMapping: indicates it is a get request on the given url
     @GetMapping("")
@@ -50,7 +61,30 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
-//    @GetMapping("/jurisdiction/{jurisdiction}")
+    @GetMapping("department/{department}/jurisdiction/{jurisdiction}/stage/{stage}")
+    public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
+            @PathVariable String department,
+            @PathVariable String jurisdiction,
+            @PathVariable String stage
+    ){
+        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
+                .map(ToolDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/pending/department/{department}")
+    public ResponseEntity<List<ToolDto>> getAllPendingToolsByUserDepartment(
+            @PathVariable String department
+    ){
+        List<ToolDto> list = toolService.findPendingToolByUserDepartment(department).stream()
+                .map(ToolDto::new)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+
+    //    @GetMapping("/jurisdiction/{jurisdiction}")
 //    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {
 //        List<ToolDto> list = toolService.getAllToolsByJurisdictionName(jurisdiction).stream()
 //                .map(ToolDto::new)
@@ -65,26 +99,4 @@ public class ToolController {
 //                .toList();
 //        return ResponseEntity.ok(list);
 //    }
-
-    @GetMapping("department/{department}/jurisdiction/{jurisdiction}/stage/{stage}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
-            @PathVariable String department,
-            @PathVariable String jurisdiction,
-            @PathVariable String stage
-    ){
-        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
-                .map(ToolDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
-    //takes the data from the add form and sends it to the
-    // PostMapping: indicates it is a post request on the given url
-    @PostMapping("")
-    //RequestBody: Gets a HTTP request (JSON) and converts it into a java object
-    public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
-        if (tool == null){
-            return ResponseEntity.badRequest().build(); 
-        }
-        return ResponseEntity.ok(toolService.saveTool(tool));
-    }
 }
