@@ -1,16 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
     const dropdownBtn = document.querySelector(".dropdownbtn");
     const dropdownContent = document.getElementById("dropdownIndividualItem");
 
     dropdownBtn.addEventListener("click", () => {
         dropdownContent.classList.toggle("show");
     });
-});
 
-document.addEventListener("DOMContentLoaded", async () => {
     const pendingToolList = await getDepartmentsPendingTools()
 
-    if (pendingToolList.length < 1) {
+    console.log(pendingToolList);
+
+    if (pendingToolList.length > 0) {
         // notify bell
         bellNotifier(pendingToolList.length);
 
@@ -20,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // after DOMContentLoaded is run. its runs every 60 seconds to check for updates.
     setInterval(async () => {
-        if (pendingToolList.length < 1) {
+        if (pendingToolList.length > 0) {
             // notify bell
             bellNotifier(pendingToolList.length);
 
@@ -31,15 +33,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 // skal laves så den kun giver liste med pending tools
-async function getDepartmentsPendingTools(department) {
-    const response = await fetch(`/employee/department/{department}`);
+async function getDepartmentsPendingTools() {
+    const employee = await getCurrentEmployee();
+    const employeeDepartment = employee.department_name;
 
-    if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+    try {
+        const response = await fetch(`/tools/pending/department/${employeeDepartment}`);
+        return await response.json();
     }
-
-    return await response.json();
+    catch (error) {
+        console.error('Error fetching tools:', error);
+        return null;
+    }
 }
+
 
 function bellNotifier(pendingToolListLength) {
     // bases on the pendingToolListLength it should make a bell icon that shows the size of the list
@@ -47,6 +54,7 @@ function bellNotifier(pendingToolListLength) {
 
 function createDropdownCards(pendingToolList) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
+    console.log("onrgonrongr"+pendingToolList);
 
     pendingToolList.forEach(pendingToolList => {
         const card = createDropdownCard(pendingToolList);
