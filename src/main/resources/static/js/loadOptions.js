@@ -79,7 +79,7 @@ function enableTagSearch(){
             wrapper.addEventListener("click", () => {
                 const newState = !checkbox.checked;
                 checkbox.checked = newState;
-                checkTagCheckbox(tag, newState);
+                syncTagListCheckbox(tag, newState);
 
                 if (newState) {
                     addTagChip(tag);
@@ -96,19 +96,28 @@ function enableTagSearch(){
     })
 }
 
-function checkTagCheckbox(tagName, shouldCheck){
-    const checks = document.querySelectorAll('.tagChecks');
+function syncTagListCheckbox(tagName, shouldCheck){
+    const checks = document.querySelectorAll(".tagChecks");
 
     checks.forEach(cb => {
-        // Get the text content from the adjacent label
-        const label = cb.nextElementSibling.textContent.trim().toLowerCase();
-
-        // If this checkbox matches our tag, update its state
-        if (label === tagName.toLowerCase()) {
+        const labelText = cb.parentElement.textContent.trim().toLowerCase();
+        if (labelText === tagName.toLowerCase()) {
             cb.checked = shouldCheck;
         }
-    })
+    });
 }
+
+/* function syncTagListCheckbox(tagName, shouldCheck){
+    const checks = document.querySelectorAll(".tagChecks");
+
+    checks.forEach(cb => {
+        const labelText = cb.parentElement.textContent.trim().toLowerCase();
+        if (labelText === tagName.toLowerCase()) {
+            cb.checked = shouldCheck;
+        }
+    });
+} */
+
 
 function addTagChip(tagName){
     const container = document.querySelector("#selectedTags");
@@ -150,8 +159,8 @@ function uncheckTag(tagName){
 
     checks.forEach(cb => {
         // Find checkboxes that match the tag name
-        const label = cb.nextSibling.textContent.trim().toLowerCase();
-        if (label === tagName.toLowerCase()) {
+        const labelText = cb.parentElement.textContent.trim().toLowerCase();
+        if (labelText === tagName.toLowerCase()) {
             cb.checked = false;
         }
     })
@@ -180,7 +189,7 @@ export function loadTags(){
                 label.for = input.id;
                 label.textContent = item.value;
                 tagList.appendChild(tagListElement);
-                tagListElement.appendChild(input);
+                label.appendChild(input); // Peter har ændret dette
                 tagListElement.appendChild(label);
             })
 
@@ -212,7 +221,7 @@ export function loadTagAndCheck(id){
                 label.for = input.id;
                 label.textContent = item.value;
                 tagList.appendChild(tagListElement);
-                tagListElement.appendChild(input);
+                label.appendChild(input); // Har ændret dette
                 tagListElement.appendChild(label);
             })
         })

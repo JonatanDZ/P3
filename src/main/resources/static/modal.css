@@ -161,3 +161,17 @@ span.psw {
 .tag-chip button:hover {
     color: #fff;
 }
+
+#tagList {
+    list-style: none;
+    padding-left: 0;
+}
+
+#tagList li {
+    list-style: none;
+}
+
+.tagChecks {
+    display: none;
+}
+
