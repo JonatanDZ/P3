@@ -72,12 +72,12 @@ public class Tool {
     )
     private Set<Tag> tags = new HashSet<>();
 
-    public Tool(Integer id, String name, String url, Boolean isPersonal, Boolean isDynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
+    public Tool(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
         this.id = id;
         this.name = name;
         this.url = url;
-        this.is_personal = isPersonal;
-        this.is_dynamic = isDynamic;
+        this.is_personal = is_personal;
+        this.is_dynamic = is_dynamic;
         this.departments = departments;
         this.jurisdictions = jurisdictions;
         this.stages = stages;

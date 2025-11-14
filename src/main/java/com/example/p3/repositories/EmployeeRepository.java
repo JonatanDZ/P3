@@ -16,15 +16,18 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     // findByIntitials is a custome query to find initials, sql would be smt like:
     // SELECT * FROM employees WHERE initials = ?;
     // Finds employees by initials (case-sensitive)
+    // findByInitials is a costume query to find initials, sql would be smt like:
     Optional<Employee> findByInitials(String initials);
-
-    // Starts from the Employee entity, joins the related Department table, and filters where Department.departmentName matches the given value.
-    // The "_" means JPA looks inside the Department entity to access the departmentName field.
-    List<Employee> findByDepartment_Name(String departmentName);
-
-
-    
-    // Finds employees by name (case-insensitive, partial match)
-    Optional<Employee> findByNameContainingIgnoreCase(String name);
-
 }
+
+// SELECT * FROM employees WHERE initials = ?;
+
+
+// Starts from the Employee entity, joins the related Department table, and filters where Department.departmentName matches the given value.
+// The "_" means JPA looks inside the Department entity to access the departmentName field.
+//List<Employee> findByDepartment_DepartmentName(String departmentName);
+
+
+
+// Finds employees by name (case-insensitive, partial match)
+//Optional<Employee> findByNameContainingIgnoreCase(String name);
