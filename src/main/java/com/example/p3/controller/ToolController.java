@@ -1,8 +1,7 @@
 package com.example.p3.controller;
 
-import com.example.p3.dtos.toolsDto.CompanyToolDto;
+import com.example.p3.dtos.toolsDto.*;
 
-import com.example.p3.dtos.toolsDto.ToolDtoCLASS;
 import com.example.p3.entities.Tool;
 
 import com.example.p3.service.ToolService;
@@ -21,21 +20,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/getTools")
 public class ToolController {
-    private final ToolService toolService; //final means that we can't change the value after it has been initialized
+    private final ToolService toolService;//final means that we can't change the value after it has been initialized
+    private final PersonalToolFactory  personalToolFactory;
+    private final CompanyToolFactory  companyToolFactory;
 
     public ToolController(ToolService toolService) {
         this.toolService = toolService;
+        this.personalToolFactory = new PersonalToolFactory();
+        this.companyToolFactory = new CompanyToolFactory();
     }
 
     //GetMapping: indicates it is a get request on the given url
     @GetMapping("")
     //Makes a list called List and gets all tools
-    public ResponseEntity<List<CompanyToolDto>> getAllTools(){
+    public ResponseEntity<List<ToolDto>> getAllTools(){
         //Stream makes the data into a modifiable "type"  which allows for operations like map to be performed
-        List<CompanyToolDto> list = toolService.getAllTools().stream()
+        List<ToolDto> list = toolService.getAllTools().stream()
                 //Map make a new array,
                 //the function in map: For each tool in toolService it calls "new toolDto"
-                .map(CompanyToolDto::new)
+                .map(t->t.getIs_personal().equals(true)? personalToolFactory.determineTool(t) : companyToolFactory.determineTool(t))
                 //Converts the new tools (in an array) into a list
                 .toList();
         return ResponseEntity.ok(list);

@@ -76,8 +76,8 @@ public class Tool {
         this.id = id;
         this.name = name;
         this.url = url;
-        this.isPersonal = isPersonal;
-        this.isDynamic = isDynamic;
+        this.is_personal = isPersonal;
+        this.is_dynamic = isDynamic;
         this.departments = departments;
         this.jurisdictions = jurisdictions;
         this.stages = stages;
