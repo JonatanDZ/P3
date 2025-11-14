@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const pendingToolList = await getDepartmentsPendingTools()
 
+    console.log(pendingToolList);
+
     if (pendingToolList.length > 0) {
         // notify bell
         bellNotifier(pendingToolList.length);
