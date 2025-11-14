@@ -1,5 +1,5 @@
 import {toggleForm, displayURLbar} from "./toggleForm.js";
-import {loadOptions, loadTagAndCheck, loadTags} from "./loadOptions.js";
+import {loadOptions, enableTagSearch} from "./loadOptions.js";
 import {submitForm, submitTag} from "./submitForm.js";
 
 let toggleBtns;
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 function loadAllFromOptions(){
     loadOptions("departments");
     loadOptions("jurisdictions");
-    loadTags();
+    enableTagSearch();
 }
 
 

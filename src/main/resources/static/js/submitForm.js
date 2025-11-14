@@ -1,20 +1,31 @@
 import {poster} from "./fetchTool.js";
+import {addTagChip} from "./loadOptions.js";
+
 
 export async function submitTag(){
+    try {
+        const tagValue = document.querySelector("#tags").value;
+        let tag = {value: tagValue};
 
+        tag = await poster("tags", JSON.stringify(tag));
 
-    const tagValue = document.querySelector("#tags").value;
+        console.log(tag);
+        addTagChip(tag);
+    } catch (error) {
+        console.error('Error in submitTag:', error);
+    }
 
-    let tag = {value: tagValue};
-
-    await poster("tags", JSON.stringify(tag));
 }
 
 export async function submitForm() {
+    try {
+        const jsonData = await formToJSON();
 
-    const jsonData = await formToJSON();
+        await poster("tools" , jsonData);
 
-    await poster("tools" , jsonData);
+    } catch (error) {
+        console.log("Error in submitForm:",error);
+    }
 
 
     //Makes sure tool can be loaded to database before displaying

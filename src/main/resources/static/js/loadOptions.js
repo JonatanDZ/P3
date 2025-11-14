@@ -28,8 +28,8 @@ export function loadOptions(str){
         })
 }
 
-function enableTagSearch(){
-    const testTags = ["Fisse med Hår", "Store Bryster", "Fede Finn og funny boyZ", "Belzebub"]
+export async function enableTagSearch(){
+    const testTags = await loadTags();
     const tagInput = document.querySelector('#tags');
     const suggestionBox = document.querySelector('#tagsSuggestions');
 
@@ -42,9 +42,13 @@ function enableTagSearch(){
             return;
         }
 
-        const matches = testTags.filter(tag =>
-        tag.toLowerCase().includes(input)
-        );
+        let matches = [];
+
+        testTags.forEach(tag => {
+            if (tag.value.toLowerCase().includes(input)){
+                matches.push(tag);
+            }
+        });
 
         // Hide suggestion box if no matches found
         if (matches.length === 0){
@@ -67,10 +71,11 @@ function enableTagSearch(){
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.className = "tag-suggestion-checkbox";
+            checkbox.value = tag.id;
 
             // Create text label for the tag
             const span = document.createElement("span");
-            span.textContent = tag;
+            span.textContent = tag.value;
 
             wrapper.appendChild(checkbox);
             wrapper.appendChild(span);
@@ -96,12 +101,12 @@ function enableTagSearch(){
     })
 }
 
-function syncTagListCheckbox(tagName, shouldCheck){
+function syncTagListCheckbox(tag, shouldCheck){
     const checks = document.querySelectorAll(".tagChecks");
 
     checks.forEach(cb => {
         const labelText = cb.parentElement.textContent.trim().toLowerCase();
-        if (labelText === tagName.toLowerCase()) {
+        if (labelText === tag.value.toLowerCase()) {
             cb.checked = shouldCheck;
         }
     });
@@ -119,20 +124,22 @@ function syncTagListCheckbox(tagName, shouldCheck){
 } */
 
 
-function addTagChip(tagName){
+export function addTagChip(tag){
+    console.log("jeg bliver kaldt");
     const container = document.querySelector("#selectedTags");
 
     // Prevent duplicate chips for the same tag
-    if (container.querySelector(`[data-tag="${tagName}"]`)) return;
+    if (container.querySelector(`[data-tag="${tag.value}"]`)) return;
 
     // Create chip container
     const chip = document.createElement("div");
     chip.className = "tag-chip";
-    chip.dataset.tag = tagName;
+    chip.value = tag.id;
+    chip.dataset.tag = tag.value;
 
     // Create tag label
     const label = document.createElement("span");
-    label.textContent = tagName;
+    label.textContent = tag.value;
 
     // Create remove button
     const removeBtn = document.createElement("button");
@@ -146,7 +153,7 @@ function addTagChip(tagName){
         e.stopPropagation();
         // Remove the chip and uncheck associated checkboxes
         chip.remove();
-        uncheckTag(tagName);
+        uncheckTag(tag);
     })
     // Assemble chip components
     chip.appendChild(label);
@@ -154,47 +161,26 @@ function addTagChip(tagName){
     container.appendChild(chip);
 }
 
-function uncheckTag(tagName){
+function uncheckTag(tag){
     const checks = document.querySelectorAll(".tagChecks");
 
     checks.forEach(cb => {
         // Find checkboxes that match the tag name
         const labelText = cb.parentElement.textContent.trim().toLowerCase();
-        if (labelText === tagName.toLowerCase()) {
+        if (labelText === tag.value.toLowerCase()) {
             cb.checked = false;
         }
     })
 }
 
-export function loadTags(){
-    fetch(`/tags`)
-        .then(response => response.json())
-        .then(data => {
-            let tagList = document.querySelector(`#tagList`);
-            data.forEach((item)=>{
-
-
-                const tagListElement = document.createElement("li");
-                tagListElement.className = "tagListElement";
-
-
-                const input = document.createElement("input");
-                input.type = "checkbox";
-                input.id = `${item.value}Input`;
-                input.value = item.id
-                input.textContent = item.value;
-                input.className = `tagChecks`;
-
-                const label = document.createElement("label");
-                label.for = input.id;
-                label.textContent = item.value;
-                tagList.appendChild(tagListElement);
-                label.appendChild(input); // Peter har ændret dette
-                tagListElement.appendChild(label);
-            })
-
-            enableTagSearch()
-        })
+export async function loadTags(){
+    try {
+        const response = await fetch(`/tags`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading tags:', error);
+        throw error;
+    }
 }
 
 export function loadTagAndCheck(id){
