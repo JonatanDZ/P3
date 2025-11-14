@@ -101,7 +101,6 @@ span.psw {
 }
 
 #tagsSuggestions {
-    position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
@@ -109,9 +108,8 @@ span.psw {
     border: 1px solid #444;
     border-radius: 8px;
     padding: 5px 0;
-    margin-top: 5px;
+    margin-top: -18px;
     max-height: 200px;
-    overflow-y: auto;
     display: none;
     z-index: 999999; /* Gør at det vise som det første, og det skal være der*/
     box-shadow: 0 4px 14px rgba(0,0,0,0.5);
@@ -119,6 +117,7 @@ span.psw {
 
 .tag-suggestion-item {
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
     color: #eee;
 }
@@ -174,4 +173,3 @@ span.psw {
 .tagChecks {
     display: none;
 }
-
