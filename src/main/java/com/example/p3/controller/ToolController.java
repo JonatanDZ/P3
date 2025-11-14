@@ -47,9 +47,9 @@ public class ToolController {
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
     @GetMapping("/department/{department}")
     //@pathVariable: get a string and inserts it into the endpoint (url)
-    public ResponseEntity<List<CompanyToolDto>> getAllToolsByDepartment(@PathVariable String department) {
-        List<CompanyToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
-                .map(CompanyToolDto::new)
+    public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {
+        List<ToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
+                .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -77,7 +77,7 @@ public class ToolController {
             @PathVariable String stage
     ){
         List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
-                .map(ToolDto::new)
+                .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
     }
