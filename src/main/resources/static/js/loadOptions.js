@@ -50,6 +50,9 @@ export async function enableTagSearch(){
             }
         });
 
+        //The Btn should only be pressable if the value is not already an option and not nothing
+        document.querySelector("#submitTagBtn").disabled = !(matches.length === 0 && input !== "");
+
         // Hide suggestion box if no matches found
         if (matches.length === 0){
             suggestionBox.style.display = "none";
@@ -135,7 +138,6 @@ export function addTagChip(tag){
     // Create chip container
     const chip = document.createElement("div");
     chip.className = "tag-chip";
-    //chip.value = tag.id;
     chip.dataset.tag = tag.id;
     console.log(chip.dataset.tag);
 

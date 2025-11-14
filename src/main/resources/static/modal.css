@@ -1,5 +1,5 @@
 /* Full-width input fields */
-input[type=text], input[type=checkbox]:not([class = "tagChecks"]){
+input[type=text], input[type=checkbox]:not([class = "tag-suggestion-checkbox"]){
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -9,7 +9,9 @@ input[type=text], input[type=checkbox]:not([class = "tagChecks"]){
     border-radius: 1rem;
 }
 
-
+.tag-suggestion-checkbox{
+    margin: 1rem;
+}
 
 button:hover {
     opacity: 0.8;
@@ -116,7 +118,7 @@ span.psw {
 }
 
 .tag-suggestion-item {
-    align-items: center;
+    align-items: normal;
     justify-content: space-between;
     cursor: pointer;
     color: #eee;

@@ -4,13 +4,16 @@ import {addTagChip} from "./loadOptions.js";
 
 export async function submitTag(){
     try {
-        const tagValue = document.querySelector("#tags").value;
-        let tag = {value: tagValue};
+        let input = document.querySelector("#tags");
+        let tag = {value: input.value};
+
 
         tag = await poster("tags", JSON.stringify(tag));
 
         console.log(tag);
         addTagChip(tag);
+        input.value = "";
+        input.focus();
     } catch (error) {
         console.error('Error in submitTag:', error);
     }

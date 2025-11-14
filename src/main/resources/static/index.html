@@ -42,11 +42,13 @@
                 <form class="from-container">
                     <h1>Add Tool</h1>
 
+
+
+
+                    <label for="toolName"> <h3> Tool name</h3></label>
                     <label for="isPersonal"> Is the tool personal?
                         <input id="isPersonal" type="checkbox" name="isPersonal" class="isPersonal" checked="checked">
                     </label>
-
-                    <label for="toolName"> <h3> Tool name</h3></label>
                     <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" class="toolName" required>
 
 
@@ -63,14 +65,13 @@
 
 
                     <div id="tagDiv">
-                        <button type="button" id="submitTagBtn">Create Tag</button>
-                        <label for="tags"> <h3> Tags </h3></label>
-                        <input id="tags" type="text" placeholder="Enter Tags" name="tags" class="tags">
-                        <div id="selectedTags" class="selected-tags"></div>
-                        <div id="tagsSuggestions" class="tag-suggestions"></div>
-                        <ul id="tagList">
 
-                        </ul>
+                        <label for="tags"> <h3> Tags </h3></label>
+                        <div id="selectedTags" class="selected-tags"></div>
+                        <button type="button" id="submitTagBtn" disabled="disabled"> Create Tag</button>
+                        <input id="tags" type="text" placeholder="Enter Tags" name="tags" class="tags">
+                        <div id="tagsSuggestions" class="tag-suggestions">
+                        </div>
                     </div>
 
 

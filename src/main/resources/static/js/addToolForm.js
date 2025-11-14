@@ -52,9 +52,7 @@ if (document.querySelector("#submitBtn")) {
 if (document.querySelector("#submitTagBtn")) {
     document.querySelector("#submitTagBtn").addEventListener("click", async (e)  =>  {
         e.preventDefault();
-        const tagId = await submitTag();
-
-        //loadTagAndCheck(tagId);
+        await submitTag();
     })
 }
 
