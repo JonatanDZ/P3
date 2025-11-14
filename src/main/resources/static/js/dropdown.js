@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const pendingToolList = await getDepartmentsPendingTools()
 
-    console.log(pendingToolList);
-
     if (pendingToolList.length > 0) {
         // notify bell
         bellNotifier(pendingToolList.length);
@@ -20,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         createDropdownCards(pendingToolList);
     }
 
+    /*
     // after DOMContentLoaded is run. its runs every 60 seconds to check for updates.
     setInterval(async () => {
         if (pendingToolList.length > 0) {
@@ -30,6 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             createDropdownCards(pendingToolList);
         }
     }, 6000);
+     */
 });
 
 // skal laves så den kun giver liste med pending tools
@@ -54,7 +54,6 @@ function bellNotifier(pendingToolListLength) {
 
 function createDropdownCards(pendingToolList) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
-    console.log("onrgonrongr"+pendingToolList);
 
     pendingToolList.forEach(pendingToolList => {
         const card = createDropdownCard(pendingToolList);
@@ -65,11 +64,9 @@ function createDropdownCards(pendingToolList) {
 function createDropdownCard(pendingTool) {
     const pendingToolCard = document.createElement("a");
     pendingToolCard.href = pendingTool.url;
-    pendingToolCard.classList.add("dropdownItemText");
 
     const label = document.createElement("span")
-    label.classList.add("dropdownItemText");
-    label.textContent = pendingTool.text;
+    label.textContent = pendingTool.name;
 
     const approveBtn = document.createElement("button");
     approveBtn.classList.add("aprbtn");
