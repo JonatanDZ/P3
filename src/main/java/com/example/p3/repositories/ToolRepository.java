@@ -75,7 +75,7 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     JOIN jurisdiction j ON tj.jurisdiction_id = j.id
     WHERE j.name = jurisdictionName;
      */
-    List<Tool> findByJurisdictions_JurisdictionName(String jurisdictionName);
+    //List<Tool> findByJurisdictions_JurisdictionName(String jurisdictionName);
 
     /*
     SELECT * FROM tool t
@@ -83,7 +83,7 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     JOIN stage s ON ts.stage_id = s.id
     WHERE s.name = stageName;
      */
-    List<Tool> findByStages_Name(String stageName);
+    //List<Tool> findByStages_Name(String stageName);
 
     /*
     SELECT * FROM tool t
@@ -97,9 +97,9 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     AND j.name = jurisdictionName
     AND s.name = stageName;
     */
-    List<Tool> findByDepartments_DepartmentNameAndJurisdictions_JurisdictionNameAndStages_Name(String DepartmentName,
+    List<Tool> findByDepartments_NameAndJurisdictions_NameAndStages_Name(String DepartmentName,
                                                                                                String JurisdictionName,
                                                                                                String stageName);
-    List<Tool> findByDepartments_DepartmentName(String departmentName);
+    List<Tool> findByDepartments_Name(String departmentName);
 }
 

@@ -1,39 +1,38 @@
-package com.example.p3.dtos;
+package com.example.p3.dtos.toolsDto;
 
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-// data transfer objects, to JSON
-@Data
-public class ToolDto {
-    // attributes of Tool
+@Getter
+public class CompanyToolDto implements ToolDto {
+
     private Integer id;
     private String name;
     private String url;
-    private Boolean isDynamic;
+    private Boolean is_dynamic;
     private ArrayList<String> departments;
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
+    private ArrayList<String> tags;
 
-    //Takes the entities from the database and converts it into objects of the type tool
-    public ToolDto(Tool t) {
+    @Override
+    public void prepare(Tool t){
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
-        this.isDynamic = t.getIsDynamic();
-        //this.tags = t.getTags();
+        this.is_dynamic = t.getIs_dynamic();
+
         this.departments = new ArrayList<>();
         String departmentName;
         List<Department> departmentList = t.getDepartments().stream().toList();
         for (int i = 0; i < departmentList.size(); i++) {
-            departmentName = departmentList.get(i).getDepartmentName();
+            departmentName = departmentList.get(i).getName();
             this.departments.add(departmentName);
         }
 
@@ -41,7 +40,7 @@ public class ToolDto {
         String jurisdictionName;
         List<Jurisdiction> jurisdictionList = t.getJurisdictions().stream().toList();
         for (int i = 0; i < jurisdictionList.size(); i++) {
-            jurisdictionName = jurisdictionList.get(i).getJurisdictionName();
+            jurisdictionName = jurisdictionList.get(i).getName();
             this.jurisdictions.add(jurisdictionName);
         }
 
@@ -53,5 +52,12 @@ public class ToolDto {
             this.stage.add(stageName);
         }
 
+        /*this.tags = new ArrayList<>();
+        String tagName;
+        List<Tags> tagsList = t.getTags().stream().toList();
+        for (int i = 0; i < tagsList.size(); i++) {
+            tagName = tagsList.get(i).getName();
+            this.stage.add(tagName);
+        }*/
     }
 }

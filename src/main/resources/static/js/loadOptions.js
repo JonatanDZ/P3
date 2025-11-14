@@ -1,7 +1,7 @@
 //Used to load department and jurisdiction in form
 export function loadOptions(str){
     //${str} can ex. be jurisdiction or department.
-    fetch(`/${str}/getAll`)
+    fetch(`/${str}`)
         .then(response=>response.json())
         .then(data => {
             let dropdown = document.querySelector(`#${str}Input`);

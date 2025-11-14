@@ -13,8 +13,8 @@ public class FavoritesDto {
     private long id;
     private String name;
     private String url;
-    private Boolean isPersonal;
-    private Boolean isDynamic;
+    private Boolean is_personal;
+    private Boolean is_dynamic;
     private List<String> departments;
     private List<String> stages;
     private List<String> jurisdictions;
@@ -24,12 +24,12 @@ public class FavoritesDto {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
-        this.isDynamic = t.getIsDynamic();
-        this.isPersonal = t.getIsPersonal();
+        this.is_dynamic = t.getIs_dynamic();
+        this.is_personal = t.getIs_personal();
         // stream API collect method. It converts a set to a list. Below are all conversions from a set (in entities) to a list (DTO)
         // it also maps to the name field in order to avoid infinite object recursion.
         this.departments = t.getDepartments().stream()
-                .map(Department::getDepartmentName)
+                .map(Department::getName)
                 .collect(Collectors.toList());
 
         this.stages = t.getStages().stream()
@@ -37,7 +37,7 @@ public class FavoritesDto {
                 .collect(Collectors.toList());
 
         this.jurisdictions = t.getJurisdictions().stream()
-                .map(Jurisdiction::getJurisdictionName)
+                .map(Jurisdiction::getName)
                 .collect(Collectors.toList());
 
         this.tags = t.getTags().stream()

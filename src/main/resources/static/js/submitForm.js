@@ -1,9 +1,12 @@
 import {MakeToolJSON} from "./fetchTool.js";
 
 
-export function submitForm(){
-    
-    MakeToolJSON(formToJSON());
+export async function submitForm() {
+
+    const jsonData = await formToJSON();
+
+    await MakeToolJSON(jsonData);
+
 
     //Makes sure tool can be loaded to database before displaying
     setTimeout(() => {
@@ -13,7 +16,7 @@ export function submitForm(){
 }
 
 //Makes form data into a JSON
-export function formToJSON(){
+export async function formToJSON(){
     const isPersonal = document.querySelector("#isPersonal").checked;
     const name = document.querySelector("#toolName").value;
     const isDynamic = document.querySelector('#isDynamic').checked;
@@ -29,7 +32,7 @@ export function formToJSON(){
     const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => ({id: cb.value}));
     const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => ({id: cb.value}));
 
-    return JSON.stringify({isPersonal, name, url, isDynamic, departments, stages, jurisdictions});//, tag});
+    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions});//, tag});
 
 }
 
