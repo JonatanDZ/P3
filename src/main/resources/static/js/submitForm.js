@@ -21,17 +21,21 @@ export async function submitForm() {
     try {
         const jsonData = await formToJSON();
 
+        console.log(jsonData);
+
         await poster("tools" , jsonData);
 
     } catch (error) {
         console.log("Error in submitForm:",error);
     }
 
-
+/*
     //Makes sure tool can be loaded to database before displaying
     setTimeout(() => {
         window.location.reload();
     }, 100);
+
+ */
 
 }
 
@@ -41,18 +45,13 @@ export async function formToJSON(){
     const name = document.querySelector("#toolName").value;
     const isDynamic = document.querySelector('#isDynamic').checked;
     const url = getURLValue(isDynamic);
-/* //FOR ITERATION 3 - DO NOT REMOVE
-    const tags = document.querySelector("#tags").value.split(",")
-        .map(tag => tag.trim())
-        .filter(tag => tag !== "")
-        .map(tag => ({value: tag.value}));
 
- */
+    const tags = Array.from(document.querySelectorAll(".tag-chip")).map(tag => ({id : tag.dataset.tag}));
     const stages = Array.from(document.querySelectorAll('.stagesChecks:checked')).map(cb => ({ id: cb.value }));
     const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => ({id: cb.value}));
     const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => ({id: cb.value}));
 
-    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions});//, tag});
+    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags});
 
 }
 

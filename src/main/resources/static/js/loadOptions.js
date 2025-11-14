@@ -125,17 +125,24 @@ function syncTagListCheckbox(tag, shouldCheck){
 
 
 export function addTagChip(tag){
-    console.log("jeg bliver kaldt");
     const container = document.querySelector("#selectedTags");
 
     // Prevent duplicate chips for the same tag
-    if (container.querySelector(`[data-tag="${tag.value}"]`)) return;
+    if (container.querySelector(`[data-tag="${tag.value}"]`)) {
+        return;
+    }
 
     // Create chip container
     const chip = document.createElement("div");
     chip.className = "tag-chip";
-    chip.value = tag.id;
-    chip.dataset.tag = tag.value;
+    //chip.value = tag.id;
+    chip.dataset.tag = tag.id;
+    console.log(chip.dataset.tag);
+
+    document.querySelectorAll(".tag-chip").forEach(tag => {
+        console.log(tag.dataset.tag);
+    })
+
 
     // Create tag label
     const label = document.createElement("span");
