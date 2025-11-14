@@ -1,4 +1,5 @@
-import {displayFavoriteTools, getJurisdiction, getStage} from "./endpointScripts.js";
+import {getJurisdiction, getStage} from "./endpointScripts.js";
+import {displayTools} from "./displayTools.js";
 
 export function displayFavorites () {
     // clear the list each time it is called.
@@ -13,7 +14,7 @@ export function displayFavorites () {
         .then(response => response.json())
         .then(data => {
             //calls displayFavoriteTools to avoid multiple fetches from the same endpoint
-            displayFavoriteTools(data, list);
+            displayTools(data, list);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
