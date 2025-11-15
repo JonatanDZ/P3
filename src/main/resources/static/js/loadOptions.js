@@ -29,8 +29,11 @@ export function loadOptions(str){
 }
 
 export async function enableTagSearch(){
+    //Loads tags present in DB
     const testTags = await loadTags();
+    //search specific tag
     const tagInput = document.querySelector('#tags');
+    //Dropdown div with suggestions
     const suggestionBox = document.querySelector('#tagsSuggestions');
 
     // Responds to typing by user
@@ -44,13 +47,14 @@ export async function enableTagSearch(){
 
         let matches = [];
 
+        //If the tag value includes what is written in input so far. Push it to the match array;
         testTags.forEach(tag => {
             if (tag.value.toLowerCase().includes(input)){
                 matches.push(tag);
             }
         });
 
-        //The Btn should only be pressable if the value is not already an option and not nothing
+        //The submitTagBtn should only be pressable if the value is not already an option and not nothing
         document.querySelector("#submitTagBtn").disabled = !(matches.length === 0 && input !== "");
 
         // Hide suggestion box if no matches found
@@ -70,11 +74,15 @@ export async function enableTagSearch(){
             const wrapper = document.createElement("div");
             wrapper.className = "tag-suggestion-item";
 
+
+            //The way we are solving the problem we don't need cb maybe we should change it up for <span> or <p> for the sake of simplicity?
             // Create checkbox element
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.className = "tag-suggestion-checkbox";
             checkbox.value = tag.id;
+
+
 
             // Create text label for the tag
             const span = document.createElement("span");
@@ -85,6 +93,9 @@ export async function enableTagSearch(){
             suggestionBox.appendChild(wrapper);
 
             wrapper.addEventListener("click", () => {
+                addTagChip(tag);
+
+                /*
                 const newState = !checkbox.checked;
                 checkbox.checked = newState;
                 syncTagListCheckbox(tag, newState);
@@ -92,20 +103,24 @@ export async function enableTagSearch(){
                 if (newState) {
                     addTagChip(tag);
                 } else {
+                // Giver det mening at bruge uncheck, når vores elementer først bliver genereret efter match??
                     uncheckTag(tag);
                 }
+                */
 
                 // Clear input field but maintain focus for new searches
                 tagInput.value = "";
                 tagInput.focus();
                 suggestionBox.style.display = "none";
+
             });
         })
     })
 }
 
+//What does this do?
 function syncTagListCheckbox(tag, shouldCheck){
-    const checks = document.querySelectorAll(".tagChecks");
+    const checks = document.querySelectorAll(".tagChecks"); //this class is not being used
 
     checks.forEach(cb => {
         const labelText = cb.parentElement.textContent.trim().toLowerCase();
@@ -139,12 +154,6 @@ export function addTagChip(tag){
     const chip = document.createElement("div");
     chip.className = "tag-chip";
     chip.dataset.tag = tag.id;
-    console.log(chip.dataset.tag);
-
-    document.querySelectorAll(".tag-chip").forEach(tag => {
-        console.log(tag.dataset.tag);
-    })
-
 
     // Create tag label
     const label = document.createElement("span");
@@ -170,6 +179,7 @@ export function addTagChip(tag){
     container.appendChild(chip);
 }
 
+//What does it do?
 function uncheckTag(tag){
     const checks = document.querySelectorAll(".tagChecks");
 
@@ -190,34 +200,4 @@ export async function loadTags(){
         console.error('Error loading tags:', error);
         throw error;
     }
-}
-
-export function loadTagAndCheck(id){
-    let tagList = document.querySelector(`#tagList`);
-    fetch(`/tags/id/${id}`)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach((item)=>{
-
-
-                const tagListElement = document.createElement("li");
-                tagListElement.className = "tagListElement";
-
-
-                const input = document.createElement("input");
-                input.type = "checkbox";
-                input.id = `${item.value}Input`;
-                input.value = item.id
-                input.textContent = item.value;
-                input.className = `tagChecks`;
-                input.checked = true;
-
-                const label = document.createElement("label");
-                label.for = input.id;
-                label.textContent = item.value;
-                tagList.appendChild(tagListElement);
-                label.appendChild(input); // Har ændret dette
-                tagListElement.appendChild(label);
-            })
-        })
 }
