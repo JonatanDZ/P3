@@ -1,4 +1,4 @@
-import {toggleForm, displayURLbar} from "./toggleForm.js";
+import {toggleForm, displayURLbar, displayReview, toggleCards} from "./toggleForm.js";
 import {loadOptions, enableTagSearch} from "./loadOptions.js";
 import {submitForm, submitTag} from "./submitForm.js";
 
