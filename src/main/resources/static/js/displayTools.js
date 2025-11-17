@@ -1,6 +1,7 @@
 import {isToolInFavorite} from "./isToolInFavorite.js";
 import {displayFavorites} from "./displayFavorites.js";
 import {getToolsDisplay} from "./endpointScripts.js";
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
 function starClicked(starBtn, star, toolId) {
     starBtn.appendChild(star);
@@ -9,7 +10,8 @@ function starClicked(starBtn, star, toolId) {
         e.preventDefault();
         e.stopPropagation();
 
-        let employeeInitials = "PEDO";
+        let employee = await getCurrentEmployee();
+        let employeeInitials = employee.initials;
 
         const wasFilled = star.textContent === '★';
         const nowFilled = !wasFilled;
