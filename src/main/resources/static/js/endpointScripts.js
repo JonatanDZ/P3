@@ -1,6 +1,7 @@
 // getTools endpoint and display
 import {displayFavorites} from "./displayFavorites.js";
 import {displayTools} from "./displayTools.js";
+import {checkEmployeeDepartment} from "./setDepartmentByEmployee.js";
 
 //Gets all tools and displays them individually
 export function getToolsDisplay () {
@@ -29,14 +30,11 @@ function getDepartmentsDisplay(){
                 input.id = department.name;
 
                 const label = document.createElement("label");
-                //input.setAttribute("for", department.name);
                 label.htmlFor = department.name;
                 label.textContent = department.name;
 
-                console.log(departmentSelector);
                 departmentSelector.appendChild(input);
                 departmentSelector.appendChild(label);
-
             })
         })
         .catch(error => console.error('Error fetching Department:', error));
