@@ -67,7 +67,7 @@ public class ToolController {
             @PathVariable String department
     ){
         List<ToolDto> list = toolService.findPendingToolByUserDepartment(department).stream()
-                .map(ToolDto::new)
+                .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -89,6 +89,8 @@ public class ToolController {
             @PathVariable int toolId
     ){
         ToolDto toolAltered = new ToolDto(toolService.revertStateOfPending(toolId));
+
+        
         return ResponseEntity.ok(toolAltered);
     }
 
