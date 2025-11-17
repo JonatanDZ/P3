@@ -8,20 +8,31 @@ document.addEventListener("DOMContentLoaded", async () => {
         dropdownContent.classList.toggle("show");
     });
 
-    await reloadPending();
+    await reloadDropdown();
 
     // after DOMContentLoaded is run. its runs every 60 seconds to check for updates.
     setInterval(async () => {
-        await reloadPending();
+        await reloadDropdown();
         console.log("Refreshed by interval");
     }, 1000 * 60);
 
 });
 
-async function reloadPending() {
+async function reloadDropdown() {
     const pendingToolList = await getDepartmentsPendingTools();
 
     console.log(pendingToolList);
+
+    // Remove old badge if exists
+    const containerBellNotifications = document.getElementById("bellNotifications");
+    const oldBadge = containerBellNotifications.querySelector(".notificationBadge");
+    // needs if statement because the oldBadge dosnt exist the first time you load the site.
+    // == You cant remove on null. Therefore, skip if it dosnt exist.
+    if (oldBadge) {
+        oldBadge.remove();
+    }
+    const containerDropdownId = document.getElementById("dropdownIndividualItem");
+    containerDropdownId.replaceChildren();
 
     if (pendingToolList.length > 0) {
         // notify bell
@@ -47,12 +58,19 @@ async function getDepartmentsPendingTools() {
 
 function bellNotifier(pendingToolListLength) {
     // bases on the pendingToolListLength it should make a bell icon that shows the size of the list
+    const container = document.getElementById("bellNotifications");
+
+    // Create badge
+    const notificationBadge = document.createElement("span");
+    notificationBadge.classList.add("notificationBadge");
+    notificationBadge.textContent = pendingToolListLength;
+
+    container.appendChild(notificationBadge);
 }
 
 function createDropdownCards(pendingToolList) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
 
-    containerDropdownId.replaceChildren();
     pendingToolList.forEach(pendingToolList => {
         const card = createDropdownCard(pendingToolList);
         containerDropdownId.appendChild(card);
@@ -107,7 +125,7 @@ document.addEventListener("click", async (event) => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            await reloadPending();
+            await reloadDropdown();
             console.log("Refreshed after approved tool");
 
 
@@ -140,7 +158,7 @@ document.addEventListener("click", async (event) => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            await reloadPending();
+            await reloadDropdown();
             console.log("Refreshed after denied tool");
 
             return await response.json();

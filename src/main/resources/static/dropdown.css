@@ -1,5 +1,3 @@
-/* The visible bell */
-
 .dropdown {
     margin-left: auto;
 }
@@ -8,16 +6,14 @@
     width: 3em;
     height: 3em;
     background-color: transparent;
-    /* Removes the ugly bell border */
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
+    position: relative;
 }
-
-/* The toggled dropdowncontent styling */
 
 .dropdownContent {
     position: absolute;
@@ -43,7 +39,6 @@
     display: block;
     font-size: 0.95em;
     background-color: blue;
-
 }
 
 .aprbtn, .denybtn {
@@ -56,4 +51,28 @@
 
 .aprbtn:hover, .denybtn:hover {
     cursor: pointer;
+}
+
+#bellNotifications {
+    position: relative;
+    display: inline-block;
+}
+
+/* Red notification circle */
+.notificationBadge {
+    position: absolute;
+    top: 0.6em;
+    right: 0.8em;
+    transform: translate(50%, -50%);
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1100;
 }
