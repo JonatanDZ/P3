@@ -268,6 +268,7 @@ footer {
 .checkBoxDiv {
     display: inline-block;
     width: 5rem;
+    text-align: center;
 }
 
 .inputDiv {
@@ -277,7 +278,7 @@ footer {
 
 .from-container{
     margin: auto;
-    text-align: center;
+    /*text-align: center; */
     align-items: center;
 }
 
@@ -319,19 +320,18 @@ footer {
     background: red;
 }
 
-#isDynamic{
+#isDynamic, #isPersonal{
     width: auto;
     margin: 1rem;
 }
 
 input[type="checkbox"] {
     transform: scale(1.7);
-    margin: 30%;
 }
 
 .toolName{
     width: 100%;
-    border: 1% solid #ccc;
+    border: 0.2rem solid #ccc;
     border-radius: 40px;
     padding: 1% 2%;
     outline: none;
@@ -340,7 +340,7 @@ input[type="checkbox"] {
 
 .tags{
     width: 100%;
-    border: 1% solid #ccc;
+    border: 0.2rem solid #ccc;
     border-radius: 40px;
     padding: 1% 2%;
     outline: none;

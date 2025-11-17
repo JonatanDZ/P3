@@ -4,11 +4,11 @@ import com.example.p3.entities.Department;
 import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
+import com.example.p3.entities.Tag;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 // data transfer objects, to JSON
 @Data
@@ -18,41 +18,35 @@ public class ToolDto {
     private String name;
     private String url;
     private Boolean is_dynamic;
-    private ArrayList<String> departments;
-    private ArrayList<String> jurisdictions;
-    private ArrayList<String> stage;
+    private List<String> tags;
+    private List<String> departments;
+    private List<String> jurisdictions;
+    private List<String> stage;
 
     //Takes the entities from the database and converts it into objects of the type tool
     public ToolDto(Tool t) {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
-        //this.tags = t.getTags();
+        this.tags = t.getTags().stream()
+                .map(Tag::getValue)
+                .collect(Collectors.toList());
+
+
         this.is_dynamic = t.getIs_dynamic();
 
-        this.departments = new ArrayList<>();
-        String departmentName;
-        List<Department> departmentList = t.getDepartments().stream().toList();
-        for (int i = 0; i < departmentList.size(); i++) {
-            departmentName = departmentList.get(i).getName();
-            this.departments.add(departmentName);
-        }
+        this.departments = t.getDepartments().stream()
+                .map(Department::getName)
+                .collect(Collectors.toList());
 
-        this.jurisdictions = new ArrayList<>();
-        String jurisdictionName;
-        List<Jurisdiction> jurisdictionList = t.getJurisdictions().stream().toList();
-        for (int i = 0; i < jurisdictionList.size(); i++) {
-            jurisdictionName = jurisdictionList.get(i).getName();
-            this.jurisdictions.add(jurisdictionName);
-        }
+        this.jurisdictions = t.getJurisdictions().stream()
+                .map(Jurisdiction::getName)
+                .collect(Collectors.toList());
 
-        this.stage = new ArrayList<>();
-        String stageName;
-        List<Stage> stageList = t.getStages().stream().toList();
-        for (int i = 0; i < stageList.size(); i++) {
-            stageName = stageList.get(i).getName();
-            this.stage.add(stageName);
-        }
+        this.stage = t.getStages().stream()
+                .map(Stage::getName)
+                .collect(Collectors.toList());
+
 
     }
 }

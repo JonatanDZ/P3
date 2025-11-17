@@ -1,5 +1,5 @@
 import { submitForm, formToJSON } from '../../../main/resources/static/js/submitForm.js';
-import { MakeToolJSON } from "../../../main/resources/static/js/fetchTool.js";
+import { poster } from "../../../main/resources/static/js/fetchTool.js";
 
 global.fetch = jest.fn();
 

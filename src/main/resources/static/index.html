@@ -63,10 +63,7 @@
                         </div>
                     </div>
 
-                    <div class="formCards" id="formCard5" style="display: none">
-                        <label for="tags"> <h3> Tags </h3></label>
-                        <input id="tags" type="text" placeholder="Enter Tags" name="tags" class="tags">
-                    </div>
+
 
                     <div class="formCards" id="formCard3" style="display: none">
                         <label for="departmentsInput"> <h3> Department</h3></label>
@@ -90,6 +87,18 @@
                             </div>
                             <label for="jurisdictionsInput"> <h3> Jurisdiction</h3></label>
                             <div id="jurisdictionsInput" class="inputDiv"> </div>
+                        </div>
+                    </div>
+
+                    <div class="formCards" id="formCard5" style="display: none">
+                        <div id="tagDiv">
+
+                            <label for="tags"> <h3> Tags </h3></label>
+                            <div id="selectedTags" class="selected-tags"></div>
+                            <button type="button" id="submitTagBtn" disabled="disabled"> Create Tag</button>
+                            <input id="tags" type="text" placeholder="Enter Tags" name="tags" class="tags">
+                            <div id="tagsSuggestions" class="tag-suggestions">
+                            </div>
                         </div>
                     </div>
 
