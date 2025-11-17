@@ -1,4 +1,4 @@
-var tools = ["tool1","tool2","tool3","a","b","c"];
+var tools = ["tool1","tool2","tool3", "Atool", "Btool","Ctool"];
 
 function searchbar(inp, arr) {
     /*the searchbar function takes two arguments,
