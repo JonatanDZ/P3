@@ -7,6 +7,9 @@
     <title>Yellow Pages</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -24,7 +27,7 @@
             <input type="radio" id="prod" name="branch" value="PRODUCTION">
             <label for="prod">Prod</label><br>
         </div>
-        <h1>Danmark - Bob</h1>
+        <h1 id="userJurisdictionNav"></h1>
     </nav>
     <div class="main">
     <aside>
@@ -131,9 +134,11 @@
 
 
     <script type="module" src="/js/endpointScripts.js"> </script>
+    <script type="module" src="js/displayTools.js"></script>
     <script type="module" src="/js/addToolForm.js"> </script>
     <script type="module" src="/js/fetchTool.js"> </script>
     <script type="module" src="/js/footerVariable.js"></script>
     <script type="module" src="/js/displayFavorites.js"></script>
+    <script type="module" src="/js/userJurisdictionNav.js"></script>
 </body>
 </html>

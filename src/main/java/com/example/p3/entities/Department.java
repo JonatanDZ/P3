@@ -27,5 +27,13 @@ public class Department {
 
     @ManyToMany(mappedBy = "departments")
     private Set<Tool> departmentTools = new HashSet<>();
+    
+    public Department(Integer id, String departmentName, Boolean isDev) {
+        this.id = id;
+        this.name = departmentName;
+        this.is_dev = isDev;
+    }
+
+    public Department() {}
 
 }

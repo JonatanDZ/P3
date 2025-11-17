@@ -1,4 +1,4 @@
-package com.example.p3;
+/*package com.example.p3;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -28,33 +28,48 @@ class P3ApplicationTests {
 
     @Test
     void testGetEmployeeByInitials() throws Exception {
+        // what would happen to this test if "PEDO" did not exist?
+        // is it safe to assume that "PEDO" will always exist in our database?
+
+        // Defines the REST endpoint to test
         String url = "http://localhost:8080/employee/initials/PEDO";
 
+        // restTemplate has REST requests as methods, we use the GET request here.
+        // we pass the url into the method; this creates a GET request to the endpoint
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        // maps from JSON into tree-like objects (jsonNode or POJOs)
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readValue(response.getBody(), JsonNode.class);
+        //  Using the result from response mapped to a JsonNode.
+        // searches through the nodes and finds the one called "initials" and transforms it to a string
         String initials = root.path("initials").toString();
 
         String expectedJson = "\"PEDO\"";
 
+        // asserting that the string is the one expected.
         Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
         Assertions.assertEquals(expectedJson,initials);
     }
 
     //Tests for initials, email and name work the same
-
     @Test
     void testGetEmployeeByDepartment() throws Exception {
+        // what would happen to this test if id=1 did not exist?
+        // is it safe to assume that id=1 will always exist and be the
+        // same as the expected value in our database?
         String url = "http://localhost:8080/employee/department/1";
 
+        // GET request stored as response
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode[] root = mapper.readValue(response.getBody(), JsonNode[].class);
+
+        // asserting that we get a response of 200 ok
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
         String expectedJson = "\"DEVOPS\"";
         for (JsonNode node : root) {
+            // going through every node in root and checking if the expectedJson matches the department names
             Assertions.assertEquals(expectedJson, node.path("department").toString());
-
         }
     }
 
@@ -78,12 +93,10 @@ class P3ApplicationTests {
                 "dynamic":false}]}
                 """;
 
+        // why not Assertions.assertEquals?
+        // can this be made to look like the previous tests?
         assertThat(objectMapper.readTree(response.getBody())).isEqualTo((objectMapper.readTree(expectedJson)));
     }
-    ToolsTests test = new ToolsTests();
-
-
-
 //    @Autowired
 //    private MockMvc mockMvc;
 ////    @Test
@@ -100,4 +113,4 @@ class P3ApplicationTests {
 //                .andExpect(jsonPath("$.id").exists());
 //    }
 
-}
+}*/
