@@ -116,28 +116,7 @@ export async function enableTagSearch(){
     })
 }
 
-//What does this do?
-function syncTagListCheckbox(tag, shouldCheck){
-    const checks = document.querySelectorAll(".tagChecks"); //this class is not being used
 
-    checks.forEach(cb => {
-        const labelText = cb.parentElement.textContent.trim().toLowerCase();
-        if (labelText === tag.value.toLowerCase()) {
-            cb.checked = shouldCheck;
-        }
-    });
-}
-
-/* function syncTagListCheckbox(tagName, shouldCheck){
-    const checks = document.querySelectorAll(".tagChecks");
-
-    checks.forEach(cb => {
-        const labelText = cb.parentElement.textContent.trim().toLowerCase();
-        if (labelText === tagName.toLowerCase()) {
-            cb.checked = shouldCheck;
-        }
-    });
-} */
 
 
 export function addTagChip(tag){
@@ -152,6 +131,8 @@ export function addTagChip(tag){
     const chip = document.createElement("div");
     chip.className = "tag-chip";
     chip.dataset.tag = tag.id;
+    chip.dataset.tagName = tag.value;
+
 
     // Create tag label
     const label = document.createElement("span");

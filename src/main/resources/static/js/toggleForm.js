@@ -62,26 +62,29 @@ export function displayReview(){
         toolURL = document.querySelector("#toolURL1").value;
     }
     let jurisdictionString = "";
-    let stagesString = "";
+    let stageString = "";
     let departmentString = "";
-    let tags = "";
+    let tagString = "";
 
     document.querySelectorAll('.jurisdictionsChecks:checked').forEach(cb => {
         jurisdictionString += cb.textContent + ", ";
     });
+    jurisdictionString = jurisdictionString.slice(0, -2);
 
     document.querySelectorAll('.stagesChecks:checked').forEach(cb => {
-        stagesString += cb.name + ", ";
+        stageString += cb.name + ", ";
     });
-
+    stageString = stageString.slice(0, -2);
 
     document.querySelectorAll('.departmentsChecks:checked').forEach(cb => {
         departmentString += cb.textContent + ", ";
     });
+    departmentString = departmentString.slice(0, -2);
 
-    document.querySelectorAll('.tag-chip').forEach(cb => {
-        tags += cb.textContent + ", ";
+    document.querySelectorAll('.tag-chip').forEach(tag => {
+        tagString += tag.dataset.tagName + ", ";
     });
+    tagString = tagString.slice(0, -2);
 
     const para = document.querySelector("#toolToPost");
     para.innerHTML = `
@@ -89,9 +92,9 @@ export function displayReview(){
         <h3>${toolName}</h3>
         <p><strong>Departments:</strong> ${departmentString}</p>
         <p><strong>Jurisdictions:</strong> ${jurisdictionString}</p>
-        <p><strong>Stages:</strong> ${stagesString}</p>
+        <p><strong>Stages:</strong> ${stageString}</p>
         <p><strong>URL:</strong> <a href="${toolURL}" target="_blank">${toolURL}</a></p>
-        <p><strong>Tags: </strong> ${tags}</p>
+        <p><strong>Tags: </strong> ${tagString}</p>
     </div>
     `;
 }
