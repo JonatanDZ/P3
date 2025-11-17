@@ -1,8 +1,9 @@
 // getTools endpoint and display
 import {displayFavorites} from "./displayFavorites.js";
+import {displayTools} from "./displayTools.js";
 
 //Gets all tools and displays them individually
-function getToolsDisplay () {
+export function getToolsDisplay () {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');
@@ -131,14 +132,5 @@ export function getDepartment(){
     return container.querySelector('input[type="radio"]:checked')?.value;
 }
 
-export function displayTools(data, list) {
-    data.forEach(tool => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = tool.url;
-        a.textContent = tool.name;
-        a.target = "_blank";
-        li.appendChild(a);
-        list.appendChild(li);
-    });
-}
+
+

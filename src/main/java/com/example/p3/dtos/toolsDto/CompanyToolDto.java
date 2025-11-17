@@ -1,19 +1,17 @@
-package com.example.p3.dtos;
+package com.example.p3.dtos.toolsDto;
 
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-// data transfer objects, to JSON
-@Data
-public class ToolDto {
-    // attributes of Tool
+@Getter
+public class CompanyToolDto implements ToolDto {
+
     private Integer id;
     private String name;
     private String url;
@@ -22,9 +20,10 @@ public class ToolDto {
     private ArrayList<String> departments;
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
+    private ArrayList<String> tags;
 
-    //Takes the entities from the database and converts it into objects of the type tool
-    public ToolDto(Tool t) {
+    @Override
+    public void prepare(Tool t){
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
@@ -55,5 +54,12 @@ public class ToolDto {
             this.stage.add(stageName);
         }
 
+        /*this.tags = new ArrayList<>();
+        String tagName;
+        List<Tags> tagsList = t.getTags().stream().toList();
+        for (int i = 0; i < tagsList.size(); i++) {
+            tagName = tagsList.get(i).getName();
+            this.stage.add(tagName);
+        }*/
     }
 }

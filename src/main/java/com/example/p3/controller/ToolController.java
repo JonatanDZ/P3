@@ -1,8 +1,11 @@
 package com.example.p3.controller;
 
+import com.example.p3.dtos.toolsDto.*;
 import com.example.p3.dtos.FavoritesDto;
-import com.example.p3.dtos.ToolDto;
 
+
+import com.example.p3.dtos.toolsDto.CompanyToolFactory;
+import com.example.p3.dtos.toolsDto.PersonalToolFactory;
 import com.example.p3.entities.Tool;
 
 import com.example.p3.service.ToolService;
@@ -21,22 +24,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/tools")
 public class ToolController {
-    private final ToolService toolService; //final means that we can't change the value after it has been initialized
+    private final ToolService toolService;//final means that we can't change the value after it has been initialized
+    private final PersonalToolFactory personalToolFactory;
+    private final CompanyToolFactory companyToolFactory;
 
     public ToolController(ToolService toolService) {
         this.toolService = toolService;
+        this.personalToolFactory = new PersonalToolFactory();
+        this.companyToolFactory = new CompanyToolFactory();
     }
-    //takes the data from the add form and sends it to the
-    // PostMapping: indicates it is a post request on the given url
-    @PostMapping("")
-    //RequestBody: Gets a HTTP request (JSON) and converts it into a java object
-    public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
-        if (tool == null){
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(toolService.saveTool(tool));
-    }
-
 
     //GetMapping: indicates it is a get request on the given url
     @GetMapping("")
@@ -46,7 +42,7 @@ public class ToolController {
         List<ToolDto> list = toolService.getAllTools().stream()
                 //Map make a new array,
                 //the function in map: For each tool in toolService it calls "new toolDto"
-                .map(ToolDto::new)
+                .map(t->t.getIs_personal().equals(true)? personalToolFactory.determineTool(t) : companyToolFactory.determineTool(t))
                 //Converts the new tools (in an array) into a list
                 .toList();
         return ResponseEntity.ok(list);
@@ -57,22 +53,12 @@ public class ToolController {
     //@pathVariable: get a string and inserts it into the endpoint (url)
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {
         List<ToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
-                .map(ToolDto::new)
+                .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("department/{department}/jurisdiction/{jurisdiction}/stage/{stage}")
-    public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
-            @PathVariable String department,
-            @PathVariable String jurisdiction,
-            @PathVariable String stage
-    ){
-        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
-                .map(ToolDto::new)
-                .toList();
-        return ResponseEntity.ok(list);
-    }
+
 
     // gets list of pending tools per department
     // it is expected to pass the department of a user
@@ -121,4 +107,26 @@ public class ToolController {
 //                .toList();
 //        return ResponseEntity.ok(list);
 //    }
+
+    @GetMapping("department/{department}/jurisdiction/{jurisdiction}/stage/{stage}")
+    public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
+            @PathVariable String department,
+            @PathVariable String jurisdiction,
+            @PathVariable String stage
+    ){
+        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
+                .map(companyToolFactory::determineTool)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+    //takes the data from the add form and sends it to the
+    // PostMapping: indicates it is a post request on the given url
+    @PostMapping("")
+    //RequestBody: Gets a HTTP request (JSON) and converts it into a java object
+    public ResponseEntity<Tool> createTool(@RequestBody Tool tool){
+        if (tool == null){
+            return ResponseEntity.badRequest().build(); 
+        }
+        return ResponseEntity.ok(toolService.saveTool(tool));
+    }
 }

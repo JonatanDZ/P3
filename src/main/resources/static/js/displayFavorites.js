@@ -1,5 +1,6 @@
-import {displayTools, getJurisdiction, getStage} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {getJurisdiction, getStage} from "./endpointScripts.js";
+import {displayTools} from "./displayTools.js";
 
 export async function displayFavorites () {
     // clear the list each time it is called.
