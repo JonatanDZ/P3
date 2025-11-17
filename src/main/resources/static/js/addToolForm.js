@@ -1,10 +1,11 @@
-import {toggleForm, displayURLbar} from "./toggleForm.js";
-import {loadOptions} from "./loadOptions.js";
-import {submitForm} from "./submitForm.js";
+import {toggleForm, displayURLbar, displayReview, toggleCards} from "./toggleForm.js";
+import {loadOptions, enableTagSearch} from "./loadOptions.js";
+import {submitForm, submitTag} from "./submitForm.js";
 
 let toggleBtns;
 let addToolDiv;
 let dynamicCheck;
+let toggleCard = 1;
 
 let formIsShown = false;
 
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 formIsShown = toggleForm(formIsShown);
 
                 if(formIsShown){
-                        document.addEventListener("click", handleOutsideClick)
+                    document.addEventListener("click", handleOutsideClick)
                 } else {
                     document.removeEventListener("click", handleOutsideClick)
                 }
@@ -38,13 +39,31 @@ document.addEventListener("DOMContentLoaded", ()=>{
 function loadAllFromOptions(){
     loadOptions("departments");
     loadOptions("jurisdictions");
+    enableTagSearch();
 }
 
 
 if (document.querySelector("#submitBtn")) {
-    document.querySelector("#submitBtn").addEventListener("click", function (e) {
+    document.querySelector("#submitBtn").addEventListener("click",  (e) => {
         e.preventDefault();
         submitForm();
+    });
+}
+
+if (document.querySelector("#submitTagBtn")) {
+    document.querySelector("#submitTagBtn").addEventListener("click", async (e)  =>  {
+        e.preventDefault();
+        await submitTag();
+    })
+}
+
+if (document.querySelector(".toggleCardBtn")) {
+    document.querySelectorAll(".toggleCardBtn").forEach(btn =>{
+        btn.addEventListener("click", (e)=>{
+            e.preventDefault();
+            displayReview();
+            toggleCard = toggleCards(btn.value, toggleCard);
+        });
     });
 }
 

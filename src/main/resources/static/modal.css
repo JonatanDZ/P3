@@ -1,5 +1,5 @@
 /* Full-width input fields */
-input[type=text], input[type=checkbox] {
+input[type=text], input[type=checkbox]:not([class = "tag-suggestion-checkbox"]){
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -9,7 +9,16 @@ input[type=text], input[type=checkbox] {
     border-radius: 1rem;
 }
 
+.tag-suggestion-checkbox{
+    margin: 1rem;
+}
 
+button:disabled{
+    opacity: 0;}
+
+button:hover:disabled{
+    opacity: 0;
+}
 
 button:hover {
     opacity: 0.8;
@@ -48,7 +57,7 @@ span.psw {
     width: 50%; /* Full width */
     height: 75%; /* Full height */
     overflow-x: hidden; /* disable scroll if needed on x-axis */
-    overflow-y: hidden; /* disable scroll if needed on y-axis */
+    overflow-y: visible; /* disable scroll if needed on y-axis - giver plads til tags */
     background-color: rgb(0, 0, 0, 0.9);
     border-radius: 2rem;
 }
@@ -91,7 +100,105 @@ span.psw {
 }
 
 #toolURL b {
-    width: 50px; /* Fixed width for the MAJ text */
+    width: 50px;
     text-align: center;
     border-radius: 40px;
+}
+
+#tagDiv {
+    position: relative;
+}
+
+#tagsSuggestions {
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #1c1c1c;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 5px 0;
+    margin-top: -18px;
+    max-height: 200px;
+    display: none;
+    z-index: 999999; /* Gør at det vise som det første, og det skal være der*/
+    box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+}
+
+.tag-suggestion-item {
+    align-items: normal;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #eee;
+}
+
+.tag-suggestion-item:hover {
+    background: #2c2c2c;
+}
+
+.selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tag-chip {
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.tag-chip span {
+    cursor: default;
+}
+
+.tag-chip button {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.tag-chip button:hover {
+    color: #fff;
+}
+
+#tagList {
+    list-style: none;
+    padding-left: 0;
+}
+
+#tagList li {
+    list-style: none;
+}
+
+.tagChecks {
+    display: none;
+}
+
+.tool-summary {
+    border: 0.1rem solid #ddd;
+    border-radius: 3%;
+    padding: 2%;
+    margin-top: 1.5%;
+    width: 90%;
+    max-width: 100%;
+}
+
+.tool-summary h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 110%;
+}
+
+.tool-summary p {
+    margin: 0.5% 0;
+    font-size: 100%;
 }
