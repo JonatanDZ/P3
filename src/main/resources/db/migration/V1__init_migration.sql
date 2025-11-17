@@ -95,7 +95,6 @@ CREATE TABLE tool_tag (
 );
 
 -- Favorites (employee ↔ tool) – composite PK, correct FK direction
--- (table name singular/plural is your call; keeping singular from your snippet)
 CREATE TABLE favorite_tool (
                                employee_initials VARCHAR(4) NOT NULL,
                                tool_id           INT        NOT NULL,

@@ -11,7 +11,7 @@ export async function displayFavorites () {
     // first gets employee, then the initials from employee
     let employee = await getCurrentEmployee();
     let employeeInitials = employee.initials;
-
+    console.log(employeeInitials);
     let jurisdiction = getJurisdiction();
     let stage = getStage();
     fetch(`/employee/${employeeInitials}/favorites?jurisdiction=${jurisdiction}&stage=${stage}`)
