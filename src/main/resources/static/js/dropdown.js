@@ -178,8 +178,6 @@ document.addEventListener("click", async (event) => {
 
             await reloadDropdown();
             console.log("Refreshed after denied tool");
-
-            return await response.json();
         } catch (error) {
             console.error('Error updating tool:', error);
             return null;
