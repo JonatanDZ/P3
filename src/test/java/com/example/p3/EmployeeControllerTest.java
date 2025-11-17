@@ -1,7 +1,6 @@
 package com.example.p3;
 
 import com.example.p3.controller.EmployeeController;
-import com.example.p3.controller.ToolController;
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Employee;
 import com.example.p3.service.EmployeeService;
@@ -33,13 +32,15 @@ class EmployeeControllerTest {
     }
 
     @Test
-    public void getEmployeesFromDepartment() throws Exception {
+    public void getEmployeesFromInitials() throws Exception {
         Department departmentSet = new Department();
         Employee employee =  new Employee("SOJO", "Sofus Johansen", "SoJo@gmail.com", departmentSet);
         when(employeeService.getEmployeeByInitials("SOJO"))
                 .thenReturn(Optional.of(employee));
         mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/SOJO"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.initials").value("SOJO"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.initials").value("SOJO"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Sofus Johansen"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("SoJo@gmail.com"));
     }
 }
