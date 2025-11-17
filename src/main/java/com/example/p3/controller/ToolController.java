@@ -94,6 +94,18 @@ public class ToolController {
         return ResponseEntity.ok(toolService.saveTool(tool));
     }
 
+    // gets list of pending tools per department
+    // it is expected to pass the department of a user
+    @GetMapping("/pending/department/{department}")
+    public ResponseEntity<List<ToolDto>> getAllPendingToolsByUserDepartment(
+            @PathVariable String department
+    ){
+        List<ToolDto> list = toolService.findPendingToolByUserDepartment(department).stream()
+                .map(companyToolFactory::determineTool)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
     // delete a pending tool, in case it is declined
     // it simply deletes a tool from the tool table
     @DeleteMapping("/pending/{toolId}")
