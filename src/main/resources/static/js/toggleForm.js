@@ -1,3 +1,5 @@
+import {updateAllowedCards} from "./addToolForm.js"
+
 //Toggles if the formular is open or not
 export function toggleForm(formIsShown){
     if (formIsShown){
@@ -11,27 +13,33 @@ export function toggleForm(formIsShown){
 }
 
 export function toggleCards(i, currentCard){
+    updateAllowedCards();
+
+    const index = allowedCards.indexOf(currentCard);
+    const nextIndex = index + parseInt(direction);
+
     //We do this so that you can frontwards again even after you have been at the end
-    document.querySelector("#prev").disabled = false;
-    document.querySelector("#next").disabled = false;
+    document.querySelector("#prev").disabled = nextIndex <= 0;
+    document.querySelector("#next").disabled = nextIndex >= allowedCards.length - 1;
 
 
-    const cardValue = parseInt(currentCard) + parseInt(i)
+    /*const cardValue = parseInt(currentCard) + parseInt(i)
     if (cardValue <= 1) {
         document.querySelector("#prev").disabled = true;
 
     } else if(cardValue >= 6) {
         document.querySelector("#next").disabled = true;
-    }
+    }*/
 
     document.querySelectorAll(".formCards").forEach( card => {
         card.style.display = "none";
     });
-    
-    document.querySelector(`#formCard${cardValue}`).style.display = "block";
+
+    const newCard = allowedCards[nextIndex];
+    document.querySelector(`#formCard${newCard}`).style.display = "block";
 
 
-    return cardValue;
+    return newCard;
 }
 
 //Changes the url bar to be dynamic or not

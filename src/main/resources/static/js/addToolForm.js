@@ -40,6 +40,7 @@ function loadAllFromOptions(){
     loadOptions("departments");
     loadOptions("jurisdictions");
     enableTagSearch();
+    setupPersonalToggle()
 }
 
 
@@ -83,3 +84,47 @@ function handleOutsideClick(event) {
     }
 }
 
+let allowedCards = [1,2,3,4,5,6];
+
+export function updateAllowedCards(){
+    const isPersonal = document.querySelector("#isPersonal");
+
+    if (isPersonal) {
+        allowedCards = [1,2,4,5]
+    } else {
+        allowedCards = [1,2,3,4,5,6];
+    }
+
+    document.querySelector("#isPersonal").addEventListener("change", (e)=>{
+        updateAllowedCards();
+    })
+}
+
+
+
+/* function setupPersonalToggle() {
+    const personalCheck = document.querySelector("#isPersonal");
+
+    const cardsToShow = [1,2,4,5];
+    const cardsToHide = [3,6];
+
+    function updateCards() {
+        const isPersonal = personalCheck.checked;
+
+        if (isPersonal) {
+            cardsToHide.forEach(num => {
+                document.querySelector(`#formCard${num}`).style.display = "none";
+            });
+
+            cardsToShow.forEach(num => {
+                document.querySelector(`#formCard${num}`).style.display = "block";
+            });
+        } else {
+            document.querySelectorAll(".formCards").forEach(card => {
+                card.style.display = "block";
+            });
+        }
+    }
+    personalCheck.addEventListener("change", updateCards);
+    //updateCards();
+} */
