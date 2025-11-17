@@ -14,6 +14,7 @@ public class PersonalToolDto implements  ToolDto {
     private Integer id;
     private String name;
     private String url;
+    private Boolean is_personal;
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
 
@@ -22,6 +23,8 @@ public class PersonalToolDto implements  ToolDto {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
+
+        this.is_personal = t.getIs_personal(); //This is always true
 
         this.jurisdictions = new ArrayList<>();
         String jurisdictionName;

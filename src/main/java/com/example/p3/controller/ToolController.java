@@ -2,9 +2,11 @@ package com.example.p3.controller;
 
 import com.example.p3.dtos.toolsDto.*;
 
+import com.example.p3.entities.Tag;
 import com.example.p3.entities.Tool;
 
 import com.example.p3.service.ToolService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -89,6 +91,6 @@ public class ToolController {
         if (tool == null){
             return ResponseEntity.badRequest().build(); 
         }
-        return ResponseEntity.ok(toolService.saveTool(tool));
-    }
+        Tool savedTool = toolService.saveTool(tool);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedTool);    }
 }

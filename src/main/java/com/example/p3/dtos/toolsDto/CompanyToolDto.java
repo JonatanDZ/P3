@@ -17,6 +17,7 @@ public class CompanyToolDto implements ToolDto {
     private String name;
     private String url;
     private Boolean is_dynamic;
+    private Boolean is_personal;
 
     private List<String> tags;
     private List<String> departments;
@@ -34,6 +35,8 @@ public class CompanyToolDto implements ToolDto {
 
         this.is_dynamic = t.getIs_dynamic();
 
+        this.is_personal = t.getIs_personal(); //This is always false
+
         this.departments = t.getDepartments().stream()
                 .map(Department::getName)
                 .collect(Collectors.toList());
@@ -45,7 +48,6 @@ public class CompanyToolDto implements ToolDto {
         this.stage = t.getStages().stream()
                 .map(Stage::getName)
                 .collect(Collectors.toList());
-
 
     }
 }
