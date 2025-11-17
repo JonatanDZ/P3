@@ -39,5 +39,11 @@ public class ToolService {
         return toolRepository.saveAndFlush(tool);
     }
 
+    public List<String> searchToolByTag(String tag) {
+        ///Return a JSON/array with arrays containing all tools with the tag (include) og give the url and name.
+        /// ændre under tgsDto og få den til at hente url også. Lav et mini tool objekt.
+
+
+    }
 
 }
