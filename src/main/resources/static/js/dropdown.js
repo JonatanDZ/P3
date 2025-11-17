@@ -71,10 +71,19 @@ function bellNotifier(pendingToolListLength) {
 function createDropdownCards(pendingToolList) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
 
-    pendingToolList.forEach(pendingToolList => {
-        const card = createDropdownCard(pendingToolList);
-        containerDropdownId.appendChild(card);
-    });
+    if (pendingToolList.length > 0) {
+        pendingToolList.forEach(pendingToolList => {
+            const card = createDropdownCard(pendingToolList);
+            containerDropdownId.appendChild(card);
+        });
+    } else {
+        const pendingToolCard = document.createElement("div");
+        const link = document.createElement("a");
+        link.textContent = "No actions needed";
+
+        pendingToolCard.appendChild(link);
+        containerDropdownId.appendChild(pendingToolCard);
+    }
 }
 
 function createDropdownCard(pendingTool) {
