@@ -9,6 +9,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         dropdownContent.classList.toggle("show");
     });
 
+    // Toggle to show and hide the bell.
+    document.addEventListener("click", (event) => {
+        const clickInside = dropdownContent.contains(event.target);
+        const clickedButton = dropdownBtn.contains(event.target);
+        if (!clickInside && !clickedButton) {
+            dropdownContent.classList.remove("show");
+        }
+    });
+
     // Loads the dropdown onto the site.
     await reloadDropdown();
 
