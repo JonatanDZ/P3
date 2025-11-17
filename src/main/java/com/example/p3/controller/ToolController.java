@@ -67,7 +67,7 @@ public class ToolController {
             @PathVariable String department
     ){
         List<ToolDto> list = toolService.findPendingToolByUserDepartment(department).stream()
-                .map(ToolDto::new)
+                .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -88,8 +88,8 @@ public class ToolController {
     public ResponseEntity<ToolDto> revertPendingAttribute(
             @PathVariable int toolId
     ){
-        ToolDto toolAltered = new ToolDto(toolService.revertStateOfPending(toolId));
-        return ResponseEntity.ok(toolAltered);
+        Tool toolAsArgument = toolService.revertStateOfPending(toolId);
+        return ResponseEntity.ok(toolAsArgument);
     }
 
     //    @GetMapping("/jurisdiction/{jurisdiction}")
