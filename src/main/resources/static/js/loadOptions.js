@@ -53,9 +53,7 @@ export async function enableTagSearch(){
                 matches.push(tag);
             }
         });
-
-        //The submitTagBtn should only be pressable if the value is not already an option and not nothing
-        document.querySelector("#submitTagBtn").disabled = !(matches.length === 0 && input !== "");
+        
 
         // Hide suggestion box if no matches found
         if (matches.length === 0){
