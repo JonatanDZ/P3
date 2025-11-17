@@ -88,8 +88,7 @@ public class ToolController {
     public ResponseEntity<ToolDto> revertPendingAttribute(
             @PathVariable int toolId
     ){
-        //  ToolDto toolAltered = new ToolDto(toolService.revertStateOfPending(toolId));
-        ToolDto toolAsArgument = toolService.revertStateOfPending(toolId);
+        Tool toolAsArgument = toolService.revertStateOfPending(toolId);
         return ResponseEntity.ok(toolAsArgument);
     }
 
