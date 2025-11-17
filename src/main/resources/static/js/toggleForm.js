@@ -64,19 +64,24 @@ export function displayReview(){
     let jurisdictionString = "";
     let stagesString = "";
     let departmentString = "";
+    let tags = "";
 
     document.querySelectorAll('.jurisdictionsChecks:checked').forEach(cb => {
-        jurisdictionString += cb.textContent + " ";
+        jurisdictionString += cb.textContent + ", ";
     });
 
     document.querySelectorAll('.stagesChecks:checked').forEach(cb => {
-        stagesString += cb.name + " ";
+        stagesString += cb.name + ", ";
     });
 
 
     document.querySelectorAll('.departmentsChecks:checked').forEach(cb => {
-        departmentString += cb.textContent + " ";
-    })
+        departmentString += cb.textContent + ", ";
+    });
+
+    document.querySelectorAll('.tag-chip').forEach(cb => {
+        tags += cb.textContent + ", ";
+    });
 
     const para = document.querySelector("#toolToPost");
     para.innerHTML = `
@@ -86,6 +91,7 @@ export function displayReview(){
         <p><strong>Jurisdictions:</strong> ${jurisdictionString}</p>
         <p><strong>Stages:</strong> ${stagesString}</p>
         <p><strong>URL:</strong> <a href="${toolURL}" target="_blank">${toolURL}</a></p>
+        <p><strong>Tags: </strong> ${tags}</p>
     </div>
     `;
 }
