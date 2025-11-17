@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     loadAllFromOptions();
 
     //  make sure the DOM element is available as a global for toggleForm.js
-    window.addToolDiv = document.querySelector("#addToolDiv");
+    window.addToolDiv = document.querySelector("#addToolDiv");  
     addToolDiv = window.addToolDiv;
     toggleBtns = document.querySelectorAll(".toggleBtn");
     toggleBtns.forEach(btn => {
