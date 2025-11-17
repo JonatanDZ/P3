@@ -3,7 +3,7 @@ var tools = ["tool1","tool2","tool3", "Atool", "Btool","Ctool"];
 function searchbar(inp, arr) {
     var currentFocus;
     inp.addEventListener("input", function(e) {
-        var a, b, i, val = this.value;
+        var a, b, u, i, val = this.value;
         closeAllLists();
         if (!val) { return false;}
         currentFocus = -1;
@@ -14,14 +14,31 @@ function searchbar(inp, arr) {
         for (i = 0; i < arr.length; i++) {
             if (arr[i].substring(0, val.length).toUpperCase() === val.toUpperCase()) {
                 b = document.createElement("DIV");
-                b.innerHTML = "<strong>" + arr[i].substring(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substring(val.length);
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                var heading = document.createElement('b')
+                heading.appendChild(document.createTextNode(arr[i].substring(0, val.length)+arr[i].substring(val.length)))
+                b.appendChild(heading);
+                for(let l = 0; l<arr.length;l++) {
+                    u = document.createElement("DIV");
+                    var subheading = document.createElement('p')
+                    subheading.appendChild(document.createTextNode(arr[l]));
+                    u.appendChild(subheading)
+                    var input = document.createElement('input')
+                    input.setAttribute("type","hidden");
+                    input.setAttribute("value", arr[l])
+                    u.appendChild(input)
+                    u.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                    });
+                    b.appendChild(u)
+                }
 
-                b.addEventListener("click", function(e) {
-                    inp.value = this.getElementsByTagName("input")[0].value;
-                    closeAllLists();
-                });
+
+                /*b.innerHTML = "<strong>" + arr[i].substring(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substring(val.length);
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";*/
+
+
                 a.appendChild(b);
             }
         }
@@ -63,7 +80,6 @@ function searchbar(inp, arr) {
             }
         }
     }
-    /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
