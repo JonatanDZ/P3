@@ -8,31 +8,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         dropdownContent.classList.toggle("show");
     });
 
-    const pendingToolList = await getDepartmentsPendingTools()
+    await reloadPending();
+
+    // after DOMContentLoaded is run. its runs every 60 seconds to check for updates.
+    setInterval(async () => {
+        await reloadPending();
+        console.log("Refreshed by interval");
+    }, 1000 * 60);
+
+});
+
+async function reloadPending() {
+    const pendingToolList = await getDepartmentsPendingTools();
 
     console.log(pendingToolList);
 
     if (pendingToolList.length > 0) {
         // notify bell
         bellNotifier(pendingToolList.length);
-
-        // make dropdown cards
-        createDropdownCards(pendingToolList);
     }
-
-    /*
-    // after DOMContentLoaded is run. its runs every 60 seconds to check for updates.
-    setInterval(async () => {
-        if (pendingToolList.length > 0) {
-            // notify bell
-            bellNotifier(pendingToolList.length);
-
-            // make dropdown cards
-            createDropdownCards(pendingToolList);
-        }
-    }, 6000);
-     */
-});
+    // make dropdown cards
+    createDropdownCards(pendingToolList);
+}
 
 // skal laves så den kun giver liste med pending tools
 async function getDepartmentsPendingTools() {
@@ -42,13 +39,11 @@ async function getDepartmentsPendingTools() {
     try {
         const response = await fetch(`/tools/pending/department/${employeeDepartment}`);
         return await response.json();
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Error fetching tools:', error);
         return null;
     }
 }
-
 
 function bellNotifier(pendingToolListLength) {
     // bases on the pendingToolListLength it should make a bell icon that shows the size of the list
@@ -57,6 +52,7 @@ function bellNotifier(pendingToolListLength) {
 function createDropdownCards(pendingToolList) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
 
+    containerDropdownId.replaceChildren();
     pendingToolList.forEach(pendingToolList => {
         const card = createDropdownCard(pendingToolList);
         containerDropdownId.appendChild(card);
@@ -64,23 +60,93 @@ function createDropdownCards(pendingToolList) {
 }
 
 function createDropdownCard(pendingTool) {
-    const pendingToolCard = document.createElement("a");
-    pendingToolCard.href = pendingTool.url;
+    const pendingToolCard = document.createElement("div");
 
-    const label = document.createElement("span")
-    label.textContent = pendingTool.name;
+    const link = document.createElement("a");
+    link.href = pendingTool.url;
+    link.textContent = pendingTool.name;
 
     const approveBtn = document.createElement("button");
+    approveBtn.id = pendingTool.id;
+    approveBtn.dataset.tool = pendingTool.id;
     approveBtn.classList.add("aprbtn");
     approveBtn.textContent = "✅";
 
     const denyBtn = document.createElement("button");
+    denyBtn.id = pendingTool.id;
+    denyBtn.dataset.tool = pendingTool.id;
     denyBtn.classList.add("denybtn");
     denyBtn.textContent = "🚫";
 
-    pendingToolCard.appendChild(label);
+    pendingToolCard.appendChild(link);
     pendingToolCard.appendChild(approveBtn);
     pendingToolCard.appendChild(denyBtn);
 
     return pendingToolCard;
 }
+
+document.addEventListener("click", async (event) => {
+    // approve
+    if (event.target.classList.contains("aprbtn")) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("approve", event.target.dataset.tool);
+
+        const toolId = event.target.dataset.tool;
+
+        try {
+            const response = await fetch(`/tools/pending/${toolId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            // check if request was successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            await reloadPending();
+            console.log("Refreshed after approved tool");
+
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating tool:', error);
+            return null;
+        }
+
+    }
+
+    // deny
+    if (event.target.classList.contains("denybtn")) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("deny", event.target.dataset.tool);
+
+        const toolId = event.target.dataset.tool;
+
+        try {
+            const response = await fetch(`/tools/pending/${toolId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            // check if request was successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            await reloadPending();
+            console.log("Refreshed after denied tool");
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating tool:', error);
+            return null;
+        }
+    }
+});
