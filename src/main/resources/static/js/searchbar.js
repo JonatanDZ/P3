@@ -14,15 +14,21 @@ function searchbar(inp, arr) {
         for (i = 0; i < arr.length; i++) {
             if (arr[i].substring(0, val.length).toUpperCase() === val.toUpperCase()) {
                 b = document.createElement("DIV");
+                b.setAttribute("class", "searchbar-heading");
                 var heading = document.createElement('b')
                 heading.appendChild(document.createTextNode(arr[i].substring(0, val.length)+arr[i].substring(val.length)))
+
                 b.appendChild(heading);
                 for(let l = 0; l<arr.length;l++) {
                     u = document.createElement("DIV");
+                    u.setAttribute("class", "searchbar-subheading");
                     var subheading = document.createElement('p')
+
                     subheading.appendChild(document.createTextNode(arr[l]));
+
                     u.appendChild(subheading)
                     var input = document.createElement('input')
+
                     input.setAttribute("type","hidden");
                     input.setAttribute("value", arr[l])
                     u.appendChild(input)
