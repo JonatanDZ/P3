@@ -3,10 +3,10 @@ import {updateAllowedCards} from "./addToolForm.js"
 //Toggles if the formular is open or not
 export function toggleForm(formIsShown){
     if (formIsShown){
-        addToolDiv.style.display = "none";
+        window.addToolDiv.style.display = "none";
         formIsShown = false;
     } else{
-        addToolDiv.style.display = "block";
+        window.addToolDiv.style.display = "block";
         formIsShown = true;
     }
     return formIsShown
@@ -15,8 +15,9 @@ export function toggleForm(formIsShown){
 export function toggleCards(i, currentCard){
     updateAllowedCards();
 
-    const index = allowedCards.indexOf(currentCard);
-    const nextIndex = index + parseInt(direction);
+    const allowed = window.allowedCards;
+    const index = allowed.indexOf(currentCard);
+    const nextIndex = index + parseInt(i);
 
     //We do this so that you can frontwards again even after you have been at the end
     document.querySelector("#prev").disabled = nextIndex <= 0;

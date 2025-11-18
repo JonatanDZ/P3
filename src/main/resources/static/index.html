@@ -45,7 +45,7 @@
                 <form class="from-container">
                     <h1>Add Tool</h1>
 
-                    <div class="formCards" id="formCard1">
+                    <div class="formCards" id="formCard1" data-card="1">
                         <label for="isPersonal"> Is the tool personal?
                             <input id="isPersonal" type="checkbox" name="isPersonal" class="isPersonal" checked="checked">
                         </label>
@@ -54,7 +54,7 @@
                         <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" class="toolName" required>
                     </div>
 
-                    <div class="formCards" id="formCard2" style="display: none">
+                    <div class="formCards" id="formCard2" data-card="2" style="display: none">
                         <label for="toolURL"> <h3> Tool URL</h3></label>
                         <label for="isDynamic"> Is the URL Dynamic?
                             <input id="isDynamic" type="checkbox" name="IsDynamic" class="isDynamic" checked="checked">
@@ -68,12 +68,12 @@
 
 
 
-                    <div class="formCards" id="formCard3" style="display: none">
+                    <div class="formCards" id="formCard3" data-card="3" style="display: none">
                         <label for="departmentsInput"> <h3> Department</h3></label>
                         <div id = "departmentsInput" class="inputDiv"></div>
                     </div>
 
-                    <div class="formCards" id="formCard4" style="display: none">
+                    <div class="formCards" id="formCard4" data-card="4" style="display: none">
                         <label for="stagesInput"> <h3> Stages</h3></label>
                         <div id = "stagesInput" class="inputDiv">
                             <div class="checkBoxDiv">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
 
-                    <div class="formCards" id="formCard5" style="display: none">
+                    <div class="formCards" id="formCard5" data-card="5" style="display: none">
                         <div id="tagDiv">
 
                             <label for="tags"> <h3> Tags </h3></label>
@@ -105,7 +105,7 @@
                         </div>
                     </div>
 
-                    <div class="formCards" id="formCard6" style="display: none">
+                    <div class="formCards" id="formCard6" data-card="6" style="display: none">
                         <p id="toolToPost">Hej</p>
                         <div class="buttondiv">
                             <button type="button" class="toggleBtn submitFormBtn">Cancel</button>
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                     <div class="buttondiv">
-                        <button type="button" id="prev" class="toggleCardBtn submitFormBtn" value="-1" disabled="disabled" >Previous</button>
+                        <button type="button" id="prev" class="toggleCardBtn submitFormBtn" value="-1">Previous</button>
                         <button type="button" id="next" class="toggleCardBtn submitFormBtn" value="1">Next</button>
                     </div>
                 </form>
