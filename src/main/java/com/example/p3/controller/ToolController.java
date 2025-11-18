@@ -30,6 +30,8 @@ public class ToolController {
         this.companyToolFactory = new CompanyToolFactory();
     }
 
+
+
     //GetMapping: indicates it is a get request on the given url
     @GetMapping("")
     //Makes a list called List and gets all tools
@@ -91,4 +93,39 @@ public class ToolController {
         }
         return ResponseEntity.ok(toolService.saveTool(tool));
     }
+
+    // gets list of pending tools per department
+    // it is expected to pass the department of a user
+    @GetMapping("/pending/department/{department}")
+    public ResponseEntity<List<ToolDto>> getAllPendingToolsByUserDepartment(
+            @PathVariable String department
+    ){
+        List<ToolDto> list = toolService.findPendingToolByUserDepartment(department).stream()
+                .map(companyToolFactory::determineTool)
+                .toList();
+        return ResponseEntity.ok(list);
+    }
+
+    // delete a pending tool, in case it is declined
+    // it simply deletes a tool from the tool table
+    @DeleteMapping("/pending/{toolId}")
+    public ResponseEntity<Void> deletePendingTool(
+            @PathVariable int toolId) {
+        toolService.deleteTool(toolId);
+        // HTTP 204, no body. This is boilerplate for deletions
+        return ResponseEntity.noContent().build();
+    }
+
+    // approve a pending tool
+    // approving the pending tool simply reverts the pending attribute to false, making it an approved tool
+    @PutMapping("/pending/{toolId}")
+    public ResponseEntity<ToolDto> revertPendingAttribute(
+            @PathVariable int toolId
+    ){
+        ToolDto toolAsArgument = companyToolFactory.determineTool(toolService.revertStateOfPending(toolId));
+        return ResponseEntity.ok(toolAsArgument);
+    }
 }
+
+
+
