@@ -33,11 +33,9 @@ function starClicked(starBtn, star, toolId, employeeInitials) {
     });
 }
 
-export async function displayTools(data, list) {
+export async function displayTools(data, list, employeeInitials) {
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
-        let employee = await getCurrentEmployee();
-        let employeeInitials = employee.initials.toLowerCase();
 
         let url = tool.url.replace('$USER$', employeeInitials);
         const toolId = tool.id;

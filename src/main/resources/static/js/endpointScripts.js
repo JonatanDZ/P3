@@ -65,6 +65,9 @@ async function getToolsByDepartmentJurisdictionStage() {
 
 // functions which run when page loads
 window.addEventListener('DOMContentLoaded', () => {
+    //
+    // We should do our initial API fetches here, so we don't do them continuously in every function.
+    //
     getToolsDisplay();
     getDepartmentsDisplay();
     getToolsByDepartmentJurisdictionStage();
