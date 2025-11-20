@@ -53,7 +53,7 @@ async function reloadDropdown() {
     }
 
     // make dropdown Tools for the dropdown
-    createDropdownCards(pendingToolList);
+    await createDropdownCards(pendingToolList);
 }
 
 async function getDepartmentsPendingTools() {
@@ -92,7 +92,6 @@ async function createDropdownCards(pendingToolList) {
     // if the tool list length is above 0 we iterate through the list and make individual tool cards
     if (pendingToolList.length > 0) {
         pendingToolList.forEach(tool => {
-            console.log(tool.created_by, employeeInitials);
             if (tool.created_by !== employeeInitials) {
                 const card = createDropdownCard(tool);
                 containerDropdownId.appendChild(card);
