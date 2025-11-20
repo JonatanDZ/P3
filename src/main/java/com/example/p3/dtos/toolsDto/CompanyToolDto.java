@@ -17,6 +17,8 @@ public class CompanyToolDto implements ToolDto {
     private String name;
     private String url;
     private Boolean is_dynamic;
+    private Boolean is_pending; //currently has not use - should be added?
+
 
     private List<String> tags;
     private List<String> departments;
