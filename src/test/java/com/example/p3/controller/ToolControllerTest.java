@@ -1,4 +1,4 @@
-package com.example.p3;
+package com.example.p3.controller;
 
 import com.example.p3.controller.ToolController;
 import com.example.p3.entities.*;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 //Tests the controller not the service. 
 @WebMvcTest(ToolController.class)
-public class ToolControllerTests {
+public class ToolControllerTest {
 
     public Tool toolConstructor(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
         Tool tool = new Tool();

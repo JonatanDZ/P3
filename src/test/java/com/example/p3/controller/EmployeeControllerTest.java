@@ -1,7 +1,5 @@
-package com.example.p3;
-
+package com.example.p3.controller;
 import com.example.p3.entities.Tool;
-import com.example.p3.controller.EmployeeController;
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Employee;
 import com.example.p3.service.EmployeeService;
@@ -16,12 +14,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Set;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @WebMvcTest(EmployeeController.class)
 class EmployeeControllerTest {

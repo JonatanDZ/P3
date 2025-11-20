@@ -1,6 +1,5 @@
-package com.example.p3;
+package com.example.p3.controller;
 
-import com.example.p3.controller.TagController;
 import com.example.p3.entities.*;
 import com.example.p3.service.TagService;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +19,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TagController.class)
-public class TagControllerTests {
+public class TagControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
