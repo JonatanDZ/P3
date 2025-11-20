@@ -87,11 +87,13 @@ function bellNotifier(pendingToolListLength) {
 async function createDropdownCards(pendingToolList) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
     const currentEmployee = await getCurrentEmployee();
+    const employeeInitials = currentEmployee.initials;
 
     // if the tool list length is above 0 we iterate through the list and make individual tool cards
     if (pendingToolList.length > 0) {
         pendingToolList.forEach(tool => {
-            if (tool.createdBy != currentEmployee) {
+            console.log(tool.created_by, employeeInitials);
+            if (tool.created_by !== employeeInitials) {
                 const card = createDropdownCard(tool);
                 containerDropdownId.appendChild(card);
             }

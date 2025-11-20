@@ -32,6 +32,12 @@ public class Tool {
     @Column(name = "is_dynamic")
     private Boolean is_dynamic;
 
+    // ManyToOne since many tools can be created by the same employee
+    // the fetchtype is lazy which means it only gets the employee when explicitly asked
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", referencedColumnName = "initials")
+    private Employee created_by;
+
     // mappedBy is important here. It tells Hibernate that the User class owns this relationship. ????????????
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
