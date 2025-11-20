@@ -3,15 +3,12 @@ import {displayFavorites} from "./displayFavorites.js";
 import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
-function starClicked(starBtn, star, toolId) {
+function starClicked(starBtn, star, toolId, employeeInitials) {
     starBtn.appendChild(star);
 
     starBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         e.stopPropagation();
-
-        let employee = await getCurrentEmployee();
-        let employeeInitials = employee.initials;
 
         const wasFilled = star.textContent === '★';
         const nowFilled = !wasFilled;
@@ -36,9 +33,12 @@ function starClicked(starBtn, star, toolId) {
     });
 }
 
-export async function displayTools(data, list, employeeInitials) {
+export async function displayTools(data, list) {
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
+        let employee = await getCurrentEmployee();
+        let employeeInitials = employee.initials.toLowerCase();
+
         let url = tool.url.replace('$USER$', employeeInitials);
         const toolId = tool.id;
         const li = document.createElement('li');
@@ -66,7 +66,7 @@ export async function displayTools(data, list, employeeInitials) {
             star.textContent = '☆';
         }
 
-        starClicked(starBtn, star, toolId);
+        starClicked(starBtn, star, toolId, employeeInitials);
 
         header.appendChild(nameE);
         header.appendChild(starBtn);

@@ -17,7 +17,7 @@ export async function displayFavorites () {
     fetch(`/employee/${employeeInitials}/favorites?jurisdiction=${jurisdiction}&stage=${stage}`)
         .then(response => response.json())
         .then(data => {
-            displayTools(data, list, employeeInitials);
+            displayTools(data, list);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
