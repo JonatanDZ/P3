@@ -79,7 +79,7 @@ describe('submitForm', () => {
         expect(body.jurisdictions).toEqual(['DK']);
         expect(body.stages).toEqual(['STAGE1']);
     })
-//Test to see if the tags text is correctly "translated" to the JSON
+//Test to see if the tags text is correctly "translated" to the JSON - LAV NY TEST MED TAGS
     test('tags are trimmed and split correctly', () => {
         document.querySelector('#tags').value = '  tagA , tagB,tagC;..  ,  ';
         submitForm();

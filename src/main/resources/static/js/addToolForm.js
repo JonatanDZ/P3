@@ -90,10 +90,16 @@ window.allowedCards = [1,2,3,4,5,6];
 
 export function updateAllowedCards(){
     const isPersonal = document.querySelector("#isPersonal");
+    dynamicCheck = document.querySelector("#isDynamic");
 
     if (isPersonal.checked) {
+        dynamicCheck.checked = false;
+        dynamicCheck.disabled = true;
+        displayURLbar(document.querySelector("#isDynamic").checked);
         window.allowedCards = [1,2,4,6]
     } else {
+        dynamicCheck.checked = true;
+        dynamicCheck.disabled = false;
         window.allowedCards = [1,2,3,4,5,6];
     }
 }
