@@ -36,13 +36,14 @@ function starClicked(starBtn, star, toolId) {
     });
 }
 
-export async function displayTools(data, list) {
+export async function displayTools(data, list, employeeInitials) {
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
+        let url = tool.url.replace('$USER$', employeeInitials);
         const toolId = tool.id;
         const li = document.createElement('li');
         const a = document.createElement('a');
-        a.href = tool.url;
+        a.href = url;
         a.target = "_blank";
 
         const header = document.createElement('div');
@@ -72,7 +73,7 @@ export async function displayTools(data, list) {
 
         const urlE = document.createElement('div');
         urlE.className = 'tool-url';
-        urlE.textContent = tool.url;
+        urlE.textContent = url;
 
         a.appendChild(header);
         a.appendChild(urlE);

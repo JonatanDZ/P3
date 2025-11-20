@@ -1,9 +1,12 @@
 // getTools endpoint and display
 import {displayFavorites} from "./displayFavorites.js";
 import {displayTools} from "./displayTools.js";
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
 //Gets all tools and displays them individually
-export function getToolsDisplay () {
+export async function getToolsDisplay () {
+    let employee = await getCurrentEmployee();
+    let employeeInitials = employee.initials;
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');
@@ -11,7 +14,7 @@ export function getToolsDisplay () {
     fetch('/tools')
         .then(response => response.json())
         .then(data => {
-            displayTools(data, list);
+            displayTools(data, list, employeeInitials);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
@@ -44,7 +47,10 @@ function getDepartmentsDisplay(){
 }
 
 // getToolsByDepartmentJurisdictionStage endpoint and display
-function getToolsByDepartmentJurisdictionStage() {
+async function getToolsByDepartmentJurisdictionStage() {
+    let employee = await getCurrentEmployee();
+    let employeeInitials = employee.initials;
+
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById('departmentSelected');
@@ -57,7 +63,7 @@ function getToolsByDepartmentJurisdictionStage() {
     fetch(`/tools/department/${encodeURIComponent(department)}/jurisdiction/${encodeURIComponent(jurisdiction)}/stage/${encodeURIComponent(branch)}`)
         .then(response => response.json())
         .then(data => {
-            displayTools(data, list);
+            displayTools(data, list, employeeInitials);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
