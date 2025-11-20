@@ -41,9 +41,7 @@ public class Employee {
     )
     private Set<Tool> favoriteTools = new HashSet<>();
 
-    public Employee() {
-
-    }
+    public Employee(){}
 
     public void addFavorite(Tool tool) {
         favoriteTools.add(tool);

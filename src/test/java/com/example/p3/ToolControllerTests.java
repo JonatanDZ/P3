@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
-//Tests the controller not the service
+//Tests the controller not the service. 
 @WebMvcTest(ToolController.class)
 public class ToolControllerTests {
 
