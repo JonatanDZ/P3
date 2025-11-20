@@ -44,8 +44,12 @@ public class ToolService {
 
 /*    public List<ToolUrlName> searchToolByTag(String tag) {
         ///Return a JSON/array with arrays containing all tools with the tag (include) og give the url and name.
+<<<<<<< HEAD
         ///ændre under TagDto og få den til at hente url også. Lav et mini tool objekt (record).
         return toolRepository.findToolByTag(tag);
+=======
+        /// ændre under tgsDto og få den til at hente url også. Lav et mini tool objekt.
+>>>>>>> parent of 016dd1f (css stuff)
 
     }
 */
@@ -68,4 +72,9 @@ public List<Tool> findPendingToolByUserDepartment(String departmentName){
     }
 
 
+<<<<<<< HEAD
+=======
+    }
+*/
+>>>>>>> parent of 016dd1f (css stuff)
 }
