@@ -108,10 +108,18 @@ public class ToolController {
 
     // delete a pending tool, in case it is declined
     // it simply deletes a tool from the tool table
-    @DeleteMapping("/pending/{toolId}")
+    @DeleteMapping("/pending/{toolId}/{departmentList}/{employeeDepartment}")
     public ResponseEntity<Void> deletePendingTool(
-            @PathVariable int toolId) {
-        toolService.deleteTool(toolId);
+            @PathVariable int toolId,
+            @PathVariable String departmentList,
+            @PathVariable String employeeDepartment
+    ) {
+        if (departmentList.size() <= 1){
+            toolService.deleteTool(toolId);
+        } else {
+            toolService.deleteToolFromDepartment(toolId, employeeDepartment);
+        }
+
         // HTTP 204, no body. This is boilerplate for deletions
         return ResponseEntity.noContent().build();
     }

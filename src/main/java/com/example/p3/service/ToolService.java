@@ -50,6 +50,10 @@ public class ToolService {
         toolRepository.deleteById(toolId);
     }
 
+    public void deleteToolFromDepartment(int toolId, String employeeDepartment) {
+        toolRepository.deleteToolFromDepartment(toolId, employeeDepartment);
+    }
+
     // revert state of pending for a tool
     // this is what happens when a pending tool is approved. They already exist in the tool list.
     @Transactional

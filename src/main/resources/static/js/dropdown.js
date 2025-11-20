@@ -114,12 +114,14 @@ function createDropdownCard(pendingTool) {
     const approveBtn = document.createElement("button");
     approveBtn.id = pendingTool.id;
     approveBtn.dataset.tool = pendingTool.id;
+    approveBtn.dataset.toolDepartments = pendingTool.departments
     approveBtn.classList.add("aprbtn");
     approveBtn.textContent = "✅";
 
     const denyBtn = document.createElement("button");
     denyBtn.id = pendingTool.id;
     denyBtn.dataset.tool = pendingTool.id;
+    denyBtn.dataset.toolDepartments = pendingTool.departments
     denyBtn.classList.add("denybtn");
     denyBtn.textContent = "🚫";
 
@@ -171,8 +173,14 @@ document.addEventListener("click", async (event) => {
 
         const toolId = event.target.dataset.tool;
 
+        const departmentList = event.target.dataset.toolDepartments;
+
+        const employee = await getCurrentEmployee();
+        const employeeDepartment = employee.department_name;
+
+
         try {
-            const response = await fetch(`/tools/pending/${toolId}`, {
+            const response = await fetch(`/tools/pending/${toolId}/${departmentList}/${employeeDepartment}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
