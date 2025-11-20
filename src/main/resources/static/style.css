@@ -32,6 +32,9 @@ body {
 }
 
 nav {
+    display: flex;
+    justify-content: space-between; /* pushes left, center, right apart */
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -39,19 +42,29 @@ nav {
     background-color: var(--bg-nav);
     color: #FFFFE3;
     padding: 20px;
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
     user-select: none;
     z-index: 10000;
     box-sizing: border-box;
 }
 
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-center {
+    flex: 1;
+    text-align: center;
+}
+
 nav h1 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: static;
+    transform: none;
     margin: 0;
+    left: 50%;
     font-size: 24px;
     color: #F9FAFB;
     font-weight: bold;
