@@ -12,16 +12,18 @@ describe('submitForm', () => {
         document.body.innerHTML = `
         <div id="addToolDiv" style="display:none;"></div>
         <button class="toggleBtn"></button>
+        <input type="checkbox" id="isPersonal">
         <input id="toolName" value="Test Tool"/>
         <input id="toolURL1" value="http://example."/>
         <b id="toolUser">USER</b>
         <input id="toolURL2" value=".com"/>
-        <input id="tags" value="tag1, tag2"/>
+        <div class="tag-chip" data-tag="6" data-tag-name="Al-Qaeda"><span>Al-Qaeda</span><button type="button">x</button></div>
         <input type="checkbox" id="isDynamic"/>
-        <div id="departmentsInput"></div>
-        <input type="checkbox" class="departmentsChecks" value="DEPT1" checked>
-        <div id="stagesInput"></div>
-        <input type="checkbox" class="stagesChecks" value="STAGE1" checked>;
+        <div class="checkBoxDiv"><label>DevOps</label><input type="checkbox" id="DevOpsInput" value="1" class="departmentsChecks" checked></div>
+        <div class="checkBoxDiv">
+            <label for="stagingInput"> Staging </label>
+            <input id="stagingInput" class="stagesChecks" type="checkbox" value="2" name="Staging">
+        </div>
         <div id="jurisdictionsInput"></div>
         <input type="checkbox" class="jurisdictionsChecks" value="DK" checked>
         <input type="checkbox" class="jurisdictionsChecks" value="UK">
@@ -47,11 +49,11 @@ describe('submitForm', () => {
 
         expect(body.name).toBe('Test Tool');
         expect(body.url).toBe('http://example.');
-        expect(body.tags).toEqual(['tag1', 'tag2']);
-        expect(body.dynamic).toBe(false);
-        expect(body.departments).toEqual(['DEPT1']);
+        expect(body.tags).toEqual([{"id":"6"}]);
+        expect(body.is_dynamic).toBe(false);
+        expect(body.departments).toEqual([{"id":"1"}]);
         expect(body.jurisdictions).toEqual(['DK']);
-        expect(body.stages).toEqual(['STAGE1']);
+        expect(body.stages).toEqual([{"id":"2"}]);
     })
     test('submit form dynamic link', async () => {
 
@@ -60,6 +62,7 @@ describe('submitForm', () => {
             ok: true,
             json: async () => ({ success: true }),
         }
+        document.querySelector("#isPersonal").checked = false;
         document.querySelector("#isDynamic").checked = true;
 
         global.fetch.mockResolvedValue(mockResponse);
@@ -75,9 +78,9 @@ describe('submitForm', () => {
         expect(body.url).toBe('http://example.USER.com');
         expect(body.tags).toEqual(['tag1', 'tag2']);
         expect(body.dynamic).toBe(true);
-        expect(body.departments).toEqual(['DEPT1']);
+        expect(body.departments).toEqual(['DevOps']);
         expect(body.jurisdictions).toEqual(['DK']);
-        expect(body.stages).toEqual(['STAGE1']);
+        expect(body.stages).toEqual(['STAGE']);
     })
 //Test to see if the tags text is correctly "translated" to the JSON - LAV NY TEST MED TAGS
     test('tags are trimmed and split correctly', () => {
