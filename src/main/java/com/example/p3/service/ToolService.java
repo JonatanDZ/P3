@@ -71,10 +71,5 @@ public List<Tool> findPendingToolByUserDepartment(String departmentName){
         return toolRepository.findById(toolId).orElseThrow();
     }
 
-
-<<<<<<< HEAD
-=======
-    }
-*/
->>>>>>> parent of 016dd1f (css stuff)
 }
+
