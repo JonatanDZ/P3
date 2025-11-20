@@ -84,14 +84,17 @@ function bellNotifier(pendingToolListLength) {
     container.appendChild(notificationBadge);
 }
 
-function createDropdownCards(pendingToolList) {
+async function createDropdownCards(pendingToolList) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
+    const currentEmployee = await getCurrentEmployee();
 
     // if the tool list length is above 0 we iterate through the list and make individual tool cards
     if (pendingToolList.length > 0) {
-        pendingToolList.forEach(pendingToolList => {
-            const card = createDropdownCard(pendingToolList);
-            containerDropdownId.appendChild(card);
+        pendingToolList.forEach(tool => {
+            if (tool.createdBy != currentEmployee) {
+                const card = createDropdownCard(tool);
+                containerDropdownId.appendChild(card);
+            }
         });
         // Else we make a placeholder card with: "No actions needed".
     } else {
