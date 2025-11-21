@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -16,6 +16,7 @@ import java.util.Set;
 public class Tag {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 255)
@@ -23,10 +24,8 @@ public class Tag {
     @Column(name = "value", nullable = false)
     private String value;
 
-    @ManyToMany
-    @JoinTable(name = "tool_tag",
-            joinColumns = @JoinColumn(name = "tag_id"),
-            inverseJoinColumns = @JoinColumn(name = "tool_id"))
-    private Set<Tool> tools = new LinkedHashSet<>();
+
+    @ManyToMany(mappedBy = "tags")
+    private Set<Tool> tagTools = new HashSet<>();
 
 }

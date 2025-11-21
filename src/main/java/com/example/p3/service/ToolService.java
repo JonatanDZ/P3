@@ -37,7 +37,7 @@ public class ToolService {
     }
 
     public Tool saveTool(Tool tool) {
-        return toolRepository.saveAndFlush(tool);
+        return toolRepository.save(tool);
     }
 
     public List<Tool> findPendingToolByUserDepartment(String departmentName){
