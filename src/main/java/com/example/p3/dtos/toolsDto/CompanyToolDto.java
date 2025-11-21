@@ -23,8 +23,6 @@ public class CompanyToolDto implements ToolDto {
     private List<String> jurisdictions;
     private List<String> stage;
 
-    private Boolean pending;
-
     @Override
     public void prepare(Tool t){
         this.id = t.getId();
@@ -53,8 +51,6 @@ public class CompanyToolDto implements ToolDto {
         this.stage = t.getStages().stream()
                 .map(Stage::getName)
                 .collect(Collectors.toList());
-
-        this.pending = t.getPending();
 
     }
 }

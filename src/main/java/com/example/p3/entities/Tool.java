@@ -47,9 +47,6 @@ public class Tool {
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
 
-    @Column(name = "pending")
-    private Boolean pending;
-
 
     @ManyToMany
     @JoinTable(
