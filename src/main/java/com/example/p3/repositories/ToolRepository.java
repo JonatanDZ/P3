@@ -89,6 +89,9 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
             @Param("toolId") int toolId
     );
 
+    // returns all tools which have pending = false
+    List<Tool> findByPendingFalse();
+
     /*
     SELECT * FROM tool t
     JOIN tool_jurisdiction tj ON t.id = tj.tool_id

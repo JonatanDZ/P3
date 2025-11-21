@@ -1,4 +1,5 @@
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {getToolsDisplay} from "./endpointScripts.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const dropdownBtn = document.querySelector(".dropdownbtn");
@@ -172,6 +173,9 @@ document.addEventListener("click", async (event) => {
             await reloadDropdown();
             console.log("Refreshed after approved tool");
 
+            // refreshing the all tools list, since it has a new tool.
+            getToolsDisplay();
+            console.log("Refreshed all tools after approval in pending");
             return await response.json();
         } catch (error) {
             console.error('Error updating tool:', error);
