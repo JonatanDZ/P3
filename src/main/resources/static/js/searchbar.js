@@ -1,9 +1,14 @@
+//HAVE USED W3SCHOOLS EXAMPLE FOR THIS:
+//https://www.w3schools.com/howto/howto_js_autocomplete.asp
+
+
 let toolsArr = ["tool1","tool2","tool3"];
-let tagsArr =["tag1","tag2","tag3","Atag", "Btag"];
+//let tagsArr =["tag1","tag2","tag3","Atag", "Btag"];
 function searchbar(inp, arr) {
     var currentFocus;
     inp.addEventListener("input", function(e) {
-        var a, b, u, i, val = this.value;
+        var a, b, u, i;
+        var val = this.value; //Input from searchbar
         closeAllLists();
         if (!val) { return false;}
         currentFocus = -1;
@@ -27,7 +32,7 @@ function searchbar(inp, arr) {
 */
                  //append tools, to the tag, so all tools will be appended to each tag (Should be conditioned to only suitible tools by tags)
                  b.appendChild(heading);
-                 for(let l = 0; l<toolsArr.length;l++) {
+                 for(let l = 0; l<toolsArr.length;l++) { //toolsArr should be tools from tags
                     u = document.createElement("DIV");
                     u.setAttribute("class", "searchbar-subheading");
                     var subheading = document.createElement('p')
@@ -106,6 +111,7 @@ async function loadTags() {
     try{
         const response = await fetch('/tags');
         const tags = await response.json();
+        console.log("tags:", tags);
 
 /*        //bruges kun til at finde ud af ting men skal slettes senere
         console.log("tags:", tags);
