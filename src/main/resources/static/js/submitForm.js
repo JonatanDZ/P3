@@ -1,17 +1,44 @@
-import {MakeToolJSON} from "./fetchTool.js";
+import {poster} from "./fetchTool.js";
+import {addTagChip} from "./loadOptions.js";
 
+
+export async function submitTag(){
+    try {
+        let input = document.querySelector("#tags");
+        let tag = {value: input.value};
+
+
+        tag = await poster("tags", JSON.stringify(tag));
+
+        console.log(tag);
+        addTagChip(tag);
+        input.value = "";
+        input.focus();
+    } catch (error) {
+        console.error('Error in submitTag:', error);
+    }
+
+}
 
 export async function submitForm() {
+    try {
+        const jsonData = await formToJSON();
 
-    const jsonData = await formToJSON();
+        console.log(jsonData);
 
-    await MakeToolJSON(jsonData);
+        await poster("tools" , jsonData);
+
+    } catch (error) {
+        console.log("Error in submitForm:",error);
+    }
 
 
     //Makes sure tool can be loaded to database before displaying
     setTimeout(() => {
         window.location.reload();
     }, 100);
+
+
 
 }
 
@@ -21,18 +48,15 @@ export async function formToJSON(){
     const name = document.querySelector("#toolName").value;
     const isDynamic = document.querySelector('#isDynamic').checked;
     const url = getURLValue(isDynamic);
-/* //FOR ITERATION 3 - DO NOT REMOVE
-    const tags = document.querySelector("#tags").value.split(",")
-        .map(tag => tag.trim())
-        .filter(tag => tag !== "")
-        .map(tag => ({value: tag.value}));
-
- */
+    //We have to use "dataset.tag" because a div doesn't have the attribute value
+    const tags = Array.from(document.querySelectorAll(".tag-chip")).map(tag => ({id : tag.dataset.tag}));
     const stages = Array.from(document.querySelectorAll('.stagesChecks:checked')).map(cb => ({ id: cb.value }));
     const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => ({id: cb.value}));
     const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => ({id: cb.value}));
+    // added to the pending tool list
+    const pending = true;
 
-    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions});//, tag});
+    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending});
 
 }
 

@@ -3,6 +3,7 @@ package com.example.p3.entities;
 import jakarta.persistence.*; //Enables hibernate
 import jakarta.validation.constraints.Size; //This allows us to set size limitations to our attributes
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
@@ -26,17 +27,25 @@ public class Tool {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "pending")
+    private Boolean pending;
+
     @Column(name = "is_personal")
     private Boolean is_personal;
 
     @Column(name = "is_dynamic")
     private Boolean is_dynamic;
 
+    // ManyToOne since many tools can be created by the same employee
+    // the fetchtype is lazy which means it only gets the employee when explicitly asked
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", referencedColumnName = "initials")
+    private Employee created_by;
+
     // mappedBy is important here. It tells Hibernate that the User class owns this relationship. ????????????
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
-
 
 
     @ManyToMany
@@ -72,7 +81,7 @@ public class Tool {
     )
     private Set<Tag> tags = new HashSet<>();
 
-    public Tool(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
+    public Tool(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags, Boolean pending) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -82,6 +91,7 @@ public class Tool {
         this.jurisdictions = jurisdictions;
         this.stages = stages;
         this.tags = tags;
+        this.pending = pending;
     }
 
     public Tool() {}
