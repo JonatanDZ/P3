@@ -436,10 +436,15 @@ input[type="checkbox"] {
     width: 100%;
     border: 0.1rem solid #ccc;
     border-radius: 40px;
-    padding: 1% 2%;
+    padding: 3%;
+    align-items: center;
     outline: none;
     box-sizing: border-box;
     font-size: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;        /* number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .tags .tag:not(:last-child)::after {
