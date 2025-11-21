@@ -38,6 +38,8 @@ public class Tool {
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
 
+    @Column(name = "pending")
+    private Boolean pending;
 
 
     @ManyToMany
@@ -73,7 +75,7 @@ public class Tool {
     )
     private Set<Tag> tags = new HashSet<>();
 
-    public Tool(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
+    public Tool(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags, Boolean pending) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -83,6 +85,7 @@ public class Tool {
         this.jurisdictions = jurisdictions;
         this.stages = stages;
         this.tags = tags;
+        this.pending = pending;
     }
 
     public Tool() {}
