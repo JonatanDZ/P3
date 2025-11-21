@@ -2,9 +2,10 @@
 import {displayFavorites} from "./displayFavorites.js";
 import {displayTools} from "./displayTools.js";
 import {toggleDepartment} from "./toggleDepartment.js";
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
 //Gets all tools and displays them individually
-export function getToolsDisplay () {
+export async function getToolsDisplay () {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');
@@ -46,7 +47,7 @@ function getDepartmentsDisplay(){
 }
 
 // getToolsByDepartmentJurisdictionStage endpoint and display
-export function getToolsByDepartmentJurisdictionStage() {
+async function getToolsByDepartmentJurisdictionStage() {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById('departmentSelected');
@@ -66,6 +67,10 @@ export function getToolsByDepartmentJurisdictionStage() {
 
 // functions which run when page loads
 window.addEventListener('DOMContentLoaded', async () => {
+
+    //
+    // We should do our initial API fetches here, so we don't do them continuously in every function.
+    //
     getToolsDisplay();
     await getDepartmentsDisplay();
     await toggleDepartment();
