@@ -21,6 +21,10 @@ public class ToolService {
         return toolRepository.findAll();
     }
 
+    public List<Tool> getAllToolsExcludingPending() {
+        return toolRepository.findByPendingFalse();
+    }
+
     //Filters the tools so only tool with the department from the URL is returned
     public List<Tool> getAllToolsByDepartmentName(String departmentName) {
       return toolRepository.findByDepartments_Name(departmentName);

@@ -1,4 +1,5 @@
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {getToolsDisplay} from "./endpointScripts.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const dropdownBtn = document.querySelector(".dropdownbtn");
@@ -47,13 +48,25 @@ async function reloadDropdown() {
     containerDropdownId.replaceChildren();
 
     // Calls the bell notifier that adds a notification badge if the pending tool list is above 0.
+
+    const currentEmployee = await getCurrentEmployee();
+    const employeeInitials = currentEmployee.initials;
+    let listLengthNotCreatedBy = 0;
     if (pendingToolList.length > 0) {
+        pendingToolList.forEach(tool => {
+            if (tool.created_by !== employeeInitials) {
+                listLengthNotCreatedBy++;
+            }
+        });
+    }
+
+    if (listLengthNotCreatedBy > 0) {
         // notify bell
-        bellNotifier(pendingToolList.length);
+        bellNotifier(listLengthNotCreatedBy);
     }
 
     // make dropdown Tools for the dropdown
-    createDropdownCards(pendingToolList);
+    await createDropdownCards(pendingToolList, listLengthNotCreatedBy);
 }
 
 async function getDepartmentsPendingTools() {
@@ -84,14 +97,18 @@ function bellNotifier(pendingToolListLength) {
     container.appendChild(notificationBadge);
 }
 
-function createDropdownCards(pendingToolList) {
+async function createDropdownCards(pendingToolList, counter) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
+    const currentEmployee = await getCurrentEmployee();
+    const employeeInitials = currentEmployee.initials;
 
     // if the tool list length is above 0 we iterate through the list and make individual tool cards
-    if (pendingToolList.length > 0) {
-        pendingToolList.forEach(pendingToolList => {
-            const card = createDropdownCard(pendingToolList);
-            containerDropdownId.appendChild(card);
+    if (counter) {
+        pendingToolList.forEach(tool => {
+            if (tool.created_by !== employeeInitials) {
+                const card = createDropdownCard(tool);
+                containerDropdownId.appendChild(card);
+            }
         });
         // Else we make a placeholder card with: "No actions needed".
     } else {
@@ -156,6 +173,9 @@ document.addEventListener("click", async (event) => {
             await reloadDropdown();
             console.log("Refreshed after approved tool");
 
+            // refreshing the all tools list, since it has a new tool.
+            getToolsDisplay();
+            console.log("Refreshed all tools after approval in pending");
             return await response.json();
         } catch (error) {
             console.error('Error updating tool:', error);

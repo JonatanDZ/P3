@@ -1,37 +1,46 @@
+import {updateAllowedCards} from "./addToolForm.js"
+
 //Toggles if the formular is open or not
 export function toggleForm(formIsShown){
     if (formIsShown){
-        addToolDiv.style.display = "none";
+        window.addToolDiv.style.display = "none";
         formIsShown = false;
     } else{
-        addToolDiv.style.display = "block";
+        window.addToolDiv.style.display = "block";
         formIsShown = true;
     }
     return formIsShown
 }
 
 export function toggleCards(i, currentCard){
+    updateAllowedCards();
+
+    const allowed = window.allowedCards;
+    const index = allowed.indexOf(currentCard);
+    const nextIndex = index + parseInt(i);
+
     //We do this so that you can frontwards again even after you have been at the end
-    document.querySelector("#prev").disabled = false;
-    document.querySelector("#next").disabled = false;
+    document.querySelector("#prev").disabled = nextIndex <= 0;
+    document.querySelector("#next").disabled = nextIndex >= allowedCards.length - 1;
 
 
-    const cardValue = parseInt(currentCard) + parseInt(i)
+    /*const cardValue = parseInt(currentCard) + parseInt(i)
     if (cardValue <= 1) {
         document.querySelector("#prev").disabled = true;
 
     } else if(cardValue >= 6) {
         document.querySelector("#next").disabled = true;
-    }
+    }*/
 
     document.querySelectorAll(".formCards").forEach( card => {
         card.style.display = "none";
     });
-    
-    document.querySelector(`#formCard${cardValue}`).style.display = "block";
+
+    const newCard = allowedCards[nextIndex];
+    document.querySelector(`#formCard${newCard}`).style.display = "block";
 
 
-    return cardValue;
+    return newCard;
 }
 
 //Changes the url bar to be dynamic or not
@@ -62,26 +71,29 @@ export function displayReview(){
         toolURL = document.querySelector("#toolURL1").value;
     }
     let jurisdictionString = "";
-    let stagesString = "";
+    let stageString = "";
     let departmentString = "";
-    let tags = "";
+    let tagString = "";
 
     document.querySelectorAll('.jurisdictionsChecks:checked').forEach(cb => {
         jurisdictionString += cb.textContent + ", ";
     });
+    jurisdictionString = jurisdictionString.slice(0, -2);
 
     document.querySelectorAll('.stagesChecks:checked').forEach(cb => {
-        stagesString += cb.name + ", ";
+        stageString += cb.name + ", ";
     });
-
+    stageString = stageString.slice(0, -2);
 
     document.querySelectorAll('.departmentsChecks:checked').forEach(cb => {
         departmentString += cb.textContent + ", ";
     });
+    departmentString = departmentString.slice(0, -2);
 
-    document.querySelectorAll('.tag-chip').forEach(cb => {
-        tags += cb.textContent + ", ";
+    document.querySelectorAll('.tag-chip').forEach(tag => {
+        tagString += tag.dataset.tagName + ", ";
     });
+    tagString = tagString.slice(0, -2);
 
     const para = document.querySelector("#toolToPost");
     para.innerHTML = `
@@ -89,9 +101,9 @@ export function displayReview(){
         <h3>${toolName}</h3>
         <p><strong>Departments:</strong> ${departmentString}</p>
         <p><strong>Jurisdictions:</strong> ${jurisdictionString}</p>
-        <p><strong>Stages:</strong> ${stagesString}</p>
+        <p><strong>Stages:</strong> ${stageString}</p>
         <p><strong>URL:</strong> <a href="${toolURL}" target="_blank">${toolURL}</a></p>
-        <p><strong>Tags: </strong> ${tags}</p>
+        <p><strong>Tags: </strong> ${tagString}</p>
     </div>
     `;
 }

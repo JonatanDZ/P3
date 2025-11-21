@@ -37,11 +37,7 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     // it gets the favorites based on user, current jurisdiction and current stage
     @Query(value = """
     SELECT DISTINCT 
-    tool.id,
-    tool.name,
-    tool.url,
-    tool.is_personal,
-    tool.is_dynamic
+        tool.*
     FROM favorite_tool
     JOIN tool
       ON favorite_tool.tool_id = tool.id
@@ -56,7 +52,7 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
    WHERE favorite_tool.employee_initials = :employeeInitials
      AND jurisdiction.name = :jurisdictionName
      AND stage.name = :stageName;
-""", nativeQuery = true)
+    """, nativeQuery = true)
     List<Tool> findFavoritesByEmployeeAndJurisdictionAndStage(
             @Param("employeeInitials") String employeeInitials,
             @Param("jurisdictionName") String jurisdictionName,
@@ -92,6 +88,9 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
             @Param("employeeInitials") String employeeInitials,
             @Param("toolId") int toolId
     );
+
+    // returns all tools which have pending = false
+    List<Tool> findByPendingFalse();
 
     //Returns only name and url from a tool (for search by tag)
     @Modifying

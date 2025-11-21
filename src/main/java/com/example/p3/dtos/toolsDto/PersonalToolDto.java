@@ -16,12 +16,14 @@ public class PersonalToolDto implements  ToolDto {
     private String url;
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
+    private  Boolean pending;
 
     @Override
     public void prepare(Tool t){
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
+        this.pending = t.getPending();
 
         this.jurisdictions = new ArrayList<>();
         String jurisdictionName;

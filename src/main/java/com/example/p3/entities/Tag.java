@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -26,6 +26,6 @@ public class Tag {
 
 
     @ManyToMany(mappedBy = "tags")
-    private Set<Tool> tagTools = new LinkedHashSet<>();
+    private Set<Tool> tagTools = new HashSet<>();
 
 }
