@@ -39,6 +39,8 @@ function starClicked(starBtn, star, toolId) {
 export async function displayTools(data, list) {
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
+        console.log('Tool:', tool.name, 'tags:', tool.tags);
+
         const toolId = tool.id;
         const li = document.createElement('li');
         const a = document.createElement('a');
@@ -64,17 +66,32 @@ export async function displayTools(data, list) {
         } else{
             star.textContent = '☆';
         }
-
+        starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);
 
         header.appendChild(nameE);
         header.appendChild(starBtn);
+
+
+
+        const tags = document.createElement('div');
+        tags.className = 'tags';
+        tags.textContent = "Tags: "
+        if(Array.isArray(tool.tags)) {
+            for (const tagValue of tool.tags) {
+                const tag = document.createElement('span')
+                tag.className = 'tag';
+                tag.textContent = tagValue;
+                tags.appendChild(tag);
+            }
+        }
 
         const urlE = document.createElement('div');
         urlE.className = 'tool-url';
         urlE.textContent = tool.url;
 
         a.appendChild(header);
+        a.appendChild(tags);
         a.appendChild(urlE);
 
         li.appendChild(a);
