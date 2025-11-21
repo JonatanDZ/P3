@@ -27,6 +27,9 @@ public class Tool {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "pending")
+    private Boolean pending;
+
     @Column(name = "is_personal")
     private Boolean is_personal;
 
