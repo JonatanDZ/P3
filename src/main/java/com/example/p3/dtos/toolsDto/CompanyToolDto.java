@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 @Getter
 public class CompanyToolDto implements ToolDto {
-
     private Integer id;
     private String name;
     private String url;
     private Boolean is_dynamic;
     private Boolean is_personal;
-
+    private String created_by;
+    private Boolean pending;
     private List<String> tags;
     private List<String> departments;
     private List<String> jurisdictions;
@@ -29,6 +29,7 @@ public class CompanyToolDto implements ToolDto {
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
+        this.pending = t.getPending();
         this.tags = t.getTags().stream()
                 .map(Tag::getValue)
                 .collect(Collectors.toList());
@@ -36,6 +37,11 @@ public class CompanyToolDto implements ToolDto {
         this.is_dynamic = t.getIs_dynamic();
 
         this.is_personal = t.getIs_personal(); //This is always false
+
+        // gets an employee object, then we use the getter from Employee
+        // this checks if the employee object got is null, if true the row should be null, else it should get the initials
+        // if this is not present it will create issues in displaying tools and destroy the UI !!!
+        this.created_by = t.getCreated_by() == null ? null : t.getCreated_by().getInitials();
 
         this.departments = t.getDepartments().stream()
                 .map(Department::getName)
@@ -48,6 +54,5 @@ public class CompanyToolDto implements ToolDto {
         this.stage = t.getStages().stream()
                 .map(Stage::getName)
                 .collect(Collectors.toList());
-
     }
 }

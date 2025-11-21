@@ -17,12 +17,14 @@ public class PersonalToolDto implements  ToolDto {
     private Boolean is_personal;
     private ArrayList<String> jurisdictions;
     private ArrayList<String> stage;
+    private  Boolean pending;
 
     @Override
     public void prepare(Tool t){
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
+        this.pending = t.getPending();
 
         this.is_personal = t.getIs_personal(); //This is always true
 

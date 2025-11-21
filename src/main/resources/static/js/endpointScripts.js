@@ -1,23 +1,25 @@
 // getTools endpoint and display
 import {displayFavorites} from "./displayFavorites.js";
 import {displayTools} from "./displayTools.js";
+import {toggleDepartment} from "./toggleDepartment.js";
 
 //Gets all tools and displays them individually
 export function getToolsDisplay () {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');
+    // clearing before displaying tools in order to avoid appending tools
     list.innerHTML = "";
     fetch('/tools')
         .then(response => response.json())
-        .then(data => {
-            displayTools(data, list);
+        .then(tool => {
+                displayTools(tool, list);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
 
 function getDepartmentsDisplay(){
-    fetch("/departments")
+    return fetch("/departments")
         .then(response=>response.json())
         .then(data => {
             let departmentSelector = document.querySelector(".departmentSelector");
@@ -44,7 +46,7 @@ function getDepartmentsDisplay(){
 }
 
 // getToolsByDepartmentJurisdictionStage endpoint and display
-function getToolsByDepartmentJurisdictionStage() {
+export function getToolsByDepartmentJurisdictionStage() {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById('departmentSelected');
@@ -63,10 +65,12 @@ function getToolsByDepartmentJurisdictionStage() {
 }
 
 // functions which run when page loads
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
     getToolsDisplay();
-    getDepartmentsDisplay();
-    getToolsByDepartmentJurisdictionStage();
+    await getDepartmentsDisplay();
+    await toggleDepartment();
+    // redundant since it gets called inside the method above
+    // getToolsByDepartmentJurisdictionStage();
     displayFavorites();// initial render
 
     // Unified change handler — since display functions reset themselves,

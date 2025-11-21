@@ -41,7 +41,13 @@ public class Employee {
     )
     private Set<Tool> favoriteTools = new HashSet<>();
 
+
     public Employee(){}
+
+    // inverse relationship to foreign key in tool
+    @OneToMany(mappedBy = "created_by")
+    private Set<Tool> createdTools = new HashSet<>();
+
 
     public void addFavorite(Tool tool) {
         favoriteTools.add(tool);

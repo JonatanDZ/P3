@@ -4,6 +4,7 @@ import com.example.p3.entities.*;
 import com.example.p3.repositories.ToolRepository;
 
 //Generates constructor for every field in a class automatically
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ public class ToolService {
 
     public List<Tool> getAllTools() {
         return toolRepository.findAll();
+    }
+
+    public List<Tool> getAllToolsExcludingPending() {
+        return toolRepository.findByPendingFalse();
     }
 
     //Filters the tools so only tool with the department from the URL is returned
@@ -39,5 +44,22 @@ public class ToolService {
         return toolRepository.save(tool);
     }
 
+    public List<Tool> findPendingToolByUserDepartment(String departmentName){
+        return toolRepository.findPendingToolByUserDepartment(departmentName);
+    }
+
+    // delete Pending Tool
+    @Transactional
+    public void deleteTool(int toolId) {
+        toolRepository.deleteById(toolId);
+    }
+
+    // revert state of pending for a tool
+    // this is what happens when a pending tool is approved. They already exist in the tool list.
+    @Transactional
+    public Tool revertStateOfPending(int toolId) {
+        toolRepository.revertStateOfPending(toolId);
+        return toolRepository.findById(toolId).orElseThrow();
+    }
 
 }
