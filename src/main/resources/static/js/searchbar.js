@@ -1,5 +1,5 @@
-var tools = ["tool1","tool2","tool3", "Atool", "Btool","Ctool"];
-
+let toolsArr = ["tool1","tool2","tool3"];
+let tagsArr =["tag1","tag2","tag3","Atag", "Btag"];
 function searchbar(inp, arr) {
     var currentFocus;
     inp.addEventListener("input", function(e) {
@@ -11,36 +11,45 @@ function searchbar(inp, arr) {
         a.setAttribute("id", this.id + "searchbar-list");
         a.setAttribute("class", "searchbar-items");
         this.parentNode.appendChild(a);
+        //Checkes all element in the array if they match the searched input
         for (i = 0; i < arr.length; i++) {
-            if (arr[i].substring(0, val.length).toUpperCase() === val.toUpperCase()) {
-                b = document.createElement("DIV");
-                b.setAttribute("class", "searchbar-heading");
-                var heading = document.createElement('b')
-                heading.appendChild(document.createTextNode(arr[i].substring(0, val.length)+arr[i].substring(val.length)))
+            //Checks to see if the input is included in any of the elements in the array 'tags'
+             if (arr[i].value.toUpperCase().includes(val.toUpperCase())){
+                 b = document.createElement("DIV");
+                 b.setAttribute("class", "searchbar-heading");
+                 var heading = document.createElement('b')
+                 heading.appendChild(document.createTextNode(arr[i].value.substring(0, val.length)+arr[i].value.substring(val.length)))
 
-                b.appendChild(heading);
-                for(let l = 0; l<arr.length;l++) {
+/*                 if(!Array.isArray(arr.tools)){
+                     console.warn("Tag has no tools:", arr);
+                     return;
+                 }
+*/
+                 //append tools, to the tag, so all tools will be appended to each tag (Should be conditioned to only suitible tools by tags)
+                 b.appendChild(heading);
+                 for(let l = 0; l<toolsArr.length;l++) {
                     u = document.createElement("DIV");
                     u.setAttribute("class", "searchbar-subheading");
                     var subheading = document.createElement('p')
 
-                    subheading.appendChild(document.createTextNode(arr[l]));
 
+                    subheading.appendChild(document.createTextNode(toolsArr[l], " - ", toolsArr[l]));
                     u.appendChild(subheading)
                     var input = document.createElement('input')
-
                     input.setAttribute("type","hidden");
                     input.setAttribute("value", arr[l])
                     u.appendChild(input)
                     u.addEventListener("click", function(e) {
-                        inp.value = this.getElementsByTagName("input")[0].value;
-                        closeAllLists();
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
                     });
                     b.appendChild(u)
+
                 }
 
 
-                /*b.innerHTML = "<strong>" + arr[i].substring(0, val.length) + "</strong>";
+                /* OBS der er ændre ifht. array navn AKA tag stilling til om det er tool el. tag
+                b.innerHTML = "<strong>" + arr[i].substring(0, val.length) + "</strong>";
                 b.innerHTML += arr[i].substring(val.length);
                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";*/
 
@@ -86,10 +95,48 @@ function searchbar(inp, arr) {
             }
         }
     }
+
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
 
 
 }
-searchbar(document.getElementById("myInput"),tools)
+async function loadTags() {
+    try{
+        const response = await fetch('/tags');
+        const tags = await response.json();
+
+/*        //bruges kun til at finde ud af ting men skal slettes senere
+        console.log("tags:", tags);
+        let i;
+        let tagArr = [];
+        tags.forEach(tag => {
+            console.log("Tag:", tag.value);
+
+            if(!Array.isArray(tag.tools)){
+                console.warn("Tag has no tools:", tag);
+                return;
+            }
+            tag.tools.forEach(tool => {
+                console.log("          Tool: ", tool.name, tool.url);
+            })
+        });
+
+
+
+        for (i = 0; i < tags.length; i++){
+            tagArr.push(tags[i]);
+        }
+        console.log("tagToolArr: ", tagArr)
+*/
+
+        searchbar(document.getElementById("myInput"), tags)
+
+    } catch (err){
+        console.error("failed to load tags:", err);
+    }
+}
+loadTags();
+
+//searchbar(document.getElementById("myInput"),loadTags, tools)
