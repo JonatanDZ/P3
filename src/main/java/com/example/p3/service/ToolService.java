@@ -42,12 +42,12 @@ public class ToolService {
         return toolRepository.save(tool);
     }
 
-/*    public List<ToolUrlName> searchToolByTag(String tag) {
-        ///Return a JSON/array with arrays containing all tools with the tag (include) og give the url and name.
-        ///ændre under TagDto og få den til at hente url også. Lav et mini tool objekt (record).
-        return toolRepository.findToolByTag(tag);
-    }
-*/
+//    public List<ToolUrlName> getAllToolUrlName(String tag) {
+//        ///Return a JSON/array with arrays containing all tools with the tag (include) og give the url and name.
+//        ///ændre under TagDto og få den til at hente url også. Lav et mini tool objekt (record).
+//        return toolRepository.findToolByTag(tag);
+//    }
+
 public List<Tool> findPendingToolByUserDepartment(String departmentName){
     return toolRepository.findPendingToolByUserDepartment(departmentName);
 }
