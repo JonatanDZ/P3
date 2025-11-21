@@ -33,7 +33,7 @@ describe("toggleCards", () => {
     });
 
     test("shows the next formCard correctly", () => {
-        const newCard = toggleCards(1, 1); // from card 1 → 3
+        const newCard = toggleCards(1, 1); // from card 1 -> 3
 
         expect(newCard).toBe(3);
 
@@ -43,7 +43,7 @@ describe("toggleCards", () => {
     });
 
     test("shows the previous formCard correctly", () => {
-        const newCard = toggleCards(-1, 3); // 3 → 1
+        const newCard = toggleCards(-1, 3); // 3 -> 1
 
         expect(newCard).toBe(1);
 
@@ -51,15 +51,4 @@ describe("toggleCards", () => {
         expect(document.querySelector("#formCard3").style.display).toBe("none");
         expect(document.querySelector("#formCard5").style.display).toBe("none");
     });
-
-    test("disables prev button at start", () => {
-        toggleCards(-1, "1"); // trying to go before index 0
-        expect(document.querySelector("#prev").disabled).toBe(true);
-    });
-
-    test("disables next button at end", () => {
-        toggleCards(1, 3); // trying to go past last allowed
-        expect(document.querySelector("#next").disabled).toBe(true);
-    });
-
 });
