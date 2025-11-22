@@ -3,9 +3,10 @@ import {displayFavorites} from "./displayFavorites.js";
 import {displayTools} from "./displayTools.js";
 import {toggleDepartment} from "./toggleDepartment.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {displayUserJurisdictionNav} from "./userJurisdictionNav.js";
 
 //Gets all tools and displays them individually
-export async function getToolsDisplay () {
+export async function getToolsDisplay(employee) {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');
@@ -14,7 +15,8 @@ export async function getToolsDisplay () {
     fetch('/tools')
         .then(response => response.json())
         .then(tool => {
-                displayTools(tool, list);
+                console.log(employee);
+                displayTools(tool, list, employee);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
@@ -47,20 +49,16 @@ function getDepartmentsDisplay(){
 }
 
 // getToolsByDepartmentJurisdictionStage endpoint and display
-async function getToolsByDepartmentJurisdictionStage() {
+export async function getToolsByDepartmentJurisdictionStage(department, jurisdiction, branch, employee) {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById('departmentSelected');
     list.innerText = "";
     // mock department, should be based on the user logged in
-    let department = getDepartment()//"DEVOPS";
-    let jurisdiction = getJurisdiction();
-    let branch = getStage();
-
     fetch(`/tools/department/${encodeURIComponent(department)}/jurisdiction/${encodeURIComponent(jurisdiction)}/stage/${encodeURIComponent(branch)}`)
         .then(response => response.json())
         .then(data => {
-            displayTools(data, list);
+            displayTools(data, list, employee);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
@@ -68,28 +66,37 @@ async function getToolsByDepartmentJurisdictionStage() {
 // functions which run when page loads
 window.addEventListener('DOMContentLoaded', async () => {
 
-    //
-    // We should do our initial API fetches here, so we don't do them continuously in every function.
-    //
-    getToolsDisplay();
+    const employee = await getCurrentEmployee();
+    let department = await getDepartment()//"DEVOPS";
+    let jurisdiction = await getJurisdiction();
+    let branch = await getStage();
+    const allDepartments = await 
+
+
+
+    getToolsDisplay(employee);
     await getDepartmentsDisplay();
-    await toggleDepartment();
+    await toggleDepartment(employee);
+    displayUserJurisdictionNav(employee, jurisdiction);
     // redundant since it gets called inside the method above
     // getToolsByDepartmentJurisdictionStage();
-    displayFavorites();// initial render
+    displayFavorites(employee);// initial render
+    getToolsByDepartmentJurisdictionStage(department, jurisdiction, branch, employee);
+
 
     // Unified change handler — since display functions reset themselves,
     // we only need to re-run them when filters change.
     const onFiltersChange = () => {
-        getToolsByDepartmentJurisdictionStage();
-        displayFavorites();
+        getToolsByDepartmentJurisdictionStage(department, jurisdiction, branch, employee);
+        displayFavorites(employee);
     };
 
     // Branch (stage) radio group
     const branchContainer = document.querySelector('.branchSelector');
     if (branchContainer) {
-        branchContainer.addEventListener('change', (e) => {
+        branchContainer.addEventListener('change', async (e) => {
             if (e.target && e.target.matches('input[name="branch"]')) {
+                branch = await getStage(); //Get the new  value
                 onFiltersChange();
             }
         });
@@ -98,8 +105,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     // Department radio group
     const departmentContainer = document.querySelector('.departmentSelector');
     if (departmentContainer) {
-        departmentContainer.addEventListener('change', (e) => {
+        departmentContainer.addEventListener('change', async (e) => {
             if (e.target && e.target.matches('input[name="department"]')) {
+                department = await getDepartment(); //Get updated department
                 onFiltersChange();
             }
         });
@@ -108,7 +116,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     // Jurisdiction checkbox
     const jurEl = document.getElementById('jurisdiction');
     if (jurEl) {
-        jurEl.addEventListener('change', onFiltersChange);
+        jurEl.addEventListener('change', async (e) => {
+            jurisdiction = await getJurisdiction(); // Get updated jurisdiction
+            onFiltersChange();
+        });
     }
 });
 

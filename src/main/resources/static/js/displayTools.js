@@ -33,11 +33,11 @@ function starClicked(starBtn, star, toolId, employeeInitials) {
     });
 }
 
-export async function displayTools(data, list, employeeInitials) {
+export async function displayTools(data, list, employee) {
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
 
-        let url = tool.url.replace('$USER$', employeeInitials);
+        let url = tool.url.replace('$USER$', employee.initials);
         const toolId = tool.id;
         const li = document.createElement('li');
         const a = document.createElement('a');
@@ -64,7 +64,8 @@ export async function displayTools(data, list, employeeInitials) {
             star.textContent = '☆';
         }
 
-        starClicked(starBtn, star, toolId, employeeInitials);
+
+        starClicked(starBtn, star, toolId, employee.initials);
 
         header.appendChild(nameE);
         header.appendChild(starBtn);
