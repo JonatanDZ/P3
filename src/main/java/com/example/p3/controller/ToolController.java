@@ -37,7 +37,7 @@ public class ToolController {
     //Makes a list called List and gets all tools
     public ResponseEntity<List<ToolDto>> getAllTools(){
         //Stream makes the data into a modifiable "type"  which allows for operations like map to be performed
-        List<ToolDto> list = toolService.getAllTools().stream()
+        List<ToolDto> list = toolService.getAllToolsExcludingPending().stream()
                 //Map make a new array,
                 //the function in map: For each tool in toolService it calls "new toolDto"
                 .map(t->t.getIs_personal().equals(true)? personalToolFactory.determineTool(t) : companyToolFactory.determineTool(t))
