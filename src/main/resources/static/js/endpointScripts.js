@@ -21,7 +21,7 @@ export async function getToolsDisplay(employee) {
         .catch(error => console.error('Error fetching tool:', error));
 }
 
-function getDepartmentsDisplay(){
+export function getDepartmentsDisplay(){
     return fetch("/departments")
         .then(response=>response.json())
         .then(data => {
@@ -48,6 +48,34 @@ function getDepartmentsDisplay(){
 
 }
 
+
+export function getEmployeeFavoritesByJurisdictionAndStage() {
+    return fetch(`/employee/${window.employee.initials}/favorites?jurisdiction=${encodeURIComponent(window.jurisdiction)}&stage=${encodeURIComponent(window.stage)}`)
+        .then(response => response.json())
+        .then(data => {
+            return data;
+        })
+        .catch(error => {
+            console.error('Error fetching favorite tools for employee:', error);
+            return false;
+        });
+   
+    /*
+    try {
+        //fetches an employees favorite list
+        const response = await fetch(
+            `/employee/${employeeInitials}/favorites?jurisdiction=${encodeURIComponent(jurisdiction)}&stage=${encodeURIComponent(stage)}`
+        );
+        const data = await response.json();
+        //Re
+        return data;
+    } catch (error) {
+        console.error("Error fetching tool:", error);
+        return false;
+    }
+    */
+}
+
 // getToolsByDepartmentJurisdictionStage endpoint and display
 export async function getToolsByDepartmentJurisdictionStage(department, jurisdiction, branch, employee) {
     // clear the list each time it is called.
@@ -62,67 +90,6 @@ export async function getToolsByDepartmentJurisdictionStage(department, jurisdic
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
-
-// functions which run when page loads
-window.addEventListener('DOMContentLoaded', async () => {
-
-    const employee = await getCurrentEmployee();
-    let department = await getDepartment()//"DEVOPS";
-    let jurisdiction = await getJurisdiction();
-    let branch = await getStage();
-    const allDepartments = await 
-
-
-
-    getToolsDisplay(employee);
-    await getDepartmentsDisplay();
-    await toggleDepartment(employee);
-    displayUserJurisdictionNav(employee, jurisdiction);
-    // redundant since it gets called inside the method above
-    // getToolsByDepartmentJurisdictionStage();
-    displayFavorites(employee);// initial render
-    getToolsByDepartmentJurisdictionStage(department, jurisdiction, branch, employee);
-
-
-    // Unified change handler — since display functions reset themselves,
-    // we only need to re-run them when filters change.
-    const onFiltersChange = () => {
-        getToolsByDepartmentJurisdictionStage(department, jurisdiction, branch, employee);
-        displayFavorites(employee);
-    };
-
-    // Branch (stage) radio group
-    const branchContainer = document.querySelector('.branchSelector');
-    if (branchContainer) {
-        branchContainer.addEventListener('change', async (e) => {
-            if (e.target && e.target.matches('input[name="branch"]')) {
-                branch = await getStage(); //Get the new  value
-                onFiltersChange();
-            }
-        });
-    }
-
-    // Department radio group
-    const departmentContainer = document.querySelector('.departmentSelector');
-    if (departmentContainer) {
-        departmentContainer.addEventListener('change', async (e) => {
-            if (e.target && e.target.matches('input[name="department"]')) {
-                department = await getDepartment(); //Get updated department
-                onFiltersChange();
-            }
-        });
-    }
-
-    // Jurisdiction checkbox
-    const jurEl = document.getElementById('jurisdiction');
-    if (jurEl) {
-        jurEl.addEventListener('change', async (e) => {
-            jurisdiction = await getJurisdiction(); // Get updated jurisdiction
-            onFiltersChange();
-        });
-    }
-});
-
 
 ///////// HELPER METHODS /////////
 
