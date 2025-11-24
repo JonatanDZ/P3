@@ -204,7 +204,7 @@ section {
     color: var(--text-main);
     padding: 40px;
     overflow-y: auto;
-    margin-top: 10%;
+    margin-top: 3rem;
 }
 
 #searchbar {
