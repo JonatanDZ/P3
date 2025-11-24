@@ -36,8 +36,12 @@ function starClicked(starBtn, star, toolId, employeeInitials) {
 export async function displayTools(data, list, employeeInitials) {
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
-
-        let url = tool.url.replace('$USER$', employeeInitials);
+        let url; //We initialize the url beneath in different ways if it is dynamic or not
+        if (tool.is_dynamic){
+            url = tool.url.replace('$USER$', employeeInitials);
+        } else {
+            url = tool.url;
+        }
         const toolId = tool.id;
         const li = document.createElement('li');
         const a = document.createElement('a');
