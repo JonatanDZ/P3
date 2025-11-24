@@ -9,7 +9,6 @@
     --text-soft:      #6B7280;
 
     --accent:         #3B82F6;  /* blue accent (links, buttons) */
-    --accent-success: #22C55E;  /* for the + button */
 
     --dev--: #aa4042;
     --stage--: #42aa40;
@@ -315,7 +314,7 @@ footer {
 #addToolBtn {
     background: none !important;
     border: none !important;
-    color: var(--accent-success);
+    color: var(--stage--);
     font-size: 2.8rem;
     padding: 0;
     cursor: pointer;
@@ -325,7 +324,7 @@ footer {
 
 #addToolBtn:hover {
     transform: scale(1.15) translateZ(0);
-    color: var(--accent-success) !important;
+    color: var(--stage--) !important;
     text-shadow: none !important;
     filter: none !important;
 }
@@ -334,7 +333,6 @@ footer {
     opacity: 1 !important;
     filter: none !important;
     text-shadow: none !important;
-    color: var(--accent-success) !important;
 }
 
 .checkBoxDiv {
