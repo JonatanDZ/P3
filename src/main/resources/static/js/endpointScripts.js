@@ -58,8 +58,12 @@ export function getToolsByDepartmentJurisdictionStage() {
 
     fetch(`/tools/department/${encodeURIComponent(department)}/jurisdiction/${encodeURIComponent(jurisdiction)}/stage/${encodeURIComponent(branch)}`)
         .then(response => response.json())
-        .then(data => {
-            displayTools(data, list);
+        .then(async data => {
+            for (const tool of data) {
+                if (!tool.pending) {
+                    await displayTools([tool], list);
+                }
+            }
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
