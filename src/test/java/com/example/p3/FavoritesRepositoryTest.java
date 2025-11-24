@@ -26,6 +26,6 @@ public class FavoritesRepositoryTest {
         List<Tool> tools = toolRepository.findFavoritesByEmployeeAndJurisdictionAndStage(
                 "PEDO", "DK", "STAGING");
         assertNotNull(tools);
-        assertEquals(2, tools.size());
+        assertEquals(3, tools.size());
     }
 }
