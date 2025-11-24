@@ -21,7 +21,7 @@ function searchbar(inp, arr) {
                  b.setAttribute("class", "searchbar-heading");
                  var heading = document.createElement('b')
                  heading.appendChild(document.createTextNode(arr[i].value.substring(0, val.length)+arr[i].value.substring(val.length)))
-                 
+
                  //append tools, to the tag, so all tools will be appended to each tag (Should be conditioned to only suitible tools by tags)
                  b.appendChild(heading);
 
@@ -41,12 +41,23 @@ function searchbar(inp, arr) {
                          link.textContent = arr[i].tools[l].url;
                          subheading.appendChild(link);
 
+                         u.setAttribute("onclick",`location.href='${arr[i].tools[l].url}';`)
+
                          u.appendChild(subheading);
 
-                         var input = document.createElement('input')
+                         /*var input = document.createElement('input')
                          input.setAttribute("type", "hidden");
                          input.setAttribute("value", arr[l])
-                         u.appendChild(input)
+                         u.appendChild(input)*/
+                         u.addEventListener("keypress", function(event) {
+                             // If the user presses the "Enter" key on the keyboard
+                             if (event.key === "Enter") {
+                                 // Cancel the default action, if needed
+                                 event.preventDefault();
+                                 // Trigger the button element with a click
+                                 u.click();
+                             }
+                         });
                          /*u.addEventListener("click", function (e) {
                              inp.value = this.getElementsByTagName("input")[0].value;
                              closeAllLists();
