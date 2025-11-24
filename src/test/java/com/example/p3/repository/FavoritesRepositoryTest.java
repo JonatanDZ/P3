@@ -18,7 +18,7 @@ public class FavoritesRepositoryTest {
     @Autowired
     private ToolRepository toolRepository;
 
-    //It looks in tool repository, as that is where we call our favorite databse calls
+    //It looks in tool repository, as that is where we call our favorite database calls
     //This test looks into the actual database and checks how many favorites the employee has
     @Test
     void findFavoritesByEmployee() {
