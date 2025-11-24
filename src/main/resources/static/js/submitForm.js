@@ -57,8 +57,10 @@ export async function formToJSON(){
     // added to the pending tool list
     const pending = !isPersonal;
 
-    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending});
+    const createdBy = await getCurrentEmployee();
 
+
+    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending, created_by : createdBy});
 }
 
 //Gets the url value
@@ -66,7 +68,7 @@ function getURLValue(dynamic){
     const url1 = document.querySelector("#toolURL1").value.toString();
     //Combines the two parts of dynamic url and user initials
     if (dynamic){
-        const user = document.querySelector("#toolUser").textContent;
+        const user = `$USER$`;
         const url2 = document.querySelector("#toolURL2").value.toString();
 
         return url1 + user + url2;
