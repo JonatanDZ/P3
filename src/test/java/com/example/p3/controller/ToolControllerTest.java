@@ -87,7 +87,6 @@ public class ToolControllerTest {
 
         when(toolService.getAllTools()).thenReturn(toolList);
         mockMvc.perform(MockMvcRequestBuilders.get("/tools"))
-                .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
                 //Tool1
