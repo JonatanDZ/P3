@@ -1,5 +1,6 @@
 package com.example.p3.service;
 
+import com.example.p3.dtos.toolsDto.ToolUrlName;
 import com.example.p3.entities.*;
 import com.example.p3.repositories.ToolRepository;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ToolService {
     private final ToolRepository toolRepository;
+    //private final ToolUrlName toolUrlName;
 
     public List<Tool> getAllTools() {
         return toolRepository.findAll();
@@ -44,9 +46,15 @@ public class ToolService {
         return toolRepository.save(tool);
     }
 
-    public List<Tool> findPendingToolByUserDepartment(String departmentName){
-        return toolRepository.findPendingToolByUserDepartment(departmentName);
-    }
+//    public List<ToolUrlName> getAllToolUrlName(String tag) {
+//        ///Return a JSON/array with arrays containing all tools with the tag (include) og give the url and name.
+//        ///ændre under TagDto og få den til at hente url også. Lav et mini tool objekt (record).
+//        return toolRepository.findToolByTag(tag);
+//    }
+
+public List<Tool> findPendingToolByUserDepartment(String departmentName){
+    return toolRepository.findPendingToolByUserDepartment(departmentName);
+}
 
     // delete Pending Tool
     @Transactional
@@ -63,3 +71,4 @@ public class ToolService {
     }
 
 }
+

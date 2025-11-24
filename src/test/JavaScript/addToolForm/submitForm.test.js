@@ -22,9 +22,11 @@ describe('submitForm', () => {
         <div class="checkBoxDiv"><label>DevOps</label><input type="checkbox" id="DevOpsInput" value="1" class="departmentsChecks" checked></div>
         <div class="checkBoxDiv">
             <label for="stagingInput"> Staging </label>
-            <input id="stagingInput" class="stagesChecks" type="checkbox" value="2" name="Staging" checked>
+            <input id="stagingInput" class="stagesChecks" type="checkbox" value="2" name="Staging">
         </div>
-        <div class="checkBoxDiv"><label>DK</label><input type="checkbox" id="DKInput" value="1" class="jurisdictionsChecks" checked></div>
+        <div id="jurisdictionsInput"></div>
+        <input type="checkbox" class="jurisdictionsChecks" value="DK" checked>
+        <input type="checkbox" class="jurisdictionsChecks" value="UK">
         <button id="submitBtn"></button>
     `;
     });
@@ -50,7 +52,7 @@ describe('submitForm', () => {
         expect(body.tags).toEqual([{"id":"6"}]);
         expect(body.is_dynamic).toBe(false);
         expect(body.departments).toEqual([{"id":"1"}]);
-        expect(body.jurisdictions).toEqual([{"id":"1"}]);
+        expect(body.jurisdictions).toEqual(['DK']);
         expect(body.stages).toEqual([{"id":"2"}]);
     })
     test('submit form dynamic link', async () => {
@@ -74,27 +76,21 @@ describe('submitForm', () => {
 
         expect(body.name).toBe('Test Tool');
         expect(body.url).toBe('http://example.USER.com');
-        expect(body.is_dynamic).toBe(true);
-        expect(body.tags).toEqual([{"id":"6"}]);
-        expect(body.departments).toEqual([{"id":"1"}]);
-        expect(body.jurisdictions).toEqual([{"id":"1"}]);
-        expect(body.stages).toEqual([{"id":"2"}]);
+        expect(body.tags).toEqual(['tag1', 'tag2']);
+        expect(body.dynamic).toBe(true);
+        expect(body.departments).toEqual(['DevOps']);
+        expect(body.jurisdictions).toEqual(['DK']);
+        expect(body.stages).toEqual(['STAGE']);
     })
-    test('submit form when isPersonal is checked', async () => {
+//Test to see if the tags text is correctly "translated" to the JSON - LAV NY TEST MED TAGS
+    test('tags are trimmed and split correctly', () => {
+        document.querySelector('#tags').value = '  tagA , tagB,tagC;..  ,  ';
+        submitForm();
 
-        mockResponse = {
-            ok: true,
-            json: async () => ({ success: true }),
-        };
+        const [url, options] = global.fetch.mock.calls[0]; // first call
 
-        document.querySelector("#isPersonal").checked = true;
-
-        global.fetch.mockResolvedValue(mockResponse);
-        await submitForm();
-
-        const [url, options] = global.fetch.mock.calls[0];
         const body = JSON.parse(options.body);
 
-        expect(body.is_personal).toBe(true);
+        expect(body.tags).toEqual(['tagA', 'tagB', 'tagC;..']);
     });
 });
