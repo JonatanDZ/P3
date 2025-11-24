@@ -4,7 +4,7 @@ import {displayTools} from "./displayTools.js";
 import {toggleDepartment} from "./toggleDepartment.js";
 
 //Gets all tools and displays them individually
-export function getToolsDisplay () {
+export async function getToolsDisplay () {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');

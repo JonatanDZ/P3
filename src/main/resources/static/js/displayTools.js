@@ -3,15 +3,12 @@ import {displayFavorites} from "./displayFavorites.js";
 import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
-function starClicked(starBtn, star, toolId) {
+function starClicked(starBtn, star, toolId, employeeInitials) {
     starBtn.appendChild(star);
 
     starBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         e.stopPropagation();
-
-        let employee = await getCurrentEmployee();
-        let employeeInitials = employee.initials;
 
         const wasFilled = star.textContent === '★';
         const nowFilled = !wasFilled;
@@ -37,14 +34,22 @@ function starClicked(starBtn, star, toolId) {
 }
 
 export async function displayTools(data, list) {
+    const employee = await getCurrentEmployee();
+
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
-        console.log('Tool:', tool.name, 'tags:', tool.tags);
+        let url; //We initialize the url beneath in different ways if it is dynamic or not
+        console.log(tool.is_dynamic);
+        if (tool.is_dynamic){
+            url = tool.url.replace('$USER$', employee.initials.toLowerCase());
 
+        } else {
+            url = tool.url;
+        }
         const toolId = tool.id;
         const li = document.createElement('li');
         const a = document.createElement('a');
-        a.href = tool.url;
+        a.href = url;
         a.target = "_blank";
 
         const header = document.createElement('div');
@@ -66,8 +71,8 @@ export async function displayTools(data, list) {
         } else{
             star.textContent = '☆';
         }
-        starBtn.appendChild(star)
-        starClicked(starBtn, star, toolId);
+
+        starClicked(starBtn, star, toolId, employee.initials);
 
         header.appendChild(nameE);
         header.appendChild(starBtn);
@@ -88,7 +93,7 @@ export async function displayTools(data, list) {
 
         const urlE = document.createElement('div');
         urlE.className = 'tool-url';
-        urlE.textContent = tool.url;
+        urlE.textContent = url;
 
         a.appendChild(header);
         a.appendChild(tags);
