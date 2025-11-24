@@ -38,9 +38,17 @@ function searchbar(inp, arr) {
                          u.setAttribute("class", "searchbar-subheading");
                          var subheading = document.createElement('p')
 
-                         //show name and URL
-                         subheading.appendChild(document.createTextNode(arr[i].tools[l].name));
-                         u.appendChild(subheading)
+                         //show name
+                         subheading.appendChild(document.createTextNode(arr[i].tools[l].name + " - "));
+
+                         //Show url and make it a link
+                         const link = document.createElement("a");
+                         link.href = arr[i].tools[l].url;
+                         link.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
+                         link.textContent = arr[i].tools[l].url;
+                         subheading.appendChild(link);
+
+                         u.appendChild(subheading);
 
                          var input = document.createElement('input')
                          input.setAttribute("type", "hidden");
