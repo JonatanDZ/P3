@@ -18,7 +18,7 @@ public class TagDto {
         this.id = t.getId();
         this.value = t.getValue();
         this.tools = t.getTagTools().stream()
-                .map(Tool -> new ToolUrlName(Tool.getName(), Tool.getUrl()))
+                .map(Tool -> new ToolUrlName(Tool.getName(), Tool.getUrl(), Tool.getIs_dynamic()))
                 .toList();
     }
 }

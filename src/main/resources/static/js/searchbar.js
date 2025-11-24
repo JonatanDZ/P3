@@ -36,7 +36,11 @@ function searchbar(inp, arr) {
 
                          //Show url and make it a link
                          const link = document.createElement("a");
-                         link.href = arr[i].tools[l].url;
+                         if (arr[i].tools[l].is_dynamic){
+
+                         }
+
+                         link.href = arr[i].tools[l].url.replace('$USER$', "");
                          link.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
                          link.textContent = arr[i].tools[l].url;
                          subheading.appendChild(link);
