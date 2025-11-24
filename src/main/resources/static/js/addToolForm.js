@@ -98,7 +98,7 @@ export function updateAllowedCards(){
         displayURLbar(document.querySelector("#isDynamic").checked);
         window.allowedCards = [1,2,4,6]
     } else {
-        dynamicCheck.checked = true;
+        //dynamicCheck.checked = true;
         dynamicCheck.disabled = false;
         window.allowedCards = [1,2,3,4,5,6];
     }
