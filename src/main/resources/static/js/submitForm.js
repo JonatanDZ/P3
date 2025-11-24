@@ -1,6 +1,8 @@
 import {poster} from "./fetchTool.js";
 import {addTagChip} from "./loadOptions.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {displayFavorites} from "./displayFavorites.js";
+import {displayTools} from "./displayTools.js";
 
 
 export async function submitTag(){
@@ -25,9 +27,30 @@ export async function submitForm() {
     try {
         const jsonData = await formToJSON();
 
-        console.log(jsonData);
+        const tool = await poster("tools" , jsonData);
+        const toolId = tool.id;
+        const toolIsPersonal = tool.is_personal;
 
-        await poster("tools" , jsonData);
+        console.log(toolId, toolIsPersonal);
+
+
+        if (toolIsPersonal) {
+            const employee = await getCurrentEmployee();
+            const initials = employee.initials;
+
+
+
+            await fetch(`employee/${initials}/favorites/${toolId}`, {
+                method: "POST", // <-- important
+                headers: {
+                    "Content-Type": "application/json"
+                }
+                // no body needed, your backend just uses path variables
+            });
+        }
+        await displayTools();
+
+
 
     } catch (error) {
         console.log("Error in submitForm:",error);

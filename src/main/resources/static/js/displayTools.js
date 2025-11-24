@@ -66,10 +66,12 @@ export async function displayTools(data, list) {
         const star = document.createElement('span');
         star.className = 'star';
         const isFav = await isToolInFavorite(toolId);
+        
         if(isFav){
             star.textContent = '★';
         } else{
             star.textContent = '☆';
+
         }
 
         starClicked(starBtn, star, toolId, employee.initials);
