@@ -50,27 +50,6 @@ public class ToolControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    /*@Test
-    public void testGetToolById() throws Exception {
-        Set<Department> departmentSet = new HashSet<>(); // Creates empty sets for related entities
-        Set<Jurisdiction> jurisdictionSet = new HashSet<>();
-        Set<Stage> stagesSet = new HashSet<>();
-        Set<Tag> tagSet = new HashSet<>();
-        // Create a mock tool
-        Tool tool = new Tool(1,"testTool","https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
-        when(toolService.getToolById(1)).thenReturn(Optional.of(tool));
-        mockMvc.perform(MockMvcRequestBuilders.get("/getTools/id/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("testTool"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.isPersonal").value(false))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.isDynamic").value(false))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.departments").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.jurisdictions").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.stage").isArray());
-    }*/
-
     @Test
     public void testGetTools() throws Exception {
         Set<Department> departmentSet = new HashSet<>();
@@ -141,3 +120,24 @@ public class ToolControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 }
+
+/*@Test
+    public void testGetToolById() throws Exception {
+        Set<Department> departmentSet = new HashSet<>(); // Creates empty sets for related entities
+        Set<Jurisdiction> jurisdictionSet = new HashSet<>();
+        Set<Stage> stagesSet = new HashSet<>();
+        Set<Tag> tagSet = new HashSet<>();
+        // Create a mock tool
+        Tool tool = new Tool(1,"testTool","https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
+        when(toolService.getToolById(1)).thenReturn(Optional.of(tool));
+        mockMvc.perform(MockMvcRequestBuilders.get("/getTools/id/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("testTool"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isPersonal").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isDynamic").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.departments").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.jurisdictions").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.stage").isArray());
+    }*/

@@ -38,6 +38,7 @@ class FavoritesControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    //Employee constructor
     public Employee EmployeeContructor(String initials, String name, String email, Department department, Set<Tool> favoriteTools) {
         Employee employee = new Employee();
         employee.setInitials(initials);
@@ -49,6 +50,7 @@ class FavoritesControllerTest {
         return employee;
     }
 
+    //Tool constructor
     public Tool toolConstructor(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
         Tool tool = new Tool();
         tool.setId(id);

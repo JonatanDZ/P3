@@ -22,6 +22,7 @@ import static org.mockito.Mockito.*;
 @WebMvcTest(EmployeeController.class)
 class EmployeeControllerTest {
 
+    //Constructor for employee
     public Employee EmployeeContructor(String initials, String name, String email, Department department, Set<Tool> favoriteTools) {
         Employee employee = new Employee();
         employee.setInitials(initials);
@@ -39,6 +40,7 @@ class EmployeeControllerTest {
     @MockitoBean
     private EmployeeService employeeService;
 
+    //Before each test, open mock
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
@@ -46,6 +48,7 @@ class EmployeeControllerTest {
 
     @Test
     public void testGetEmployeesByInitials() throws Exception {
+        //Create 2 mock departments
         Department hr = new Department();
         hr.setId(1);
         hr.setName("HR");
@@ -60,6 +63,7 @@ class EmployeeControllerTest {
         Employee employee2 = EmployeeContructor("ÅS", "Ålice Smith", "AnotherEmail", devOps, emptyToolSet);
 
 
+        //When getting JD return mock employee JD and check that it matches
         when(employeeService.getEmployeeByInitials("JD")).thenReturn(Optional.ofNullable(employee1));
         mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/JD"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -68,6 +72,7 @@ class EmployeeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("SomeEmail"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.department_name").value("HR"));
 
+        //When getting Ås return mock employee ÅS and check that it matches
         when(employeeService.getEmployeeByInitials("ÅS")).thenReturn(Optional.ofNullable(employee2));
         mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/ÅS"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
