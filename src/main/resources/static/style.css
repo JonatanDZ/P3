@@ -32,6 +32,9 @@ body {
 }
 
 nav {
+    display: flex;
+    justify-content: space-between; /* pushes left, center, right apart */
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -39,19 +42,28 @@ nav {
     background-color: var(--bg-nav);
     color: #FFFFE3;
     padding: 20px;
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
     user-select: none;
     z-index: 10000;
     box-sizing: border-box;
 }
 
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-center {
+    flex: 1;
+    text-align: center;
+}
+
 nav h1 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: static;
+    transform: none;
     margin: 0;
+    left: 50%;
     font-size: 24px;
     color: #F9FAFB;
     font-weight: bold;
@@ -326,19 +338,29 @@ footer {
     font-weight: bold;
 }
 
-
 #addToolBtn {
-    display: inline-block;
-    background: var(--accent-success);
-    gap: 8px;
-    box-sizing: border-box;
-    border: 1px solid #1E2938;
-    border-radius: 15px;
-    margin: auto;
-    height: 100%;
-    font-size: 25px;
-    padding: 12px;
-    color: #FFFFE3;
+    background: none !important;
+    border: none !important;
+    color: var(--accent-success);
+    font-size: 2.8rem;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    transform: translateZ(0);
+}
+
+#addToolBtn:hover {
+    transform: scale(1.15) translateZ(0);
+    color: var(--accent-success) !important;
+    text-shadow: none !important;
+    filter: none !important;
+}
+
+.toggleBtn {
+    opacity: 1 !important;
+    filter: none !important;
+    text-shadow: none !important;
+    color: var(--accent-success) !important;
 }
 
 .checkBoxDiv {
@@ -390,10 +412,6 @@ footer {
 .submitFormBtn:focus {
     box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
     outline: 0;
-}
-
-.toggleBtn{
-    background: red;
 }
 
 #isDynamic, #isPersonal{
