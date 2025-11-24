@@ -477,9 +477,6 @@ input[type=submit] {
 
 .searchbar-items {
     position: absolute;
-    border: 1px solid #d4d4d4;
-    border-bottom: none;
-    border-top: none;
     z-index: 99;
     /*position the autocomplete items to be the same width as the container:*/
     top: 100%;
@@ -497,6 +494,9 @@ input[type=submit] {
     cursor: pointer;
     border-bottom: 1px solid #d4d4d4;
     color: #000;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
 }
 
 .searchbar-heading{
