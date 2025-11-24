@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
-export async function reloadDropdown() {
+async function reloadDropdown() {
     const pendingToolList = await getDepartmentsPendingTools();
 
     console.log(pendingToolList);
@@ -49,7 +49,7 @@ export async function reloadDropdown() {
 
     // Calls the bell notifier that adds a notification badge if the pending tool list is above 0.
 
-    const currentEmployee = window.employee || await getCurrentEmployee();
+    const currentEmployee = await getCurrentEmployee();
     const employeeInitials = currentEmployee.initials;
     let listLengthNotCreatedBy = 0;
     if (pendingToolList.length > 0) {
@@ -71,7 +71,7 @@ export async function reloadDropdown() {
 
 async function getDepartmentsPendingTools() {
     // Get department name from the user. so only users in that department gets to decide if they want the tool.
-    const employee = window.employee || await getCurrentEmployee();
+    const employee = await getCurrentEmployee();
     const employeeDepartment = employee.department_name;
 
     // we fetch the pending tool list from the user specific department.
@@ -99,7 +99,7 @@ function bellNotifier(pendingToolListLength) {
 
 async function createDropdownCards(pendingToolList, counter) {
     const containerDropdownId = document.getElementById("dropdownIndividualItem");
-    const currentEmployee = window.employee || await getCurrentEmployee();
+    const currentEmployee = await getCurrentEmployee();
     const employeeInitials = currentEmployee.initials;
 
     // if the tool list length is above 0 we iterate through the list and make individual tool cards
@@ -147,3 +147,68 @@ function createDropdownCard(pendingTool) {
     return pendingToolCard;
 }
 
+// event listener for the buttons in the tool dropdown.
+document.addEventListener("click", async (event) => {
+    // approve button
+    if (event.target.classList.contains("aprbtn")) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("approve", event.target.dataset.tool);
+
+        const toolId = event.target.dataset.tool;
+
+        try {
+            const response = await fetch(`/tools/pending/${toolId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            // check if request was successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            await reloadDropdown();
+            console.log("Refreshed after approved tool");
+
+            // refreshing the all tools list, since it has a new tool.
+            getToolsDisplay();
+            console.log("Refreshed all tools after approval in pending");
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating tool:', error);
+            return null;
+        }
+    }
+
+    // deny
+    if (event.target.classList.contains("denybtn")) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.log("deny", event.target.dataset.tool);
+
+        const toolId = event.target.dataset.tool;
+
+        try {
+            const response = await fetch(`/tools/pending/${toolId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            // check if request was successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            await reloadDropdown();
+            console.log("Refreshed after denied tool");
+        } catch (error) {
+            console.error('Error updating tool:', error);
+            return null;
+        }
+    }
+});

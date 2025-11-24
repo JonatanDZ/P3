@@ -1,6 +1,7 @@
 import {isToolInFavorite} from "./isToolInFavorite.js";
 import {displayFavorites} from "./displayFavorites.js";
-import {getEmployeeFavoritesByJurisdictionAndStage} from "./endpointScripts.js";
+import {getToolsDisplay} from "./endpointScripts.js";
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
 function starClicked(starBtn, star, toolId, employeeInitials) {
     starBtn.appendChild(star);
@@ -32,8 +33,8 @@ function starClicked(starBtn, star, toolId, employeeInitials) {
     });
 }
 
-export async function displayTools(data, list, employee) {
-    const EmployeeFavorites = await getEmployeeFavoritesByJurisdictionAndStage();
+export async function displayTools(data, list) {
+    const employee = await getCurrentEmployee();
 
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
@@ -64,7 +65,7 @@ export async function displayTools(data, list, employee) {
 
         const star = document.createElement('span');
         star.className = 'star';
-        const isFav = isToolInFavorite(toolId, EmployeeFavorites);
+        const isFav = await isToolInFavorite(toolId);
         if(isFav){
             star.textContent = '★';
         } else{

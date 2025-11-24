@@ -2,11 +2,9 @@
 import {displayFavorites} from "./displayFavorites.js";
 import {displayTools} from "./displayTools.js";
 import {toggleDepartment} from "./toggleDepartment.js";
-import {getCurrentEmployee} from "./getCurrentEmployee.js";
-import {displayUserJurisdictionNav} from "./userJurisdictionNav.js";
 
 //Gets all tools and displays them individually
-export async function getToolsDisplay(employee) {
+export async function getToolsDisplay () {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');
@@ -15,13 +13,12 @@ export async function getToolsDisplay(employee) {
     fetch('/tools')
         .then(response => response.json())
         .then(tool => {
-                console.log(employee);
-                displayTools(tool, list, employee);
+                displayTools(tool, list);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
 
-export function getDepartmentsDisplay(){
+function getDepartmentsDisplay(){
     return fetch("/departments")
         .then(response=>response.json())
         .then(data => {
@@ -48,48 +45,68 @@ export function getDepartmentsDisplay(){
 
 }
 
-
-export function getEmployeeFavoritesByJurisdictionAndStage() {
-    return fetch(`/employee/${window.employee.initials}/favorites?jurisdiction=${encodeURIComponent(window.jurisdiction)}&stage=${encodeURIComponent(window.stage)}`)
-        .then(response => response.json())
-        .then(data => {
-            return data;
-        })
-        .catch(error => {
-            console.error('Error fetching favorite tools for employee:', error);
-            return false;
-        });
-   
-    /*
-    try {
-        //fetches an employees favorite list
-        const response = await fetch(
-            `/employee/${employeeInitials}/favorites?jurisdiction=${encodeURIComponent(jurisdiction)}&stage=${encodeURIComponent(stage)}`
-        );
-        const data = await response.json();
-        //Re
-        return data;
-    } catch (error) {
-        console.error("Error fetching tool:", error);
-        return false;
-    }
-    */
-}
-
 // getToolsByDepartmentJurisdictionStage endpoint and display
-export async function getToolsByDepartmentJurisdictionStage(department, jurisdiction, branch, employee) {
+export function getToolsByDepartmentJurisdictionStage() {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time..
     const list = document.getElementById('departmentSelected');
     list.innerText = "";
     // mock department, should be based on the user logged in
+    let department = getDepartment()//"DEVOPS";
+    let jurisdiction = getJurisdiction();
+    let branch = getStage();
+
     fetch(`/tools/department/${encodeURIComponent(department)}/jurisdiction/${encodeURIComponent(jurisdiction)}/stage/${encodeURIComponent(branch)}`)
         .then(response => response.json())
         .then(data => {
-            displayTools(data, list, employee);
+            displayTools(data, list);
         })
         .catch(error => console.error('Error fetching tool:', error));
 }
+
+// functions which run when page loads
+window.addEventListener('DOMContentLoaded', async () => {
+    getToolsDisplay();
+    await getDepartmentsDisplay();
+    await toggleDepartment();
+    // redundant since it gets called inside the method above
+    // getToolsByDepartmentJurisdictionStage();
+    displayFavorites();// initial render
+
+    // Unified change handler — since display functions reset themselves,
+    // we only need to re-run them when filters change.
+    const onFiltersChange = () => {
+        getToolsByDepartmentJurisdictionStage();
+        displayFavorites();
+    };
+
+    // Branch (stage) radio group
+    const branchContainer = document.querySelector('.branchSelector');
+    if (branchContainer) {
+        branchContainer.addEventListener('change', (e) => {
+            if (e.target && e.target.matches('input[name="branch"]')) {
+                onFiltersChange();
+            }
+        });
+    }
+
+    // Department radio group
+    const departmentContainer = document.querySelector('.departmentSelector');
+    if (departmentContainer) {
+        departmentContainer.addEventListener('change', (e) => {
+            if (e.target && e.target.matches('input[name="department"]')) {
+                onFiltersChange();
+            }
+        });
+    }
+
+    // Jurisdiction checkbox
+    const jurEl = document.getElementById('jurisdiction');
+    if (jurEl) {
+        jurEl.addEventListener('change', onFiltersChange);
+    }
+});
+
 
 ///////// HELPER METHODS /////////
 

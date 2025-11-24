@@ -1,4 +1,4 @@
-package com.example.p3.repository;
+package com.example.p3;
 
 import com.example.p3.entities.Employee;
 import com.example.p3.repositories.EmployeeRepository;
