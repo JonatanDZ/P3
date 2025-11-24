@@ -56,12 +56,14 @@ if (document.querySelector("#submitBtn")) {
     });
 }
 
+/*
 if (document.querySelector("#submitTagBtn")) {
     document.querySelector("#submitTagBtn").addEventListener("click", async (e)  =>  {
         e.preventDefault();
         await submitTag();
     })
 }
+*/
 
 if (document.querySelector(".toggleCardBtn")) {
     document.querySelectorAll(".toggleCardBtn").forEach(btn =>{

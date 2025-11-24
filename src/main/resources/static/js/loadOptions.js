@@ -1,3 +1,5 @@
+import {submitTag} from "./submitForm.js";
+
 //Used to load department and jurisdiction in form
 export function loadOptions(str){
     //${str} can ex. be jurisdiction or department.
@@ -30,7 +32,7 @@ export function loadOptions(str){
 
 export async function enableTagSearch(){
     //Loads tags present in DB
-    const testTags = await loadTags();
+    const tags = await loadTags();
     //search specific tag
     const tagInput = document.querySelector('#tags');
     //Dropdown div with suggestions
@@ -38,17 +40,19 @@ export async function enableTagSearch(){
 
     // Responds to typing by user
     tagInput.addEventListener('input',() => {
+        let isCompleteMatch = false;
         const input = tagInput.value.toLowerCase();
 
         if (input.length === 0) {
-            suggestionBox.style.display = "none";
+            //suggestionBox.style.display = "none";
+            clearDiv(suggestionBox);
             return;
         }
 
         let matches = [];
 
         //If the tag value includes what is written in input so far. Push it to the match array;
-        testTags.forEach(tag => {
+        tags.forEach(tag => {
             if (tag.value.toLowerCase().includes(input)){
                 matches.push(tag);
             }
@@ -57,54 +61,36 @@ export async function enableTagSearch(){
 
         // Hide suggestion box if no matches found
         if (matches.length === 0){
-            suggestionBox.style.display = "none";
+            clearDiv(suggestionBox);
+            createSubmitBtn(suggestionBox, input);
             return;
         }
 
-        // Clear previous suggestions
-        while (suggestionBox.firstChild) {
-            suggestionBox.removeChild(suggestionBox.firstChild);
-        }
+        clearDiv(suggestionBox);
+
         // Show suggestion box and create new suggestions
         suggestionBox.style.display = "block";
+
+
+
         matches.forEach(tag => {
             // Create wrapper for each suggestion item
             const wrapper = document.createElement("div");
+
             wrapper.className = "tag-suggestion-item";
-
-
-            //The way we are solving the problem we don't need cb maybe we should change it up for <span> or <p> for the sake of simplicity?
-            // Create checkbox element
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.className = "tag-suggestion-checkbox";
-            checkbox.value = tag.id;
-
 
 
             // Create text label for the tag
             const span = document.createElement("span");
             span.textContent = tag.value;
 
-            wrapper.appendChild(checkbox);
+            //wrapper.appendChild(checkbox);
             wrapper.appendChild(span);
             suggestionBox.appendChild(wrapper);
 
             wrapper.addEventListener("click", () => {
                 addTagChip(tag);
 
-                /*
-                const newState = !checkbox.checked;
-                checkbox.checked = newState;
-                syncTagListCheckbox(tag, newState);
-
-                if (newState) {
-                    addTagChip(tag);
-                } else {
-                // Giver det mening at bruge uncheck, når vores elementer først bliver genereret efter match??
-                    uncheckTag(tag);
-                }
-                */
 
                 // Clear input field but maintain focus for new searches
                 tagInput.value = "";
@@ -112,8 +98,42 @@ export async function enableTagSearch(){
                 suggestionBox.style.display = "none";
 
             });
+ 
+            //Checks if it is a complete match with one tool. If no add button
+            if(tag.value.toLowerCase() === tagInput.value.toLowerCase()){
+                isCompleteMatch = true
+            }
+
         })
+        //TODO : ensure that it dissapears when there is a match
+        if(!isCompleteMatch){
+            createSubmitBtn(suggestionBox, input);
+        }
     })
+}
+
+function clearDiv(div){
+    while (div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
+}   
+
+function createSubmitBtn(parentElement, input){
+    const wrapper = document.createElement("div");
+    wrapper.className = "tag-suggestion-item";
+
+    const submitBtn = document.createElement("span");
+    submitBtn.textContent = `Add Tag: "${input}"`;
+    submitBtn.id = "submitTagBtn";
+
+    wrapper.appendChild(submitBtn);
+    parentElement.appendChild(wrapper);
+
+    wrapper.addEventListener("click", async () => {
+        await submitTag();
+        clearDiv(parentElement);
+    });
+
 }
 
 
