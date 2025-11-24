@@ -1,16 +1,14 @@
 //HAVE USED W3SCHOOLS EXAMPLE FOR THIS:
 //https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
-
-let toolsArr = ["tool1","tool2","tool3"];
-let tagsArr =["tag1","tag2","tag3","Atag", "Btag"];
 function searchbar(inp, arr) {
     var currentFocus;
     inp.addEventListener("input", function(e) {
-        var a, b, u, i, val = this.value;
+        let a, b, u, i;
+        let val = this.value;
         closeAllLists();
         if (!val) { return false;}
-        currentFocus = -1;
+        currentFocus = -1
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "searchbar-list");
         a.setAttribute("class", "searchbar-items");
@@ -23,12 +21,7 @@ function searchbar(inp, arr) {
                  b.setAttribute("class", "searchbar-heading");
                  var heading = document.createElement('b')
                  heading.appendChild(document.createTextNode(arr[i].value.substring(0, val.length)+arr[i].value.substring(val.length)))
-
-/*                 if(!Array.isArray(arr.tools)){
-                     console.warn("Tag has no tools:", arr);
-                     return;
-                 }
-*/
+                 
                  //append tools, to the tag, so all tools will be appended to each tag (Should be conditioned to only suitible tools by tags)
                  b.appendChild(heading);
 
@@ -54,21 +47,14 @@ function searchbar(inp, arr) {
                          input.setAttribute("type", "hidden");
                          input.setAttribute("value", arr[l])
                          u.appendChild(input)
-                         u.addEventListener("click", function (e) {
+                         /*u.addEventListener("click", function (e) {
                              inp.value = this.getElementsByTagName("input")[0].value;
                              closeAllLists();
-                         });
+                         });*/
                          b.appendChild(u)
 
                      }
                  }
-
-
-                /* OBS der er ændre ifht. array navn AKA tag stilling til om det er tool el. tag
-                b.innerHTML = "<strong>" + arr[i].substring(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substring(val.length);
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";*/
-
 
                 a.appendChild(b);
             }
