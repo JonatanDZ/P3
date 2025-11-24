@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 // data transfer objects, to JSON
+// What is the reason for this class?
 @Data
 public class FavoritesDto {
     // attributes of Tool

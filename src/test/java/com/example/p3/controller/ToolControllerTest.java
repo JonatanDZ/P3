@@ -1,6 +1,4 @@
-package com.example.p3;
-
-
+package com.example.p3.controller;
 
 import com.example.p3.controller.ToolController;
 import com.example.p3.entities.*;
@@ -10,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,12 +18,27 @@ import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 
-
-//Tests the controller not the service
+//Tests the controller not the service. 
 @WebMvcTest(ToolController.class)
-public class ToolControllerTests {
+public class ToolControllerTest {
+
+    public Tool toolConstructor(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
+        Tool tool = new Tool();
+        tool.setId(id);
+        tool.setName(name);
+        tool.setUrl(url);
+        tool.setIs_personal(is_personal);
+        tool.setIs_dynamic(is_dynamic);
+        tool.setDepartments(departments);
+        tool.setJurisdictions(jurisdictions);
+        tool.setStages(stages);
+        tool.setTags(tags);
+
+        return tool;
+    }
 
     @Autowired
     private MockMvc mockMvc; // To test your web controllers without starting a full HTTP server
@@ -65,31 +79,35 @@ public class ToolControllerTests {
         Set<Stage> stagesSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
         // Make mock tools
-        Tool tool1 = new Tool(1,"testTool1","https://www.testing.dk",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
-        Tool tool2 = new Tool(2,"testTool2","https://www.testing2.dk",true,true,departmentSet,jurisdictionSet,stagesSet,tagSet);
+        Tool tool1 = toolConstructor(1,"testTool1","https://www.testing.dk",false,false, departmentSet, jurisdictionSet, stagesSet, tagSet);
+        Tool tool2 = toolConstructor(2,"testTool2","https://www.testing2.dk",true,true, departmentSet, jurisdictionSet, stagesSet, tagSet);
         List<Tool> toolList = new ArrayList<>(); // Make list and add the mock tools
         toolList.add(tool1);
         toolList.add(tool2);
+
         when(toolService.getAllTools()).thenReturn(toolList);
         mockMvc.perform(MockMvcRequestBuilders.get("/tools"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+                //Tool1
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("testTool1"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].url").value("https://www.testing.dk"))
-                //.andExpect(MockMvcResultMatchers.jsonPath("$[0].is_personal").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].is_personal").value(false))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].is_dynamic").value(false))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].departments").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].jurisdictions").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].stage").isArray())
+                //Tool2 doesn't have department attached and cannot be dynamic
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("testTool2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].url").value("https://www.testing2.dk"))
-                //.andExpect(MockMvcResultMatchers.jsonPath("$[1].is_personal").value(true))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].is_dynamic").value(true))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].departments").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].is_personal").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].is_dynamic").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].departments").doesNotExist())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].jurisdictions").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].stage").isArray());
+
     }
 
     @Test
@@ -101,14 +119,26 @@ public class ToolControllerTests {
         Set<Stage> stagesSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
         // Making a mock tool and adding it to the tool list
-        Tool tool = new Tool(1,"testTool1","https://www.testing.dk",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
+        Tool tool = toolConstructor(1,"testTool1","https://www.testing.dk",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
         List<Tool> toolList = new ArrayList<>();
         toolList.add(tool);
+
         when(toolService.getAllToolsByDepartmentName("DEVOPS")).thenReturn(toolList);
         mockMvc.perform(MockMvcRequestBuilders.get("/tools/department/DEVOPS"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$",hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1));
+    }
+
+    @Test
+    public void testAddTools() throws Exception {
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/tools")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"value\":\"tag1\", \"tools\":\"[]\"}"))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 }

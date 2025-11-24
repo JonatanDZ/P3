@@ -1,7 +1,6 @@
-package com.example.p3;
+package com.example.p3.repository;
 
 import com.example.p3.entities.Tool;
-import com.example.p3.repositories.EmployeeRepository;
 import com.example.p3.repositories.ToolRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class FavoritesRepositoryTest {
     @Autowired
     private ToolRepository toolRepository;
 
-    //It looks in tool repository, as that is where we call our favorite databse calls
+    //It looks in tool repository, as that is where we call our favorite database calls
     //This test looks into the actual database and checks how many favorites the employee has
     @Test
     void findFavoritesByEmployee() {

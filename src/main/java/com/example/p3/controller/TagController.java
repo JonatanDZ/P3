@@ -5,6 +5,7 @@ import com.example.p3.dtos.TagDto;
 import com.example.p3.entities.Employee;
 import com.example.p3.service.TagService;
 import com.example.p3.entities.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,8 @@ public class TagController {
         if (tag == null){
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(TagService.saveTag(tag));
+        Tag savedTag = tagService.saveTag(tag);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedTag);
     }
 
 
