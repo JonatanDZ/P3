@@ -37,9 +37,10 @@ async function searchbar(inp, arr) {
                  if (Array.isArray(arr[i].tools)) {
                      for (let l = 0; l < arr[i].tools.length; l++) {
                          //Create tool div, tool name and url
-                         u = document.createElement("DIV");
+                         u = document.createElement("div");
                          u.setAttribute("class", "searchbar-subheading");
                          var subheading = document.createElement('p')
+
 
                          //show name
                          subheading.appendChild(document.createTextNode(arr[i].tools[l].name + " - "));
