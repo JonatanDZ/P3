@@ -4,6 +4,7 @@ import jakarta.persistence.*; //Enables hibernate
 import jakarta.validation.constraints.Size; //This allows us to set size limitations to our attributes
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
