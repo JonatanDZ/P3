@@ -66,7 +66,7 @@ export async function displayTools(data, list) {
         const star = document.createElement('span');
         star.className = 'star';
         const isFav = await isToolInFavorite(toolId);
-        
+        console.log("tjek her", isFav);
         if(isFav){
             star.textContent = '★';
         } else{
