@@ -40,7 +40,7 @@ export async function enableTagSearch(){
 
     // Responds to typing by user
     tagInput.addEventListener('input',() => {
-        let isCompleteMatch = false;
+        let isCompleteMatch = false; //Used to see  if the input is identical to a tag
         const input = tagInput.value.toLowerCase();
 
         if (input.length === 0) {
