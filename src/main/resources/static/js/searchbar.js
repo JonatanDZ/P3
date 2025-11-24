@@ -1,7 +1,10 @@
 //HAVE USED W3SCHOOLS EXAMPLE FOR THIS:
 //https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
-function searchbar(inp, arr) {
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
+
+async function searchbar(inp, arr) {
+    const employee = await getCurrentEmployee();
     var currentFocus;
     inp.addEventListener("input", function(e) {
         let a, b, u, i;
@@ -36,13 +39,17 @@ function searchbar(inp, arr) {
 
                          //Show url and make it a link
                          const link = document.createElement("a");
+
                          if (arr[i].tools[l].is_dynamic){
+                             link.href = arr[i].tools[l].url.replace('$USER$', employee.initials.toLowerCase());
+                             link.textContent = arr[i].tools[l].url.replace('$USER$', employee.initials.toLowerCase());
+                         } else {
+                             link.href = arr[i].tools[l].url;
+                             link.textContent = arr[i].tools[l].url;
 
                          }
-
-                         link.href = arr[i].tools[l].url.replace('$USER$', "");
+                         console.log(arr[i].tools[l]);
                          link.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
-                         link.textContent = arr[i].tools[l].url;
                          subheading.appendChild(link);
 
                          u.setAttribute("onclick",`location.href='${arr[i].tools[l].url}';`)
