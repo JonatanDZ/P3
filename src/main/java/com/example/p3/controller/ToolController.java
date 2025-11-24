@@ -93,7 +93,7 @@ public class ToolController {
         if (tool == null){
             return ResponseEntity.badRequest().build(); 
         }
-        return ResponseEntity.ok(toolService.saveTool(tool));
+        return ResponseEntity.status(HttpStatus.CREATED).body(tool);
     }
 
     // gets list of pending tools per department
