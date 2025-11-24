@@ -38,8 +38,6 @@ export async function submitForm() {
             const employee = await getCurrentEmployee();
             const initials = employee.initials;
 
-
-
             await fetch(`employee/${initials}/favorites/${toolId}`, {
                 method: "POST", // <-- important
                 headers: {
@@ -47,10 +45,8 @@ export async function submitForm() {
                 }
                 // no body needed, your backend just uses path variables
             });
+            await displayTools();
         }
-        await displayTools();
-
-
 
     } catch (error) {
         console.log("Error in submitForm:",error);
