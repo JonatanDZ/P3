@@ -130,6 +130,7 @@ label[for="jurisdiction"] {
     padding: 5px;
     /* Opacity added to make the button easier to read */
     opacity: 80%;
+    cursor: pointer;
 }
 
 #stage+label {
@@ -137,6 +138,7 @@ label[for="jurisdiction"] {
     color: #FFFFE3;
     padding: 5px;
     opacity: 80%;
+    cursor: pointer;
 }
 
 #prod+label {
@@ -144,6 +146,7 @@ label[for="jurisdiction"] {
     color: #FFFFE3;
     padding: 5px;
     opacity: 80%;
+    cursor: pointer;
 }
 
 .main {
@@ -158,6 +161,8 @@ aside {
     color: #FFFFE3;
     padding-top: 20px;
     flex-shrink: 0;
+    position: fixed;
+    height: 100%;
 }
 
 aside h1 {
@@ -210,6 +215,7 @@ section {
     padding: 40px;
     overflow-y: auto;
     margin-top: 10%;
+    margin-left: 220px;
 }
 
 
