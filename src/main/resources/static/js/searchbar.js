@@ -7,19 +7,24 @@ async function searchbar(inp, arr) {
     const employee = await getCurrentEmployee();
     var currentFocus;
     inp.addEventListener("input", function(e) {
-        let a, b, u, i;
+        let a, b, u;
+        //Input from searchbar
         let val = this.value;
+        //Close potential already opened list
         closeAllLists();
         if (!val) { return false;}
         currentFocus = -1
+        //Create div for whole list
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "searchbar-list");
         a.setAttribute("class", "searchbar-items");
+        //Append the list to searchbar
         this.parentNode.appendChild(a);
         //Checkes all element in the array if they match the searched input
-        for (i = 0; i < arr.length; i++) {
+        for (let i = 0; i < arr.length; i++) {
             //Checks to see if the input is included in any of the elements in the array 'tags'
              if (arr[i].value.toUpperCase().includes(val.toUpperCase())){
+                 //Create tag div and tag name
                  b = document.createElement("DIV");
                  b.setAttribute("class", "searchbar-heading");
                  var heading = document.createElement('b')
@@ -28,8 +33,10 @@ async function searchbar(inp, arr) {
                  //append tools, to the tag, so all tools will be appended to each tag (Should be conditioned to only suitible tools by tags)
                  b.appendChild(heading);
 
+                 //Look for tools that has tag
                  if (Array.isArray(arr[i].tools)) {
                      for (let l = 0; l < arr[i].tools.length; l++) {
+                         //Create tool div, tool name and url
                          u = document.createElement("DIV");
                          u.setAttribute("class", "searchbar-subheading");
                          var subheading = document.createElement('p')
@@ -52,37 +59,27 @@ async function searchbar(inp, arr) {
                          link.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
                          subheading.appendChild(link);
 
+                         //When tool div is clicked open url
                          u.setAttribute("onclick",`location.href='${arr[i].tools[l].url}';`)
 
                          u.appendChild(subheading);
 
-                         /*var input = document.createElement('input')
-                         input.setAttribute("type", "hidden");
-                         input.setAttribute("value", arr[l])
-                         u.appendChild(input)*/
+                         //When pressing enter while focus on div then open url
                          u.addEventListener("keypress", function(event) {
-                             // If the user presses the "Enter" key on the keyboard
                              if (event.key === "Enter") {
-                                 // Cancel the default action, if needed
                                  event.preventDefault();
-                                 // Trigger the button element with a click
                                  u.click();
                              }
                          });
-                         /*u.addEventListener("click", function (e) {
-                             inp.value = this.getElementsByTagName("input")[0].value;
-                             closeAllLists();
-                         });*/
                          b.appendChild(u)
-
                      }
                  }
-
                 a.appendChild(b);
             }
         }
     });
 
+    //The focus funktion. Makes it possible to use the arrows to go though tools
     inp.addEventListener("keydown", function(e) {
         var x = document.getElementById(this.id + "searchbar-list");
         if (x) x = x.getElementsByTagName("div");
@@ -99,6 +96,7 @@ async function searchbar(inp, arr) {
             }
         }
     });
+    //Makes tool either active or nonactive. Used when pressing arrows
     function addActive(x) {
         if (!x) return false;
         removeActive(x);
@@ -111,6 +109,8 @@ async function searchbar(inp, arr) {
             x[i].classList.remove("searchbar-active");
         }
     }
+
+    //Closes the list of tags and tools
     function closeAllLists(elmnt) {
         var x = document.getElementsByClassName("searchbar-items");
         for (var i = 0; i < x.length; i++) {
@@ -120,17 +120,21 @@ async function searchbar(inp, arr) {
         }
     }
 
+    //When clicking somewhere on screen close list
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
 
 
 }
+
+//Loads tags
 async function loadTags() {
     try{
         const response = await fetch('/tags');
         const tagsJson = await response.json();
 
+        //Calls the function
         searchbar(document.getElementById("myInput"), tagsJson)
 
     } catch (err){
