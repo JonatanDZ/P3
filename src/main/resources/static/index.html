@@ -67,7 +67,7 @@
             </div>
 
             <div class="popUpForm" id="addToolDiv" style="display: none">
-                <form class="from-container">
+                <div class="from-container">
                     <h1>Add Tool</h1>
 
                     <div class="formCards" id="formCard1" data-card="1">
@@ -85,7 +85,7 @@
                         </label>
                         <div id="toolURL">
                             <input id="toolURL1" class="toolURL" type="text" placeholder="Enter first part of URL" name="toolURL" required>
-                            <b id="toolUser">Initials</b>
+                            <b id="toolUser">{Initials}</b>
                             <input id="toolURL2" class="toolURL toolURLHide" type="text" placeholder="Enter second part of URL" name="toolURL" required>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                     </div>
 
                     <div class="formCards" id="formCard6" data-card="6" style="display: none">
-                        <p id="toolToPost"></p>
+                        <div class="tool-summary"> </div>
                         <div class="buttondiv">
                             <button type="button" class="toggleBtn submitFormBtn">Cancel</button>
                             <button type="submit" id="submitBtn" class="submitBtn submitFormBtn">Add Tool</button>
@@ -138,7 +138,7 @@
                         <button type="button" id="prev" class="toggleCardBtn submitFormBtn" value="-1">Previous</button>
                         <button type="button" id="next" class="toggleCardBtn submitFormBtn" value="1">Next</button>
                     </div>
-                </form>
+                </div>
             </div>
 
             <h1>Favorites</h1>

@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     dynamicCheck.addEventListener("change", ()=>{
         displayURLbar(dynamicCheck.checked);
     });
+
+
 });
 
 
@@ -44,6 +46,7 @@ function loadAllFromOptions(){
     loadOptions("jurisdictions");
     enableTagSearch();
 }
+
 
 
 if (document.querySelector("#submitBtn")) {

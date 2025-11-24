@@ -6,8 +6,7 @@ input[type=text], input[type=checkbox]:not([class = "tag-suggestion-checkbox"]){
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    border-radius: 1rem;
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
 .tag-suggestion-checkbox{
     margin: 1rem;
@@ -55,7 +54,7 @@ span.psw {
     left: 20%;
     top: 0;
     width: 50%; /* Full width */
-    height: 50%; /* Full height */
+    height: 30rem; /* Full height */
     overflow-x: hidden; /* disable scroll if needed on x-axis */
     overflow-y: visible; /* disable scroll if needed on y-axis - giver plads til tags */
     background-color: rgb(0, 0, 0, 0.9);
