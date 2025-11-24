@@ -1,5 +1,4 @@
-package com.example.p3;
-import com.example.p3.controller.EmployeeController;
+package com.example.p3.controller;
 import com.example.p3.entities.Tool;
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Employee;

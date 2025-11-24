@@ -1,8 +1,7 @@
-package com.example.p3;
+package com.example.p3.controller;
 
 
 
-import com.example.p3.controller.FavoritesController;
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Employee;
 import com.example.p3.entities.Jurisdiction;

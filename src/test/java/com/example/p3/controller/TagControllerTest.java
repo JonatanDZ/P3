@@ -1,6 +1,5 @@
-package com.example.p3;
+package com.example.p3.controller;
 
-import com.example.p3.controller.TagController;
 import com.example.p3.entities.*;
 import com.example.p3.service.TagService;
 import org.junit.jupiter.api.BeforeEach;
