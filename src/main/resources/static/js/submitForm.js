@@ -57,10 +57,8 @@ export async function formToJSON(){
     // added to the pending tool list
     const pending = !isPersonal;
 
-    const createdBy = await getCurrentEmployee();
+    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending});
 
-
-    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending, created_by : createdBy});
 }
 
 //Gets the url value

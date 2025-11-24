@@ -91,50 +91,6 @@ export async function getToolsByDepartmentJurisdictionStage(department, jurisdic
         .catch(error => console.error('Error fetching tool:', error));
 }
 
-// functions which run when page loads
-window.addEventListener('DOMContentLoaded', async () => {
-    getToolsDisplay();
-    await getDepartmentsDisplay();
-    await toggleDepartment();
-    // redundant since it gets called inside the method above
-    // getToolsByDepartmentJurisdictionStage();
-    displayFavorites();// initial render
-
-    // Unified change handler — since display functions reset themselves,
-    // we only need to re-run them when filters change.
-    const onFiltersChange = () => {
-        getToolsByDepartmentJurisdictionStage();
-        displayFavorites();
-    };
-
-    // Branch (stage) radio group
-    const branchContainer = document.querySelector('.branchSelector');
-    if (branchContainer) {
-        branchContainer.addEventListener('change', (e) => {
-            if (e.target && e.target.matches('input[name="branch"]')) {
-                onFiltersChange();
-            }
-        });
-    }
-
-    // Department radio group
-    const departmentContainer = document.querySelector('.departmentSelector');
-    if (departmentContainer) {
-        departmentContainer.addEventListener('change', (e) => {
-            if (e.target && e.target.matches('input[name="department"]')) {
-                onFiltersChange();
-            }
-        });
-    }
-
-    // Jurisdiction checkbox
-    const jurEl = document.getElementById('jurisdiction');
-    if (jurEl) {
-        jurEl.addEventListener('change', onFiltersChange);
-    }
-});
-
-
 ///////// HELPER METHODS /////////
 
 export function getJurisdiction() {

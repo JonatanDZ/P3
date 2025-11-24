@@ -32,19 +32,13 @@ function starClicked(starBtn, star, toolId, employeeInitials) {
     });
 }
 
-export async function displayTools(data, list) {
-    const employee = await getCurrentEmployee();
+export async function displayTools(data, list, employee) {
+    const EmployeeFavorites = await getEmployeeFavoritesByJurisdictionAndStage();
 
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
-        let url; //We initialize the url beneath in different ways if it is dynamic or not
-        console.log(tool.is_dynamic);
-        if (tool.is_dynamic){
-            url = tool.url.replace('$USER$', employee.initials.toLowerCase());
+        let url = tool.url.replace('$USER$', employee.initials);
 
-        } else {
-            url = tool.url;
-        }
         const toolId = tool.id;
         const li = document.createElement('li');
         const a = document.createElement('a');
