@@ -47,7 +47,7 @@ span.psw {
 
 /* popUpForm (background) */
 .popUpForm {
-    margin-top: 5%;
+    margin-top: 10%;
     padding: 0 10% 2% 10%;
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -55,11 +55,24 @@ span.psw {
     left: 20%;
     top: 0;
     width: 50%; /* Full width */
-    height: 75%; /* Full height */
+    height: 50%; /* Full height */
     overflow-x: hidden; /* disable scroll if needed on x-axis */
     overflow-y: visible; /* disable scroll if needed on y-axis - giver plads til tags */
     background-color: rgb(0, 0, 0, 0.9);
     border-radius: 2rem;
+}
+
+.formCards{
+    height: 20rem;
+    width: 100%;
+}
+
+.buttondiv{
+    align-items: center;
+    display: flex;
+    padding: 5px;
+    float: right;
+    
 }
 
 /* Modal Content/Box */
