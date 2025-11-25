@@ -213,8 +213,7 @@ section {
     color: var(--text-main);
     padding: 40px;
     overflow-y: auto;
-    margin-top: 10%;
-    margin-left: 220px;
+    margin-top: 3rem;
 }
 
 
@@ -343,8 +342,9 @@ footer {
 
 .checkBoxDiv {
     display: inline-block;
-    width: 5rem;
+    width: 8rem;
     text-align: center;
+    margin-top: 1rem;
 }
 
 .inputDiv {
@@ -360,13 +360,6 @@ footer {
 
 .from-container b {
 
-}
-
-.buttondiv{
-    align-items: center;
-    display: flex;
-    padding: 5px;
-    float: right;
 }
 
 .submitFormBtn {
