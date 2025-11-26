@@ -2,7 +2,9 @@ package com.example.p3.entities;
 
 import jakarta.persistence.*; //Enables hibernate
 import jakarta.validation.constraints.Size; //This allows us to set size limitations to our attributes
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
@@ -94,4 +96,7 @@ public class Tool {
     }
 
     public Tool() {}
+
+    public Tool(int i, String slack, String url, boolean b, boolean b1, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
+    }
 }

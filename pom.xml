@@ -92,8 +92,6 @@
                 <version>11.7.2</version>
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/P3?createDatabaseIfNotExist=true</url>
-                    <user>root</user>
-                    <password>TESTtest123</password>
                     <cleanDisabled>false</cleanDisabled>
                 </configuration>
             </plugin>

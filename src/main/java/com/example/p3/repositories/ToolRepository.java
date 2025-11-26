@@ -92,6 +92,14 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     // returns all tools which have pending = false
     List<Tool> findByPendingFalse();
 
+    //Returns only name and url from a tool (for search by tag)
+    @Modifying
+    @Query(value = """
+    
+    
+""")
+
+
     /*
     SELECT * FROM tool t
     JOIN tool_jurisdiction tj ON t.id = tj.tool_id

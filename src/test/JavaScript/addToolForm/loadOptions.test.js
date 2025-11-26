@@ -31,9 +31,9 @@ describe('loadOptions', () => {
         mockResponse = {
             ok: true,
             json: async () => ([ //The body that is received
-                {id: 1, name: 'HR'},
-                {id: 2, name: 'Legal'},
-                {id: 3, name: 'Players'}
+                {name: 'HR'},
+                {name: 'Legal'},
+                {name: 'Players'}
             ])
         }
 
@@ -45,15 +45,15 @@ describe('loadOptions', () => {
 
         // checking if the checkboxes are made correctly
         //HR
-        expect(document.querySelector("#HRInput").value).toBe("1");
+        expect(document.querySelector("#HRInput").value).toBe("HR");
         expect(document.querySelector("#HRInput").type).toBe("checkbox");
         expect(document.querySelector("#HRInput").className).toBe("departmentsChecks");
         //Legal
-        expect(document.querySelector("#LegalInput").value).toBe("2");
+        expect(document.querySelector("#LegalInput").value).toBe("LEGAL");
         expect(document.querySelector("#LegalInput").type).toBe("checkbox");
         expect(document.querySelector("#LegalInput").className).toBe("departmentsChecks");
         //Players
-        expect(document.querySelector("#PlayersInput").value).toBe("3");
+        expect(document.querySelector("#PlayersInput").value).toBe("PLAYERS");
         expect(document.querySelector("#PlayersInput").type).toBe("checkbox");
         expect(document.querySelector("#PlayersInput").className).toBe("departmentsChecks");
     });
@@ -64,9 +64,9 @@ describe('loadOptions', () => {
         mockResponse = {
             ok: true,
             json: async () => ([ //The body that is received
-                {id: 10, name: 'DK'},
-                {id: 11, name: 'UK'},
-                {id: 12, name: 'US'}
+                {name: 'DK'},
+                {name: 'UK'},
+                {name: 'US'}
             ])
         }
 
@@ -78,15 +78,15 @@ describe('loadOptions', () => {
 
         // checking if the checkboxes are made correctly
         //DK
-        expect(document.querySelector("#DKInput").value).toBe("10");
+        expect(document.querySelector("#DKInput").value).toBe("DK");
         expect(document.querySelector("#DKInput").type).toBe("checkbox");
         expect(document.querySelector("#DKInput").className).toBe("jurisdictionsChecks");
         //UK
-        expect(document.querySelector("#UKInput").value).toBe("11");
+        expect(document.querySelector("#UKInput").value).toBe("UK");
         expect(document.querySelector("#UKInput").type).toBe("checkbox");
         expect(document.querySelector("#UKInput").className).toBe("jurisdictionsChecks");
         //US
-        expect(document.querySelector("#USInput").value).toBe("12");
+        expect(document.querySelector("#USInput").value).toBe("US");
         expect(document.querySelector("#USInput").type).toBe("checkbox");
         expect(document.querySelector("#USInput").className).toBe("jurisdictionsChecks");
     });
@@ -107,5 +107,38 @@ describe('loadOptions', () => {
         await new Promise(process.nextTick);
 
         expect(document.querySelector("#jurisdictionsInput").innerHTML).toBe("");
+    });
+
+    test('Handle different different cases', async () => {
+
+        // Setup mock fetch response
+        mockResponse = {
+            ok: true,
+            json: async () => ([ //The body that is received
+                {name: 'lowercase'},
+                {name: 'MiXeDcAsE'},
+                {name: 'UPPERCASE'}
+            ])
+        }
+
+        global.fetch.mockResolvedValue(mockResponse); //No matter what: receive the body above (mockResponse)
+
+        loadOptions('departments');
+
+        await new Promise(process.nextTick); //waits until loadOptions('departments'); is done
+
+        // checking if the checkboxes are made correctly
+        //lowercase
+        expect(document.querySelector("#lowercaseInput").value).toBe("lowercase".toUpperCase());
+        expect(document.querySelector("#lowercaseInput").type).toBe("checkbox");
+        expect(document.querySelector("#lowercaseInput").className).toBe("departmentsChecks");
+        //MiXeDcAsE
+        expect(document.querySelector("#MiXeDcAsEInput").value).toBe("MiXeDcAsE".toUpperCase());
+        expect(document.querySelector("#MiXeDcAsEInput").type).toBe("checkbox");
+        expect(document.querySelector("#MiXeDcAsEInput").className).toBe("departmentsChecks");
+        //UPPERCASE
+        expect(document.querySelector("#UPPERCASEInput").value).toBe("UPPERCASE".toUpperCase());
+        expect(document.querySelector("#UPPERCASEInput").type).toBe("checkbox");
+        expect(document.querySelector("#UPPERCASEInput").className).toBe("departmentsChecks");
     });
 });

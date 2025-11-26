@@ -54,15 +54,10 @@ export async function submitForm() {
 
 
     //Makes sure tool can be loaded to database before displaying
-    /*
+
     setTimeout(() => {
         window.location.reload();
     }, 100);
-
-     */
-
-
-
 }
 
 //Makes form data into a JSON
@@ -80,10 +75,8 @@ export async function formToJSON(){
     // added to the pending tool list
     const pending = !isPersonal;
 
-    const createdBy = await getCurrentEmployee();
+    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending});
 
-
-    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending, created_by : createdBy});
 }
 
 //Gets the url value
@@ -91,7 +84,7 @@ function getURLValue(dynamic){
     const url1 = document.querySelector("#toolURL1").value.toString();
     //Combines the two parts of dynamic url and user initials
     if (dynamic){
-        const user = `$USER$`;
+        const user = document.querySelector("#toolUser").textContent;
         const url2 = document.querySelector("#toolURL2").value.toString();
 
         return url1 + user + url2;

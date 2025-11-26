@@ -9,7 +9,11 @@
     --text-soft:      #6B7280;
 
     --accent:         #3B82F6;  /* blue accent (links, buttons) */
-    --accent-success: #22C55E;  /* for the + button */
+
+    --dev--: #aa4042;
+    --stage--: #42aa40;
+    --prod--: #4042aa;
+
 }
 
 :root {
@@ -120,25 +124,28 @@ label[for="jurisdiction"] {
 }
 
 #dev+label {
-    background: #ff0000;
+    background: var(--dev--);
     color: #FFFFE3;
     padding: 5px;
     /* Opacity added to make the button easier to read */
     opacity: 80%;
+    cursor: pointer;
 }
 
 #stage+label {
-    background: #00ff08;
+    background: var(--stage--);
     color: #FFFFE3;
     padding: 5px;
     opacity: 80%;
+    cursor: pointer;
 }
 
 #prod+label {
-    background: #008cff;
+    background: var(--prod--);
     color: #FFFFE3;
     padding: 5px;
     opacity: 80%;
+    cursor: pointer;
 }
 
 .main {
@@ -153,6 +160,8 @@ aside {
     color: #FFFFE3;
     padding-top: 20px;
     flex-shrink: 0;
+    position: fixed;
+    height: 100%;
 }
 
 aside h1 {
@@ -204,41 +213,11 @@ section {
     color: var(--text-main);
     padding: 40px;
     overflow-y: auto;
-    margin-top: 10%;
+    margin-top: 3rem;
+    margin-left: 13.75rem;
 }
 
-#searchbar {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 880px;
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding-bottom: 50px;
-}
 
-#searchbar input {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background: var(--bg-nav);
-    gap: 8px;
-    box-sizing: border-box;
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 15px;
-    margin: auto;
-    font-size: 25px;
-    padding: 12px;
-    color: #E5E7EB;
-    font-family: var(--font-sans);
-}
-
-#searchbar input:focus {
-    outline: none;
-}
-#searchbar input::placeholder{
-    color: var(--text-soft);
-}
 
 #allTools,
 #departmentSelected,
@@ -275,6 +254,13 @@ section {
     padding: 10px;
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+#allTools a:hover,
+#departmentSelected a:hover,
+#favorites a:hover{
+    width: 300px;
+    height: 100px;
 }
 
 .tool-header {
@@ -316,7 +302,7 @@ section {
 
 .tool-url {
     margin-top: auto;
-    font-size: 12px;
+    font-size: 14px;
     word-break: break-all;
 }
 
@@ -341,7 +327,7 @@ footer {
 #addToolBtn {
     background: none !important;
     border: none !important;
-    color: var(--accent-success);
+    color: var(--stage--);
     font-size: 2.8rem;
     padding: 0;
     cursor: pointer;
@@ -351,7 +337,7 @@ footer {
 
 #addToolBtn:hover {
     transform: scale(1.15) translateZ(0);
-    color: var(--accent-success) !important;
+    color: var(--stage--) !important;
     text-shadow: none !important;
     filter: none !important;
 }
@@ -360,13 +346,13 @@ footer {
     opacity: 1 !important;
     filter: none !important;
     text-shadow: none !important;
-    color: var(--accent-success) !important;
 }
 
 .checkBoxDiv {
     display: inline-block;
-    width: 5rem;
+    width: 8rem;
     text-align: center;
+    margin-top: 1rem;
 }
 
 .inputDiv {
@@ -382,13 +368,6 @@ footer {
 
 .from-container b {
 
-}
-
-.buttondiv{
-    align-items: center;
-    display: flex;
-    padding: 5px;
-    float: right;
 }
 
 .submitFormBtn {
@@ -434,9 +413,23 @@ input[type="checkbox"] {
 
 .tags{
     width: 100%;
-    border: 0.2rem solid #ccc;
+    border: 0.1rem solid #ccc;
     border-radius: 40px;
-    padding: 1% 2%;
+    padding: 3%;
+    align-items: center;
     outline: none;
     box-sizing: border-box;
+    font-size: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;        /* number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
+
+.tags .tag:not(:last-child)::after {
+    content: ", ";
+}
+
+
+
+

@@ -66,7 +66,7 @@ export function displayReview(){
     let toolURL = "";
 
     if (document.querySelector("#isDynamic").checked){
-        toolURL = document.querySelector("#toolURL1").value + document.querySelector("#toolURL2").value;
+        toolURL = document.querySelector("#toolURL1").value + "{initials}" + document.querySelector("#toolURL2").value;
     } else {
         toolURL = document.querySelector("#toolURL1").value;
     }
@@ -83,27 +83,54 @@ export function displayReview(){
     document.querySelectorAll('.stagesChecks:checked').forEach(cb => {
         stageString += cb.name + ", ";
     });
-    stageString = stageString.slice(0, -2);
+    stageString = stageString.slice(0, -2); //The last two chars. In this case ", "
 
     document.querySelectorAll('.departmentsChecks:checked').forEach(cb => {
         departmentString += cb.textContent + ", ";
     });
-    departmentString = departmentString.slice(0, -2);
+    departmentString = departmentString.slice(0, -2); //The last two chars. In this case ", "
 
     document.querySelectorAll('.tag-chip').forEach(tag => {
         tagString += tag.dataset.tagName + ", ";
     });
-    tagString = tagString.slice(0, -2);
+    tagString = tagString.slice(0, -2);  //The last two chars. In this case ", "
 
-    const para = document.querySelector("#toolToPost");
-    para.innerHTML = `
-    <div class="tool-summary">
-        <h3>${toolName}</h3>
-        <p><strong>Departments:</strong> ${departmentString}</p>
-        <p><strong>Jurisdictions:</strong> ${jurisdictionString}</p>
-        <p><strong>Stages:</strong> ${stageString}</p>
-        <p><strong>URL:</strong> <a href="${toolURL}" target="_blank">${toolURL}</a></p>
-        <p><strong>Tags: </strong> ${tagString}</p>
-    </div>
-    `;
+    const div = document.querySelector(".tool-summary");
+
+    clearDiv(div);
+
+    const isPersonal = document.querySelector("#isPersonal").checked;
+    const isDynamic = document.querySelector("#isDynamic").checked;
+
+
+
+    if (isPersonal){
+        createParagraph(div, "Personal", isPersonal ? "Yes" : "No");
+        createParagraph(div, "Name", toolName);
+        createParagraph(div, "URL", toolURL);
+        createParagraph(div, "Jurisdiction", jurisdictionString);
+        createParagraph(div, "Stage", stageString);
+    } else{
+        createParagraph(div, "Personal", isPersonal ? "Yes" : "No");
+        createParagraph(div, "Name", toolName);
+        createParagraph(div, "Dynamic", isDynamic ? "Yes" : "No");
+        createParagraph(div, "URL", toolURL);
+        createParagraph(div, "Departments", departmentString);
+        createParagraph(div, "Jurisdiction", jurisdictionString);
+        createParagraph(div, "Stage", stageString);
+        createParagraph(div, "Tags", tagString);
+    }
 }
+
+function createParagraph(parent, title, text) {
+    const para = document.createElement("p");
+    para.textContent = `${title}: ${text}`;
+    parent.appendChild(para);
+}
+
+function clearDiv(div){
+    while(div.lastChild){
+        div.removeChild(div.lastChild);    
+    }
+}
+

@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     dynamicCheck.addEventListener("change", ()=>{
         displayURLbar(dynamicCheck.checked);
     });
+
+
 });
 
 
@@ -46,6 +48,7 @@ function loadAllFromOptions(){
 }
 
 
+
 if (document.querySelector("#submitBtn")) {
     document.querySelector("#submitBtn").addEventListener("click",  (e) => {
         e.preventDefault();
@@ -53,12 +56,14 @@ if (document.querySelector("#submitBtn")) {
     });
 }
 
+/*
 if (document.querySelector("#submitTagBtn")) {
     document.querySelector("#submitTagBtn").addEventListener("click", async (e)  =>  {
         e.preventDefault();
         await submitTag();
     })
 }
+*/
 
 if (document.querySelector(".toggleCardBtn")) {
     document.querySelectorAll(".toggleCardBtn").forEach(btn =>{
