@@ -1,0 +1,85 @@
+.tags{
+    width: 100%;
+    border: 0.1rem solid #ccc;
+    border-radius: 40px;
+    padding: 3%;
+    align-items: center;
+    outline: none;
+    box-sizing: border-box;
+    font-size: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;        /* number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tags .tag:not(:last-child)::after {
+    content: ", ";
+}
+
+#allTools a,
+#departmentSelected a,
+#favorites a {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-card);
+    color: var(--text-main);
+
+    /* Change the size of these to change the size of the cards */
+    width: 200px;
+    height: 100px;
+
+    border: 1px solid var(--border-soft);
+    margin: 0;
+    border-radius: 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    text-decoration: none;
+    padding: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+.tool-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.tool-name {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.star-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    line-height: 1;
+    cursor: pointer;
+    font-size: 24px; /* match your title size */
+}
+
+.star-button .star {
+    color: gold;           /* outline color */
+    transition: color 140ms ease, transform 120ms ease;
+}
+
+.star-button.is-filled .star {
+    color: gold;              /* filled color */
+}
+
+.star-button:hover .star {
+    transform: scale(1.05);
+}
+
+.tool-url {
+    margin-top: auto;
+    font-size: 14px;
+    word-break: break-all;
+}

@@ -232,72 +232,7 @@ section {
 }
 
 
-#allTools a,
-#departmentSelected a,
-#favorites a {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-card);
-    color: var(--text-main);
 
-    /* Change the size of these to change the size of the cards */
-    width: 200px;
-    height: 100px;
-
-    border: 1px solid var(--border-soft);
-    margin: 0;
-    border-radius: 15px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    font-size: 25px;
-    text-decoration: none;
-    padding: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
-}
-
-.tool-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.tool-name {
-    flex: 1;
-    min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.star-button {
-    background: transparent;
-    border: none;
-    padding: 0;
-    line-height: 1;
-    cursor: pointer;
-    font-size: 24px; /* match your title size */
-}
-
-.star-button .star {
-    color: gold;           /* outline color */
-    transition: color 140ms ease, transform 120ms ease;
-}
-
-.star-button.is-filled .star {
-    color: gold;              /* filled color */
-}
-
-.star-button:hover .star {
-    transform: scale(1.05);
-}
-
-.tool-url {
-    margin-top: auto;
-    font-size: 14px;
-    word-break: break-all;
-}
 
 
 footer {
@@ -341,87 +276,11 @@ footer {
     text-shadow: none !important;
 }
 
-.checkBoxDiv {
-    display: inline-block;
-    width: 8rem;
-    text-align: center;
-    margin-top: 1rem;
-}
 
-.inputDiv {
-    width: 100%;
-    display: inline-block;
-}
 
-.from-container{
-    margin: auto;
-    /*text-align: center; */
-    align-items: center;
-}
 
-.from-container b {
 
-}
 
-.submitFormBtn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 17px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-    border-radius: 6px;
-    border: none;
-
-    color: #FFFFE3;
-    background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
-    background-origin: border-box;
-    box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-}
-
-.submitFormBtn:focus {
-    box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
-    outline: 0;
-}
-
-#isDynamic, #isPersonal{
-    width: auto;
-    margin: 1rem;
-}
-
-input[type="checkbox"] {
-    transform: scale(1.7);
-}
-
-.toolName{
-    width: 100%;
-    border: 0.2rem solid #ccc;
-    border-radius: 40px;
-    padding: 1% 2%;
-    outline: none;
-    box-sizing: border-box;
-}
-
-.tags{
-    width: 100%;
-    border: 0.1rem solid #ccc;
-    border-radius: 40px;
-    padding: 3%;
-    align-items: center;
-    outline: none;
-    box-sizing: border-box;
-    font-size: 18px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;        /* number of lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.tags .tag:not(:last-child)::after {
-    content: ", ";
-}
 
 
 

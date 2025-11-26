@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function reloadDropdown() {
     const pendingToolList = await getDepartmentsPendingTools();
 
-    console.log(pendingToolList);
+    console.log("TOOLS HERE!" + pendingToolList);
 
     // Remove old badge if exists
     const containerBellNotifications = document.getElementById("bellNotifications");
@@ -125,8 +125,28 @@ function createDropdownCard(pendingTool) {
     const pendingToolCard = document.createElement("div");
 
     const link = document.createElement("a");
+    link.textContent = `${pendingTool.name}: `;
+    link.className = "pendingToolName";
     link.href = pendingTool.url;
-    link.textContent = pendingTool.name;
+
+    const url = document.createElement("span");
+
+    url.textContent = pendingTool.url;
+    url.className = "pendingToolUrl"
+    link.appendChild(url)
+
+    const departments = document.createElement("p")
+    departments.textContent = "Departments: ";
+    departments.className = "departments"
+    if(Array.isArray(pendingTool.departments)) {
+        for (const depValue of pendingTool.departments) {
+            const dep = document.createElement('span')
+            dep.className = 'dep';
+            dep.textContent = depValue;
+            departments.appendChild(dep);
+        }
+    }
+
 
     const approveBtn = document.createElement("button");
     approveBtn.id = pendingTool.id;
@@ -141,6 +161,7 @@ function createDropdownCard(pendingTool) {
     denyBtn.textContent = "🚫";
 
     pendingToolCard.appendChild(link);
+    pendingToolCard.appendChild(departments);
     pendingToolCard.appendChild(approveBtn);
     pendingToolCard.appendChild(denyBtn);
 

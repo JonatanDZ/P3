@@ -21,24 +21,53 @@
     top: 3.5em;
     display: none;
     flex-direction: column;
-    background: #111828;
-    border-radius: 0.5rem;
-    min-width: 180px;
-    padding: 0.5rem 0;
+    border-radius: 1rem;
+    width: 500px;
+    padding: 10px 0px;
     z-index: 1000;
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-card);
+    color: var(--text-main);
 }
 
 .dropdownContent.show {
     display: flex;
 }
 
+.dropdownContent div{
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px
+}
+
+.dropdownContent .pendingToolName{
+    font-size: 20px;
+    text-decoration: none;
+    padding: 10px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .dropdownContent a {
     color: white;
     text-decoration: none;
-    padding: 0.75em 1em;
     display: block;
     font-size: 0.95em;
-    background-color: blue;
+    background-color: var(--bg-card);
+    border-radius: 1rem;
+}
+
+.dropdownContent .departments{
+    text-decoration: none;
+    padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdownContent a:hover{
+    background: #a1a1f1;
 }
 
 .aprbtn, .denybtn {
@@ -75,4 +104,8 @@
     font-size: 12px;
     font-weight: bold;
     z-index: 1100;
+}
+
+.departments .dep:not(:last-child)::after {
+    content: ", ";
 }
