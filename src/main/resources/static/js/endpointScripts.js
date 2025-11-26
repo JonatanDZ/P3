@@ -4,7 +4,7 @@ import {displayTools} from "./displayTools.js";
 import {toggleDepartment} from "./toggleDepartment.js";
 
 //Gets all tools and displays them individually
-export async function getToolsDisplay () {
+export function getToolsDisplay () {
     // clear the list each time it is called.
     // If this is not implemented it appends to the list each time.
     const list = document.getElementById('allTools');
@@ -58,8 +58,12 @@ export function getToolsByDepartmentJurisdictionStage() {
 
     fetch(`/tools/department/${encodeURIComponent(department)}/jurisdiction/${encodeURIComponent(jurisdiction)}/stage/${encodeURIComponent(branch)}`)
         .then(response => response.json())
-        .then(data => {
-            displayTools(data, list);
+        .then(async data => {
+            for (const tool of data) {
+                if (!tool.pending) {
+                    await displayTools([tool], list);
+                }
+            }
         })
         .catch(error => console.error('Error fetching tool:', error));
 }

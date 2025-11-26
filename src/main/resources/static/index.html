@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yellow Pages</title>
-    <link rel="stylesheet" href="dropdown.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/searchbar.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -62,19 +63,18 @@
 
         <section>
             <div id="searchbar">
-                <input type="text" placeholder="Placeholder for search">
+                <input id = "myInput" type="text" placeholder="Search for tools by tags">
             </div>
 
             <div class="popUpForm" id="addToolDiv" style="display: none">
-                <form class="from-container">
+                <div class="from-container">
                     <h1>Add Tool</h1>
 
                     <div class="formCards" id="formCard1" data-card="1">
+                        <label for="toolName"> <h3> Tool name</h3></label>
                         <label for="isPersonal"> Is the tool personal?
                             <input id="isPersonal" type="checkbox" name="isPersonal" class="isPersonal" checked="checked">
                         </label>
-
-                        <label for="toolName"> <h3> Tool name</h3></label>
                         <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" class="toolName" required>
                     </div>
 
@@ -85,7 +85,7 @@
                         </label>
                         <div id="toolURL">
                             <input id="toolURL1" class="toolURL" type="text" placeholder="Enter first part of URL" name="toolURL" required>
-                            <b id="toolUser">Initials</b>
+                            <b id="toolUser">{Initials}</b>
                             <input id="toolURL2" class="toolURL toolURLHide" type="text" placeholder="Enter second part of URL" name="toolURL" required>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
 
                             <label for="tags"> <h3> Tags </h3></label>
                             <div id="selectedTags" class="selected-tags"></div>
-                            <button type="button" id="submitTagBtn"> Create Tag</button>
+                            <!-- <button type="button" id="submitTagBtn"> Create Tag</button> -->
                             <input id="tags" type="text" placeholder="Enter Tags" name="tags" class="tags">
                             <div id="tagsSuggestions" class="tag-suggestions">
                             </div>
@@ -128,7 +128,7 @@
                     </div>
 
                     <div class="formCards" id="formCard6" data-card="6" style="display: none">
-                        <p id="toolToPost">Hej</p>
+                        <div class="tool-summary"> </div>
                         <div class="buttondiv">
                             <button type="button" class="toggleBtn submitFormBtn">Cancel</button>
                             <button type="submit" id="submitBtn" class="submitBtn submitFormBtn">Add Tool</button>
@@ -138,7 +138,7 @@
                         <button type="button" id="prev" class="toggleCardBtn submitFormBtn" value="-1">Previous</button>
                         <button type="button" id="next" class="toggleCardBtn submitFormBtn" value="1">Next</button>
                     </div>
-                </form>
+                </div>
             </div>
 
             <h1>Favorites</h1>
@@ -164,5 +164,6 @@
     <script type="module" src="/js/displayFavorites.js"></script>
     <script type="module" src="/js/userJurisdictionNav.js"></script>
     <script type="module" src="js/toggleDepartment.js"></script>
+    <script type="module" src="/js/searchbar.js"></script>
 </body>
 </html>

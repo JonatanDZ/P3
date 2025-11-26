@@ -12,11 +12,13 @@ public class EmployeeDto {
     private String name;
     private String initials;
     private String department_name;
+    private String email;
 
     public EmployeeDto(Employee e) {
         this.id = e.getInitials();
         this.name = e.getName();
         this.initials = e.getInitials();
         this.department_name = e.getDepartment() != null ? e.getDepartment().getName() : null;
+        this.email = e.getEmail();
     }
 }

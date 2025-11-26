@@ -35,12 +35,10 @@ export async function submitForm() {
 
 
     //Makes sure tool can be loaded to database before displaying
+
     setTimeout(() => {
         window.location.reload();
     }, 100);
-
-
-
 }
 
 //Makes form data into a JSON
@@ -48,6 +46,7 @@ export async function formToJSON(){
     const isPersonal = document.querySelector("#isPersonal").checked;
     const name = document.querySelector("#toolName").value;
     const isDynamic = document.querySelector('#isDynamic').checked;
+    console.log(document.querySelector('#isDynamic').checked);
     const url = getURLValue(isDynamic);
     //We have to use "dataset.tag" because a div doesn't have the attribute value
     const tags = Array.from(document.querySelectorAll(".tag-chip")).map(tag => ({id : tag.dataset.tag}));
@@ -66,7 +65,7 @@ function getURLValue(dynamic){
     const url1 = document.querySelector("#toolURL1").value.toString();
     //Combines the two parts of dynamic url and user initials
     if (dynamic){
-        const user = `$USER$`;
+        const user = document.querySelector("#toolUser").textContent;
         const url2 = document.querySelector("#toolURL2").value.toString();
 
         return url1 + user + url2;
