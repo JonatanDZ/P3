@@ -69,8 +69,8 @@ export async function displayTools(data, list) {
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);
 
-        header.appendChild(nameE);
         header.appendChild(starBtn);
+        header.appendChild(nameE);
 
 
 
