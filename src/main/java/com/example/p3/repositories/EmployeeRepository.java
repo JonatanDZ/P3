@@ -13,9 +13,8 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     // Queries methods such as findAll() is standard in JpaRepository.
-    // findByIntitials is a custome query to find initials, sql would be smt like:
+    // findByIntitials is a custom query to find initials, sql would be:
     // SELECT * FROM employees WHERE initials = ?;
-    // Finds employees by initials (case-sensitive)
     // findByInitials is a costume query to find initials, sql would be smt like:
     Optional<Employee> findByInitials(String initials);
 }
