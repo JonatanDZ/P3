@@ -35,15 +35,10 @@ export async function submitForm() {
 
 
     //Makes sure tool can be loaded to database before displaying
-    /*
+
     setTimeout(() => {
         window.location.reload();
     }, 100);
-
-     */
-
-
-
 }
 
 //Makes form data into a JSON
