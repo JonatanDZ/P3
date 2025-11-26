@@ -251,6 +251,13 @@ section {
     box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
 }
 
+#allTools a:hover,
+#departmentSelected a:hover,
+#favorites a:hover{
+    width: 300px;
+    height: 100px;
+}
+
 .tool-header {
     display: flex;
     align-items: center;
