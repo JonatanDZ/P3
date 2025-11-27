@@ -79,7 +79,7 @@ export async function formToJSON(){
 
 }
 
-//Gets the url value
+//Gets the url value regarding if it is dynamic
 function getURLValue(dynamic){
     const url1 = document.querySelector("#toolURL1").value.toString();
     //Combines the two parts of dynamic url and user initials
