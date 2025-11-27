@@ -83,4 +83,26 @@ describe("displayTool()", () => {
         expect(firstTool.querySelector(".star").textContent).toBe("★");
     });
 
+    test("DisplayTool test: Empty tool", async () => {
+        const mockList = document.getElementById("allTools");
+
+        const mockTools = [
+            {
+
+            }
+        ];
+
+        isToolInFavorite.mockResolvedValue(false);
+
+        await displayTools(mockTools, mockList);
+
+        expect(mockList.children.length).toBe(1);
+
+        const firstTool = mockList.children[0];
+        expect(firstTool.querySelector(".tool-name").textContent).toBe("");
+        expect(firstTool.querySelector(".tool-url").textContent).toBe("");
+        expect(firstTool.querySelectorAll(".tag").length).toBe(0);
+        expect(firstTool.querySelector(".star").textContent).toBe("☆");
+    });
+
 });
