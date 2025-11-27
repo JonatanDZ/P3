@@ -188,13 +188,12 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
         assertTrue(favoritesReturned.contains(testTool));
     }
 
+    // Testing: toolRepository.toggleAsFavorite(employeeInitials, toolId);
+    // Given an employee and a tool in the same department/jurisdiction/stage,
+    // when toggleAsFavorite is called, the tool should appear in the list of favorites
+    // and calling it again should not create duplicate favorites.
     @Test
     public void toggleAsFavoriteTest() {
-        // Testing: toolRepository.toggleAsFavorite(employeeInitials, toolId);
-        // Given an employee and a tool in the same department/jurisdiction/stage,
-        // when toggleAsFavorite is called, the tool should appear in the list of favorites
-        // and calling it again should not create duplicate favorites.
-
         // arrange: create department set
         Department testDepartment = createDepartment();
         Set<Department> departments = new HashSet<>();
@@ -252,7 +251,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
         assertTrue(favoritesAfterFirstToggle.contains(testTool));
 
 
-        // act: second toggle should not create duplicates due to WHERE NOT EXISTS
+        // act: second toggle should not create duplicates due to WHERE NOT EXISTS (edge case)
         toolRepository.toggleAsFavorite(employee.getInitials(), testTool.getId());
 
         List<Tool> favoritesAfterSecondToggle = toolRepository
@@ -268,6 +267,101 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
 
         // assert that the tool is still only present once
         assertEquals(1, countOfTestTool);
+    }
+
+    // Testing: toolRepository.untoggleAsFavorite(employeeInitials, toolId);
+    // Given an employee and a tool in the same department/jurisdiction/stage,
+    // when untoggleAsFavorite is called, the tool should not appear in the list of favorites
+    // and calling it again should not alter or throw errors.
+    @Test
+    public void untoggleAsFavoriteTest() {
+        // creating a favorite tool as the test above
+        // arrange: create department set
+        Department testDepartment = createDepartment();
+        Set<Department> departments = new HashSet<>();
+        departments.add(testDepartment);
+
+        // arrange: create and persist employee
+        Employee employee = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", testDepartment);
+        employeeRepository.save(employee);
+
+        // arrange: create jurisdiction set
+        Jurisdiction testJurisdiction = createJurisdiction();
+        Set<Jurisdiction> jurisdictions = new HashSet<>();
+        jurisdictions.add(testJurisdiction);
+
+        // arrange: create stage set
+        Stage testStage = createStage();
+        Set<Stage> stages = new HashSet<>();
+        stages.add(testStage);
+
+        // arrange: create and persist tool linked to department/jurisdiction/stage
+        Tool testTool = new Tool(
+                null,
+                "test",
+                "test.com",
+                false,              // is_personal
+                false,              // is_dynamic
+                departments,        // departments
+                jurisdictions,      // jurisdictions
+                stages,             // stages
+                new HashSet<>(),    // tags
+                true                // pending
+        );
+        toolRepository.save(testTool);
+
+        // act: first toggle should insert a favorite
+        toolRepository.toggleAsFavorite(employee.getInitials(), testTool.getId());
+
+        List<Tool> favoritesAfterFirstToggle = toolRepository
+                .findFavoritesByEmployeeAndJurisdictionAndStage(
+                        employee.getInitials(),
+                        testJurisdiction.getName(),
+                        testStage.getName()
+                );
+
+        // assert that the tool is now in the favorites list
+        assertTrue(favoritesAfterFirstToggle.contains(testTool));
+
+
+        // act: untoggle should remove from favorites.
+        toolRepository.untoggleAsFavorite(employee.getInitials(), testTool.getId());
+
+        List<Tool> favoritesAfterSecondToggle = toolRepository
+                .findFavoritesByEmployeeAndJurisdictionAndStage(
+                        employee.getInitials(),
+                        testJurisdiction.getName(),
+                        testStage.getName()
+                );
+
+        // assert that the tool is still only present once
+        assertFalse(favoritesAfterSecondToggle.contains(testTool));
+    }
+
+    // Testing: toolRepository.findNonPendingNonPersonalTools()
+    // uploading a tool with that is not pending nor personal. Check that it is in the list returned from above method
+    @Test
+    public void findNonPendingNonPersonalToolsTest() {
+        // create a tool with pending = false and is_personal = true
+        Tool testTool = new Tool(
+                null,                   // id must be null for JPA to generate it
+                "test",
+                "test.com",
+                false,                  // is_personal
+                false,                  // is_dynamic
+                new HashSet<>(),        // departments
+                new HashSet<>(),        // jurisdictions
+                new HashSet<>(),        // stages
+                new HashSet<>(),        // tags
+                false                    // pending
+        );
+        // saving to the live DB
+        toolRepository.save(testTool);
+
+        // check if it is in the returned list
+        List<Tool> nonPendingPersonalToolsReturned = toolRepository.findNonPendingNonPersonalTools();
+
+        assertTrue(nonPendingPersonalToolsReturned.contains(testTool));
     }
 
 }
