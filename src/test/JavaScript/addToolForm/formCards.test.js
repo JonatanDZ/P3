@@ -51,4 +51,11 @@ describe("toggleCards", () => {
         expect(document.querySelector("#formCard3").style.display).toBe("none");
         expect(document.querySelector("#formCard5").style.display).toBe("none");
     });
+    test("handles currentCard not in allowedCards", () => {
+        const newCard = toggleCards(1, 999);
+
+        // Expect it to go to first allowed
+        expect(newCard).toBe(1);
+        expect(document.querySelector("#formCard1").style.display).toBe("block");
+    });
 });

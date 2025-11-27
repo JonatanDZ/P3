@@ -4,17 +4,6 @@ import { addTagChip } from "../../../main/resources/static/js/loadOptions.js";
 
 global.fetch = jest.fn();
 
-// Making this mock, to avoid DOM changes
-jest.mock('../../../main/resources/static/js/fetchTool.js', () => ({
-    poster: jest.fn()
-}));
-
-jest.mock('../../../main/resources/static/js/loadOptions.js', () => ({
-    addTagChip: jest.fn()
-}));
-
-
-
 describe('submitForm', () => {
     let mockResponse;
     beforeEach(() => {
@@ -107,5 +96,167 @@ describe('submitForm', () => {
         const body = JSON.parse(options.body);
 
         expect(body.is_personal).toBe(true);
+    });
+
+    test("submitForm submits even when toolName is empty", async () => {
+        mockResponse = {
+            ok: true,
+            json: async () => ({ success: true }),
+        };
+
+        global.fetch.mockResolvedValue(mockResponse);
+        document.querySelector("#toolName").value = ""; // edge case
+
+        await submitForm();
+
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+
+        const [url, options] = global.fetch.mock.calls[0];
+        const body = JSON.parse(options.body);
+
+        expect(body.name).toBe("");
+        expect(body.url).toBe("http://example.");
+        expect(body.is_dynamic).toBe(false);
+        expect(body.tags).toEqual([{ id: "6" }]);
+        expect(body.departments).toEqual([{ id: "1" }]);
+        expect(body.stages).toEqual([{ id: "2" }]);
+        expect(body.jurisdictions).toEqual([{ id: "1" }]);
+    });
+
+    test("submitForm works when no checkboxes are selected", async () => {
+        document.querySelectorAll(".departmentsChecks").forEach(e => e.checked = false);
+        document.querySelectorAll(".stagesChecks").forEach(e => e.checked = false);
+        document.querySelectorAll(".jurisdictionsChecks").forEach(e => e.checked = false);
+
+        mockResponse = { ok: true, json: async () => ({ success: true }) };
+        global.fetch.mockResolvedValue(mockResponse);
+
+        await submitForm();
+
+        const [url, options] = global.fetch.mock.calls[0];
+        const body = JSON.parse(options.body);
+
+        expect(body.departments).toEqual([]);
+        expect(body.stages).toEqual([]);
+        expect(body.jurisdictions).toEqual([]);
+    });
+
+    test("submitForm works with no tags selected", async () => {
+        document.querySelector(".tag-chip").remove();
+
+        mockResponse = {
+            ok: true,
+            json: async () => ({ success: true }),
+        };
+
+        global.fetch.mockResolvedValue(mockResponse);
+        await submitForm();
+
+        const [url, options] = global.fetch.mock.calls[0];
+        const body = JSON.parse(options.body);
+
+        expect(body.tags).toEqual([]);
+    });
+
+    test("submitForm handles empty toolURL1", async () => {
+        mockResponse = { ok: true, json: async () => ({ success: true }) };
+        global.fetch.mockResolvedValue(mockResponse);
+
+        document.querySelector("#toolURL1").value = "";  // edge case
+
+        await submitForm();
+
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+
+        const [, options] = global.fetch.mock.calls[0];
+        const body = JSON.parse(options.body);
+
+        expect(body.url).toBe("");
+    });
+
+    test("submitForm handles empty toolURL2", async () => {
+        mockResponse = { ok: true, json: async () => ({ success: true }) };
+        global.fetch.mockResolvedValue(mockResponse);
+
+        document.querySelector("#toolURL2").value = ""; // edge case
+
+        await submitForm();
+
+        const [, options] = global.fetch.mock.calls[0];
+        const body = JSON.parse(options.body);
+
+        // expected: "http://example."
+        expect(body.url).toBe("http://example.");
+    });
+
+    test("submitForm handles both URL parts empty", async () => {
+        mockResponse = { ok: true, json: async () => ({ success: true }) };
+        global.fetch.mockResolvedValue(mockResponse);
+
+        document.querySelector("#toolURL1").value = "";
+        document.querySelector("#toolURL2").value = "";
+
+        await submitForm();
+
+        const [, options] = global.fetch.mock.calls[0];
+        const body = JSON.parse(options.body);
+
+        // Empty string
+        expect(body.url).toBe("");
+    });
+});
+
+describe("submitTag", () => {
+    let submitTag, poster, addTagChip;
+
+    beforeEach(() => {
+        jest.resetModules();
+        jest.clearAllMocks();
+
+        // MOCKS, doing this to avoid changes in the DOM
+        jest.doMock("../../../main/resources/static/js/fetchTool.js", () => ({
+            poster: jest.fn()
+        }));
+
+        jest.doMock("../../../main/resources/static/js/loadOptions.js", () => ({
+            addTagChip: jest.fn()
+        }));
+
+        document.body.innerHTML = `<input id="tags" value="NewTag" />`;
+
+        // import after mock (test)
+        submitTag = require("../../../main/resources/static/js/submitForm.js").submitTag;
+        poster = require("../../../main/resources/static/js/fetchTool.js").poster;
+        addTagChip = require("../../../main/resources/static/js/loadOptions.js").addTagChip;
+    });
+
+    test("submitTag works", async () => {
+        poster.mockResolvedValue({ id: 99, name: "NewTag" });
+
+        await submitTag();
+
+        expect(poster).toHaveBeenCalledWith(
+            "tags",
+            JSON.stringify({ value: "NewTag" })
+        );
+
+        expect(addTagChip).toHaveBeenCalledWith({ id: 99, name: "NewTag" });
+    });
+
+    test("submitTag submits when input is empty", async () => {
+        document.querySelector("#tags").value = "";
+
+        poster.mockResolvedValue({ id: 1, name: "" });
+
+        await submitTag();
+
+        expect(poster).toHaveBeenCalledTimes(1);
+        expect(poster).toHaveBeenCalledWith(
+            "tags",
+            JSON.stringify({ value: "" })
+        );
+
+        expect(addTagChip).toHaveBeenCalledTimes(1);
+        expect(addTagChip).toHaveBeenCalledWith({ id: 1, name: "" });
     });
 });
