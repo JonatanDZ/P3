@@ -31,8 +31,11 @@ public class EmployeeRepositoryTest {
     @Autowired
     private DepartmentRepository departmentRepositoryTest;
 
+    //We need to create a department, as the mock database is not populated
     private Department createDepartment(){
-        Department department = new Department(1, "Test", true);
+        Department department = new Department();
+        department.setName("Test Department");
+        department.setIs_dev(true);
         return departmentRepositoryTest.save(department);
     }
 
@@ -51,9 +54,9 @@ public class EmployeeRepositoryTest {
     //with upper or lower case letters
     @Test
     public void testFindByLowerCaseInitials(){
-        Department department = new Department();
+        Department department = createDepartment();
         Employee e1 = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
-        employeeRepositoryTest.save(e1);
+
         Optional<Employee> employees = employeeRepositoryTest.findByInitials("hoho");
         assertNotNull(employees);
         assertTrue(employees.isPresent());
@@ -67,12 +70,24 @@ public class EmployeeRepositoryTest {
         assertTrue(employees.isEmpty(), "Employee not found");
     }
 
-    //This test looks into the actual database and finds all employees
+    //We populate the database with 5 employees, and the test should return that the
     @Test
     public void testGetAllEmployees(){
+        Department department = createDepartment();
+        Employee e1 = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
+        Employee e2 = new Employee("MOMO", "Morten Moller", "MOMO@mail.dk", department);
+        Employee e3 = new Employee("SISI", "Signe Simonsen", "SISI@mail.dk", department);
+        Employee e4 = new Employee("LALA", "Lars Larsen", "LALA@mail.dk", department);
+        Employee e5 = new Employee("KOKO", "Kasper Kokholm", "KOKO@mail.dk", department);
+
+        employeeRepositoryTest.save(e1);
+        employeeRepositoryTest.save(e2);
+        employeeRepositoryTest.save(e3);
+        employeeRepositoryTest.save(e4);
+        employeeRepositoryTest.save(e5);
         List<Employee> employees = employeeRepositoryTest.findAll();
         assertNotNull(employees);
-        assertEquals(0, employees.size());
+        assertEquals(5, employees.size());
     }
 
     //This tests that there will not be duplicate employees in the database with different instances
