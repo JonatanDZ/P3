@@ -2,6 +2,7 @@
 //https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {fuzzySearch} from "./fuzzySearch.js";
 
 async function searchbar(inp, arr) {
     const employee = await getCurrentEmployee();
@@ -23,7 +24,7 @@ async function searchbar(inp, arr) {
         //Checkes all element in the array if they match the searched input
         for (let i = 0; i < arr.length; i++) {
             //Checks to see if the input is included in any of the elements in the array 'tags'
-             if (arr[i].value.toUpperCase().includes(val.toUpperCase())){
+             if (fuzzySearch(val.toLowerCase(), arr[i].value.toLowerCase())){
                  //Create tag div and tag name
                  b = document.createElement("DIV");
                  b.setAttribute("class", "searchbar-heading");
