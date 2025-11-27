@@ -8,7 +8,7 @@ async function searchbar(inp, arr) {
     const employee = await getCurrentEmployee();
     var currentFocus;
     inp.addEventListener("input", function(e) {
-        let a, b, u;
+        let searchBarList, searchBarItem;
         //Input from searchbar
         let val = this.value;
         //Close potential already opened list
@@ -16,67 +16,23 @@ async function searchbar(inp, arr) {
         if (!val) { return false;}
         currentFocus = -1
         //Create div for whole list
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "searchbar-list");
-        a.setAttribute("class", "searchbar-items");
+        searchBarList = document.createElement("DIV");
+        searchBarList.setAttribute("id", this.id + "searchbar-list");
+        searchBarList.setAttribute("class", "searchbar-items");
         //Append the list to searchbar
-        this.parentNode.appendChild(a);
+        this.parentNode.appendChild(searchBarList);
         //Checkes all element in the array if they match the searched input
         for (let i = 0; i < arr.length; i++) {
             //Checks to see if the input is included in any of the elements in the array 'tags'
              if (fuzzySearch(val, arr[i])){
-                 //show tool
-                 //show name
-                 b = document.createElement("DIV");
-                 b.setAttribute("class", "searchbar-heading");
-                 var toolName = document.createElement('p')
-                 toolName.appendChild(document.createTextNode(arr[i].name.substring(0, val.length)+arr[i].name.substring(val.length)))
+                //show tool
+                searchBarItem = showToolInSearchBar(arr[i], searchBarItem);
 
-                 //append tools, to the tag, so all tools will be appended to each tag (Should be conditioned to only suitible tools by tags)
-                 b.appendChild(toolName);
+                if (!arr[i].is_personal){
+                    searchBarItem = showTagsInSearchBar(arr[i].tags, searchBarItem);
+                }
 
-                 
-                 //Look for tools that has tag
-                 if (Array.isArray(arr[i].tools)) {
-                     for (let l = 0; l < arr[i].tools.length; l++) {
-                         //Create tool div, tool name and url
-                         u = document.createElement("div");
-                         u.setAttribute("class", "searchbar-subheading");
-
-                         //show name
-                         subheading.appendChild(document.createTextNode(arr[i].tools[l].name + " - "));
-
-                         //Show url and make it a link
-                         const link = document.createElement("a");
-
-                         if (arr[i].tools[l].is_dynamic){
-                             link.href = arr[i].tools[l].url.replace('$USER$', employee.initials.toLowerCase());
-                             link.textContent = arr[i].tools[l].url.replace('$USER$', employee.initials.toLowerCase());
-                         } else {
-                             link.href = arr[i].tools[l].url;
-                             link.textContent = arr[i].tools[l].url;
-
-                         }
-                         console.log(arr[i].tools[l]);
-                         link.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
-                         subheading.appendChild(link);
-
-                         //When tool div is clicked open url
-                         u.setAttribute("onclick",`location.href='${arr[i].tools[l].url}';`)
-
-                         u.appendChild(subheading);
-
-                         //When pressing enter while focus on div then open url
-                         u.addEventListener("keypress", function(event) {
-                             if (event.key === "Enter") {
-                                 event.preventDefault();
-                                 u.click();
-                             }
-                         });
-                         b.appendChild(u)
-                     }
-                 }
-                a.appendChild(b);
+                searchBarList.appendChild(searchBarItem);
             }
         }
     });
@@ -142,6 +98,65 @@ export async function setUpSearchBar() {
     } catch (err){
         console.error("failed to load tools in searchbar:", err);
     }
+}
+
+function showToolInSearchBar(tool, parentElement){
+    //Make a container we can store name and url in
+    const nameUrlContainer = document.createElement("div");
+    nameUrlContainer.className = "nameUrlContainer";
+    //show name
+    parentElement = document.createElement("div");
+    parentElement.setAttribute("class", "searchbar-heading");
+    const toolName = document.createElement('p')
+    toolName.textContent = tool.name + ": ";
+    
+    // append toolName to the div
+    nameUrlContainer.appendChild(toolName);
+
+    //show URL
+    const ToolLink = document.createElement("a");
+    //if link is dynamic showcase it correctly for the users
+    if (tool.is_dynamic){
+        ToolLink.href = tool.url.replace('$USER$', employee.initials.toLowerCase());
+        ToolLink.textContent = tool.url.replace('$USER$', employee.initials.toLowerCase());
+    } else {
+        ToolLink.href = tool.url;
+        ToolLink.textContent = tool.url;
+    }
+    ToolLink.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
+    toolName.appendChild(ToolLink);
+
+    parentElement.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            ToolLink.click();
+        }
+    });
+    parentElement.appendChild(nameUrlContainer);
+    return parentElement;
+}
+
+function showTagsInSearchBar(tags, parentElement){
+    //Create container for the tags
+    const tagContainer = document.createElement("div"); 
+    tagContainer.className = "tagContainer";
+
+    for (let i = 0; i < tags.length; i++){
+        // Create chip container
+        const chip = document.createElement("div");
+        chip.className = "tag-chip";
+
+        // Create tag label
+        const label = document.createElement("span");
+        label.textContent = tags[i];
+
+        chip.appendChild(label);
+        tagContainer.appendChild(chip);
+    }
+
+    parentElement.appendChild(tagContainer);
+
+    return parentElement;
 }
 
 setUpSearchBar();
