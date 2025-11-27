@@ -4,6 +4,7 @@ import com.example.p3.entities.Department;
 import com.example.p3.entities.Employee;
 import com.example.p3.repositories.DepartmentRepository;
 import com.example.p3.repositories.EmployeeRepository;
+import org.aspectj.apache.bcel.Repository;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,21 +24,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class EmployeeRepositoryTest {
+public class EmployeeRepositoryTest extends RepositoryGlobalMethods {
 
     @Autowired
     private EmployeeRepository employeeRepositoryTest;
-
-    @Autowired
-    private DepartmentRepository departmentRepositoryTest;
-
-    //We need to create a department, as the mock database is not populated
-    private Department createDepartment(){
-        Department department = new Department();
-        department.setName("Test Department");
-        department.setIs_dev(true);
-        return departmentRepositoryTest.save(department);
-    }
 
     //This test looks into the actual database and tries to find the actual employee
     @Test
