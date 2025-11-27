@@ -9,18 +9,20 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ToolRepository extends JpaRepository<Tool, Integer> {
-    // revert state of pending attribute for a tool
+    // Set state of the pending attribute for a tool to false
+    // this is used when accepting a tool from the pending dropdown.
     @Modifying
     @Query(value = """
     UPDATE tool
     SET pending = FALSE
     WHERE id = :toolId
     """, nativeQuery = true)
-    void revertStateOfPending(
+    void setStateOfPendingFalse (
             @Param("toolId") int toolId
     );
 
-
+    // Returns a list of all tools with the pending attribute = true
+    // this is used for GETting relevant tools in the pending dropdown.
     @Query(value = """
     SELECT DISTINCT t.*
     FROM tool t
@@ -33,8 +35,8 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
             @Param("departmentName") String departmentName
     );
 
-    // favorites endpoint
-    // it gets the favorites based on user, current jurisdiction and current stage
+    // Gets the favorites based on user, current jurisdiction and current stage (3*2 amount of lists in total)
+    // this is used when loading the page
     @Query(value = """
     SELECT DISTINCT 
         tool.*
