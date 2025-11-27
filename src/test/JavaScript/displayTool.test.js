@@ -209,4 +209,36 @@ describe("displayTool()", () => {
         // Now the star should be filled
         expect(starSpan.textContent).toBe("★");
     });
+
+    test("DisplayTool test: Favorite toggle fails", async () => {
+        const mockList = document.getElementById("allTools");
+        const mockTools = [{ id: 1, name: "Tintin", url: "https://google.com", tags: [] }];
+        isToolInFavorite.mockResolvedValue(false);
+        getCurrentEmployee.mockResolvedValue({ initials: "HOHO" });
+
+        // Simulate failed fetch
+        fetch.mockResolvedValue({ ok: false, status: 500 });
+
+        await displayTools(mockTools, mockList);
+
+        const starSpan = mockList.querySelector(".star");
+        const starBtn = mockList.querySelector(".star-button");
+
+        starBtn.click();
+        await flushPromises();
+
+        // Star should revert back
+        expect(starSpan.textContent).toBe("☆");
+    });
+
+    // Mangler test for
+    /*
+Tool without ID.
+
+Tool without URL or invalid URL.
+
+Tool with null/undefined tags.
+
+Assert displayFavorites is called on success.
+    */
 });
