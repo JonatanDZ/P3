@@ -18,8 +18,7 @@ function wagnerFischer(s1, s2) {
         dp[i][0] = i;
     }
 
-    //And likewise if we drop everything in s1
-    //and generates s2 from an empty string
+    //Making an empty string cost the same as deletig everychar in the string
     for(let j = 0; j < n; j++){
         dp[0][j] = j;
     }
@@ -30,6 +29,8 @@ function wagnerFischer(s1, s2) {
 
             //If we have to substitute a char
             let substitutionCost = 1;
+
+            //If the chars are identical we don't have to sub, meaning the cost is free
             if (s1[i] == s2[j]){
                substitutionCost = 0; 
             } 
@@ -37,8 +38,8 @@ function wagnerFischer(s1, s2) {
             dp[i][j] = Math.min(
                 //Deleting a char
                 dp[i - 1][j] + 1, 
-                //Inserting a char - is cheaperso that it autocompletes in length better
-                dp[i][j - 1] + 0.8, 
+                //Inserting a char
+                dp[i][j - 1] + 1, 
                 //sustituting a char 
                 dp[i - 1][j - 1] + substitutionCost);
         }
