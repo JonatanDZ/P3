@@ -1,7 +1,18 @@
 import { submitForm, formToJSON } from '../../../main/resources/static/js/submitForm.js';
 import { poster } from "../../../main/resources/static/js/fetchTool.js";
+import { addTagChip } from "../../../main/resources/static/js/loadOptions.js";
 
 global.fetch = jest.fn();
+
+// Making this mock, to avoid DOM changes
+jest.mock('../../../main/resources/static/js/fetchTool.js', () => ({
+    poster: jest.fn()
+}));
+
+jest.mock('../../../main/resources/static/js/loadOptions.js', () => ({
+    addTagChip: jest.fn()
+}));
+
 
 
 describe('submitForm', () => {
