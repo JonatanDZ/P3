@@ -178,7 +178,6 @@ export function addTagChip(tag){
     container.appendChild(chip);
 }
 
-//What does it do?
 function uncheckTag(tag){
     const checks = document.querySelectorAll(".tagChecks");
 
