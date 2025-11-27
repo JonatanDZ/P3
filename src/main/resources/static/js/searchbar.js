@@ -23,6 +23,11 @@ async function searchbar(inp, arr) {
         this.parentNode.appendChild(searchBarList);
         //Checkes all element in the array if they match the searched input
         for (let i = 0; i < arr.length; i++) {
+            //makes dynamic links searchable and showcaseable
+            if(arr[i].is_dynamic){
+                arr[i].url = arr[i].url.replace('$USER$', employee.initials.toLowerCase());
+            }
+
             //Checks to see if the input is included in any of the elements in the array 'tags'
              if (fuzzySearch(val, arr[i])){
                 //show tool
@@ -115,14 +120,10 @@ function showToolInSearchBar(tool, parentElement){
 
     //show URL
     const ToolLink = document.createElement("a");
-    //if link is dynamic showcase it correctly for the users
-    if (tool.is_dynamic){
-        ToolLink.href = tool.url.replace('$USER$', employee.initials.toLowerCase());
-        ToolLink.textContent = tool.url.replace('$USER$', employee.initials.toLowerCase());
-    } else {
-        ToolLink.href = tool.url;
-        ToolLink.textContent = tool.url;
-    }
+
+    ToolLink.href = tool.url;
+    ToolLink.textContent = tool.url;
+    
     ToolLink.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
     toolName.appendChild(ToolLink);
 

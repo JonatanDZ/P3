@@ -3,10 +3,6 @@ function wagnerFischer(s1, s2) {
     //Because the whole 
     s1 = " " + s1;
     s2 = " " + s2;
-    /*
-    console.log(s1);
-    console.log(s2);
-    */
     
     const m = s1.length;
     const n = s2.length;
@@ -41,7 +37,7 @@ function wagnerFischer(s1, s2) {
                 //Deleting a char
                 dp[i - 1][j] + 1, 
                 //Inserting a char
-                dp[i][j - 1] + 1, 
+                dp[i][j - 1] + 1, //Maybe we should make this cheaper meaning that it would help auto complete longer words
                 //sustituting a char 
                 dp[i - 1][j - 1] + substitutionCost);
         }
