@@ -3,7 +3,7 @@ import {displayFavorites} from "./displayFavorites.js";
 import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
-function starClicked(starBtn, star, toolId) {
+export function starClicked(starBtn, star, toolId) {
     starBtn.appendChild(star);
 
     starBtn.addEventListener('click', async (e) => {
