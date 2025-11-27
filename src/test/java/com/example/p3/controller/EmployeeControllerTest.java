@@ -80,5 +80,10 @@ class EmployeeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Ålice Smith"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("AnotherEmail"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.department_name").value("devOps"));
+
+        /*
+        This test ensures the endpoint correctly reaches the controller method and the JSON output from the controller
+        is correct. Also it checks that our HTTP status is correct (200)
+         */
     }
 }
