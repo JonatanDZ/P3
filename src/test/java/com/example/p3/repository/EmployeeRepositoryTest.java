@@ -56,6 +56,7 @@ public class EmployeeRepositoryTest {
     public void testFindByLowerCaseInitials(){
         Department department = createDepartment();
         Employee e1 = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
+        employeeRepositoryTest.save(e1);
 
         Optional<Employee> employees = employeeRepositoryTest.findByInitials("hoho");
         assertNotNull(employees);
@@ -94,7 +95,7 @@ public class EmployeeRepositoryTest {
     @Test
     public void testDuplicateEmployee() {
         //created to pass a department to newly created employees
-        Department department = new Department(1, "Test", true);
+        Department department = createDepartment();
         Employee e1 = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
         employeeRepositoryTest.save(e1);
 
@@ -108,7 +109,7 @@ public class EmployeeRepositoryTest {
     //This tests that we can update an employee by saving a new employee with the same initials
     @Test
     public void testUpdateEmployee(){
-        Department department = new Department(1, "Test", true);
+        Department department = createDepartment();
         Employee e1 = new Employee("MOJO", "Morten Johansen", "MOJO@mail.dk", department);
         employeeRepositoryTest.save(e1);
         //When creating an employee with the same initials, it will update an existing instead of creating a new class
