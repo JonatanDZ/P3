@@ -90,7 +90,12 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     );
 
     // returns all tools which have pending = false
-    List<Tool> findByPendingFalse();
+    @Query(value = """
+    SELECT DISTINCT * FROM tool
+        WHERE pending = FALSE
+        AND is_personal = FALSE
+    """, nativeQuery = true)
+    List<Tool> findNonPendingNonPersonalTools();
 
     //Returns only name and url from a tool (for search by tag)
     @Modifying
