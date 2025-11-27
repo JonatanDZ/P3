@@ -86,4 +86,32 @@ class EmployeeControllerTest {
         is correct. Also it checks that our HTTP status is correct (200)
          */
     }
+
+    //This test is to
+    @Test
+    public void testGetEmployeeByInitials_NotFound() throws Exception {
+        //Arrange, that the service should returns Optional.empty given initials that are not found
+        when(employeeService.getEmployeeByInitials("WRNG"))
+                .thenReturn(Optional.empty());
+        //Act - perform the get request to the controller with the wrong initals
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/WRNG"))
+
+                //Assert, a http status is 404 Not Found
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+    }
+
+    @Test
+    public void testGetEmployeeByInitials_BadInput() throws Exception {
+        //Arrange a bad input, and we will not call the service, since we expect the controller to reject the request
+        String badInput = "@A!11";
+
+        //Act - perform the get request to the controller with the bad request
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/" + badInput))
+
+                //Assert - the http status is 400 Bad Request
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+
+    }
+
 }
