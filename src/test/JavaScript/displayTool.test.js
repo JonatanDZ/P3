@@ -1,13 +1,5 @@
-import { displayTools, starClicked } from "../../main/resources/static/js/displayTools.js";
+import { displayTools } from "../../main/resources/static/js/displayTools.js";
 import { isToolInFavorite } from "../../main/resources/static/js/isToolInFavorite.js";
-
-jest.mock('../../main/resources/static/js/displayTools.js', () => {
-    const actual = jest.requireActual('../../main/resources/static/js/displayTools.js');
-    return {
-        ...actual,
-        starClicked: jest.fn()
-    };
-});
 
 jest.mock('../../main/resources/static/js/isToolInFavorite.js', () => ({
     isToolInFavorite: jest.fn()
@@ -104,5 +96,34 @@ describe("displayTool()", () => {
         expect(firstTool.querySelectorAll(".tag").length).toBe(0);
         expect(firstTool.querySelector(".star").textContent).toBe("☆");
     });
+
+    test("DisplayTool test: Change favorite", async () => {
+        const mockList = document.getElementById("allTools");
+
+        const mockTools = [
+            { id: '1', name: '', url: '', tags: [] }
+        ];
+
+        isToolInFavorite.mockResolvedValue(false);
+
+        await displayTools(mockTools, mockList);
+
+        expect(mockList.children.length).toBe(1);
+
+        const firstTool = mockList.children[0];
+        const starSpan = firstTool.querySelector(".star");
+        const starBtn = firstTool.querySelector(".star-button");
+
+        expect(starSpan.textContent).toBe("☆");
+
+        // Simulate click
+        await starBtn.click();
+
+        // Wait a tick for async
+        await new Promise(process.nextTick);
+
+        expect(starSpan.textContent).toBe("★");
+    });
+
 
 });
