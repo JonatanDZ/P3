@@ -56,7 +56,7 @@ public class EmployeeRepositoryTest {
     public void testFindByLowerCaseInitials(){
         Department department = createDepartment();
         Employee e1 = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
-
+        employeeRepositoryTest.save(e1);
         Optional<Employee> employees = employeeRepositoryTest.findByInitials("hoho");
         assertNotNull(employees);
         assertTrue(employees.isPresent());
