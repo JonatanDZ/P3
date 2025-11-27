@@ -50,6 +50,11 @@ export async function displayTools(data, list) {
         const header = document.createElement('div');
         header.className = 'tool-header';
 
+        const tooltip = document.createElement("span");
+        tooltip.className = "tooltiptext";
+        tooltip.textContent = tool.name
+        header.appendChild(tooltip)
+
         const nameE = document.createElement('div');
         nameE.className = 'tool-name';
         nameE.textContent = tool.name;
@@ -69,8 +74,22 @@ export async function displayTools(data, list) {
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);
 
+        const circle = document.createElement("span");
+        circle.className = "circle";
+        if(tool.name.includes("Stage")){
+            circle.style.background = "var(--stage--)"
+        }else if(tool.name.includes("Dev")){
+            circle.style.background = "var(--dev--)"
+        }else if(tool.name.includes("Production")){
+            circle.style.background = "var(--prod--)"
+        }else{
+            circle.style.visibility = "hidden";
+        }
+
         header.appendChild(nameE);
+        header.appendChild(circle);
         header.appendChild(starBtn);
+
 
 
 
