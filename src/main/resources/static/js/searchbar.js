@@ -24,24 +24,24 @@ async function searchbar(inp, arr) {
         //Checkes all element in the array if they match the searched input
         for (let i = 0; i < arr.length; i++) {
             //Checks to see if the input is included in any of the elements in the array 'tags'
-             if (fuzzySearch(val.toLowerCase(), arr[i].value.toLowerCase())){
-                 //Create tag div and tag name
+             if (fuzzySearch(val, arr[i])){
+                 //show tool
+                 //show name
                  b = document.createElement("DIV");
                  b.setAttribute("class", "searchbar-heading");
-                 var heading = document.createElement('b')
-                 heading.appendChild(document.createTextNode(arr[i].value.substring(0, val.length)+arr[i].value.substring(val.length)))
+                 var toolName = document.createElement('p')
+                 toolName.appendChild(document.createTextNode(arr[i].name.substring(0, val.length)+arr[i].name.substring(val.length)))
 
                  //append tools, to the tag, so all tools will be appended to each tag (Should be conditioned to only suitible tools by tags)
-                 b.appendChild(heading);
+                 b.appendChild(toolName);
 
+                 
                  //Look for tools that has tag
                  if (Array.isArray(arr[i].tools)) {
                      for (let l = 0; l < arr[i].tools.length; l++) {
                          //Create tool div, tool name and url
                          u = document.createElement("div");
                          u.setAttribute("class", "searchbar-subheading");
-                         var subheading = document.createElement('p')
-
 
                          //show name
                          subheading.appendChild(document.createTextNode(arr[i].tools[l].name + " - "));
@@ -130,19 +130,18 @@ async function searchbar(inp, arr) {
 
 }
 
-//Loads tags
-async function loadTags() {
+
+export async function setUpSearchBar() {
     try{
-        const response = await fetch('/tags');
+        const response = await fetch('/tools');
         const tagsJson = await response.json();
 
         //Calls the function
         searchbar(document.getElementById("myInput"), tagsJson)
 
     } catch (err){
-        console.error("failed to load tags:", err);
+        console.error("failed to load tools in searchbar:", err);
     }
 }
-loadTags();
 
-//searchbar(document.getElementById("myInput"),loadTags, tools)
+setUpSearchBar();

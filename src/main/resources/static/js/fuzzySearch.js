@@ -3,8 +3,10 @@ function wagnerFischer(s1, s2) {
     //Because the whole 
     s1 = " " + s1;
     s2 = " " + s2;
+    /*
     console.log(s1);
     console.log(s2);
+    */
     
     const m = s1.length;
     const n = s2.length;
@@ -48,14 +50,31 @@ function wagnerFischer(s1, s2) {
     //if we change all chars to get s2;
     const maxChanges = Math.max(m,n) - 1;
     //The closer the values are to 1 the more similar they are.
+
+    //This allows longer strings to have more mistakes when we verdict them.
     return 1 - dp[m-1][n-1] / maxChanges;
 }
 
-export function fuzzySearch(s1, s2){
-    const similarityScore = wagnerFischer(s1,s2);
-
-    if (similarityScore > 0.66){
+//Enables search functionality on toolname, toolURL and tooltags
+export function fuzzySearch(input, tool){
+    //Firstly check if it matches name
+    if (wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.66){
         return true;
     }
+    //Then url. It we allow it through with a lower score because it is more difficult getting right.
+    if (wagnerFischer(input.toLowerCase(), tool.url.toLowerCase()) > 0.30){
+        return true;
+    }
+
+    if (!tool.is_personal)
+    // Lastly we iterate through all tags on the tool if we get a good value on one we have a match
+    for (let i = 0; i < tool.tags.length; i++){
+        if (wagnerFischer(input.toLowerCase(), tool.tags[i].toLowerCase()) > 0.66){
+            return true;
+        }
+    }
+    
+    // if no match return false
+    return false;
 }
 
