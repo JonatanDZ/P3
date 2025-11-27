@@ -10,6 +10,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration,classpath:db/mockdata
 logging:
   level:
     org:
@@ -19,3 +22,4 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
