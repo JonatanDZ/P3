@@ -1,9 +1,21 @@
 import { displayTools } from "../../main/resources/static/js/displayTools.js";
 import { isToolInFavorite } from "../../main/resources/static/js/isToolInFavorite.js";
+import { getCurrentEmployee } from "../../main/resources/static/js/getCurrentEmployee.js";
 
 jest.mock('../../main/resources/static/js/isToolInFavorite.js', () => ({
     isToolInFavorite: jest.fn()
 }));
+
+jest.mock('../../main/resources/static/js/getCurrentEmployee.js', () => ({
+    getCurrentEmployee: jest.fn()
+}));
+
+jest.mock('../../main/resources/static/js/displayFavorites.js', () => ({
+    displayFavorites: jest.fn()
+}));
+
+// Mock fetch globally so the click handler's fetch call doesn't blow up
+global.fetch = jest.fn();
 
 describe("displayTool()", () => {
     beforeEach(() => {
@@ -97,14 +109,32 @@ describe("displayTool()", () => {
         expect(firstTool.querySelector(".star").textContent).toBe("☆");
     });
 
+    // Waits for the next event loop tick so that async operations (like click handlers with fetch)
+    // have a chance to complete before assertions
+    // we call it below here:
+    const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0));
+
     test("DisplayTool test: Change favorite", async () => {
         const mockList = document.getElementById("allTools");
 
         const mockTools = [
-            { id: '1', name: '', url: '', tags: [] }
+            {
+                id: 1,
+                name: "Tintin",
+                url: "https://google.com",
+                tags: ["Dev", "Stage"]
+            }
         ];
 
+        // Initially, tool is NOT a favorite
         isToolInFavorite.mockResolvedValue(false);
+
+        // When starClicked runs and calls getCurrentEmployee,
+        // we return a fake employee
+        getCurrentEmployee.mockResolvedValue({ initials: "HOHO" });
+
+        // Fetch call made by starClicked should "succeed"
+        fetch.mockResolvedValue({ ok: true });
 
         await displayTools(mockTools, mockList);
 
@@ -114,16 +144,69 @@ describe("displayTool()", () => {
         const starSpan = firstTool.querySelector(".star");
         const starBtn = firstTool.querySelector(".star-button");
 
+        // Starts unfilled
         expect(starSpan.textContent).toBe("☆");
 
         // Simulate click
-        await starBtn.click();
+        starBtn.click();
 
-        // Wait a tick for async
-        await new Promise(process.nextTick);
+        // Wait for the async click handler to run:
+        // - await getCurrentEmployee()
+        // - toggle star
+        // - await fetch()
+        await flushPromises();
 
+        // Now the star should be filled
         expect(starSpan.textContent).toBe("★");
     });
 
+    test("DisplayTool test: Spam change favorite", async () => {
+        const mockList = document.getElementById("allTools");
 
+        const mockTools = [
+            {
+                id: 1,
+                name: "Tintin",
+                url: "https://google.com",
+                tags: ["Dev", "Stage"]
+            }
+        ];
+
+        // Initially, tool is NOT a favorite
+        isToolInFavorite.mockResolvedValue(false);
+
+        // When starClicked runs and calls getCurrentEmployee,
+        // we return a fake employee
+        getCurrentEmployee.mockResolvedValue({ initials: "HOHO" });
+
+        // Fetch call made by starClicked should "succeed"
+        fetch.mockResolvedValue({ ok: true });
+
+        await displayTools(mockTools, mockList);
+
+        expect(mockList.children.length).toBe(1);
+
+        const firstTool = mockList.children[0];
+        const starSpan = firstTool.querySelector(".star");
+        const starBtn = firstTool.querySelector(".star-button");
+
+        // Starts unfilled
+        expect(starSpan.textContent).toBe("☆");
+
+        // Simulate click
+        starBtn.click();
+        starBtn.click();
+        starBtn.click();
+        starBtn.click();
+        starBtn.click();
+
+        // Wait for the async click handler to run:
+        // - await getCurrentEmployee()
+        // - toggle star
+        // - await fetch()
+        await flushPromises();
+
+        // Now the star should be filled
+        expect(starSpan.textContent).toBe("★");
+    });
 });
