@@ -18,7 +18,7 @@ async function searchbar(inp, arr) {
         //Create div for whole list
         searchBarList = document.createElement("DIV");
         searchBarList.setAttribute("id", this.id + "searchbar-list");
-        searchBarList.setAttribute("class", "searchbar-items");
+        searchBarList.setAttribute("class", "searchbar-list");
         //Append the list to searchbar
         this.parentNode.appendChild(searchBarList);
         //Checkes all element in the array if they match the searched input
@@ -70,7 +70,7 @@ async function searchbar(inp, arr) {
 
     //Closes the list of tags and tools
     function closeAllLists(elmnt) {
-        var x = document.getElementsByClassName("searchbar-items");
+        var x = document.getElementsByClassName("searchbar-list");
         for (var i = 0; i < x.length; i++) {
             if (elmnt != x[i] && elmnt != inp) {
                 x[i].parentNode.removeChild(x[i]);
@@ -106,7 +106,7 @@ function showToolInSearchBar(tool, parentElement){
     nameUrlContainer.className = "nameUrlContainer";
     //show name
     parentElement = document.createElement("div");
-    parentElement.setAttribute("class", "searchbar-heading");
+    parentElement.setAttribute("class", "searchbar-item");
     const toolName = document.createElement('p')
     toolName.textContent = tool.name + ": ";
     
@@ -145,6 +145,7 @@ function showTagsInSearchBar(tags, parentElement){
         // Create chip container
         const chip = document.createElement("div");
         chip.className = "tag-chip";
+        chip.style.backgroundColor = stringToColor(tags[i]);
 
         // Create tag label
         const label = document.createElement("span");
@@ -160,3 +161,26 @@ function showTagsInSearchBar(tags, parentElement){
 }
 
 setUpSearchBar();
+
+//Keep in mind this is something we could do. I don't fully understand it.
+
+//inspired by https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript 
+function generateHashCode(str){
+    let hash = 0;
+    for (const char of str) {
+        hash = hash * 31 - hash + char.charCodeAt(0); //hash = hash * 31 - hash + (ASCII value of char) 
+    }
+    return hash;
+};
+
+export function stringToColor(str) {
+    const hash = generateHashCode(str); //ensures that is always the same color you get from the same value;
+
+    //we Modulo with 127 and add 127 to ensure that the colors are bright, so we can use black text on them.
+    const red = hash % 127 + 127; 
+    const green = (hash / 7) % 127 + 127; //we devide by prime numbers to avoid number patterns  
+    const blue = (hash / 11) % 127 + 127; //we devide by prime numbers to avoid number patterns
+
+    const color = `rgb(${red},${green},${blue})`; //converts it to a form js understands
+    return color
+}
