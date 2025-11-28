@@ -1,6 +1,5 @@
 package com.example.p3.service;
 
-import com.example.p3.dtos.toolsDto.ToolUrlName;
 import com.example.p3.entities.*;
 import com.example.p3.repositories.ToolRepository;
 
@@ -22,7 +21,7 @@ public class ToolService {
     }
 
     public List<Tool> getAllToolsExcludingPending() {
-        return toolRepository.findByPendingFalse();
+        return toolRepository.findNonPendingNonPersonalTools();
     }
 
     //Filters the tools so only tool with the department from the URL is returned
