@@ -148,6 +148,11 @@ span.psw {
     background: #2c2c2c;
 }
 
+.submit-tag-item {
+    background-color: #303030;
+    font-weight: bold;
+}
+
 .selected-tags {
     display: flex;
     flex-wrap: wrap;
@@ -156,8 +161,7 @@ span.psw {
 }
 
 .tag-chip {
-    background: #333;
-    color: #fff;
+    color: black;
     padding: 6px 10px;
     border-radius: 14px;
     display: flex;
