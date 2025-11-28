@@ -1,6 +1,7 @@
 import { displayReview, clearDiv, createParagraph } from "../../../main/resources/static/js/toggleForm.js";
 
 function setupDOM() {
+    // Did this DOM structure so the tests run in a predictable environment.
     // The mock summary
     document.body.innerHTML = `
     <input id="toolName" value="Test Tool" />
@@ -32,9 +33,10 @@ function setupDOM() {
 }
 
 beforeEach(() => {
-    setupDOM();
+    setupDOM(); // // Reset DOM before each test so tests dont get mixed up.
 });
 
+// Checks that the URL is generated with dynamic initials placeholder.
 test("Generate correct dynamic URL", () => {
     document.querySelector("#isDynamic").checked = true;
 
