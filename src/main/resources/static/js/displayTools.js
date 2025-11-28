@@ -31,7 +31,7 @@ export function starClicked(starBtn, star, toolId) {
 
         } catch (err) {
             console.error('Favorite toggle failed:', err);
-            star.textContent = wasFilled ? '☆' : '★';
+            star.textContent = wasFilled ? '★' : '☆';
         }
     });
 }
