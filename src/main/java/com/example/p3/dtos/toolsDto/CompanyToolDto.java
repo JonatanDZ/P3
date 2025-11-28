@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Getter
 public class CompanyToolDto implements ToolDto {
     private Integer id;
+    private Boolean is_personal = false;
     private String name;
     private String url;
     private Boolean is_dynamic;
