@@ -16,9 +16,10 @@ beforeEach(() => {
     `;
 
     // Mock allowed cards
-    window.allowedCards = [1, 3, 5];
+    window.allowedCards = [1, 3, 5]; // en af dem virker og ved ikke hvilken (tør ikke at slette noget)
     global.allowedCards = [1, 3, 5];
 
+    // Update the allowed cards
     updateAllowedCards.mockImplementation(() => {
         window.allowedCards = [1, 3, 5];
         global.allowedCards = [1, 3, 5];
@@ -51,6 +52,7 @@ describe("toggleCards", () => {
         expect(document.querySelector("#formCard3").style.display).toBe("none");
         expect(document.querySelector("#formCard5").style.display).toBe("none");
     });
+
     test("handles currentCard not in allowedCards", () => {
         const newCard = toggleCards(1, 999);
 

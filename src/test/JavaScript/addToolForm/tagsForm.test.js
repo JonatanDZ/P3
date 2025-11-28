@@ -4,7 +4,7 @@ import { addTagChip } from "../../../main/resources/static/js/loadOptions.js";
 describe("formToJSON – tags handling", () => {
 
     beforeEach(() => {
-        // The tag form
+        // The mock tag form
         document.body.innerHTML = `
             <div id="selectedTags">
                 <div class="tag-chip" data-tag="6" data-tag-name="Al-Qaeda"></div>

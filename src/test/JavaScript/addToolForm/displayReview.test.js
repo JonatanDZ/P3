@@ -1,6 +1,7 @@
 import { displayReview, clearDiv, createParagraph } from "../../../main/resources/static/js/toggleForm.js";
 
 function setupDOM() {
+    // The mock summary
     document.body.innerHTML = `
     <input id="toolName" value="Test Tool" />
     <input id="toolURL1" value="https://example.com/" />
