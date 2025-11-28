@@ -51,6 +51,7 @@ test("Generate correct dynamic URL", () => {
     );
 });
 
+// Ensures a static URL is used when isDynamic is not checked.
 test("Generate correct static URL", () => {
     displayReview(); // isDynamic = false
 
@@ -61,6 +62,7 @@ test("Generate correct static URL", () => {
     expect(urlParagraph.textContent).toBe("URL: https://example.com/");
 });
 
+// When personal mode is enabled, only personal-related fields should show.
 test("is_personal only shows personal-items", () => {
     document.querySelector("#isPersonal").checked = true;
 
@@ -75,12 +77,13 @@ test("is_personal only shows personal-items", () => {
     expect(textList).toContain("Jurisdiction: ");
     expect(textList).toContain("Stage: stage");
 
-    // Should NOT appear
+    // The following should NOT appear in personal mode.
     expect(textList.some(t => t.startsWith("Tags"))).toBe(false);
     expect(textList.some(t => t.startsWith("Departments"))).toBe(false);
     expect(textList.some(t => t.startsWith("Dynamic"))).toBe(false);
 });
 
+// Verifies that non‑personal mode displays all relevant fields.
 test("Non-personal mode shows all items", () => {
     document.querySelector("#isPersonal").checked = false;
     document.querySelector("#isDynamic").checked = false;
@@ -100,6 +103,7 @@ test("Non-personal mode shows all items", () => {
     expect(textList).toContain("Tags: JEST, Swagger");
 });
 
+// Ensures clearDiv wipes the container clean.
 test("clearDiv removes all content", () => {
     const div = document.querySelector(".tool-summary");
 
@@ -110,6 +114,7 @@ test("clearDiv removes all content", () => {
     expect(div.children.length).toBe(0);
 });
 
+// Ensures createParagraph generates a correct <p> element with text.
 test("createParagraph creates correct p-element", () => {
     const div = document.querySelector(".tool-summary");
 
