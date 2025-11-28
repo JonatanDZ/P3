@@ -114,7 +114,5 @@ class EmployeeControllerTest {
 
                 //Assert - the http status is 400 Bad Request
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
-
     }
-
 }
