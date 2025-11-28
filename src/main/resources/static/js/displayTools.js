@@ -34,9 +34,14 @@ function starClicked(starBtn, star, toolId) {
 }
 
 export async function displayTools(data, list) {
+        const employee = await getCurrentEmployee(); 
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
         console.log('Tool:', tool.name, 'tags:', tool.tags);
+
+        if (tool.is_dynamic){
+            tool.url = tool.url.replace('$USER$', employee.initials.toLowerCase());
+        }
 
         const toolId = tool.id;
         const li = document.createElement('li');

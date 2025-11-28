@@ -84,7 +84,7 @@ function getURLValue(dynamic){
     const url1 = document.querySelector("#toolURL1").value.toString();
     //Combines the two parts of dynamic url and user initials
     if (dynamic){
-        const user = document.querySelector("#toolUser").textContent;
+        const user = `$USER$`;
         const url2 = document.querySelector("#toolURL2").value.toString();
 
         return url1 + user + url2;
