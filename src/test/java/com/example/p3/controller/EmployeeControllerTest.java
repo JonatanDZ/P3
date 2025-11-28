@@ -46,18 +46,25 @@ class EmployeeControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    //Ensures the endpoint correctly reaches the controller method
+    //and the JSON output from the controller is correct.
+    //Also it checks that our HTTP status is correct (200)
     @Test
     public void testGetEmployeesByInitials() throws Exception {
         //Create 2 mock departments
         Department hr = new Department();
         hr.setId(1);
         hr.setName("HR");
+        hr.setIs_dev(false);
 
         Department devOps = new Department();
         devOps.setId(2);
         devOps.setName("devOps");
+        devOps.setIs_dev(true);
 
+        //Mock favorites list
         Set<Tool> emptyToolSet = new HashSet<>();
+
         //Make mock employees
         Employee employee1 = EmployeeContructor("JD", "John Doe", "SomeEmail", hr, emptyToolSet);
         Employee employee2 = EmployeeContructor("ÅS", "Ålice Smith", "AnotherEmail", devOps, emptyToolSet);
@@ -80,31 +87,27 @@ class EmployeeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Ålice Smith"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("AnotherEmail"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.department_name").value("devOps"));
-
-        /*
-        This test ensures the endpoint correctly reaches the controller method and the JSON output from the controller
-        is correct. Also it checks that our HTTP status is correct (200)
-         */
     }
 
-    //This test is to
+    //This test is to check it returns not found (404) when the initial doesn't exit.
     @Test
     public void testGetEmployeeByInitials_NotFound() throws Exception {
-        //Arrange, that the service should returns Optional.empty given initials that are not found
-        when(employeeService.getEmployeeByInitials("WRNG"))
+        //Arrange; that the service should returns Optional.empty given initials that are not found
+        String initials = "WRNG";
+        when(employeeService.getEmployeeByInitials(initials))
                 .thenReturn(Optional.empty());
-        //Act - perform the get request to the controller with the wrong initals
-        mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/WRNG"))
+        //Act; perform the get request to the controller with the wrong initals
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/" + initials))
 
-                //Assert, a http status is 404 Not Found
+                //Assert; a http status is 404 Not Found
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 
     }
-
+    //This test is to check it returns error (400) when the input isn't 4 initials.
     @Test
     public void testGetEmployeeByInitials_BadInput() throws Exception {
         //Arrange a bad input, and we will not call the service, since we expect the controller to reject the request
-        String badInput = "@A!11";
+        String badInput = "@A!1";
 
         //Act - perform the get request to the controller with the bad request
         mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/" + badInput))
