@@ -30,6 +30,13 @@ async function searchbar(inp, arr) {
 
             //Checks to see if the input is included in any of the elements in the array 'tags'
              if (fuzzySearch(val, arr[i])){
+
+                //show makes the whole div clickable
+                const link = document.createElement("a");
+                link.href = arr[i].url;
+                link.target = "blank"; //Make the link open not in the current tab (new window or new tab)
+                link.className = "focusable"; //so we can toggle the focus
+
                 //show tool
                 searchBarItem = showToolInSearchBar(arr[i], searchBarItem);
 
@@ -37,15 +44,16 @@ async function searchbar(inp, arr) {
                     searchBarItem = showTagsInSearchBar(arr[i].tags, searchBarItem);
                 }
 
-                searchBarList.appendChild(searchBarItem);
+                searchBarList.appendChild(link);
+                link.appendChild(searchBarItem); //
             }
         }
     });
 
     //The focus funktion. Makes it possible to use the arrows to go though tools
     inp.addEventListener("keydown", function(e) {
-        var x = document.getElementById(this.id + "searchbar-list");
-        if (x) x = x.getElementsByTagName("div");
+        let x = document.getElementById(this.id + "searchbar-list");
+        if (x) x = x.querySelectorAll(".focusable");
         if (e.keyCode == 40) { //down
             currentFocus++;
             addActive(x);
@@ -134,6 +142,7 @@ function showToolInSearchBar(tool, parentElement){
         }
     });
     parentElement.appendChild(nameUrlContainer);
+
     return parentElement;
 }
 

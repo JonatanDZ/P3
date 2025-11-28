@@ -1,5 +1,6 @@
 import {submitTag} from "./submitForm.js";
 import {stringToColor} from "./searchbar.js";
+import {fuzzySearchTags} from "./fuzzySearch.js";
 
 //Used to load department and jurisdiction in form
 export function loadOptions(str){
@@ -48,7 +49,6 @@ export async function enableTagSearch(){
         const input = tagInput.value.toLowerCase();
 
         if (input.length === 0) {
-            suggestionBox.style.display = "none";
             clearDiv(suggestionBox);
             return;
         }
@@ -57,7 +57,7 @@ export async function enableTagSearch(){
 
         //If the tag value includes what is written in input so far. Push it to the match array;
         tags.forEach(tag => {
-            if (tag.value.toLowerCase().includes(input)){
+            if (fuzzySearchTags(input, tag.value)){
                 matches.push(tag);
             }
         });
@@ -71,11 +71,6 @@ export async function enableTagSearch(){
         }
 
         clearDiv(suggestionBox);
-
-        // Show suggestion box and create new suggestions
-        suggestionBox.style.display = "block";
-
-
 
         matches.forEach(tag => {
             // Create wrapper for each suggestion item
