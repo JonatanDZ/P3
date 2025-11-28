@@ -25,7 +25,7 @@ describe("wagnerFischer", () => {
     });
 
     test("case differences should not matter", () => {
-        // Ensures the function handles both lowercase and capslock 
+        // Ensures the function handles both lowercase and capslock
         expect(wagnerFischer("Hello".toLowerCase(), "hello")).toBe(1);
     });
 });
