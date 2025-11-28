@@ -29,7 +29,7 @@ public class ToolControllerTest {
     private ToolService toolService; // To mock toolService
 
     @Test
-    public void testGetTools() throws Exception {
+    public void testGetAllTools() throws Exception {
         Set<Department> departmentSet = new HashSet<>();
         Set<Jurisdiction> jurisdictionSet = new HashSet<>(); //Creates empty sets for related entities
         Set<Stage> stagesSet = new HashSet<>();
@@ -37,12 +37,12 @@ public class ToolControllerTest {
 
         // Make mock tools
         Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false,false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
-        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
+        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", true, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
         List<Tool> toolList = new ArrayList<>(); // Make list and add the mock tools
         toolList.add(tool1);
         toolList.add(tool2);
 
-        when(toolService.getAllTools()).thenReturn(toolList);
+        when(toolService.getAllToolsExcludingPending()).thenReturn(toolList);
         mockMvc.perform(MockMvcRequestBuilders.get("/tools"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
@@ -95,7 +95,7 @@ public class ToolControllerTest {
                         .post("/tools")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"value\":\"tag1\", \"tools\":\"[]\"}"))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     // Testing: /tools/department/{department}/jurisdiction/{jurisdiction}/stage/{stage}
