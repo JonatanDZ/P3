@@ -109,3 +109,4 @@
 .departments .dep:not(:last-child)::after {
     content: ", ";
 }
+

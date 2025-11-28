@@ -20,10 +20,10 @@ export async function submitTag(){
     }
 
 }
-
+let jsonData;
 export async function submitForm() {
     try {
-        const jsonData = await formToJSON();
+        jsonData = await formToJSON();
 
         console.log(jsonData);
 
@@ -33,12 +33,26 @@ export async function submitForm() {
         console.log("Error in submitForm:",error);
     }
 
+    let data = JSON.parse(jsonData)
+    if(data.is_personal){
+        alert("Your tool has been added")
+    }else{
+        alert("Your tool is pending and waiting for approal")
+
+    }
 
     //Makes sure tool can be loaded to database before displaying
 
-    setTimeout(() => {
-        window.location.reload();
-    }, 100);
+        setTimeout(()=>{
+            window.location.reload();
+        },100);
+
+
+
+
+
+
+
 }
 
 //Makes form data into a JSON
