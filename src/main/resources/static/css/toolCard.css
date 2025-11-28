@@ -75,7 +75,7 @@
 }
 
 .star-button:hover .star {
-    transform: scale(1.05);
+    transform: scale(1.15) translateZ(0);
 }
 
 .tool-url {
