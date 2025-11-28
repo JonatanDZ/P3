@@ -1,4 +1,5 @@
 import {submitTag} from "./submitForm.js";
+import {stringToColor} from "./searchbar.js";
 
 //Used to load department and jurisdiction in form
 export function loadOptions(str){
@@ -132,7 +133,7 @@ export async function enableTagSearch(){
     })
 }
 
-function clearDiv(div){
+export function clearDiv(div){
     while (div.firstChild) {
         div.removeChild(div.firstChild);
     }
@@ -186,6 +187,8 @@ export function addTagChip(tag){
     chip.className = "tag-chip";
     chip.dataset.tag = tag.id;
     chip.dataset.tagName = tag.value;
+    chip.style.backgroundColor = stringToColor(tag.value);
+    
 
     // Create tag label
     const label = document.createElement("span");

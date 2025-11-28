@@ -1,5 +1,9 @@
 import {poster} from "./fetchTool.js";
 import {addTagChip} from "./loadOptions.js";
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {displayFavorites} from "./displayFavorites.js";
+import {displayTools} from "./displayTools.js";
+
 
 export async function submitTag(){
     
@@ -20,7 +24,26 @@ export async function submitForm() {
     try {
         const jsonData = await formToJSON();
 
-        await poster("tools" , jsonData);
+        const tool = await poster("tools" , jsonData);
+        const toolId = tool.id;
+        const toolIsPersonal = tool.is_personal;
+
+        console.log(toolId, toolIsPersonal);
+
+
+        if (toolIsPersonal) {
+            const employee = await getCurrentEmployee();
+            const initials = employee.initials;
+
+            await fetch(`employee/${initials}/favorites/${toolId}`, {
+                method: "POST", // <-- important
+                headers: {
+                    "Content-Type": "application/json"
+                }
+                // no body needed, your backend just uses path variables
+            });
+            await displayTools();
+        }
 
         setTimeout(() => {
         window.location.reload();
@@ -65,7 +88,7 @@ export async function formToJSON(){
     return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending});
 }
 
-//Gets the url value
+//Gets the url value regarding if it is dynamic
 function getURLValue(dynamic){
     const url1 = document.querySelector("#toolURL1").value.toString();
 
@@ -74,7 +97,7 @@ function getURLValue(dynamic){
 
     //Combines the two parts of dynamic url and user initials
     if (dynamic){
-        const user = document.querySelector("#toolUser").textContent;
+        const user = `$USER$`;
         const url2 = document.querySelector("#toolURL2").value.toString();
 
         //Error handling for empty url

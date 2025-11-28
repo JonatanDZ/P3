@@ -1,7 +1,9 @@
 import {getJurisdiction, getStage} from "./endpointScripts.js";
+import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
 export async function isToolInFavorite(toolId) {
-    const employeeInitials = "PEDO";
+    const employee = await getCurrentEmployee();
+    const employeeInitials = employee.initials;
     const jurisdiction = getJurisdiction();
     const stage = getStage();
 
@@ -13,6 +15,7 @@ export async function isToolInFavorite(toolId) {
         );
         const data = await response.json();
         //if toolId parameter is in the favorites list from the employee, it returns true
+        console.log("tjek her", data);
         return data.some(favorite => favorite.id === toolId);
     } catch (error) {
         console.error("Error fetching tool:", error);

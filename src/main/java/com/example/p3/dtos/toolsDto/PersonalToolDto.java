@@ -1,6 +1,5 @@
 package com.example.p3.dtos.toolsDto;
 
-import com.example.p3.entities.Department;
 import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
@@ -12,6 +11,7 @@ import java.util.List;
 @Getter
 public class PersonalToolDto implements  ToolDto {
     private Integer id;
+    private Boolean is_personal = true;
     private String name;
     private String url;
     private ArrayList<String> jurisdictions;
