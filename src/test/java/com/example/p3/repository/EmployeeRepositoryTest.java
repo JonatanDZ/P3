@@ -23,34 +23,24 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class EmployeeRepositoryTest {
+public class EmployeeRepositoryTest extends RepositoryGlobalMethods{
 
     @Autowired
     private EmployeeRepository employeeRepositoryTest;
 
-    @Autowired
-    private DepartmentRepository departmentRepositoryTest;
-
-    //We need to create a department, as the mock database is not populated
-    private Department createDepartment(){
-        Department department = new Department();
-        department.setName("Test Department");
-        department.setIs_dev(true);
-        return departmentRepositoryTest.save(department);
-    }
-
-    //This test looks into the actual database and tries to find the actual employee
+    //Tests that an employee can be found by initials
     @Test
     public void testFindByInitials(){
         Department department = createDepartment();
+        //Creates employee to test
         Employee e1 = new Employee("PEDO", "Holly Hobler", "HOHO@mail.dk", department);
         employeeRepositoryTest.save(e1);
         Optional<Employee> employees = employeeRepositoryTest.findByInitials("PEDO");
-        assertNotNull(employees);
-        assertTrue(employees.isPresent());
+        assertNotNull(employees); //Checks if the employee is null
+        assertTrue(employees.isPresent()); //Check that employee with the initial is in the mock database
     }
 
-    //This test shows that our findByInitials database call is case-insensitive, making sure that it finds the same employye
+    //This test shows that our findByInitials database call is case-insensitive, making sure that it finds the same employee
     //with upper or lower case letters
     @Test
     public void testFindByLowerCaseInitials(){
@@ -60,35 +50,40 @@ public class EmployeeRepositoryTest {
 
         Optional<Employee> employees = employeeRepositoryTest.findByInitials("hoho");
         assertNotNull(employees);
-        assertTrue(employees.isPresent());
+        assertTrue(employees.isPresent()); //Check that employee with the initial(regardless of case) is in the mock database
     }
 
     //This test will look for an employee that is not present and expect the returned employees to be empty
     @Test
     public void testFindByInitialsNotPresent(){
+        //Finds initials which are not i the database
         Optional<Employee> employees = employeeRepositoryTest.findByInitials("KOLO");
         //Assert true that the employee returned is empty, as there is no employee with initials KOLO
         assertTrue(employees.isEmpty(), "Employee not found");
     }
 
-    //We populate the database with 5 employees, and the test should return that the
+    //We populate the database with 5 employees, and the test should return a list with the size 5
     @Test
     public void testGetAllEmployees(){
         Department department = createDepartment();
+        //Creates 5 mock employees
         Employee e1 = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
         Employee e2 = new Employee("MOMO", "Morten Moller", "MOMO@mail.dk", department);
         Employee e3 = new Employee("SISI", "Signe Simonsen", "SISI@mail.dk", department);
         Employee e4 = new Employee("LALA", "Lars Larsen", "LALA@mail.dk", department);
         Employee e5 = new Employee("KOKO", "Kasper Kokholm", "KOKO@mail.dk", department);
 
+        //Saves mock employees in the mock database
         employeeRepositoryTest.save(e1);
         employeeRepositoryTest.save(e2);
         employeeRepositoryTest.save(e3);
         employeeRepositoryTest.save(e4);
         employeeRepositoryTest.save(e5);
+
+        //Makes a list of employees
         List<Employee> employees = employeeRepositoryTest.findAll();
         assertNotNull(employees);
-        assertEquals(5, employees.size());
+        assertEquals(5, employees.size()); //Check if the employee amount and list size are the same
     }
 
     //This tests that there will not be duplicate employees in the database with different instances
@@ -99,14 +94,15 @@ public class EmployeeRepositoryTest {
         Employee e1 = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
         employeeRepositoryTest.save(e1);
 
+        //creates an employee with the same information (most important initials), to check if it is discarded
         Employee e2 = new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
         employeeRepositoryTest.save(e2);
-        //Expect 15 employees as there are 14 in the database, and though two different employees in the test are created,
-        //only one should be added as they has the same initials, and therefore when saving e2 it will only update the name and email
+
+        //Check to se that the last added employee isn't added
         assertEquals(1, employeeRepositoryTest.count());
     }
 
-    //This tests that we can update an employee by saving a new employee with the same initials
+    //Test if an employee can be updated when a new employee is saved with the same initials
     @Test
     public void testUpdateEmployee(){
         Department department = createDepartment();
@@ -124,5 +120,4 @@ public class EmployeeRepositoryTest {
         //Here we assert that the name of the employee is Molo Kolo and not Morten Johansen
         assertEquals("Molo Kolo", updatedEmployee.getName());
     }
-
 }
