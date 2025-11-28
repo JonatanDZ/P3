@@ -148,6 +148,11 @@ span.psw {
     background: #2c2c2c;
 }
 
+.submit-tag-item {
+    background-color: #303030;
+    font-weight: bold;
+}
+
 .selected-tags {
     display: flex;
     flex-wrap: wrap;
