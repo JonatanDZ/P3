@@ -56,6 +56,7 @@ public class ToolControllerTest {
         Set<Jurisdiction> jurisdictionSet = new HashSet<>(); //Creates empty sets for related entities
         Set<Stage> stagesSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
+
         // Make mock tools
         Tool tool1 = toolConstructor(1,"testTool1","https://www.testing.dk",false,false, departmentSet, jurisdictionSet, stagesSet, tagSet);
         Tool tool2 = toolConstructor(2,"testTool2","https://www.testing2.dk",true,true, departmentSet, jurisdictionSet, stagesSet, tagSet);
@@ -120,6 +121,19 @@ public class ToolControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*@Test
     public void testGetToolById() throws Exception {

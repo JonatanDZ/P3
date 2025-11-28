@@ -4,7 +4,6 @@ import com.example.p3.entities.*;
 import com.example.p3.repositories.EmployeeRepository;
 import com.example.p3.repositories.ToolRepository;
 import jakarta.persistence.EntityManager;
-import org.aspectj.apache.bcel.Repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -14,7 +13,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -363,5 +361,4 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
 
         assertTrue(nonPendingPersonalToolsReturned.contains(testTool));
     }
-
 }
