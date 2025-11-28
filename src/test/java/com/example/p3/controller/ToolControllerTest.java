@@ -22,21 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @WebMvcTest(ToolController.class)
 public class ToolControllerTest {
 
-    public Tool toolConstructor(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
-        Tool tool = new Tool();
-        tool.setId(id);
-        tool.setName(name);
-        tool.setUrl(url);
-        tool.setIs_personal(is_personal);
-        tool.setIs_dynamic(is_dynamic);
-        tool.setDepartments(departments);
-        tool.setJurisdictions(jurisdictions);
-        tool.setStages(stages);
-        tool.setTags(tags);
-
-        return tool;
-    }
-
     @Autowired
     private MockMvc mockMvc; // To test your web controllers without starting a full HTTP server
 
@@ -51,8 +36,8 @@ public class ToolControllerTest {
         Set<Tag> tagSet = new HashSet<>();
 
         // Make mock tools
-        Tool tool1 = toolConstructor(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet);
-        Tool tool2 = toolConstructor(2, "testTool2", "https://www.testing2.dk", true, true, departmentSet, jurisdictionSet, stagesSet, tagSet);
+        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false,false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
+        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
         List<Tool> toolList = new ArrayList<>(); // Make list and add the mock tools
         toolList.add(tool1);
         toolList.add(tool2);
@@ -91,7 +76,7 @@ public class ToolControllerTest {
         Set<Stage> stagesSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
         // Making a mock tool and adding it to the tool list
-        Tool tool = toolConstructor(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet);
+        Tool tool = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
         List<Tool> toolList = new ArrayList<>();
         toolList.add(tool);
 
@@ -113,8 +98,9 @@ public class ToolControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
-<<<<<<< Updated upstream
-=======
+    // Testing: /tools/department/{department}/jurisdiction/{jurisdiction}/stage/{stage}
+    // Giving it a list of two tools belonging to the same jur, stage and department.
+    // It should give a 200 ok status code, and return the list in JSON form.
     @Test
     public void testToolsByDepartmentJurisdictionStage() throws Exception {
         Set<Department> departmentSet = new HashSet<>();
@@ -122,36 +108,100 @@ public class ToolControllerTest {
         departmentSet.add(dep); // Add the mock department
 
         Set<Jurisdiction> jurisdictionSet = new HashSet<>(); //Creates empty sets for related entities
+        Jurisdiction jur = new Jurisdiction();
+        jur.setName("DK");
+        jurisdictionSet.add((jur));
+
+
         Set<Stage> stagesSet = new HashSet<>();
+        Stage stageTest = new Stage();
+        stageTest.setName("Development");
+
         Set<Tag> tagSet = new HashSet<>();
+
         // Making a mock tool and adding it to the tool list
-        Tool tool1 = toolConstructor(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet);
-        Tool tool2 = toolConstructor(1, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet);
+        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
+        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
 
         List<Tool> toolList = new ArrayList<>();
         toolList.add(tool1);
         toolList.add(tool2);
 
-        when(toolService.getAllToolsByDepartmentJurisdictionStage("DEVOPS", "DK", "Development")).thenReturn(toolList);
-        mockMvc.perform(MockMvcRequestBuilders.get("/tools/department/DEVOPS"))
+        when(toolService.getAllToolsByDepartmentJurisdictionStage("DevOps", "DK", "Development")).thenReturn(toolList);
+        mockMvc.perform(MockMvcRequestBuilders.get("/tools/department/DevOps/jurisdiction/DK/stage/Development"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1));
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("testTool1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("testTool2"));
     }
->>>>>>> Stashed changes
+
+    // Testing: /tools/pending/department/{department}
+    // Giving it a list of two tools belonging to the same department where pending = true
+    // It should give a 200 ok status code, and return the list in JSON form.
+    @Test
+    public void testPendingToolsByDepartment() throws Exception {
+        Set<Department> departmentSet = new HashSet<>();
+        Department dep = new Department(1, "DevOps", true); // Making mock department
+        departmentSet.add(dep); // Add the mock department
+
+        Set<Jurisdiction> jurisdictionSet = new HashSet<>(); //Creates empty sets for related entities
+        Set<Stage> stagesSet = new HashSet<>();
+        Set<Tag> tagSet = new HashSet<>();
+
+        // Making a mock tool and adding it to the tool list
+        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, true);
+        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, true);
+
+        List<Tool> toolList = new ArrayList<>();
+        toolList.add(tool1);
+        toolList.add(tool2);
 
 
+        when(toolService.findPendingToolByUserDepartment("DevOps")).thenReturn(toolList);
+        mockMvc.perform(MockMvcRequestBuilders.get("/tools/pending/department/DevOps"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("testTool1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].pending").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("testTool2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].pending").value(true));
+    }
 
+    // Testing: /tools/pending/{toolId}, DELETE method
+    // The service method used in this endpoint returns void, so it cannot be mocked.
+    // Given that it deletes nothing, it should return no content. The test is useful, because it can still return 404, indicating something is wrong with the endpoint.
+    @Test
+    public void testDeletePendingTool() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/tools/pending/1"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 
+    // Testing: /tools/pending/department/{department}
+    // Giving it a single tool with pending = false, to mock that the service method reverts its state.
+    // check that it returns 200 ok, the tool provided and that pending = false.
+    @Test
+    public void testUpdatePendingTool() throws Exception {
+        Set<Department> departmentSet = new HashSet<>();
+        Department dep = new Department(1, "DevOps", true); // Making mock department
+        departmentSet.add(dep); // Add the mock department
 
+        Set<Jurisdiction> jurisdictionSet = new HashSet<>(); //Creates empty sets for related entities
+        Set<Stage> stagesSet = new HashSet<>();
+        Set<Tag> tagSet = new HashSet<>();
 
-<<<<<<< Updated upstream
+        // Making a mock tool and adding it to the tool list
+        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
 
-
-
-
-
+        // mocks the service method used in the endpoint.
+        // it actually takes a tool with pending = true, and makes it pending = false. We mock that, by saying pending = false from the start.
+        when(toolService.revertStateOfPending(1)).thenReturn(tool1);
+        mockMvc.perform(MockMvcRequestBuilders.put("/tools/pending/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("testTool1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.pending").value(false));
+    }
 
 
 /*@Test
