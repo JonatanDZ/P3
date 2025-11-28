@@ -4,6 +4,7 @@ import { addTagChip } from "../../../main/resources/static/js/loadOptions.js";
 describe("formToJSON – tags handling", () => {
 
     beforeEach(() => {
+        // The tag form
         document.body.innerHTML = `
             <div id="selectedTags">
                 <div class="tag-chip" data-tag="6" data-tag-name="Al-Qaeda"></div>
@@ -27,6 +28,7 @@ describe("formToJSON – tags handling", () => {
         ]);
     });
 
+    // Test if the function handles the empty tag
     test("handles empty tags correctly", async () => {
         document.body.innerHTML = `
             <div id="selectedTags"></div>
