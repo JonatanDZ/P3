@@ -1,5 +1,5 @@
 //https://medium.com/@yasaswini.gaddam21/wagner-fischer-algorithm-minimum-edit-distance-4e61bba9b656
-function wagnerFischer(s1, s2) {
+export function wagnerFischer(s1, s2) {
     //Because the whole 
     s1 = " " + s1;
     s2 = " " + s2;
