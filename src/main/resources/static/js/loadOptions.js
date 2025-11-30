@@ -162,14 +162,13 @@ function createSubmitBtn(parentElement, input){
 
 export function addTagChip(tag){
 
-    //Ensures that no more than 10 tags can be added
-    const tagCount = document.querySelectorAll(".tag-chip").length;
-    if(tagCount >= 10){
-        alert("You can only add up to 10 tags.");
+    const container = document.querySelector("#selectedTags");
+    //Ensures that no more than 5 tags can be added
+    const tagCount = container.querySelectorAll(".tag-chip").length;
+    if(tagCount >= 5){
+        alert("You can only add up to 5 tags.");
         return;
     }
-
-    const container = document.querySelector("#selectedTags");
 
     // Prevent duplicate chips for the same tag
     if (container.querySelector(`div.tag-chip[data-tag="${tag.id}"]`) != null) {

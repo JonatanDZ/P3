@@ -41,7 +41,7 @@ async function searchbar(inp, arr) {
                 searchBarItem = showToolInSearchBar(arr[i], searchBarItem);
 
                 if (!arr[i].is_personal){
-                    searchBarItem = showTagsInSearchBar(arr[i].tags, searchBarItem);
+                    searchBarItem = showTagsInDiv(arr[i].tags, searchBarItem);
                 }
 
                 searchBarList.appendChild(link);
@@ -103,10 +103,10 @@ async function searchbar(inp, arr) {
 export async function setUpSearchBar() {
     try{
         const response = await fetch('/tools');
-        const tagsJson = await response.json();
+        const toolsJson = await response.json();
 
         //Calls the function
-        searchbar(document.getElementById("myInput"), tagsJson)
+        searchbar(document.getElementById("myInput"), toolsJson)
 
     } catch (err){
         console.error("failed to load tools in searchbar:", err);
@@ -146,7 +146,7 @@ function showToolInSearchBar(tool, parentElement){
     return parentElement;
 }
 
-function showTagsInSearchBar(tags, parentElement){
+export function showTagsInDiv(tags, parentElement){
     //Create container for the tags
     const tagContainer = document.createElement("div"); 
     tagContainer.className = "tagContainer";

@@ -65,7 +65,8 @@ export async function formToJSON(){
     const url = getURLValue(isDynamic);
 
     //We have to use "dataset.tag" because a div doesn't have the attribute value
-    const tags = Array.from(document.querySelectorAll(".tag-chip")).map(tag => ({id : tag.dataset.tag}));
+    const tagContainer = document.querySelector("#selectedTags");
+    const tags = Array.from(tagContainer.querySelectorAll(".tag-chip")).map(tag => ({id : tag.dataset.tag}));
     const stages = Array.from(document.querySelectorAll('.stagesChecks:checked')).map(cb => ({ id: cb.value }));
     const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => ({id: cb.value}));
     const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => ({id: cb.value}));

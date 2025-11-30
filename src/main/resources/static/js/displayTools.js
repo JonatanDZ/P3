@@ -2,6 +2,7 @@ import {isToolInFavorite} from "./isToolInFavorite.js";
 import {displayFavorites} from "./displayFavorites.js";
 import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {showTagsInDiv} from "./searchbar.js";
 
 function starClicked(starBtn, star, toolId) {
     starBtn.appendChild(star);
@@ -76,12 +77,15 @@ export async function displayTools(data, list) {
         header.appendChild(starBtn);
         header.appendChild(nameE);
 
+        let tags = document.createElement('div');
+        tags.className = 'tagsInTool';
+        if (!tool.is_personal){
 
+            tags = showTagsInDiv(tool.tags, tags);
+        }
 
-        const tags = document.createElement('div');
-        tags.className = 'tags';
-        tags.textContent = "Tags: "
-        if(Array.isArray(tool.tags)) {
+/*
+        if(Array.isArray(tool.tags)) { 
             for (const tagValue of tool.tags) {
                 const tag = document.createElement('span')
                 tag.className = 'tag';
@@ -89,6 +93,8 @@ export async function displayTools(data, list) {
                 tags.appendChild(tag);
             }
         }
+*/
+
 
         const urlE = document.createElement('div');
         urlE.className = 'tool-url';
