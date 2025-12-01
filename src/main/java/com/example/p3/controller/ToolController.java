@@ -55,22 +55,6 @@ public class ToolController {
                 .toList();
         return ResponseEntity.ok(list);
     }
-    
-//    @GetMapping("/jurisdiction/{jurisdiction}")
-//    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {
-//        List<ToolDto> list = toolService.getAllToolsByJurisdictionName(jurisdiction).stream()
-//                .map(ToolDto::new)
-//                .toList();
-//        return ResponseEntity.ok(list);
-//    }
-//
-//    @GetMapping("/stage/{stage}")
-//    public ResponseEntity<List<ToolDto>> getAllToolsByStage(@PathVariable String stage) {
-//        List<ToolDto> list = toolService.getAllToolsByStageName(stage).stream()
-//                .map(ToolDto::new)
-//                .toList();
-//        return ResponseEntity.ok(list);
-//    }
 
     @GetMapping("department/{department}/jurisdiction/{jurisdiction}/stage/{stage}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
@@ -125,6 +109,23 @@ public class ToolController {
         ToolDto toolAsArgument = companyToolFactory.determineTool(toolService.revertStateOfPending(toolId));
         return ResponseEntity.ok(toolAsArgument);
     }
+
+
+    //    @GetMapping("/jurisdiction/{jurisdiction}")
+//    public ResponseEntity<List<ToolDto>> getAllToolsByJurisdiction(@PathVariable String jurisdiction) {
+//        List<ToolDto> list = toolService.getAllToolsByJurisdictionName(jurisdiction).stream()
+//                .map(ToolDto::new)
+//                .toList();
+//        return ResponseEntity.ok(list);
+//    }
+//
+//    @GetMapping("/stage/{stage}")
+//    public ResponseEntity<List<ToolDto>> getAllToolsByStage(@PathVariable String stage) {
+//        List<ToolDto> list = toolService.getAllToolsByStageName(stage).stream()
+//                .map(ToolDto::new)
+//                .toList();
+//        return ResponseEntity.ok(list);
+//    }
 }
 
 

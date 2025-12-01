@@ -8,15 +8,15 @@ import com.example.p3.repositories.DepartmentRepository;
 import com.example.p3.repositories.EmployeeRepository;
 import com.example.p3.repositories.JurisdictionRepository;
 //import com.example.p3.repositories.StageRepository;
+import com.example.p3.repositories.StageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.stereotype.Component;
 
-@DataJpaTest
-@ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+
 public class RepositoryGlobalMethods {
+    @Autowired
+    private StageRepository stageRepositoryTest;
+
     @Autowired
     private DepartmentRepository departmentRepositoryTest;
 
@@ -26,6 +26,10 @@ public class RepositoryGlobalMethods {
 //    @Autowired
 //    private StageRepository stageRepositoryTest;
 
+    public Employee createEmployee() {
+        Department department = createDepartment();
+        return new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);
+    }
 
     //We need to create a department, as the mock database is not populated
     public Department createDepartment() {
@@ -40,12 +44,10 @@ public class RepositoryGlobalMethods {
         jurisdiction.setName("testJurisdiction");
         return jurisdictionRepositoryTest.save(jurisdiction);
     }
-/*
     public Stage createStage () {
         Stage stage = new Stage();
         stage.setName("testStage");
         return stageRepositoryTest.save(stage);
     }
-*/
 }
 
