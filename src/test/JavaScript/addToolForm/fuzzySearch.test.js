@@ -2,6 +2,7 @@ import { fuzzySearch } from "../../../main/resources/static/js/fuzzySearch.js";
 
 describe("fuzzySearch()", () => {
 
+    //Test tool
     const tool = {
         name: "Swagger",
         url: "https://example.com/tool",
