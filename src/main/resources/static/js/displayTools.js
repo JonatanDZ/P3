@@ -4,7 +4,7 @@ import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
 //Favorites button
-function starClicked(starBtn, star, toolId) {
+export function starClicked(starBtn, star, toolId) {
     starBtn.appendChild(star);
 
     starBtn.addEventListener('click', async (e) => {
@@ -31,7 +31,7 @@ function starClicked(starBtn, star, toolId) {
             displayFavorites();
         } catch (err) {
             console.error('Favorite toggle failed:', err);
-            star.textContent = filled ? '☆' : '★';
+            star.textContent = filled ? '★' : '☆';
         }
     });
 }
@@ -74,7 +74,7 @@ export async function displayTools(data, list) {
         const star = document.createElement('span');
         star.className = 'star';
         const isFav = await isToolInFavorite(toolId);
-
+        //console.log("tjek her", isFav, toolId);
         if(isFav){
             star.textContent = '★';
         } else{

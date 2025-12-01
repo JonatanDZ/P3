@@ -22,6 +22,11 @@ public class EmployeeController {
     // the rest looks for list with the best match at the top.
     @GetMapping("/initials/{initials}")
     public ResponseEntity<EmployeeDto> getEmployeeByInitials(@PathVariable String initials) {
+        //Reject invalid input before calling the service
+        //Check if the given initials do not match the pattern only letters from A-Å upper and lower case and only 2-4 characters
+        if (!initials.matches("^[A-Za-zÆØÅæøå]{2,4}$")){
+            return ResponseEntity.badRequest().build();
+        }
         Employee employee = employeeService.getEmployeeByInitials(initials).orElse(null);
         if  (employee == null) {
             return ResponseEntity.notFound().build();
