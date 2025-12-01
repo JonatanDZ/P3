@@ -40,7 +40,7 @@ export async function submitForm() {
                 headers: {
                     "Content-Type": "application/json"
                 }
-                // no body needed, your backend just uses path variables
+                // nobody needed, your backend just uses path variables
             });
             await displayTools();
         }
@@ -49,7 +49,6 @@ export async function submitForm() {
             alert("Your tool has been added")
         }else{
             alert("Your tool is pending and waiting for approal")
-
         }
 
         setTimeout(() => {

@@ -13,7 +13,6 @@
     --dev--: #42aa40;
     --stage--: #4042aa;
     --prod--: #aa4042;
-
 }
 
 :root {
@@ -91,11 +90,19 @@ label[for="jurisdiction"] {
     cursor: pointer;
 }
 
+#jurisdiction + label:hover {
+    transform: scale(1.1) translateZ(0);
+}
+
 #jurisdiction:checked+label[for="jurisdiction"] {
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg");
     background-size: cover;
     background-position: center;
     font-weight: bold;
+}
+
+#jurisdiction:checked+label:hover {
+    transform: scale(1.1) translateZ(0);
 }
 
 .branchSelector {
@@ -131,6 +138,9 @@ label[for="jurisdiction"] {
     opacity: 80%;
     cursor: pointer;
 }
+#dev+label:hover {
+    transform: scale(1.15) translateZ(0);
+}
 
 #stage+label {
     background: var(--stage--);
@@ -139,6 +149,9 @@ label[for="jurisdiction"] {
     opacity: 80%;
     cursor: pointer;
 }
+#stage+label:hover {
+    transform: scale(1.15) translateZ(0);
+}
 
 #prod+label {
     background: var(--prod--);
@@ -146,6 +159,9 @@ label[for="jurisdiction"] {
     padding: 5px;
     opacity: 80%;
     cursor: pointer;
+}
+#prod+label:hover {
+    transform: scale(1.15) translateZ(0);
 }
 
 .main {
@@ -230,10 +246,6 @@ section {
     width: 100%;
     height: auto;
 }
-
-
-
-
 
 footer {
     position: fixed;
@@ -357,7 +369,3 @@ input[type="checkbox"] {
 .tags .tag:not(:last-child)::after {
     content: ", ";
 }
-
-
-
-
