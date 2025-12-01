@@ -43,7 +43,7 @@ export async function submitForm() {
                 // no body needed, your backend just uses path variables
             });
         }
-
+        //ensures the tool is loaded before it is inserted
         setTimeout(() => {
         window.location.reload();
         }, 100);
