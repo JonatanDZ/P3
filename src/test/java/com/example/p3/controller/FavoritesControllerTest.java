@@ -56,7 +56,7 @@ class FavoritesControllerTest {
     }
 
     //Tool constructor
-    public Tool toolConstructor(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
+    public Tool toolConstructor(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stage, Set<Tag> tags) {
         Tool tool = new Tool();
         tool.setId(id);
         tool.setName(name);
@@ -65,7 +65,7 @@ class FavoritesControllerTest {
         tool.setIs_dynamic(is_dynamic);
         tool.setDepartments(departments);
         tool.setJurisdictions(jurisdictions);
-        tool.setStages(stages);
+        tool.setStages(stage);
         tool.setTags(tags);
 
         return tool;
@@ -101,11 +101,11 @@ class FavoritesControllerTest {
         Set<Department> departmentSet = new HashSet<>();
         Set<Jurisdiction> jurisdictionSet = new HashSet<>(); //Creates empty sets for
         jurisdictionSet.add(jurisdiction);
-        Set<Stage> stagesSet = new HashSet<>();
-        stagesSet.add(stage);
+        Set<Stage> stageSet = new HashSet<>();
+        stageSet.add(stage);
         Set<Tag> tagSet = new HashSet<>();
-        Tool tool1 = toolConstructor(1,"tool1","https://tool1.com",true,false, departmentSet, jurisdictionSet, stagesSet, tagSet);
-        Tool tool2 = toolConstructor(2,"tool2","https://tool2.com",false,false, departmentSet, jurisdictionSet, stagesSet, tagSet);
+        Tool tool1 = toolConstructor(1,"tool1","https://tool1.com",true,false, departmentSet, jurisdictionSet, stageSet, tagSet);
+        Tool tool2 = toolConstructor(2,"tool2","https://tool2.com",false,false, departmentSet, jurisdictionSet, stageSet, tagSet);
         List<Tool> toolList = new ArrayList<>();
 
         //
@@ -143,7 +143,7 @@ class FavoritesControllerTest {
         Set<Department> departmentSet = new HashSet<>();
         departmentSet.add(hr);
         Set<Jurisdiction> jurisdictionSet = new HashSet<>();
-        Set<Stage> stagesSet = new HashSet<>();
+        Set<Stage> stageSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
 
         Tool tool = toolConstructor(
@@ -154,7 +154,7 @@ class FavoritesControllerTest {
                 false,
                 departmentSet,
                 jurisdictionSet,
-                stagesSet,
+                stageSet,
                 tagSet
         );
 
@@ -183,7 +183,7 @@ class FavoritesControllerTest {
         Set<Department> departmentSet = new HashSet<>();
         departmentSet.add(hr);
         Set<Jurisdiction> jurisdictionSet = new HashSet<>();
-        Set<Stage> stagesSet = new HashSet<>();
+        Set<Stage> stageSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
 
         Tool tool = toolConstructor(
@@ -194,7 +194,7 @@ class FavoritesControllerTest {
                 false,
                 departmentSet,
                 jurisdictionSet,
-                stagesSet,
+                stageSet,
                 tagSet
         );
 

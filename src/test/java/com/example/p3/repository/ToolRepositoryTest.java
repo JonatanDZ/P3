@@ -45,7 +45,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 false,                  // is_dynamic
                 new HashSet<>(),        // departments
                 new HashSet<>(),        // jurisdictions
-                new HashSet<>(),        // stages
+                new HashSet<>(),        // stage
                 new HashSet<>(),        // tags
                 true,                   // pending
                 e1
@@ -84,7 +84,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 false,                  // is_dynamic
                 new HashSet<>(),        // departments
                 new HashSet<>(),        // jurisdictions
-                new HashSet<>(),        // stages
+                new HashSet<>(),        // stage
                 new HashSet<>(),        // tags
                 false,                    // pending - IMPORTANT. This tests the edge case
                 e1
@@ -129,7 +129,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 false,                  // is_dynamic
                 departments,        // departments - IMPORTANT
                 new HashSet<>(),        // jurisdictions
-                new HashSet<>(),        // stages
+                new HashSet<>(),        // stage
                 new HashSet<>(),        // tags
                 true,                    // pending - IMPORTANT
                 e1
@@ -166,7 +166,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
         Set<Jurisdiction> jurisdictions = new HashSet<>();
         jurisdictions.add(testJurisdiction);
 
-        // creating a set of stages
+        // creating a set of stage
         Stage testStage = createStage();
         Set<Stage> stages = new HashSet<>();
         stages.add(testStage);
@@ -180,7 +180,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 false,                  // is_dynamic
                 departments,        // departments - IMPORTANT
                 jurisdictions,        // jurisdictions
-                stages,        // stages
+                stages,        // stage
                 new HashSet<>(),        // tags
                 true,           // pending - IMPORTANT
                 e1
@@ -236,7 +236,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 false,              // is_dynamic
                 departments,        // departments
                 jurisdictions,      // jurisdictions
-                stages,             // stages
+                stages,             // stage
                 new HashSet<>(),    // tags
                 true,                // pending
                 e1
@@ -321,7 +321,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 false,              // is_dynamic
                 departments,        // departments
                 jurisdictions,      // jurisdictions
-                stages,             // stages
+                stages,             // stage
                 new HashSet<>(),    // tags
                 true,                // pending
                 e1
@@ -372,7 +372,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 false,                  // is_dynamic
                 new HashSet<>(),        // departments
                 new HashSet<>(),        // jurisdictions
-                new HashSet<>(),        // stages
+                new HashSet<>(),        // stage
                 new HashSet<>(),        // tags
                 false,                    // pending
                 e1
