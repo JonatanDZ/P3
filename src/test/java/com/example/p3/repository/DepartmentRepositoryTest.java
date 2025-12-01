@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class DepartmentRepositoryTest extends RepositoryGlobalMethods{
+public class DepartmentRepositoryTest extends RepositoryGlobalMethods {
     @Autowired
     private DepartmentRepository departmentRepositoryTest;
 

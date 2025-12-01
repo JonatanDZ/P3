@@ -33,6 +33,9 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
     // Test creates a tool with pending = true, when using the tested method, it should become pending = false.
     @Test
     public void setStateOfPendingFalseTest(){
+        Employee e1 = createEmployee();
+        employeeRepository.save(e1);
+
         // create tool with pending = false
         Tool testTool = new Tool(
                 null,                   // id must be null for JPA to generate it
@@ -44,7 +47,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 new HashSet<>(),        // jurisdictions
                 new HashSet<>(),        // stages
                 new HashSet<>(),        // tags
-                true                    // pending
+                true,                   // pending
+                e1
         );
         // saving to the live DB
         toolRepository.save(testTool);
@@ -68,6 +72,9 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
     // Edge case: given that a tool is already pending = false, it should remain so.
     @Test
     public void setStateOfPendingFalseEdgeCaseTest() {
+        Employee e1 = createEmployee();
+        employeeRepository.save(e1);
+
         // create tool with pending = false
         Tool testTool = new Tool(
                 null,                   // id must be null for JPA to generate it
@@ -79,7 +86,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 new HashSet<>(),        // jurisdictions
                 new HashSet<>(),        // stages
                 new HashSet<>(),        // tags
-                false                    // pending - IMPORTANT. This tests the edge case
+                false,                    // pending - IMPORTANT. This tests the edge case
+                e1
         );
         // saving to the live DB
         toolRepository.save(testTool);
@@ -104,6 +112,9 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
     // BECAUSE it has pending = true.
     @Test
     public void findPendingToolByUserDepartmentTest() {
+        Employee e1 = createEmployee();
+        employeeRepository.save(e1);
+
         // creating a set of departments only containing the testDepartment.
         Department testDepartment = createDepartment();
         Set<Department> departments = new HashSet<>();
@@ -120,7 +131,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 new HashSet<>(),        // jurisdictions
                 new HashSet<>(),        // stages
                 new HashSet<>(),        // tags
-                true                    // pending - IMPORTANT
+                true,                    // pending - IMPORTANT
+                e1
         );
 
         // saving to the live DB
@@ -138,6 +150,7 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
     // of favorites returned. Under the assumption of being in the testJur and testStage.
     @Test
     public void findFavoritesByEmployeeJurisdictionAndStageTest() {
+        Employee e1 = createEmployee();
         // add a favorite tool to specific employee, jurisdiction and stage
         // creating a set of departments only containing the testDepartment.
         Department testDepartment = createDepartment();
@@ -169,7 +182,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 jurisdictions,        // jurisdictions
                 stages,        // stages
                 new HashSet<>(),        // tags
-                true                    // pending - IMPORTANT
+                true,           // pending - IMPORTANT
+                e1
         );
 
         // saving tool to mock db
@@ -192,6 +206,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
     // and calling it again should not create duplicate favorites.
     @Test
     public void toggleAsFavoriteTest() {
+        Employee e1 = createEmployee();
+
         // arrange: create department set
         Department testDepartment = createDepartment();
         Set<Department> departments = new HashSet<>();
@@ -222,7 +238,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 jurisdictions,      // jurisdictions
                 stages,             // stages
                 new HashSet<>(),    // tags
-                true                // pending
+                true,                // pending
+                e1
         );
         toolRepository.save(testTool);
 
@@ -273,6 +290,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
     // and calling it again should not alter or throw errors.
     @Test
     public void untoggleAsFavoriteTest() {
+        Employee e1 = createEmployee();
+
         // creating a favorite tool as the test above
         // arrange: create department set
         Department testDepartment = createDepartment();
@@ -304,7 +323,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 jurisdictions,      // jurisdictions
                 stages,             // stages
                 new HashSet<>(),    // tags
-                true                // pending
+                true,                // pending
+                e1
         );
         toolRepository.save(testTool);
 
@@ -340,6 +360,9 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
     // uploading a tool with that is not pending nor personal. Check that it is in the list returned from above method
     @Test
     public void findNonPendingNonPersonalToolsTest() {
+        Employee e1 = createEmployee();
+        employeeRepository.save(e1);
+
         // create a tool with pending = false and is_personal = true
         Tool testTool = new Tool(
                 null,                   // id must be null for JPA to generate it
@@ -351,7 +374,8 @@ public class ToolRepositoryTest extends RepositoryGlobalMethods {
                 new HashSet<>(),        // jurisdictions
                 new HashSet<>(),        // stages
                 new HashSet<>(),        // tags
-                false                    // pending
+                false,                    // pending
+                e1
         );
         // saving to the live DB
         toolRepository.save(testTool);

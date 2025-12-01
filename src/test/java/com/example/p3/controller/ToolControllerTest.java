@@ -1,6 +1,7 @@
 package com.example.p3.controller;
 
 import com.example.p3.entities.*;
+import com.example.p3.repository.RepositoryGlobalMethods;
 import com.example.p3.service.ToolService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 //Tests the controller not the service.
 @WebMvcTest(ToolController.class)
-public class ToolControllerTest {
+public class ToolControllerTest extends RepositoryGlobalMethods {
 
     @Autowired
     private MockMvc mockMvc; // To test your web controllers without starting a full HTTP server
@@ -36,8 +37,8 @@ public class ToolControllerTest {
         Set<Tag> tagSet = new HashSet<>();
 
         // Make mock tools
-        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false,false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
-        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", true, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
+        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false,false, departmentSet, jurisdictionSet, stagesSet, tagSet, false, createEmployee());
+        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", true, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false, createEmployee());
         List<Tool> toolList = new ArrayList<>(); // Make list and add the mock tools
         toolList.add(tool1);
         toolList.add(tool2);
@@ -76,7 +77,7 @@ public class ToolControllerTest {
         Set<Stage> stagesSet = new HashSet<>();
         Set<Tag> tagSet = new HashSet<>();
         // Making a mock tool and adding it to the tool list
-        Tool tool = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
+        Tool tool = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false, createEmployee());
         List<Tool> toolList = new ArrayList<>();
         toolList.add(tool);
 
@@ -120,8 +121,8 @@ public class ToolControllerTest {
         Set<Tag> tagSet = new HashSet<>();
 
         // Making a mock tool and adding it to the tool list
-        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
-        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
+        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false, createEmployee());
+        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false, createEmployee());
 
         List<Tool> toolList = new ArrayList<>();
         toolList.add(tool1);
@@ -150,8 +151,8 @@ public class ToolControllerTest {
         Set<Tag> tagSet = new HashSet<>();
 
         // Making a mock tool and adding it to the tool list
-        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, true);
-        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, true);
+        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, true, createEmployee());
+        Tool tool2 = new Tool(2, "testTool2", "https://www.testing2.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, true, createEmployee());
 
         List<Tool> toolList = new ArrayList<>();
         toolList.add(tool1);
@@ -192,7 +193,7 @@ public class ToolControllerTest {
         Set<Tag> tagSet = new HashSet<>();
 
         // Making a mock tool and adding it to the tool list
-        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false);
+        Tool tool1 = new Tool(1, "testTool1", "https://www.testing.dk", false, false, departmentSet, jurisdictionSet, stagesSet, tagSet, false, createEmployee());
 
         // mocks the service method used in the endpoint.
         // it actually takes a tool with pending = true, and makes it pending = false. We mock that, by saying pending = false from the start.
