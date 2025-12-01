@@ -41,7 +41,6 @@ export async function displayTools(data, list) {
         const employee = await getCurrentEmployee();
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
-        console.log("STAGES" + tool.stage[0])
         //Personalize the dynamic tools
         console.log('Tool:', tool.name, 'tags:', tool.tags);
 
@@ -98,17 +97,19 @@ export async function displayTools(data, list) {
         //Circles that indicating stage and gives them the correct color
         const circles = document.createElement("div");
         circles.className = "circles";
-        for(let i = 0;i<tool.stage.length;i++){
-            let circle = document.createElement("span")
-            circle.className = "circle"
-            if(tool.stage[i]=="Staging"){
-                circle.style.background = "var(--stage--)"
-            }else if(tool.stage[i]=="Development"){
-                circle.style.background = "var(--dev--)"
-            }else if(tool.stage[i]=="Production"){
-                circle.style.background = "var(--prod--)"
+        if(tool.stage!=null) {
+            for (let i = 0; i < tool.stage.length; i++) {
+                let circle = document.createElement("span")
+                circle.className = "circle"
+                if (tool.stage[i] == "Staging") {
+                    circle.style.background = "var(--stage--)"
+                } else if (tool.stage[i] == "Development") {
+                    circle.style.background = "var(--dev--)"
+                } else if (tool.stage[i] == "Production") {
+                    circle.style.background = "var(--prod--)"
+                }
+                circles.appendChild(circle)
             }
-            circles.appendChild(circle)
         }
 
         let footer = document.createElement("div");
