@@ -114,25 +114,14 @@ export async function displayTools(data, list) {
         let footer = document.createElement("div");
         footer.className = "footer"
 
-
-
-
-       /* if(tool.name.includes("Stage")){
-            circle.style.background = "var(--stage--)"
-        }else if(tool.name.includes("Dev")){
-            circle.style.background = "var(--dev--)"
-        }else if(tool.name.includes("Production")){
-            circle.style.background = "var(--prod--)"
-        }else{
-            circle.style.visibility = "hidden";
-        }*/
+        
 
         header.appendChild(nameE);
 
         header.appendChild(starBtn);
 
 /*
-        if(Array.isArray(tool.tags)) { 
+        if(Array.isArray(tool.tags)) {
             for (const tagValue of tool.tags) {
                 const tag = document.createElement('span')
                 tag.className = 'tag';
