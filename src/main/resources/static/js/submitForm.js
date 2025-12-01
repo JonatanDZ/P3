@@ -78,6 +78,9 @@ export async function formToJSON(){
     //Added to the pending tool list
     const pending = !isPersonal;
 
+    //created by
+    const createdBy = await getCurrentEmployee();
+
     //Validation checks
 
     if (name.trim() === ""){ throw new Error("Tool name cannot be empty"); }
@@ -91,7 +94,7 @@ export async function formToJSON(){
     if (jurisdictions.length === 0){throw new Error("At least one jurisdiction must be selected.");}
 
 
-    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending});
+    return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending, created_by: createdBy});
 }
 
 //Gets the url value regarding if it is dynamic
