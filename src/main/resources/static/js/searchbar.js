@@ -172,13 +172,11 @@ export function showTagsInDiv(tags, parentElement){
 
 setUpSearchBar();
 
-//Keep in mind this is something we could do. I don't fully understand it.
-
-//inspired by https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript 
+//This function generates a hashcode that is used to generate colors for our tags
 function generateHashCode(str){
     let hash = 0;
     for (const char of str) {
-        hash = hash * 31 - hash + char.charCodeAt(0); //hash = hash * 31 - hash + (ASCII value of char) 
+        hash = hash * 31 + char.charCodeAt(0); //hash = hash * 31 + (ASCII value of char) 
     }
     return hash;
 };
