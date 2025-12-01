@@ -86,9 +86,9 @@ VALUES
 -- Correct junction table name + column order: tool_stage(stage_id, tool_id)
 INSERT INTO tool_stage (stage_id, tool_id)
 VALUES
--- Outlook → all stage
+-- Outlook → all stages
 (1, 1),(2, 1),(3, 1),
--- Slack → all stage
+-- Slack → all stages
 (1, 2),(2, 2),(3, 2),
 -- Happy Tiger
 (1, 3),    -- Dev
