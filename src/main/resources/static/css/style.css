@@ -44,7 +44,7 @@ nav {
     width: 100%;
     background-color: var(--bg-nav);
     color: #FFFFE3;
-    padding: 20px;
+    padding: 10px;
     gap: 0.5rem;
     user-select: none;
     z-index: 10000;
@@ -57,8 +57,7 @@ nav {
     align-items: center;
 }
 
-.nav-center {
-    flex: 1;
+.nav-mid h1 {
     text-align: center;
 }
 
