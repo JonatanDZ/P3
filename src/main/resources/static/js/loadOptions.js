@@ -44,7 +44,7 @@ export async function enableTagSearch(){
     // Responds to typing by user
     tagInput.addEventListener('input',() => {
         suggestionBox.style.display = "block";
-        isCompleteMatch = false; 
+        isCompleteMatch = false;
         const input = tagInput.value.toLowerCase();
 
         if (input.length === 0) {
@@ -120,7 +120,7 @@ export async function enableTagSearch(){
         if (event.key === "Enter") {
             event.preventDefault();
             if (isCompleteMatch){  // If there is a match is creates a chip from the tag
-                addTagChip(completeMatch); 
+                addTagChip(completeMatch);
             } else { // If no it creates a new tag
                 try {
                 submitTag();
@@ -147,7 +147,7 @@ function createSubmitBtn(parentElement, input){
     const submitBtn = document.createElement("span");
     submitBtn.textContent = `Add Tag: "${input}"`;
     submitBtn.id = "submitTagBtn";
-    
+
     wrapper.appendChild(submitBtn);
 
     //Sets it as first child
@@ -157,7 +157,7 @@ function createSubmitBtn(parentElement, input){
     wrapper.addEventListener("click", async () => {
         try {
             await submitTag();
-        } catch (error) {   
+        } catch (error) {
             alert(error.message);
             console.error('Error submitting tag:', error);
         }
@@ -188,7 +188,7 @@ export function addTagChip(tag){
     chip.dataset.tag = tag.id;
     chip.dataset.tagName = tag.value;
     chip.style.backgroundColor = stringToColor(tag.value);
-    
+
 
     // Create tag label
     const label = document.createElement("span");
