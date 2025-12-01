@@ -10,9 +10,9 @@
 
     --accent:         #3B82F6;  /* blue accent (links, buttons) */
 
-    --dev--: #aa4042;
-    --stage--: #42aa40;
-    --prod--: #4042aa;
+    --dev--: #42aa40;
+    --stage--: #4042aa;
+    --prod--: #aa4042;
 
 }
 
@@ -231,10 +231,6 @@ section {
     height: auto;
 }
 
-
-
-
-
 footer {
     position: fixed;
     bottom: 0;
@@ -255,7 +251,7 @@ footer {
 #addToolBtn {
     background: none !important;
     border: none !important;
-    color: var(--stage--);
+    color: var(--dev--);
     font-size: 2.8rem;
     padding: 0;
     cursor: pointer;
@@ -265,7 +261,7 @@ footer {
 
 #addToolBtn:hover {
     transform: scale(1.15) translateZ(0);
-    color: var(--stage--) !important;
+    color: var(--dev--) !important;
     text-shadow: none !important;
     filter: none !important;
 }

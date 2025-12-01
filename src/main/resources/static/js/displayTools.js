@@ -1,8 +1,8 @@
 import {isToolInFavorite} from "./isToolInFavorite.js";
 import {displayFavorites} from "./displayFavorites.js";
-import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
+//Favorites button
 function starClicked(starBtn, star, toolId) {
     starBtn.appendChild(star);
 
@@ -13,14 +13,16 @@ function starClicked(starBtn, star, toolId) {
         let employee = await getCurrentEmployee();
         let employeeInitials = employee.initials;
 
-        const wasFilled = star.textContent === '★';
-        const nowFilled = !wasFilled;
+        const filled = star.textContent === '★';
+        const notFilled = !filled;
 
-        star.textContent = nowFilled ? '★' : '☆';
+        //if it isn't filled and is clicked, it should make the star filled
+        star.textContent = notFilled ? '★' : '☆';
 
+        //sends the information to the web-page if the ToolCard is shown in the favorites
         try {
             const res = await fetch(`/employee/${employeeInitials}/favorites/${toolId}`, {
-                method: nowFilled ? 'POST' : 'DELETE',
+                method: notFilled ? 'POST' : 'DELETE',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'same-origin'
             });
@@ -28,30 +30,29 @@ function starClicked(starBtn, star, toolId) {
             displayFavorites();
         } catch (err) {
             console.error('Favorite toggle failed:', err);
-            star.textContent = wasFilled ? '☆' : '★';
+            star.textContent = filled ? '☆' : '★';
         }
     });
 }
 
 export async function displayTools(data, list) {
-        const employee = await getCurrentEmployee();
+    const employee = await getCurrentEmployee();
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
-        console.log('Tool:', tool.name, 'tags:', tool.tags);
-
+        //Personalize the dynamic tools
         if (tool.is_dynamic){
             tool.url = tool.url.replace('$USER$', employee.initials.toLowerCase());
         }
-
         const toolId = tool.id;
         const li = document.createElement('li');
         const a = document.createElement('a');
         a.href = tool.url;
-        a.target = "_blank";
+        a.target = "_blank"; //The link opens in new tab
 
         const header = document.createElement('div');
         header.className = 'tool-header';
 
+        //Show complete Tool name when hovered
         const tooltip = document.createElement("span");
         tooltip.className = "tooltiptext";
         tooltip.textContent = tool.name
@@ -65,19 +66,21 @@ export async function displayTools(data, list) {
         starBtn.className = 'star-button';
         starBtn.setAttribute('aria-label', 'Toggle favorite');
 
+        //ensures the correct star is show (filled or not), but isn't interactive
         const star = document.createElement('span');
         star.className = 'star';
         const isFav = await isToolInFavorite(toolId);
-        //console.log("tjek her", isFav, toolId);
+
+        //Makes all favorized tool card have the correct star in the different categories (only when reloaded)
         if(isFav){
             star.textContent = '★';
         } else{
             star.textContent = '☆';
-
         }
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);
 
+        //Circles that indicating stage and gives them the correct color
         const circle = document.createElement("span");
         circle.className = "circle";
         if(tool.name.includes("Stage")){
@@ -88,14 +91,13 @@ export async function displayTools(data, list) {
             circle.style.background = "var(--prod--)"
         }else{
             circle.style.visibility = "hidden";
+            break
         }
 
+        //append all header elements of the tool card
         header.appendChild(nameE);
         header.appendChild(circle);
         header.appendChild(starBtn);
-
-
-
 
         const tags = document.createElement('div');
         tags.className = 'tags';
@@ -113,14 +115,12 @@ export async function displayTools(data, list) {
         urlE.className = 'tool-url';
         urlE.textContent = tool.url;
 
+        //append the remaining element to the tool card
         a.appendChild(header);
         a.appendChild(tags);
         a.appendChild(urlE);
 
         li.appendChild(a);
         list.appendChild(li);
-
     }
 }
-
-
