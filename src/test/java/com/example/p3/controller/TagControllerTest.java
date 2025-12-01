@@ -40,6 +40,7 @@ public class TagControllerTest {
         return tag;
     }
 
+    //Endpoint test: "/tags" GET
     @Test
     public void testGetTags() throws Exception {
 
@@ -71,6 +72,7 @@ public class TagControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].tools").isArray());
     }
 
+    //Endpoint test: "/tags/id/1"
     //This tests that our endpoint can get one specific tool
     @Test
     public void testGetTag() throws Exception {
@@ -89,6 +91,7 @@ public class TagControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.tools").isArray());
     }
 
+    //Endpoint test: "/tags" POST
     //This tests we can post a tool to the database with our endpoint
     @Test
     public void testAddTag() throws Exception {
@@ -103,10 +106,12 @@ public class TagControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    //Endpoint test: "/tags/id/999" POST
     //This tests that our endpoint should return 404 Not Found if the tag id does not exist
+
     @Test
     public void testTag_NotFound() throws Exception {
-        //Arrange it sohuld return an empty list with a given tag id that does not exist
+        //Arrange it should return an empty list with a given tag id that does not exist
         when(tagService.getTagById(999)).thenReturn(Optional.empty());
 
         //Act calls the endpoint with a tag that does not exist
@@ -115,6 +120,7 @@ public class TagControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    //Endpoint test "/tags"
     //This tests that our endpoint returns http 400 Bad Request if the tag does not have values
     @Test
     public void testAddTag_BadRequest() throws Exception {
