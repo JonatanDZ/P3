@@ -2,12 +2,13 @@
 //https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {fuzzySearch} from "./fuzzySearch.js";
 
 async function searchbar(inp, arr) {
     const employee = await getCurrentEmployee();
     var currentFocus;
     inp.addEventListener("input", function(e) {
-        let a, b, u;
+        let searchBarList, searchBarItem;
         //Input from searchbar
         let val = this.value;
         //Close potential already opened list
@@ -15,67 +16,28 @@ async function searchbar(inp, arr) {
         if (!val) { return false;}
         currentFocus = -1
         //Create div for whole list
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "searchbar-list");
-        a.setAttribute("class", "searchbar-items");
+        searchBarList = document.createElement("DIV");
+        searchBarList.setAttribute("id", this.id + "searchbar-list");
+        searchBarList.setAttribute("class", "searchbar-list");
         //Append the list to searchbar
-        this.parentNode.appendChild(a);
+        this.parentNode.appendChild(searchBarList);
         //Checkes all element in the array if they match the searched input
         for (let i = 0; i < arr.length; i++) {
+            //makes dynamic links searchable and showcaseable
+            if(arr[i].is_dynamic){
+                arr[i].url = arr[i].url.replace('$USER$', employee.initials.toLowerCase());
+            }
+
             //Checks to see if the input is included in any of the elements in the array 'tags'
-             if (arr[i].value.toUpperCase().includes(val.toUpperCase())){
-                 //Create tag div and tag name
-                 b = document.createElement("DIV");
-                 b.setAttribute("class", "searchbar-heading");
-                 var heading = document.createElement('b')
-                 heading.appendChild(document.createTextNode(arr[i].value.substring(0, val.length)+arr[i].value.substring(val.length)))
+             if (fuzzySearch(val, arr[i])){
+                //show tool
+                searchBarItem = showToolInSearchBar(arr[i], searchBarItem);
 
-                 //append tools, to the tag, so all tools will be appended to each tag (Should be conditioned to only suitible tools by tags)
-                 b.appendChild(heading);
+                if (!arr[i].is_personal){
+                    searchBarItem = showTagsInSearchBar(arr[i].tags, searchBarItem);
+                }
 
-                 //Look for tools that has tag
-                 if (Array.isArray(arr[i].tools)) {
-                     for (let l = 0; l < arr[i].tools.length; l++) {
-                         //Create tool div, tool name and url
-                         u = document.createElement("div");
-                         u.setAttribute("class", "searchbar-subheading");
-                         var subheading = document.createElement('p')
-
-
-                         //show name
-                         subheading.appendChild(document.createTextNode(arr[i].tools[l].name + " - "));
-
-                         //Show url and make it a link
-                         const link = document.createElement("a");
-
-                         if (arr[i].tools[l].is_dynamic){
-                             link.href = arr[i].tools[l].url.replace('$USER$', employee.initials.toLowerCase());
-                             link.textContent = arr[i].tools[l].url.replace('$USER$', employee.initials.toLowerCase());
-                         } else {
-                             link.href = arr[i].tools[l].url;
-                             link.textContent = arr[i].tools[l].url;
-
-                         }
-                         console.log(arr[i].tools[l]);
-                         link.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
-                         subheading.appendChild(link);
-
-                         //When tool div is clicked open url
-                         u.setAttribute("onclick",`location.href='${arr[i].tools[l].url}';`)
-
-                         u.appendChild(subheading);
-
-                         //When pressing enter while focus on div then open url
-                         u.addEventListener("keypress", function(event) {
-                             if (event.key === "Enter") {
-                                 event.preventDefault();
-                                 u.click();
-                             }
-                         });
-                         b.appendChild(u)
-                     }
-                 }
-                a.appendChild(b);
+                searchBarList.appendChild(searchBarItem);
             }
         }
     });
@@ -113,7 +75,7 @@ async function searchbar(inp, arr) {
 
     //Closes the list of tags and tools
     function closeAllLists(elmnt) {
-        var x = document.getElementsByClassName("searchbar-items");
+        var x = document.getElementsByClassName("searchbar-list");
         for (var i = 0; i < x.length; i++) {
             if (elmnt != x[i] && elmnt != inp) {
                 x[i].parentNode.removeChild(x[i]);
@@ -129,19 +91,97 @@ async function searchbar(inp, arr) {
 
 }
 
-//Loads tags
-async function loadTags() {
+
+export async function setUpSearchBar() {
     try{
-        const response = await fetch('/tags');
+        const response = await fetch('/tools');
         const tagsJson = await response.json();
 
         //Calls the function
         searchbar(document.getElementById("myInput"), tagsJson)
 
     } catch (err){
-        console.error("failed to load tags:", err);
+        console.error("failed to load tools in searchbar:", err);
     }
 }
-loadTags();
 
-//searchbar(document.getElementById("myInput"),loadTags, tools)
+function showToolInSearchBar(tool, parentElement){
+    //Make a container we can store name and url in
+    const nameUrlContainer = document.createElement("div");
+    nameUrlContainer.className = "nameUrlContainer";
+    //show name
+    parentElement = document.createElement("div");
+    parentElement.setAttribute("class", "searchbar-item");
+    const toolName = document.createElement('p')
+    toolName.textContent = tool.name + ": ";
+    
+    // append toolName to the div
+    nameUrlContainer.appendChild(toolName);
+
+    //show URL
+    const ToolLink = document.createElement("a");
+
+    ToolLink.href = tool.url;
+    ToolLink.textContent = tool.url;
+    
+    ToolLink.target = "_blank"; //Make the link open not in the current tab (new window or new tab)
+    toolName.appendChild(ToolLink);
+
+    parentElement.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            ToolLink.click();
+        }
+    });
+    parentElement.appendChild(nameUrlContainer);
+    return parentElement;
+}
+
+function showTagsInSearchBar(tags, parentElement){
+    //Create container for the tags
+    const tagContainer = document.createElement("div"); 
+    tagContainer.className = "tagContainer";
+
+    for (let i = 0; i < tags.length; i++){
+        // Create chip container
+        const chip = document.createElement("div");
+        chip.className = "tag-chip";
+        chip.style.backgroundColor = stringToColor(tags[i]);
+
+        // Create tag label
+        const label = document.createElement("span");
+        label.textContent = tags[i];
+
+        chip.appendChild(label);
+        tagContainer.appendChild(chip);
+    }
+
+    parentElement.appendChild(tagContainer);
+
+    return parentElement;
+}
+
+setUpSearchBar();
+
+//Keep in mind this is something we could do. I don't fully understand it.
+
+//inspired by https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript 
+function generateHashCode(str){
+    let hash = 0;
+    for (const char of str) {
+        hash = hash * 31 - hash + char.charCodeAt(0); //hash = hash * 31 - hash + (ASCII value of char) 
+    }
+    return hash;
+};
+
+export function stringToColor(str) {
+    const hash = generateHashCode(str); //ensures that is always the same color you get from the same value;
+
+    //we Modulo with 127 and add 127 to ensure that the colors are bright, so we can use black text on them.
+    const red = hash % 127 + 127; 
+    const green = (hash / 7) % 127 + 127; //we devide by prime numbers to avoid number patterns  
+    const blue = (hash / 11) % 127 + 127; //we devide by prime numbers to avoid number patterns
+
+    const color = `rgb(${red},${green},${blue})`; //converts it to a form js understands
+    return color
+}

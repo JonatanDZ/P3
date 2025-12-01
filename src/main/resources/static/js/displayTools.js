@@ -3,7 +3,7 @@ import {displayFavorites} from "./displayFavorites.js";
 import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
-function starClicked(starBtn, star, toolId) {
+export function starClicked(starBtn, star, toolId) {
     starBtn.appendChild(star);
 
     starBtn.addEventListener('click', async (e) => {
@@ -25,21 +25,23 @@ function starClicked(starBtn, star, toolId) {
                 credentials: 'same-origin'
             });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                displayFavorites();
-
-
-
+            displayFavorites();
         } catch (err) {
             console.error('Favorite toggle failed:', err);
-            star.textContent = wasFilled ? '☆' : '★';
+            star.textContent = wasFilled ? '★' : '☆';
         }
     });
 }
 
 export async function displayTools(data, list) {
+        const employee = await getCurrentEmployee(); 
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
         console.log('Tool:', tool.name, 'tags:', tool.tags);
+
+        if (tool.is_dynamic){
+            tool.url = tool.url.replace('$USER$', employee.initials.toLowerCase());
+        }
 
         const toolId = tool.id;
         const li = document.createElement('li');
@@ -61,10 +63,12 @@ export async function displayTools(data, list) {
         const star = document.createElement('span');
         star.className = 'star';
         const isFav = await isToolInFavorite(toolId);
+        //console.log("tjek her", isFav, toolId);
         if(isFav){
             star.textContent = '★';
         } else{
             star.textContent = '☆';
+
         }
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);

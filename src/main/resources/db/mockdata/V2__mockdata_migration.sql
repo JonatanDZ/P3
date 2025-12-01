@@ -40,11 +40,11 @@ INSERT INTO tool (name, url, is_personal, is_dynamic)
 VALUES
     ('Outlook',               'https://outlook.office365.com/mail/', FALSE, FALSE),
     ('Slack',                 'https://slack.com',                   FALSE, FALSE),
-    ('Happy Tiger Dev',       'initials.greathippydev.co.uk',        FALSE, TRUE),
-    ('Happy Tiger Stage',     'initials.stage.happytiger.co.uk',     FALSE, TRUE),
+    ('Happy Tiger Dev',       '$USER$.greathippydev.co.uk',        FALSE, TRUE),
+    ('Happy Tiger Stage',     '$USER$.stage.happytiger.co.uk',     FALSE, TRUE),
     ('Happy Tiger Production','https://happytiger.co.uk',            FALSE, TRUE),
-    ('Spil Nu Dev',           'initials.lupinsdev.dk',               FALSE, TRUE),
-    ('Spil Nu Stage',         'initials.stage.spilnu.dk',            FALSE, TRUE),
+    ('Spil Nu Dev',           '$USER$.lupinsdev.dk',               FALSE, TRUE),
+    ('Spil Nu Stage',         '$USER$.stage.spilnu.dk',            FALSE, TRUE),
     ('Spil Nu Production',    'https://spilnu.dk',                   FALSE, TRUE);
 
 -- --- DEPARTMENT ↔ TOOL ---
