@@ -42,7 +42,6 @@ export async function submitForm() {
                 }
                 // no body needed, your backend just uses path variables
             });
-            await displayTools();
         }
 
         setTimeout(() => {
