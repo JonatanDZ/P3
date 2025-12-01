@@ -6,7 +6,7 @@ import {displayTools} from "./displayTools.js";
 
 
 export async function submitTag(){
-    
+
         let input = document.querySelector("#tags");
         let tag = {value: input.value.trim()};
 
@@ -16,13 +16,13 @@ export async function submitTag(){
         tag = await poster("tags", JSON.stringify(tag));
 
         addTagChip(tag);
-        input.value = "";   
+        input.value = "";
         input.focus();
 }
-
+let jsonData;
 export async function submitForm() {
     try {
-        const jsonData = await formToJSON();
+        jsonData = await formToJSON();
 
         const tool = await poster("tools" , jsonData);
         const toolId = tool.id;
@@ -40,9 +40,17 @@ export async function submitForm() {
                 headers: {
                     "Content-Type": "application/json"
                 }
-                // no body needed, your backend just uses path variables
+                // nobody needed, your backend just uses path variables
             });
         }
+        
+        let data = JSON.parse(jsonData)
+        if(data.is_personal){
+            alert("Your tool has been added")
+        }else{
+            alert("Your tool is pending and waiting for approal")
+        }
+
         //ensures the tool is loaded before it is inserted
         setTimeout(() => {
         window.location.reload();

@@ -124,13 +124,13 @@ export function displayReview(){
     }
 }
 
-function createParagraph(parent, title, text) {
+export function createParagraph(parent, title, text) {
     const para = document.createElement("p");
     para.textContent = `${title}: ${text}`;
     parent.appendChild(para);
 }
 
-function clearDiv(div){
+export function clearDiv(div){
     while(div.lastChild){
         div.removeChild(div.lastChild);    
     }
