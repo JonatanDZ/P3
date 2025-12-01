@@ -1,5 +1,6 @@
 import {submitTag} from "./submitForm.js";
 import {stringToColor} from "./searchbar.js";
+import {fuzzySearchTags} from "./fuzzySearch.js";
 
 //Used to load department and jurisdiction in form
 export function loadOptions(str){
@@ -39,13 +40,15 @@ export async function enableTagSearch(){
     //Dropdown div with suggestions
     const suggestionBox = document.querySelector('#tagsSuggestions');
 
+    let isCompleteMatch = false; //Used to see  if the input is identical to a tag
+    let completeMatch = null; //Holds the complete match tag if there is one
     // Responds to typing by user
     tagInput.addEventListener('input',() => {
-        let isCompleteMatch = false; //Used to see  if the input is identical to a tag
+        suggestionBox.style.display = "block";
+        isCompleteMatch = false;
         const input = tagInput.value.toLowerCase();
 
         if (input.length === 0) {
-            //suggestionBox.style.display = "none";
             clearDiv(suggestionBox);
             return;
         }
@@ -54,7 +57,7 @@ export async function enableTagSearch(){
 
         //If the tag value includes what is written in input so far. Push it to the match array;
         tags.forEach(tag => {
-            if (tag.value.toLowerCase().includes(input)){
+            if (fuzzySearchTags(input, tag.value)){
                 matches.push(tag);
             }
         });
@@ -69,17 +72,13 @@ export async function enableTagSearch(){
 
         clearDiv(suggestionBox);
 
-        // Show suggestion box and create new suggestions
-        suggestionBox.style.display = "block";
-
-
-
         matches.forEach(tag => {
             // Create wrapper for each suggestion item
             const wrapper = document.createElement("div");
 
             wrapper.className = "tag-suggestion-item";
 
+            wrapper.tabIndex = 0; // Make it focusable
 
             // Create text label for the tag
             const span = document.createElement("span");
@@ -92,7 +91,6 @@ export async function enableTagSearch(){
             wrapper.addEventListener("click", () => {
                 addTagChip(tag);
 
-
                 // Clear input field but maintain focus for new searches
                 tagInput.value = "";
                 tagInput.focus();
@@ -100,15 +98,32 @@ export async function enableTagSearch(){
 
             });
  
-            //Checks if it is a complete match with one tool. If no add button
-            if(tag.value.toLowerCase() === tagInput.value.toLowerCase()){
+            //Checks if it is a complete match with one tool. If no add button and store match
+            if(tag.value.toLowerCase().trim() === tagInput.value.toLowerCase().trim()){
                 isCompleteMatch = true
+                completeMatch = tag;
             }
 
         })
         //TODO : ensure that it dissapears when there is a match
         if(!isCompleteMatch){
             createSubmitBtn(suggestionBox, input);
+        }
+    })
+
+    tagInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            if (isCompleteMatch){  // If there is a match is creates a chip from the tag
+                addTagChip(completeMatch);
+            } else { // If no it creates a new tag
+                try {
+                submitTag();
+                } catch (error) {
+                    alert(error.message);
+                    console.error('Error submitting tag:', error);
+                }
+            }
         }
     })
 }
@@ -121,30 +136,43 @@ export function clearDiv(div){
 
 function createSubmitBtn(parentElement, input){
     const wrapper = document.createElement("div");
-    wrapper.className = "tag-suggestion-item";
+    wrapper.className = "tag-suggestion-item submit-tag-item";
+    wrapper.tabIndex = 0; // Make it focusable
 
     const submitBtn = document.createElement("span");
     submitBtn.textContent = `Add Tag: "${input}"`;
     submitBtn.id = "submitTagBtn";
 
     wrapper.appendChild(submitBtn);
-    parentElement.appendChild(wrapper);
 
+    //Sets it as first child
+    parentElement.insertBefore(wrapper, parentElement.firstChild);
+
+    //Ensures that when clicked it submits the tag
     wrapper.addEventListener("click", async () => {
-        await submitTag();
+        try {
+            await submitTag();
+        } catch (error) {
+            alert(error.message);
+            console.error('Error submitting tag:', error);
+        }
         clearDiv(parentElement);
     });
-
 }
 
-
-
-
 export function addTagChip(tag){
+
     const container = document.querySelector("#selectedTags");
+    //Ensures that no more than 5 tags can be added
+    const tagCount = container.querySelectorAll(".tag-chip").length;
+    if(tagCount >= 5){
+        alert("You can only add up to 5 tags.");
+        return;
+    }
 
     // Prevent duplicate chips for the same tag
-    if (container.querySelector(`[data-tag="${tag.value}"]`)) {
+    if (container.querySelector(`div.tag-chip[data-tag="${tag.id}"]`) != null) {
+        alert(`${tag.value} has already been added.`);
         return;
     }
 
@@ -154,7 +182,6 @@ export function addTagChip(tag){
     chip.dataset.tag = tag.id;
     chip.dataset.tagName = tag.value;
     chip.style.backgroundColor = stringToColor(tag.value);
-    
 
 
     // Create tag label
@@ -173,25 +200,12 @@ export function addTagChip(tag){
         e.stopPropagation();
         // Remove the chip and uncheck associated checkboxes
         chip.remove();
-        uncheckTag(tag);
-    })
+    });
+
     // Assemble chip components
     chip.appendChild(label);
     chip.appendChild(removeBtn);
     container.appendChild(chip);
-}
-
-//What does it do?
-function uncheckTag(tag){
-    const checks = document.querySelectorAll(".tagChecks");
-
-    checks.forEach(cb => {
-        // Find checkboxes that match the tag name
-        const labelText = cb.parentElement.textContent.trim().toLowerCase();
-        if (labelText === tag.value.toLowerCase()) {
-            cb.checked = false;
-        }
-    })
 }
 
 export async function loadTags(){

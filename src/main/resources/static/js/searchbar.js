@@ -30,22 +30,30 @@ async function searchbar(inp, arr) {
 
             //Checks to see if the input is included in any of the elements in the array 'tags'
              if (fuzzySearch(val, arr[i])){
+
+                //show makes the whole div clickable
+                const link = document.createElement("a");
+                link.href = arr[i].url;
+                link.target = "blank"; //Make the link open not in the current tab (new window or new tab)
+                link.className = "focusable"; //so we can toggle the focus
+
                 //show tool
                 searchBarItem = showToolInSearchBar(arr[i], searchBarItem);
 
                 if (!arr[i].is_personal){
-                    searchBarItem = showTagsInSearchBar(arr[i].tags, searchBarItem);
+                    searchBarItem = showTagsInDiv(arr[i].tags, searchBarItem);
                 }
 
-                searchBarList.appendChild(searchBarItem);
+                searchBarList.appendChild(link);
+                link.appendChild(searchBarItem); //
             }
         }
     });
 
     //The focus funktion. Makes it possible to use the arrows to go though tools
     inp.addEventListener("keydown", function(e) {
-        var x = document.getElementById(this.id + "searchbar-list");
-        if (x) x = x.getElementsByTagName("div");
+        let x = document.getElementById(this.id + "searchbar-list");
+        if (x) x = x.querySelectorAll(".focusable");
         if (e.keyCode == 40) { //down
             currentFocus++;
             addActive(x);
@@ -95,10 +103,10 @@ async function searchbar(inp, arr) {
 export async function setUpSearchBar() {
     try{
         const response = await fetch('/tools');
-        const tagsJson = await response.json();
+        const toolsJson = await response.json();
 
         //Calls the function
-        searchbar(document.getElementById("myInput"), tagsJson)
+        searchbar(document.getElementById("myInput"), toolsJson)
 
     } catch (err){
         console.error("failed to load tools in searchbar:", err);
@@ -134,10 +142,11 @@ function showToolInSearchBar(tool, parentElement){
         }
     });
     parentElement.appendChild(nameUrlContainer);
+
     return parentElement;
 }
 
-function showTagsInSearchBar(tags, parentElement){
+export function showTagsInDiv(tags, parentElement){
     //Create container for the tags
     const tagContainer = document.createElement("div"); 
     tagContainer.className = "tagContainer";
@@ -163,13 +172,11 @@ function showTagsInSearchBar(tags, parentElement){
 
 setUpSearchBar();
 
-//Keep in mind this is something we could do. I don't fully understand it.
-
-//inspired by https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript 
+//This function generates a hashcode that is used to generate colors for our tags
 function generateHashCode(str){
     let hash = 0;
     for (const char of str) {
-        hash = hash * 31 - hash + char.charCodeAt(0); //hash = hash * 31 - hash + (ASCII value of char) 
+        hash = hash * 31 + char.charCodeAt(0); //hash = hash * 31 + (ASCII value of char) 
     }
     return hash;
 };

@@ -10,10 +10,9 @@
 
     --accent:         #3B82F6;  /* blue accent (links, buttons) */
 
-    --dev--: #aa4042;
-    --stage--: #42aa40;
-    --prod--: #4042aa;
-
+    --dev--: #42aa40;
+    --stage--: #4042aa;
+    --prod--: #aa4042;
 }
 
 :root {
@@ -45,7 +44,7 @@ nav {
     width: 100%;
     background-color: var(--bg-nav);
     color: #FFFFE3;
-    padding: 20px;
+    padding: 10px;
     gap: 0.5rem;
     user-select: none;
     z-index: 10000;
@@ -58,8 +57,7 @@ nav {
     align-items: center;
 }
 
-.nav-center {
-    flex: 1;
+.nav-mid h1 {
     text-align: center;
 }
 
@@ -91,11 +89,19 @@ label[for="jurisdiction"] {
     cursor: pointer;
 }
 
+#jurisdiction + label:hover {
+    transform: scale(1.1) translateZ(0);
+}
+
 #jurisdiction:checked+label[for="jurisdiction"] {
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg");
     background-size: cover;
     background-position: center;
     font-weight: bold;
+}
+
+#jurisdiction:checked+label:hover {
+    transform: scale(1.1) translateZ(0);
 }
 
 .branchSelector {
@@ -131,6 +137,9 @@ label[for="jurisdiction"] {
     opacity: 80%;
     cursor: pointer;
 }
+#dev+label:hover {
+    transform: scale(1.15) translateZ(0);
+}
 
 #stage+label {
     background: var(--stage--);
@@ -139,6 +148,9 @@ label[for="jurisdiction"] {
     opacity: 80%;
     cursor: pointer;
 }
+#stage+label:hover {
+    transform: scale(1.15) translateZ(0);
+}
 
 #prod+label {
     background: var(--prod--);
@@ -146,6 +158,9 @@ label[for="jurisdiction"] {
     padding: 5px;
     opacity: 80%;
     cursor: pointer;
+}
+#prod+label:hover {
+    transform: scale(1.15) translateZ(0);
 }
 
 .main {
@@ -229,83 +244,8 @@ section {
     gap: 10px;
     width: 100%;
     height: auto;
+    padding-left: 0;
 }
-
-
-#allTools a,
-#departmentSelected a,
-#favorites a {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-card);
-    color: var(--text-main);
-
-    /* Change the size of these to change the size of the cards */
-    width: 200px;
-    height: 100px;
-
-    border: 1px solid var(--border-soft);
-    margin: 0;
-    border-radius: 15px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    font-size: 25px;
-    text-decoration: none;
-    padding: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
-}
-
-#allTools a:hover,
-#departmentSelected a:hover,
-#favorites a:hover{
-    width: 300px;
-    height: 100px;
-}
-
-.tool-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.tool-name {
-    flex: 1;
-    min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.star-button {
-    background: transparent;
-    border: none;
-    padding: 0;
-    line-height: 1;
-    cursor: pointer;
-    font-size: 24px; /* match your title size */
-}
-
-.star-button .star {
-    color: gold;           /* outline color */
-    transition: color 140ms ease, transform 120ms ease;
-}
-
-.star-button.is-filled .star {
-    color: gold;              /* filled color */
-}
-
-.star-button:hover .star {
-    transform: scale(1.05);
-}
-
-.tool-url {
-    margin-top: auto;
-    font-size: 14px;
-    word-break: break-all;
-}
-
 
 footer {
     position: fixed;
@@ -327,7 +267,7 @@ footer {
 #addToolBtn {
     background: none !important;
     border: none !important;
-    color: var(--stage--);
+    color: var(--dev--);
     font-size: 2.8rem;
     padding: 0;
     cursor: pointer;
@@ -337,7 +277,7 @@ footer {
 
 #addToolBtn:hover {
     transform: scale(1.15) translateZ(0);
-    color: var(--stage--) !important;
+    color: var(--dev--) !important;
     text-shadow: none !important;
     filter: none !important;
 }
@@ -413,13 +353,11 @@ input[type="checkbox"] {
 
 .tags{
     width: 100%;
-    border: 0.1rem solid #ccc;
-    border-radius: 40px;
     padding: 3%;
     align-items: center;
     outline: none;
     box-sizing: border-box;
-    font-size: 18px;
+    font-size: 14px;
     display: -webkit-box;
     -webkit-line-clamp: 2;        /* number of lines */
     -webkit-box-orient: vertical;
@@ -429,7 +367,3 @@ input[type="checkbox"] {
 .tags .tag:not(:last-child)::after {
     content: ", ";
 }
-
-
-
-

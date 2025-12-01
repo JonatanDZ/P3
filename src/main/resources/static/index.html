@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/searchbar.css">
+    <link rel="stylesheet" href="css/toolCard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -35,6 +36,9 @@
 
         <div class="nav-mid">
             <h1 id="userJurisdictionNav"></h1>
+            <div id="searchbar">
+                <input id = "myInput" type="text" placeholder="Search for tools by tags">
+            </div>
         </div>
 
         <div class="nav-right">
@@ -62,10 +66,6 @@
     </aside>
 
         <section>
-            <div id="searchbar">
-                <input id = "myInput" type="text" placeholder="Search for tools by tags">
-            </div>
-
             <div class="popUpForm" id="addToolDiv" style="display: none">
                 <div class="from-container">
                     <h1>Add Tool</h1>
@@ -135,20 +135,20 @@
                         </div>
                     </div>
                     <div class="buttondiv">
-                        <button type="button" id="prev" class="toggleCardBtn submitFormBtn" value="-1">Previous</button>
+                        <button type="button" id="prev" class="toggleCardBtn submitFormBtn" value="-1" disabled>Previous</button>
                         <button type="button" id="next" class="toggleCardBtn submitFormBtn" value="1">Next</button>
                     </div>
                 </div>
             </div>
 
             <h1>Favorites</h1>
-            <div id="favorites"></div>
+            <ul id="favorites"></ul>
 
             <h1>Departments</h1>
-            <div id="departmentSelected"></div>
+            <ul id="departmentSelected"></ul>
 
             <h1>All Tools</h1>
-            <div id="allTools"></div>
+            <ul id="allTools"></ul>
         </section>
     </div>
 
