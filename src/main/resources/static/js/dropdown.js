@@ -147,6 +147,7 @@ function createDropdownCard(pendingTool) {
         }
     }
 
+
     const approveBtn = document.createElement("button");
     approveBtn.id = pendingTool.id;
     approveBtn.dataset.tool = pendingTool.id;

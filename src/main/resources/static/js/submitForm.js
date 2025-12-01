@@ -45,12 +45,12 @@ export async function submitForm() {
             await displayTools();
         }
         let data = JSON.parse(jsonData)
-        /*if(data.is_personal){
+        if(data.is_personal){
             alert("Your tool has been added")
         }else{
             alert("Your tool is pending and waiting for approal")
+
         }
-         */
 
         setTimeout(() => {
         window.location.reload();
