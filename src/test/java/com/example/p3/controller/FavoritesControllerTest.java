@@ -11,7 +11,9 @@ import com.example.p3.entities.Tag;
 
 import com.example.p3.service.FavoritesService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -104,14 +106,15 @@ class FavoritesControllerTest {
         Set<Tag> tagSet = new HashSet<>();
         Tool tool1 = toolConstructor(1,"tool1","https://tool1.com",true,false, departmentSet, jurisdictionSet, stagesSet, tagSet);
         Tool tool2 = toolConstructor(2,"tool2","https://tool2.com",false,false, departmentSet, jurisdictionSet, stagesSet, tagSet);
+        List<Tool> toolList = new ArrayList<>();
 
         //
         //Connect employee with favorite tools
-        //
-        employee.addFavorite(tool1);
-        employee.addFavorite(tool2);
+        // Using an in-memory ArrayList instead of the entity - when using the entity it produces an unexpected result
+        toolList.add(tool1);
+        toolList.add(tool2);
 
-        when(favoritesService.getFavorites("JD","DK","PRODUCTION")).thenReturn(employee.getFavoriteTools().stream().toList());
+        when(favoritesService.getFavorites("JD","DK","PRODUCTION")).thenReturn(toolList);
         mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/employee/JD/favorites?jurisdiction=DK&stage=PRODUCTION"))
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk())
                 .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$").isArray())
