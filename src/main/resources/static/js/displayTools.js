@@ -2,6 +2,7 @@ import {isToolInFavorite} from "./isToolInFavorite.js";
 import {displayFavorites} from "./displayFavorites.js";
 import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+import {showTagsInDiv} from "./searchbar.js";
 
 //Favorites button
 export function starClicked(starBtn, star, toolId) {
@@ -84,6 +85,15 @@ export async function displayTools(data, list) {
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);
 
+        header.appendChild(starBtn);
+        header.appendChild(nameE);
+
+        let tags = document.createElement('div');
+        tags.className = 'tagsInTool';
+        if (!tool.is_personal){
+
+            tags = showTagsInDiv(tool.tags, tags);
+        }
         //Circles that indicating stage and gives them the correct color
         const circle = document.createElement("span");
         circle.className = "circle";
@@ -101,10 +111,8 @@ export async function displayTools(data, list) {
         header.appendChild(circle);
         header.appendChild(starBtn);
 
-        const tags = document.createElement('div');
-        tags.className = 'tags';
-        tags.textContent = "Tags: "
-        if(Array.isArray(tool.tags)) {
+/*
+        if(Array.isArray(tool.tags)) { 
             for (const tagValue of tool.tags) {
                 const tag = document.createElement('span')
                 tag.className = 'tag';
@@ -112,6 +120,8 @@ export async function displayTools(data, list) {
                 tags.appendChild(tag);
             }
         }
+*/
+
 
         const urlE = document.createElement('div');
         urlE.className = 'tool-url';

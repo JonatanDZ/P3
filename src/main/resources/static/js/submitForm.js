@@ -42,8 +42,8 @@ export async function submitForm() {
                 }
                 // nobody needed, your backend just uses path variables
             });
-            await displayTools();
         }
+        
         let data = JSON.parse(jsonData)
         if(data.is_personal){
             alert("Your tool has been added")
@@ -51,6 +51,7 @@ export async function submitForm() {
             alert("Your tool is pending and waiting for approal")
         }
 
+        //ensures the tool is loaded before it is inserted
         setTimeout(() => {
         window.location.reload();
         }, 100);
@@ -71,7 +72,8 @@ export async function formToJSON(){
     const url = getURLValue(isDynamic);
 
     //We have to use "dataset.tag" because a div doesn't have the attribute value
-    const tags = Array.from(document.querySelectorAll(".tag-chip")).map(tag => ({id : tag.dataset.tag}));
+    const tagContainer = document.querySelector("#selectedTags");
+    const tags = Array.from(tagContainer.querySelectorAll(".tag-chip")).map(tag => ({id : tag.dataset.tag}));
     const stages = Array.from(document.querySelectorAll('.stagesChecks:checked')).map(cb => ({ id: cb.value }));
     const departments = Array.from(document.querySelectorAll('.departmentsChecks:checked')).map(cb => ({id: cb.value}));
     const jurisdictions = Array.from(document.querySelectorAll('.jurisdictionsChecks:checked')).map(cb => ({id: cb.value}));

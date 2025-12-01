@@ -54,7 +54,7 @@ export function wagnerFischer(s1, s2) {
 //Enables search functionality on toolname, toolURL and tooltags
 export function fuzzySearch(input, tool){
     //Firstly check if it matches name
-    if (wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.66){
+    if (wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.55){
         return true;
     }
     //Then url. It we allow it through with a lower score because it is more difficult getting right.
@@ -65,7 +65,7 @@ export function fuzzySearch(input, tool){
     if (!tool.is_personal)
     // Lastly we iterate through all tags on the tool if we get a good value on one we have a match
     for (let i = 0; i < tool.tags.length; i++){
-        if (wagnerFischer(input.toLowerCase(), tool.tags[i].toLowerCase()) > 0.66){
+        if (wagnerFischer(input.toLowerCase(), tool.tags[i].toLowerCase()) > 0.55){
             return true;
         }
     }
@@ -74,3 +74,10 @@ export function fuzzySearch(input, tool){
     return false;
 }
 
+export function fuzzySearchTags(input, tagValue){
+    if(wagnerFischer(input.toLowerCase(), tagValue.toLowerCase()) > 0.55){
+        return true;
+    }
+
+    return false;
+}
