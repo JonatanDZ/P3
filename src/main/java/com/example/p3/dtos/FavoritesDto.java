@@ -16,7 +16,7 @@ public class FavoritesDto {
     private Boolean is_personal;
     private Boolean is_dynamic;
     private List<String> departments;
-    private List<String> stages;
+    private List<String> stage;
     private List<String> jurisdictions;
     private List<String> tags;
 
@@ -32,7 +32,7 @@ public class FavoritesDto {
                 .map(Department::getName)
                 .collect(Collectors.toList());
 
-        this.stages = t.getStages().stream()
+        this.stage = t.getStages().stream()
                 .map(Stage::getName)
                 .collect(Collectors.toList());
 
