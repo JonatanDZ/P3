@@ -71,6 +71,7 @@ public class TagControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].tools").isArray());
     }
 
+    //This tests that our endpoint can get one specific tool
     @Test
     public void testGetTag() throws Exception {
 
@@ -88,15 +89,45 @@ public class TagControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.tools").isArray());
     }
 
+    //This tests we can post a tool to the database with our endpoint
     @Test
     public void testAddTag() throws Exception {
+
+        String validTag = "{\"value\":\"tag1\", \"tools\":\"[]\"}";
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders
                         .post("/tags")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"value\":\"tag1\", \"tools\":\"[]\"}"))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+                        .content(validTag))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    //This tests that our endpoint should return 404 Not Found if the tag id does not exist
+    @Test
+    public void testTag_NotFound() throws Exception {
+        //Arrange it sohuld return an empty list with a given tag id that does not exist
+        when(tagService.getTagById(999)).thenReturn(Optional.empty());
+
+        //Act calls the endpoint with a tag that does not exist
+        mockMvc.perform(MockMvcRequestBuilders.get("/tags/id/999"))
+                //Assert that the http response is 404 Not Found
+                .andExpect(status().isNotFound());
+    }
+
+    //This tests that our endpoint returns http 400 Bad Request if the tag does not have values
+    @Test
+    public void testAddTag_BadRequest() throws Exception {
+        //Arrange an invalid tag with no values
+        String invalidTag = "{\"value\", \"tools\":\"[]\"}";
+
+        //Act a post request with our invalid tag
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.post("/tags")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidTag))
+                //Assert a Bad Request 400
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
 }
