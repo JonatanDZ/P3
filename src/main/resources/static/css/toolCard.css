@@ -82,6 +82,11 @@
     margin-top: auto;
     font-size: 14px;
     word-break: break-all;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Tooltip text */
@@ -106,6 +111,10 @@
     visibility: visible;
 }
 
+.circles{
+    float: right;
+}
+
 .circle{
     height: 15px;
     width: 15px;
@@ -113,4 +122,10 @@
     border-radius: 50%;
     display: inline-block;
     z-index: 1;
+    vertical-align: -5px
+}
+
+.footer{
+    display: flex;
+    padding-top: 10px
 }

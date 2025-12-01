@@ -41,6 +41,7 @@ export async function displayTools(data, list) {
         const employee = await getCurrentEmployee();
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
+        console.log("STAGES" + tool.stage[0])
         //Personalize the dynamic tools
         console.log('Tool:', tool.name, 'tags:', tool.tags);
 
@@ -85,8 +86,8 @@ export async function displayTools(data, list) {
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);
 
-        header.appendChild(starBtn);
-        header.appendChild(nameE);
+        /*header.appendChild(starBtn);
+        header.appendChild(nameE);*/
 
         let tags = document.createElement('div');
         tags.className = 'tagsInTool';
@@ -95,24 +96,32 @@ export async function displayTools(data, list) {
             tags = showTagsInDiv(tool.tags, tags);
         }
         //Circles that indicating stage and gives them the correct color
-        const circle = document.createElement("span");
-        circle.className = "circle";
-        if(tool.name.includes("Stage")){
-            circle.style.background = "var(--stage--)"
-        }else if(tool.name.includes("Dev")){
-            circle.style.background = "var(--dev--)"
-        }else if(tool.name.includes("Production")){
-            circle.style.background = "var(--prod--)"
-        }else{
-            circle.style.visibility = "hidden";
+        const circles = document.createElement("div");
+        circles.className = "circles";
+        for(let i = 0;i<tool.stage.length;i++){
+            let circle = document.createElement("span")
+            circle.className = "circle"
+            if(tool.stage[i]=="Staging"){
+                circle.style.background = "var(--stage--)"
+            }else if(tool.stage[i]=="Development"){
+                circle.style.background = "var(--dev--)"
+            }else if(tool.stage[i]=="Production"){
+                circle.style.background = "var(--prod--)"
+            }
+            circles.appendChild(circle)
         }
 
+        let footer = document.createElement("div");
+        footer.className = "footer"
+
+        
+
         header.appendChild(nameE);
-        header.appendChild(circle);
+
         header.appendChild(starBtn);
 
 /*
-        if(Array.isArray(tool.tags)) { 
+        if(Array.isArray(tool.tags)) {
             for (const tagValue of tool.tags) {
                 const tag = document.createElement('span')
                 tag.className = 'tag';
@@ -127,10 +136,14 @@ export async function displayTools(data, list) {
         urlE.className = 'tool-url';
         urlE.textContent = tool.url;
 
+        footer.appendChild(urlE)
+        footer.appendChild(circles)
+
         //append the remaining element to the tool card
         a.appendChild(header);
         a.appendChild(tags);
-        a.appendChild(urlE);
+        a.appendChild(footer);
+
 
         li.appendChild(a);
         list.appendChild(li);
