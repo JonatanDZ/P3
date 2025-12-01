@@ -18,14 +18,17 @@ describe('toggleForm', () => {
         const addToolDiv = document.querySelector('#addToolDiv');
         let formIsShown = false;
 
+        //toggles form to be shown
         formIsShown = toggleForm(formIsShown);
         expect(addToolDiv.style.display).toBe('block');
         expect(formIsShown).toBe(true);
     });
+
     test('hides the form when shown', () => {
         const addToolDiv = document.querySelector('#addToolDiv');
         let formIsShown = true;
 
+        //toggles form to be hidden
         formIsShown = toggleForm(formIsShown);
         expect(addToolDiv.style.display).toBe('none');
         expect(formIsShown).toBe(false);
