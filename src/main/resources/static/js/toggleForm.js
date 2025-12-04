@@ -23,15 +23,6 @@ export function toggleCards(i, currentCard){
     document.querySelector("#prev").disabled = nextIndex <= 0;
     document.querySelector("#next").disabled = nextIndex >= allowedCards.length - 1;
 
-
-    /*const cardValue = parseInt(currentCard) + parseInt(i)
-    if (cardValue <= 1) {
-        document.querySelector("#prev").disabled = true;
-
-    } else if(cardValue >= 6) {
-        document.querySelector("#next").disabled = true;
-    }*/
-
     document.querySelectorAll(".formCards").forEach( card => {
         card.style.display = "none";
     });
@@ -105,7 +96,7 @@ export function displayReview(){
     const isDynamic = document.querySelector("#isDynamic").checked;
 
 
-
+    // What to print if is personal
     if (isPersonal){
         createParagraph(div, "Personal", isPersonal ? "Yes" : "No");
         createParagraph(div, "Name", toolName);
@@ -124,12 +115,14 @@ export function displayReview(){
     }
 }
 
+// Makes the html element
 export function createParagraph(parent, title, text) {
     const para = document.createElement("p");
     para.textContent = `${title}: ${text}`;
     parent.appendChild(para);
 }
 
+// Clears the html element
 export function clearDiv(div){
     while(div.lastChild){
         div.removeChild(div.lastChild);    
