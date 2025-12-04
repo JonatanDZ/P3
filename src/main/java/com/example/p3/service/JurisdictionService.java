@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.example.p3.repositories.JurisdictionRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -22,10 +21,6 @@ public class JurisdictionService {
     public List<Jurisdiction> getAllJurisdictions() {
         return jurisdictionRepository.findAll();
     }
-
-//    public Optional<Jurisdiction> getByName(String name) {
-//        return jurisdictionRepository.findByName(name);
-//    }
 }
 
 
