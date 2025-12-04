@@ -2,11 +2,9 @@ package com.example.p3.dtos;
 
 import com.example.p3.dtos.toolsDto.ToolUrlName;
 import com.example.p3.entities.Tag;
-import com.example.p3.entities.Tool;
 import lombok.Data;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class TagDto {
