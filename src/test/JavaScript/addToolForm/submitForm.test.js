@@ -1,6 +1,4 @@
-import { submitForm, formToJSON } from '../../../main/resources/static/js/submitForm.js';
-import { poster } from "../../../main/resources/static/js/fetchTool.js";
-import { addTagChip } from "../../../main/resources/static/js/loadOptions.js";
+import { submitForm} from '../../../main/resources/static/js/submitForm.js';
 
 global.fetch = jest.fn();
 
