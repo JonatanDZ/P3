@@ -1,8 +1,6 @@
 import {poster} from "./fetchTool.js";
 import {addTagChip} from "./loadOptions.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
-import {displayFavorites} from "./displayFavorites.js";
-import {displayTools} from "./displayTools.js";
 
 
 export async function submitTag(){
