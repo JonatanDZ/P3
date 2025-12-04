@@ -75,7 +75,6 @@ export async function displayTools(data, list) {
         const star = document.createElement('span');
         star.className = 'star';
         const isFav = await isToolInFavorite(toolId);
-        //console.log("tjek her", isFav, toolId);
         if(isFav){
             star.textContent = '★';
         } else{
@@ -85,8 +84,6 @@ export async function displayTools(data, list) {
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);
 
-        /*header.appendChild(starBtn);
-        header.appendChild(nameE);*/
 
         let tags = document.createElement('div');
         tags.className = 'tagsInTool';
@@ -120,19 +117,7 @@ export async function displayTools(data, list) {
         header.appendChild(nameE);
 
         header.appendChild(starBtn);
-
-/*
-        if(Array.isArray(tool.tags)) {
-            for (const tagValue of tool.tags) {
-                const tag = document.createElement('span')
-                tag.className = 'tag';
-                tag.textContent = tagValue;
-                tags.appendChild(tag);
-            }
-        }
-*/
-
-
+        
         const urlE = document.createElement('div');
         urlE.className = 'tool-url';
         urlE.textContent = tool.url;
