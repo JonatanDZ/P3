@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ToolService {
     private final ToolRepository toolRepository;
-    //private final ToolUrlName toolUrlName;
 
     public List<Tool> getAllTools() {
         return toolRepository.findAll();
@@ -29,14 +28,6 @@ public class ToolService {
       return toolRepository.findByDepartments_Name(departmentName);
     }
 
-//    public List<Tool> getAllToolsByJurisdictionName(String jurisdictionName) {
-//        return toolRepository.findByJurisdictions_JurisdictionName(jurisdictionName);
-//    }
-//
-//    public List<Tool> getAllToolsByStageName(String stageName) {
-//        return toolRepository.findByStages_Name(stageName);
-//    }
-
     public List<Tool> getAllToolsByDepartmentJurisdictionStage(String department, String jurisdiction, String stage){
         return toolRepository.findByDepartments_NameAndJurisdictions_NameAndStages_Name(department, jurisdiction, stage);
     }
@@ -45,11 +36,6 @@ public class ToolService {
         return toolRepository.save(tool);
     }
 
-//    public List<ToolUrlName> getAllToolUrlName(String tag) {
-//        ///Return a JSON/array with arrays containing all tools with the tag (include) og give the url and name.
-//        ///ændre under TagDto og få den til at hente url også. Lav et mini tool objekt (record).
-//        return toolRepository.findToolByTag(tag);
-//    }
 
 public List<Tool> findPendingToolByUserDepartment(String departmentName){
     return toolRepository.findPendingToolByUserDepartment(departmentName);
