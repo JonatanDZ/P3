@@ -1,6 +1,6 @@
 import {toggleForm, displayURLbar, displayReview, toggleCards} from "./toggleForm.js";
 import {loadOptions, enableTagSearch} from "./loadOptions.js";
-import {submitForm, submitTag} from "./submitForm.js";
+import {submitForm} from "./submitForm.js";
 
 let toggleBtns;
 let addToolDiv;
@@ -94,7 +94,6 @@ export function updateAllowedCards(){
         displayURLbar(document.querySelector("#isDynamic").checked);
         window.allowedCards = [1,2,4,6]
     } else {
-        //dynamicCheck.checked = true;
         dynamicCheck.disabled = false;
         window.allowedCards = [1,2,3,4,5,6];
     }

@@ -117,7 +117,7 @@ export async function displayTools(data, list) {
         header.appendChild(nameE);
 
         header.appendChild(starBtn);
-        
+
         const urlE = document.createElement('div');
         urlE.className = 'tool-url';
         urlE.textContent = tool.url;
