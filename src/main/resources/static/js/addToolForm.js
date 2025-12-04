@@ -84,10 +84,12 @@ function handleOutsideClick(event) {
 
 window.allowedCards = [1,2,3,4,5,6];
 
+// This function is used to determine which cards are allowed and update the list
 export function updateAllowedCards(){
     const isPersonal = document.querySelector("#isPersonal");
     dynamicCheck = document.querySelector("#isDynamic");
 
+    // Cards allowed if personal
     if (isPersonal.checked) {
         dynamicCheck.checked = false;
         dynamicCheck.disabled = true;
