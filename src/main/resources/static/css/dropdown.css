@@ -79,7 +79,6 @@
     font-size: 0.9em;
     line-height: 1;
     background-color: transparent;
-    /* Removes the ugly bell border */
     border: none;
 }
 

@@ -141,7 +141,6 @@ span.psw {
     cursor: pointer;
     color: #eee;
     padding: 1rem;
-    /*margin: 1rem;*/
 }
 
 .tag-suggestion-item:hover {
@@ -222,7 +221,6 @@ span.psw {
 
 .from-container{
     margin: auto;
-    /*text-align: center; */
     align-items: center;
 }
 
