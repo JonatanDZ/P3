@@ -16,12 +16,10 @@ beforeEach(() => {
     `;
 
     // Mock allowed cards
-    window.allowedCards = [1, 3, 5]; // en af dem virker og ved ikke hvilken (tør ikke at slette noget)
     global.allowedCards = [1, 3, 5];
 
     // Update the allowed cards
     updateAllowedCards.mockImplementation(() => {
-        window.allowedCards = [1, 3, 5];
         global.allowedCards = [1, 3, 5];
     });
 });
