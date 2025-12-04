@@ -33,8 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function reloadDropdown() {
     const pendingToolList = await getDepartmentsPendingTools();
 
-    //console.log("TOOLS HERE!" + pendingToolList);
-
     // Remove old badge if exists
     const containerBellNotifications = document.getElementById("bellNotifications");
     const oldBadge = containerBellNotifications.querySelector(".notificationBadge");
