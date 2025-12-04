@@ -179,7 +179,7 @@ function generateHashCode(str){
         hash = hash * 31 + char.charCodeAt(0); //hash = hash * 31 + (ASCII value of char) 
     }
     return hash;
-};
+}
 
 export function stringToColor(str) {
     const hash = generateHashCode(str); //ensures that is always the same color you get from the same value;
