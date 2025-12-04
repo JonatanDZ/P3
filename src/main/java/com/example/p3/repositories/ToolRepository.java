@@ -105,7 +105,7 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     
     
 """)
-    
+
 
     List<Tool> findByDepartments_NameAndJurisdictions_NameAndStages_Name(String DepartmentName,
                                                                          String JurisdictionName,
