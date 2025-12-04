@@ -7,5 +7,4 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface JurisdictionRepository extends JpaRepository<Jurisdiction, Integer> {
-    //Optional<Jurisdiction> findByName(String name);
 }
