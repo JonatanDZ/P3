@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+// Makes "/jurisdictions" always being a part of the endpoint call
 @RequestMapping("/jurisdictions")
 public class JurisdictionController {
     private final JurisdictionService JurisdictionService;
@@ -18,10 +19,16 @@ public class JurisdictionController {
         this.JurisdictionService = JurisdictionService;
     }
 
+    // The endpoint is empty and will run if "/jurisdictions" are called
     @GetMapping("")
     public ResponseEntity<List<JurisdictionDto>> getAllJurisdictions(){
-        List<JurisdictionDto> list = JurisdictionService.getAllJurisdictions().stream()
+        // Calls service to get all jurisdictions
+        List<JurisdictionDto> list = JurisdictionService.getAllJurisdictions()
+                // Turns it into a stream to be processed with the streams API
+                .stream()
+                // For each jurisdiction in the stream, a new JurisdictionDto is created
                 .map(JurisdictionDto::new)
+                // Collects the mapped stream and puts it into List<JurisdictionDto>
                 .toList();
         return ResponseEntity.ok(list);
     }

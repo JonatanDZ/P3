@@ -49,6 +49,7 @@ class EmployeeControllerTest {
     //Ensures the endpoint correctly reaches the controller method
     //and the JSON output from the controller is correct.
     //Also it checks that our HTTP status is correct (200)
+    // Testing: /employee/initials/JD GET
     @Test
     public void testGetEmployeesByInitials() throws Exception {
         //Create 2 mock departments
@@ -90,6 +91,7 @@ class EmployeeControllerTest {
     }
 
     //This test is to check it returns not found (404) when the initial doesn't exit.
+    // Testing: /employee/initials/ GET
     @Test
     public void testGetEmployeeByInitials_NotFound() throws Exception {
         //Arrange; that the service should returns Optional.empty given initials that are not found
@@ -104,6 +106,7 @@ class EmployeeControllerTest {
 
     }
     //This test is to check it returns error (400) when the input isn't 4 initials.
+    // Testing: /employee/initials/ GET
     @Test
     public void testGetEmployeeByInitials_BadInput() throws Exception {
         //Arrange a bad input, and we will not call the service, since we expect the controller to reject the request

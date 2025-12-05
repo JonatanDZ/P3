@@ -27,6 +27,8 @@ public class JurisdictionControllerTest {
     @Autowired
     private JurisdictionService jurisdictionService;
 
+    // This tests that our controller will return the correct amount of jurisdictions
+    // Testing: /jurisdictions GET
     @Test
     void testGetAllJurisdictions() throws Exception{
         Jurisdiction jurisdiction1 = new Jurisdiction();
@@ -52,6 +54,7 @@ public class JurisdictionControllerTest {
     }
 
     //Test that the controller returns 200 and an empty list if there are no jurisdictions
+    // Testing: /jurisdictions GET
     @Test
     void testGetAllJurisdictions_EmptyList() throws Exception {
         //Arrange service to return an empty list

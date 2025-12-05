@@ -6,14 +6,14 @@ import lombok.Data;
 
 @Data
 public class EmployeeDto {
-    // I use _ here instead of camelCase because that is whats inside the DB diagram.
-    // This could be changed
+    // Attributes of en employee
     private String id;
     private String name;
     private String initials;
     private String department_name;
     private String email;
 
+    // Constructor to create an employeeDto
     public EmployeeDto(Employee e) {
         this.id = e.getInitials();
         this.name = e.getName();

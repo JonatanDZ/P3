@@ -27,11 +27,6 @@ public class TagControllerTest {
     @MockitoBean
     private TagService tagService;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     public Tag tagConstructor(int id, String value, Set<Tool> tagTools) {
         Tag tag = new Tag();
         tag.setId(id);

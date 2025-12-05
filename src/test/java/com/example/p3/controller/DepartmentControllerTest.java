@@ -41,6 +41,7 @@ public class DepartmentControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    //Testing: /departments GET
     @Test
     public void testGetAllDepartment() throws Exception {
         //Mock departments constructed

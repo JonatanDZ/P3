@@ -15,10 +15,6 @@ import java.util.List;
 public class ToolService {
     private final ToolRepository toolRepository;
 
-    public List<Tool> getAllTools() {
-        return toolRepository.findAll();
-    }
-
     public List<Tool> getAllToolsExcludingPending() {
         return toolRepository.findNonPendingNonPersonalTools();
     }

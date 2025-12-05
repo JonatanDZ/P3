@@ -71,6 +71,7 @@ class FavoritesControllerTest {
         return tool;
     }
 
+    //Testing: /employee/JD/favorites?jurisdiction=DK&stage=PRODUCTION GET
     @Test
     void favoritesListsForAllUsers() throws Exception {
         //

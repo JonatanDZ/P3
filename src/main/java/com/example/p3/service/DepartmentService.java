@@ -17,6 +17,7 @@ public class DepartmentService {
 
 
     public List<Department> getAllDepartments() {
+        // findAll is a part of JpaRepository
         return departmentRepository.findAll();
     }
 }

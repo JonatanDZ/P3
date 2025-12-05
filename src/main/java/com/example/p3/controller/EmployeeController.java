@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-
-
-
     // the rest looks for list with the best match at the top.
+    // "{initials}" is the path variable the endpoint will take
     @GetMapping("/initials/{initials}")
     public ResponseEntity<EmployeeDto> getEmployeeByInitials(@PathVariable String initials) {
         //Reject invalid input before calling the service
@@ -24,7 +22,10 @@ public class EmployeeController {
         if (!initials.matches("^[A-Za-zÆØÅæøå]{2,4}$")){
             return ResponseEntity.badRequest().build();
         }
+        // Calls employee servide to get the employee by initials
         Employee employee = employeeService.getEmployeeByInitials(initials).orElse(null);
+
+        // if the provided employee initials in the path variable is null it will return Not Found
         if  (employee == null) {
             return ResponseEntity.notFound().build();
         } else {

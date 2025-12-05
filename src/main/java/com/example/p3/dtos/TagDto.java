@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class TagDto {
+    // Attributes of a tag
     private Integer id;
     private String value;
     private List<ToolUrlName> tools;

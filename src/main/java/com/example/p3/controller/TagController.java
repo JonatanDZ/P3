@@ -23,15 +23,23 @@ public class TagController {
 
     @GetMapping("")
     public ResponseEntity<List<TagDto>> getAllTags() {
-        List<TagDto> list = TagService.getAllTags().stream()
+        // Calls tag service to get all tags
+        List<TagDto> list = TagService.getAllTags()
+                // Turns it into a stream to be processed with the streams API
+                .stream()
+                // For each tag in the stream, a new TagDto is created
                 .map(TagDto::new)
+                // Collects the mapped stream and puts it into List<TagDto>
                 .toList();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/id/{id}")
     public ResponseEntity<TagDto> getTagById(@PathVariable int id) {
+        // Calls the tagService to find the tag by Id
         Tag tag = tagService.getTagById(id).orElse(null);
+
+        // If the tagId provided in the pathvariable is not existing it will return Not Found
         if (tag == null) {
             return ResponseEntity.notFound().build();
         } else {

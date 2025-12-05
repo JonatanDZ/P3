@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -26,9 +27,10 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
     @Autowired
     private MockMvc mockMvc; // To test your web controllers without starting a full HTTP server
 
-    @MockBean
+    @MockitoBean
     private ToolService toolService; // To mock toolService
 
+    // Testing: /tools GET
     @Test
     public void testGetAllTools() throws Exception {
         Set<Department> departmentSet = new HashSet<>();
@@ -68,6 +70,7 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
 
     }
 
+    // Testing: /tools/department/DEVOPS GET
     @Test
     public void testGetToolsByDepartment() throws Exception {
         Set<Department> departmentSet = new HashSet<>();
@@ -89,6 +92,7 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1));
     }
 
+    // Testing: /tools POST
     @Test
     public void testAddTools() throws Exception {
         this.mockMvc
@@ -99,7 +103,7 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-    // Testing: /tools/department/{department}/jurisdiction/{jurisdiction}/stage/{stage}
+    // Testing: /tools/department/{department}/jurisdiction/{jurisdiction}/stage/{stage} GET
     // Giving it a list of two tools belonging to the same jur, stage and department.
     // It should give a 200 ok status code, and return the list in JSON form.
     @Test
@@ -137,7 +141,7 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("testTool2"));
     }
 
-    // Testing: /tools/pending/department/{department}
+    // Testing: /tools/pending/department/{department} GET
     // Giving it a list of two tools belonging to the same department where pending = true
     // It should give a 200 ok status code, and return the list in JSON form.
     @Test
@@ -179,7 +183,7 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
-    // Testing: /tools/pending/department/{department}
+    // Testing: /tools/pending/department/{department} PUT
     // Giving it a single tool with pending = false, to mock that the service method reverts its state.
     // check that it returns 200 ok, the tool provided and that pending = false.
     @Test
@@ -203,30 +207,4 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("testTool1"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.pending").value(false));
     }
-
-
-/*@Test
-=======
-    /*@Test
->>>>>>> Stashed changes
-    public void testGetToolById() throws Exception {
-        Set<Department> departmentSet = new HashSet<>(); // Creates empty sets for related entities
-        Set<Jurisdiction> jurisdictionSet = new HashSet<>();
-        Set<Stage> stagesSet = new HashSet<>();
-        Set<Tag> tagSet = new HashSet<>();
-        // Create a mock tool
-        Tool tool = new Tool(1,"testTool","https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/",false,false,departmentSet,jurisdictionSet,stagesSet,tagSet);
-        when(toolService.getToolById(1)).thenReturn(Optional.of(tool));
-        mockMvc.perform(MockMvcRequestBuilders.get("/getTools/id/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("testTool"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.url").value("https://www.geeksforgeeks.org/software-testing/crud-junit-tests-for-spring-data-jpa/"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.isPersonal").value(false))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.isDynamic").value(false))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.departments").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.jurisdictions").isArray())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.stage").isArray());
-    }*/
-
 }
