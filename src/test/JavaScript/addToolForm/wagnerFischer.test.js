@@ -9,8 +9,7 @@ describe("wagnerFischer", () => {
 
     test("completely different strings to low similarity", () => {
         // Completely unrelated strings should give a very low similarity score
-        const score = wagnerFischer("abc", "xyz");
-        expect(score).toBeLessThan(0.2);
+        expect(wagnerFischer("abc", "xyz")).toBeLessThan(0.2);
     });
 
     test("one empty string", () => {
