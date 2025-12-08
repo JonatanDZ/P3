@@ -1,3 +1,5 @@
+-- MOCK DATA
+
 -- --- DEPARTMENTS ---
 INSERT INTO department (name, is_dev)
 VALUES
@@ -10,7 +12,6 @@ VALUES
     ('Legal', FALSE);
 
 -- --- EMPLOYEES ---
--- Using initials as PK; add simple placeholder emails
 INSERT INTO employee (initials, name, department_id, email)
 VALUES
     ('JADE', 'John Admin Devops',       1, 'jade@example.com'),
@@ -35,7 +36,6 @@ VALUES
     ('UK');
 
 -- --- TOOLS ---
--- Added is_personal (set FALSE across the board, tweak if needed)
 INSERT INTO tool (name, url, is_personal, is_dynamic)
 VALUES
     ('Outlook',               'https://outlook.office365.com/mail/', FALSE, FALSE),
@@ -48,7 +48,6 @@ VALUES
     ('Spil Nu Production',    'https://spilnu.dk',                   FALSE, TRUE);
 
 -- --- DEPARTMENT ↔ TOOL ---
--- Use correct column name department_id
 INSERT INTO department_tool (department_id, tool_id)
 VALUES
 -- Outlook to every department
@@ -83,7 +82,6 @@ VALUES
     (3, 'Production');
 
 -- --- STAGE ↔ TOOL ---
--- Correct junction table name + column order: tool_stage(stage_id, tool_id)
 INSERT INTO tool_stage (stage_id, tool_id)
 VALUES
 -- Outlook → all stages
@@ -100,7 +98,6 @@ VALUES
 (3, 8);    -- Prod
 
 -- --- JURISDICTION ↔ TOOL ---
--- Correct junction table name + column order: tool_jurisdiction(jurisdiction_id, tool_id)
 INSERT INTO tool_jurisdiction (jurisdiction_id, tool_id)
 VALUES
 -- Global tools → DK & UK

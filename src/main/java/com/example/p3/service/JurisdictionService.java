@@ -17,9 +17,7 @@ public class JurisdictionService {
         this.jurisdictionRepository = jurisdictionRepository;
     }
 
-    // Hent alle jurisdictions
     public List<Jurisdiction> getAllJurisdictions() {
-        // findAll is a part of JpaRepository
         return jurisdictionRepository.findAll();
     }
 }

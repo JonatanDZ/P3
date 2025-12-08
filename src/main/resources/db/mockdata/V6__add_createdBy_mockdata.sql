@@ -1,11 +1,10 @@
+-- USING CREATED_BY IN NEW MOCK TOOLS
 INSERT INTO tool (name, url, is_personal, is_dynamic, pending, created_by)
 VALUES
     ('Dev Guidelines Wiki',      'https://confluence.company/dev-guidelines', FALSE, FALSE, TRUE, 'PEDO'),
     ('Release Checklist',        'https://confluence.company/release-check',  FALSE, FALSE, TRUE, 'PEDO'),
     ('Monitoring Dashboard',     'https://grafana.company',                   FALSE, TRUE,  TRUE, 'PEDO'),
     ('HR Self-Service Portal',   'https://hr.company',                        FALSE, FALSE, TRUE, 'BEKO');
-
--- Assuming previous 12 tools got IDs 1–12, these will be IDs 13–16.
 
 INSERT INTO department_tool (department_id, tool_id)
 VALUES

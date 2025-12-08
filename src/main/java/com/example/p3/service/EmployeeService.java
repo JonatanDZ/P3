@@ -19,6 +19,4 @@ public class EmployeeService {
         // Calls the employee repository findByInitials
         return employeeRepository.findByInitials(initials);
     }
-
-
 }

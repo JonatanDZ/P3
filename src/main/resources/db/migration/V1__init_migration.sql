@@ -1,4 +1,4 @@
--- Parents first
+-- Schema of the SQL design.
 CREATE TABLE department (
                             id        INT           NOT NULL AUTO_INCREMENT,
                             name      VARCHAR(255)  NOT NULL,
@@ -43,8 +43,6 @@ CREATE TABLE tag (
                      value  VARCHAR(255)  NOT NULL,
                      PRIMARY KEY (id)
 );
-
--- Junctions (many-to-many) – child tables hold the FKs and composite PKs
 
 CREATE TABLE department_tool (
                                  department_id INT NOT NULL,
@@ -94,8 +92,7 @@ CREATE TABLE tool_tag (
                                   ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Favorites (employee ↔ tool) – composite PK, correct FK direction
--- (table name singular/plural is your call; keeping singular from your snippet)
+-- Favorites
 CREATE TABLE favorite_tool (
                                employee_initials VARCHAR(4) NOT NULL,
                                tool_id           INT        NOT NULL,

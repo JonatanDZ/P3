@@ -17,7 +17,6 @@ public class TagService {
     }
 
     public List<Tag> getAllTags() {
-        // findAll is a part of JpaRepository
         return tagRepository.findAll();
     }
 

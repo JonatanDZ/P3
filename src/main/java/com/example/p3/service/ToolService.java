@@ -2,8 +2,6 @@ package com.example.p3.service;
 
 import com.example.p3.entities.*;
 import com.example.p3.repositories.ToolRepository;
-
-//Generates constructor for every field in a class automatically
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

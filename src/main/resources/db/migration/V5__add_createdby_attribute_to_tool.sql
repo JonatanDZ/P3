@@ -1,3 +1,5 @@
+-- adding created by attribute since it is also needed to filter when displaying tools in bell notif. system.
+
 ALTER TABLE tool
     ADD COLUMN created_by VARCHAR(4) NULL;
 

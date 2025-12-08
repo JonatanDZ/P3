@@ -1,4 +1,6 @@
--- --- PENDING TOOLS (not in any favorites) ---
+-- MOCK DATA FOR PENDING TOOLS
+
+-- --- PENDING TOOLS  ---
 INSERT INTO tool (name, url, is_personal, is_dynamic, pending)
 VALUES
     ('Youtube',       'https://youtube.com', FALSE, TRUE,  TRUE),
@@ -6,7 +8,6 @@ VALUES
     ('SQLRunner', 'https://google.com',    FALSE, FALSE, TRUE),
     ('Legal Department Link',       'https://google.com',    FALSE, FALSE, TRUE);
 
--- Assuming previous 8 tools got IDs 1–8, these will be IDs 9–12.
 
 -- --- DEPARTMENT ↔ TOOL (for pending tools) ---
 INSERT INTO department_tool (department_id, tool_id)
