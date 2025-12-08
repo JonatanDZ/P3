@@ -13,11 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/tags")
 public class TagController {
-    private final TagService TagService;
     private final TagService tagService;
 
-    public TagController(TagService TagService, TagService tagService) {
-        this.TagService = TagService;
+    public TagController( TagService tagService) {
         this.tagService = tagService;
     }
 
@@ -28,7 +26,7 @@ public class TagController {
     @GetMapping("")
     public ResponseEntity<List<TagDto>> getAllTags() {
         // Calls tag service to get all tags
-        List<TagDto> list = TagService.getAllTags()
+        List<TagDto> list = tagService.getAllTags()
                 // Turns it into a stream to be processed with the streams API
                 .stream()
                 // For each tag in the stream, a new TagDto is created
@@ -47,7 +45,7 @@ public class TagController {
         // Calls the tagService to find the tag by Id
         Tag tag = tagService.getTagById(id).orElse(null);
 
-        // If the tagId provided in the pathvariable is not existing it will return Not Found
+        // If the tagId provided in the path variable is not existing it will return Not Found
         if (tag == null) {
             return ResponseEntity.notFound().build();
         } else {
@@ -64,6 +62,6 @@ public class TagController {
         if (tag == null){
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(TagService.saveTag(tag));
+        return ResponseEntity.ok(tagService.saveTag(tag));
     }
 }

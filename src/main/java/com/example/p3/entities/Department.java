@@ -28,7 +28,8 @@ public class Department {
 
     @ManyToMany(mappedBy = "departments")
     private Set<Tool> departmentTools = new HashSet<>();
-    
+
+    //This is constructor only used for test
     public Department(Integer id, String departmentName, Boolean isDev) {
         this.id = id;
         this.name = departmentName;

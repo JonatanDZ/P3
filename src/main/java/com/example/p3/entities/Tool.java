@@ -81,6 +81,7 @@ public class Tool {
     )
     private Set<Tag> tags = new HashSet<>();
 
+    //This constructor is only used for test
     public Tool(Integer id, String name, String url, Boolean is_personal, Boolean is_dynamic, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags, Boolean pending, Employee created_by) {
         this.id = id;
         this.name = name;
@@ -94,6 +95,7 @@ public class Tool {
         this.pending = pending;
         this.created_by = created_by;
     }
+
 
     public Tool() {}
 }
