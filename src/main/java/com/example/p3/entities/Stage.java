@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+// This entity is an ORM-mapped representation of a Stage in the system. It maps to the P3.stage table and contains the stage's attributes/rows from the DB.
 @Getter
 @Setter
 @Entity

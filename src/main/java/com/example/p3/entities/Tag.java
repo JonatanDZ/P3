@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+// This entity is an ORM-mapped representation of a Tag in the system. It maps to the P3.tag table and contains the tag's attributes/rows from the DB.
 @Getter
 @Setter
 @Entity

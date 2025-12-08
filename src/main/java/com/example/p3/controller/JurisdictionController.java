@@ -2,6 +2,7 @@ package com.example.p3.controller;
 
 import com.example.p3.dtos.JurisdictionDto;
 import com.example.p3.service.JurisdictionService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,10 @@ public class JurisdictionController {
         this.JurisdictionService = JurisdictionService;
     }
 
+    @Operation(
+            summary = "Gets all jurisdictions.",
+            description = "Returns a list of all jurisdictions in the db given no conditions."
+    )
     // The endpoint is empty and will run if "/jurisdictions" are called
     @GetMapping("")
     public ResponseEntity<List<JurisdictionDto>> getAllJurisdictions(){

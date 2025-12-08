@@ -2,6 +2,7 @@ package com.example.p3.controller;
 
 import com.example.p3.dtos.DepartmentDto;
 import com.example.p3.service.DepartmentService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,11 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
+    // this is an annotation used for swagger. It allows for understanding the endpoint at a quick glance
+    @Operation(
+            summary = "Gets a list of all departments",
+            description = "Returns every department in the database in the form of a list."
+    )
     // The endpoint is empty and will run if "/departments" are called
     @GetMapping("")
     public ResponseEntity<List<DepartmentDto>> getAllDepartments(){

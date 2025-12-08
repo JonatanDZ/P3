@@ -21,7 +21,6 @@ public class JurisdictionDto {
         this.tools = j.getJurisdictionTools().stream().
                 map(Tool::getName).
                 collect(Collectors.toList());
-
     }
 }
 

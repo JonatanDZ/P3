@@ -3,6 +3,7 @@ package com.example.p3.controller;
 import com.example.p3.dtos.EmployeeDto;
 import com.example.p3.entities.Employee;
 import com.example.p3.service.EmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    // the rest looks for list with the best match at the top.
+    // this is an annotation used for swagger. It allows for understanding the endpoint at a quick glance
+    @Operation(
+            summary = "Get employee by initials",
+            description = "Looks up an employee based on their initials. Initials must be 2–4 letters, including Danish characters (Æ, Ø, Å)."
+    )
     // "{initials}" is the path variable the endpoint will take
     @GetMapping("/initials/{initials}")
     public ResponseEntity<EmployeeDto> getEmployeeByInitials(@PathVariable String initials) {

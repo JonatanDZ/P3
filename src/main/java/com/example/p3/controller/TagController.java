@@ -2,9 +2,9 @@ package com.example.p3.controller;
 
 import com.example.p3.dtos.TagDto;
 
-import com.example.p3.entities.Employee;
 import com.example.p3.service.TagService;
 import com.example.p3.entities.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +21,10 @@ public class TagController {
         this.tagService = tagService;
     }
 
+    @Operation(
+            summary = "Gets a list of all tags.",
+            description = "Retrieves all tags in the database, given no conditions."
+    )
     @GetMapping("")
     public ResponseEntity<List<TagDto>> getAllTags() {
         // Calls tag service to get all tags
@@ -34,6 +38,10 @@ public class TagController {
         return ResponseEntity.ok(list);
     }
 
+    @Operation(
+            summary = "Gets a single tag.",
+            description = "Retrieves a single tag given the id of that tag."
+    )
     @GetMapping("/id/{id}")
     public ResponseEntity<TagDto> getTagById(@PathVariable int id) {
         // Calls the tagService to find the tag by Id
@@ -47,13 +55,15 @@ public class TagController {
         }
     }
 
+    @Operation(
+            summary = "Uploads a tag to the database.",
+            description = "POSTs a tag to the database given a tag as parameter (required). "
+    )
     @PostMapping("")
-    public ResponseEntity<Tag> createTool(@RequestBody Tag tag){
+    public ResponseEntity<Tag> createTag(@RequestBody Tag tag){
         if (tag == null){
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(TagService.saveTag(tag));
     }
-
-
 }

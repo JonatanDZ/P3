@@ -5,6 +5,7 @@ import com.example.p3.dtos.toolsDto.*;
 import com.example.p3.entities.Tool;
 
 import com.example.p3.service.ToolService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,10 @@ public class ToolController {
     }
 
 
-
+    @Operation(
+            summary = "Gets a list of all tools in the database.",
+            description = "Retrieves a list of all tools in the database, given no conditions."
+    )
     //GetMapping: indicates it is a get request on the given url
     @GetMapping("")
     //Makes a list called List and gets all tools
@@ -46,6 +50,10 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
+    @Operation(
+            summary = "Gets all tools in a specific department.",
+            description = "Retrieves a list of all tools from a department, with the department being a condition."
+    )
     //Call "getAlltoolsByDepartment" which sort the tools according to the department in the URL
     @GetMapping("/department/{department}")
     //@pathVariable: get a string and inserts it into the endpoint (url)
@@ -56,6 +64,10 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
+    @Operation(
+            summary = "Gets a list of all tools by department, jurisdiction and stage.",
+            description = "Retrieves a list of all tools by department, jurisdiction and stage. These three are all conditions. This endpoint is crucial in the display of tools on the page."
+    )
     @GetMapping("department/{department}/jurisdiction/{jurisdiction}/stage/{stage}")
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartmentJurisdictionStage(
             @PathVariable String department,
@@ -67,6 +79,11 @@ public class ToolController {
                 .toList();
         return ResponseEntity.ok(list);
     }
+
+    @Operation(
+            summary = "Uploads a tool to the database.",
+            description = "POSTs a tool to the database, given the data from the add form; the single condition is an object of the Tool class."
+    )
     //takes the data from the add form and sends it to the
     // PostMapping: indicates it is a post request on the given url
     @PostMapping("")
@@ -78,6 +95,10 @@ public class ToolController {
         return ResponseEntity.ok(toolService.saveTool(tool));
     }
 
+    @Operation(
+            summary = "Gets a list of all tools by department, which are pending.",
+            description = "Retrieves a list of tools with department and state of pending as conditions."
+    )
     // gets list of pending tools per department
     // it is expected to pass the department of a user
     @GetMapping("/pending/department/{department}")
@@ -90,6 +111,10 @@ public class ToolController {
         return ResponseEntity.ok(list);
     }
 
+    @Operation(
+            summary = "Deletes a pending tool.",
+            description = "The endpoint deletes a tool, and does not necessarily ensure that it is pending. Returns HTTP 204 which is standard for deletions."
+    )
     // delete a pending tool, in case it is declined
     // it simply deletes a tool from the tool table
     @DeleteMapping("/pending/{toolId}")
@@ -100,6 +125,10 @@ public class ToolController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(
+            summary = "Changes pending to false in a tool.",
+            description = "Uses PUT method to alter the state of the pending attribute in a Tool, given a tool id as a condition."
+    )
     // approve a pending tool
     // approving the pending tool simply reverts the pending attribute to false, making it an approved tool
     @PutMapping("/pending/{toolId}")

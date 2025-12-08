@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+// This entity is an ORM-mapped representation of an Employee in the system. It maps to the P3.employee table and contains the employee's attributes/rows from the DB.
 @Getter
 @Setter
 @Entity
@@ -45,19 +46,7 @@ public class Employee {
     @OneToMany(mappedBy = "created_by")
     private Set<Tool> createdTools = new HashSet<>();
 
-    public Employee() {
-
-    }
-
-    public void addFavorite(Tool tool) {
-        favoriteTools.add(tool);
-        tool.getEmployeesWhoFavorited().add(this); // keep both sides in sync
-    }
-
-    public void removeFavorite(Tool tool) {
-        favoriteTools.remove(tool);
-        tool.getEmployeesWhoFavorited().remove(this);
-    }
+    public Employee() {}
 
     public Employee(String initials, String name, String email, Department department) {
         this.initials = initials;

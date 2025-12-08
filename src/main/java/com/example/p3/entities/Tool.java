@@ -8,9 +8,10 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+// This entity is an ORM-mapped representation of a Tool in the system. It maps to the P3.tool table and contains the tool's attributes/rows from the DB.
 @Getter
 @Setter
-@Entity //Used for declaring object class as an entity in the DB (Makes the hibernate possible)
+@Entity //Used for declaring object class as an entity in the DB (Makes hibernate possible)
 @Table(name = "tool", schema = "P3")
 public class Tool {
     @Id
@@ -95,7 +96,4 @@ public class Tool {
     }
 
     public Tool() {}
-
-    public Tool(int i, String slack, String url, boolean b, boolean b1, Set<Department> departments, Set<Jurisdiction> jurisdictions, Set<Stage> stages, Set<Tag> tags) {
-    }
 }
