@@ -6,6 +6,7 @@ export function footerUpdate() {
     const styles = label ? getComputedStyle(label) : null;
 
     //background & foreground
+    //if styles exists set background color             styles ? styles.backgroundColor : undefined;
     const bg = styles?.backgroundColor;
     const fg = styles?.color;
 

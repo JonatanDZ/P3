@@ -46,7 +46,6 @@ async function reloadDropdown() {
     containerDropdownId.replaceChildren();
 
     // Calls the bell notifier that adds a notification badge if the pending tool list is above 0.
-
     const currentEmployee = await getCurrentEmployee();
     const employeeInitials = currentEmployee.initials;
     let listLengthNotCreatedBy = 0;

@@ -1,4 +1,4 @@
--- Schema of the SQL design.
+ -- Schema of the SQL design.
 CREATE TABLE department (
                             id        INT           NOT NULL AUTO_INCREMENT,
                             name      VARCHAR(255)  NOT NULL,

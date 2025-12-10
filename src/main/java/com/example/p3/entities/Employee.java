@@ -47,7 +47,7 @@ public class Employee {
     private Set<Tool> createdTools = new HashSet<>();
 
     public Employee() {}
-
+    //Used for test
     public Employee(String initials, String name, String email, Department department) {
         this.initials = initials;
         this.name = name;

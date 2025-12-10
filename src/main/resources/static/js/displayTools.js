@@ -79,7 +79,6 @@ export async function displayTools(data, list) {
             star.textContent = '★';
         } else{
             star.textContent = '☆';
-
         }
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);

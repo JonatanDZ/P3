@@ -96,6 +96,5 @@ public class Tool {
         this.created_by = created_by;
     }
 
-
     public Tool() {}
 }
