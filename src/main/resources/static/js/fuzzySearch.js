@@ -61,18 +61,18 @@ export function fuzzySearch(input, tool){
 
     //Firstly check if it matches name
 
-    if (wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.55 || tool.name.toLowerCase().startsWith(input.toLowerCase())){
+    if (tool.name.toLowerCase().startsWith(input.toLowerCase() || wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.55)){
         return true;
     }
     //Then url. It we allow it through with a lower score because it is more difficult getting right.
-    if (wagnerFischer(input.toLowerCase(), tool.url.toLowerCase()) > 0.30 || tool.url.toLowerCase().includes(input.toLowerCase()) ){
+    if (tool.url.toLowerCase().includes(input.toLowerCase()) || wagnerFischer(input.toLowerCase(), tool.url.toLowerCase()) > 0.30){
         return true;
     }
 
     if (!tool.is_personal) { // we only check for tags if it is a company tool
         // Lastly we iterate through all tags on the tool if we get a good value on one we have a match
         for (let i = 0; i < tool.tags.length; i++){
-            if (wagnerFischer(input.toLowerCase(), tool.tags[i].toLowerCase()) > 0.55 || tool.tags[i].toLowerCase().startsWith(input.toLowerCase())){
+            if (tool.tags[i].toLowerCase().startsWith(input.toLowerCase()) || wagnerFischer(input.toLowerCase(), tool.tags[i].toLowerCase()) > 0.55){
                 return true;
             }
         }
@@ -83,7 +83,7 @@ export function fuzzySearch(input, tool){
 }
 
 export function fuzzySearchTags(input, tagValue){
-    if(wagnerFischer(input.toLowerCase(), tagValue.toLowerCase()) > 0.55){
+    if(tagValue.toLowerCase().startsWith(input.toLowerCase()) || wagnerFischer(input.toLowerCase(), tagValue.toLowerCase()) > 0.55){
         return true;
     }
 
