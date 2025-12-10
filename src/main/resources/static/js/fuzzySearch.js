@@ -29,9 +29,9 @@ export function wagnerFischer(s1, s2) {
             let substitutionCost = 1;
 
             //If the chars are identical we don't have to sub, meaning the cost is free
-            if (s1[i] == s2[j]){
-               substitutionCost = 0; 
-            } 
+            if (s1[i] === s2[j]){
+               substitutionCost = 0;
+            }
 
             dp[i][j] = Math.min(
                 //Deleting a char
