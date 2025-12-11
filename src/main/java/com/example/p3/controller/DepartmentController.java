@@ -33,7 +33,6 @@ public class DepartmentController {
             summary = "Gets a list of all departments",
             description = "Returns every department in the database in the form of a list."
     )
-
     // The endpoint is empty and will run if "/departments" are called
     @GetMapping("")
     public ResponseEntity<List<DepartmentDto>> getAllDepartments(){

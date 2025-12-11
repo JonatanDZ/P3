@@ -3,7 +3,9 @@ package com.example.p3.controller;
 import com.example.p3.dtos.TagDto;
 import com.example.p3.service.TagService;
 import com.example.p3.entities.Tag;
+
 import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class TagController {
     private final TagService tagService;
 
+    // TODO: Use lombok
     public TagController( TagService tagService) {
         this.tagService = tagService;
     }
@@ -26,13 +29,15 @@ public class TagController {
     @GetMapping("")
     public ResponseEntity<List<TagDto>> getAllTags() {
         // Calls tag service to get all tags
+        // Fetch all tag entities and convert them to DTOs
         List<TagDto> list = tagService.getAllTags()
-                // Turns it into a stream to be processed with the streams API
+                // Converts the list returned by the service into a stream so we can use the Streams API (map, filter, etc.).
                 .stream()
-                // For each tag in the stream, a new TagDto is created
+                // For each tag(tag entity) in the stream, a new TagDto is created with the TagDto constructor.
                 .map(TagDto::new)
                 // Collects the mapped stream and puts it into List<TagDto>
                 .toList();
+        // Returns a list of TagDTOs wrapped in a ResponseEntity to control HTTP status, headers, etc.
         return ResponseEntity.ok(list);
     }
 

@@ -29,7 +29,6 @@ public class JurisdictionController {
             summary = "Gets all jurisdictions.",
             description = "Returns a list of all jurisdictions in the db given no conditions."
     )
-
     // The endpoint is empty and will run if "/jurisdictions" are called
     @GetMapping("")
     public ResponseEntity<List<JurisdictionDto>> getAllJurisdictions(){

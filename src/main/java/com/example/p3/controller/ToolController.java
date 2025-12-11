@@ -3,7 +3,9 @@ package com.example.p3.controller;
 import com.example.p3.dtos.toolsDto.*;
 import com.example.p3.entities.Tool;
 import com.example.p3.service.ToolService;
+
 import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,16 +19,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/tools")
 public class ToolController {
-    private final ToolService toolService;//final means that we can't change the value after it has been initialized
+    private final ToolService toolService;//final means that we can't change the value after it has been initialized, in this case in the controller.
     private final PersonalToolFactory  personalToolFactory;
     private final CompanyToolFactory  companyToolFactory;
 
+    // TODO: Lombock?
     public ToolController(ToolService toolService) {
         this.toolService = toolService;
         this.personalToolFactory = new PersonalToolFactory();
         this.companyToolFactory = new CompanyToolFactory();
     }
-
 
     @Operation(
             summary = "Gets a list of all tools in the database.",
@@ -36,8 +38,9 @@ public class ToolController {
     @GetMapping("")
     //Makes a list called List and gets all tools
     public ResponseEntity<List<ToolDto>> getAllTools(){
-        //Stream makes the data into a modifiable "type"  which allows for operations like map to be performed
-        List<ToolDto> list = toolService.getAllToolsExcludingPending().stream()
+        List<ToolDto> list = toolService.getAllToolsExcludingPending()
+                //Stream makes the data into a modifiable "type"  which allows for operations like map to be performed
+                .stream()
                 //Map make a new array,
                 //the function in map: For each tool in toolService it calls "new toolDto"
                 .map(t->t.getIs_personal().equals(true)? personalToolFactory.determineTool(t) : companyToolFactory.determineTool(t))
@@ -54,7 +57,8 @@ public class ToolController {
     @GetMapping("/department/{department}")
     //@pathVariable: get a string and inserts it into the endpoint (url)
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {
-        List<ToolDto> list = toolService.getAllToolsByDepartmentName(department).stream()
+        List<ToolDto> list = toolService.getAllToolsByDepartmentName(department)
+                .stream()
                 .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
@@ -70,7 +74,8 @@ public class ToolController {
             @PathVariable String jurisdiction,
             @PathVariable String stage
     ){
-        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage).stream()
+        List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage)
+                .stream()
                 .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
@@ -101,7 +106,8 @@ public class ToolController {
     public ResponseEntity<List<ToolDto>> getAllPendingToolsByUserDepartment(
             @PathVariable String department
     ){
-        List<ToolDto> list = toolService.findPendingToolByUserDepartment(department).stream()
+        List<ToolDto> list = toolService.findPendingToolByUserDepartment(department)
+                .stream()
                 .map(companyToolFactory::determineTool)
                 .toList();
         return ResponseEntity.ok(list);
@@ -135,6 +141,3 @@ public class ToolController {
         return ResponseEntity.ok(toolAsArgument);
     }
 }
-
-
-

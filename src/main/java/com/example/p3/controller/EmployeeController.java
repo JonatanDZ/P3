@@ -25,7 +25,6 @@ public class EmployeeController {
             summary = "Get employee by initials",
             description = "Looks up an employee based on their initials. Initials must be 2–4 letters, including Danish characters (Æ, Ø, Å)."
     )
-
     // "{initials}" is the path variable the endpoint will take
     @GetMapping("/initials/{initials}")
     public ResponseEntity<EmployeeDto> getEmployeeByInitials(@PathVariable String initials) {
