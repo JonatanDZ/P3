@@ -24,22 +24,14 @@ export function wagnerFischer(s1, s2) {
 
     for(let i = 1; i < m; i++){
         for(let j = 1; j < n; j++){
-
-            //If we have to substitute a char
-            let substitutionCost = 1;
-
-            //If the chars are identical we don't have to sub, meaning the cost is free
-            if (s1[i] === s2[j]){
-               substitutionCost = 0;
-            }
-
+            
             dp[i][j] = Math.min(
                 //Deleting a char
-                dp[i - 1][j] + 1, 
+                dp[i - 1][j] + 1,
                 //Inserting a char
                 dp[i][j - 1] + 1, //Maybe we should make this cheaper meaning that it would help auto complete longer words
-                //sustituting a char 
-                dp[i - 1][j - 1] + substitutionCost);
+                //sustituting a char //If the chars are identical we don't have to sub, meaning the cost is free
+                dp[i - 1][j - 1] + (s1[i] === s2[j] ? 0 : 1));
         }
     }
 
