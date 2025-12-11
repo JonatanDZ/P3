@@ -20,9 +20,6 @@ public class RepositoryGlobalMethods {
     @Autowired
     private JurisdictionRepository jurisdictionRepositoryTest;
 
-//    @Autowired
-//    private StageRepository stageRepositoryTest;
-
     public Employee createEmployee() {
         Department department = createDepartment();
         return new Employee("HOHO", "Holly Hobler", "HOHO@mail.dk", department);

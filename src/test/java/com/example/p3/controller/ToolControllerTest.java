@@ -1,6 +1,9 @@
 package com.example.p3.controller;
 
 import com.example.p3.entities.*;
+import com.example.p3.repositories.DepartmentRepository;
+import com.example.p3.repositories.JurisdictionRepository;
+import com.example.p3.repositories.StageRepository;
 import com.example.p3.repository.RepositoryGlobalMethods;
 import com.example.p3.service.ToolService;
 import org.junit.jupiter.api.Test;
@@ -28,6 +31,15 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
 
     @MockitoBean
     private ToolService toolService; // To mock toolService
+
+    @MockitoBean
+    private StageRepository stageRepositoryTest;
+
+    @MockitoBean
+    private DepartmentRepository departmentRepositoryTest;
+
+    @MockitoBean
+    private JurisdictionRepository jurisdictionRepositoryTest;
 
     // Testing: /tools GET
     @Test
