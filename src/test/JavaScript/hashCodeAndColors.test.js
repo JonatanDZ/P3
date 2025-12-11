@@ -1,4 +1,4 @@
-import { stringToColor } from "../../../main/resources/static/js/searchbar.js";
+import { stringToColor } from "../../main/resources/static/js/searchbar.js";
 
 // Checks if the string gets the right color
 describe("stringToColor", () => {

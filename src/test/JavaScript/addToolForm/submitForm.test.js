@@ -1,4 +1,4 @@
-import { submitForm} from '../../../main/resources/static/js/submitForm.js';
+import {submitForm} from '../../../main/resources/static/js/submitForm.js';
 
 global.fetch = jest.fn();
 
@@ -33,7 +33,7 @@ describe('submitForm', () => {
             ok: true,
             json: async () => ({ success: true }),
         }
-//Uses submitForm on the hard coded HTML to make it "visible" for jest
+        //Uses submitForm on the hard coded HTML to make it "visible" for jest
         global.fetch.mockResolvedValue(mockResponse);
         await submitForm();
 

@@ -1,4 +1,4 @@
-import {wagnerFischer} from "../../../main/resources/static/js/fuzzySearch.js";
+import {wagnerFischer} from "../../main/resources/static/js/fuzzySearch.js";
 
 describe("wagnerFischer", () => {
 

@@ -1,6 +1,6 @@
 // Hardcoded for PEDO, should be changed if we want OAuth or another user to be tested.
 // DevOps: JADE, Frontend: PEDO, Games: MAGA, Players: JAPL, Promotions: DEPE, HR: MOVO, Legal: BEKO
-export async function getCurrentEmployee(initials = "PEDO") {
+export async function getCurrentEmployee(initials = "JAPL") {
     // hardcoded by having a constant argument of employee with initials: "PEDO"
     // fetching from employee endpoint. Returns a JSON object of the employee
     const response = await fetch(`/employee/initials/${initials}`);

@@ -1,4 +1,4 @@
-import { fuzzySearch } from "../../../main/resources/static/js/fuzzySearch.js";
+import { fuzzySearch } from "../../main/resources/static/js/fuzzySearch.js";
 
 describe("fuzzySearch()", () => {
 
@@ -23,14 +23,14 @@ describe("fuzzySearch()", () => {
         expect(fuzzySearch("swager", tool)).toBe(true);
     });
 
-    // Short strings usually give low similarity; 'swa' should not match 'swagger'
-    test("'swa' is too short to match 'swagger' and should return false", () => {
-        expect(fuzzySearch("swa", tool)).toBe(false);
+    // Short strings usually give low similarity; but starts with makes it true
+    test("'swa' is too short to match 'swagger' but is the start of 'swagger' and should return true", () => {
+        expect(fuzzySearch("swa", tool)).toBe(true);
     });
 
-    // 'example' is part of the URL, but according to similarity logic it does not pass the 0.30
-    test("'example' should NOT match the URL because similarity stays below the 0.30", () => {
-        expect(fuzzySearch("example", tool)).toBe(false);
+    // 'eksemble' is too far away from the
+    test("'eksemble' should NOT match the URL because similarity stays below the 0.30", () => {
+        expect(fuzzySearch("eksemble", tool)).toBe(false);
     });
 
     // 'api' is an exact tag and should match
@@ -38,9 +38,9 @@ describe("fuzzySearch()", () => {
         expect(fuzzySearch("api", tool)).toBe(true);
     });
 
-    // 'doc' should not be similar enough to 'documentation'
-    test("'doc' is too short to match the tag 'documentation' and should return false", () => {
-        expect(fuzzySearch("doc", tool)).toBe(false);
+    // 'doc' should not be similar enough to 'documentation' but 'documentation' starts with 'doc'
+    test("'doc' is too short to match 'Documentation' but is the start of 'Documentation' and should return true", () => {
+        expect(fuzzySearch("doc", tool)).toBe(true);
     });
 
     test("'openap' should match the tag 'openapi' because similarity is high", () => {

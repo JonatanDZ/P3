@@ -1,4 +1,4 @@
-import { toggleForm } from '../../../main/resources/static/js/toggleForm.js';
+import { toggleForm } from '../../main/resources/static/js/toggleForm.js';
 
 describe('toggleForm', () => {
     beforeEach(() => {

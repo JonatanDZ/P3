@@ -1,4 +1,4 @@
-import {footerUpdate} from '../../../main/resources/static/js/footerVariable.js';
+import {footerUpdate} from '../../main/resources/static/js/footerVariable.js';
 
 describe("footerUpdate()", () => {
     beforeEach(() => {
