@@ -20,6 +20,7 @@ public class JurisdictionController {
         this.JurisdictionService = JurisdictionService;
     }
 
+    //Swagger annotation
     @Operation(
             summary = "Gets all jurisdictions.",
             description = "Returns a list of all jurisdictions in the db given no conditions."

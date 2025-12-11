@@ -1,4 +1,4 @@
-//HAVE USED W3SCHOOLS EXAMPLE FOR THIS:
+//HAVE USED W3SCHOOLS EXAMPLE FOR SOME OF THIS:
 //https://www.w3schools.com/howto/howto_js_autocomplete.asp
 
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
@@ -50,7 +50,7 @@ async function searchbar(inp, arr) {
         }
     });
 
-    //The focus funktion. Makes it possible to use the arrows to go though tools
+    //The focus function. Makes it possible to use the arrows to go though tools
     inp.addEventListener("keydown", function(e) {
         let x = document.getElementById(this.id + "searchbar-list");
         if (x) x = x.querySelectorAll(".focusable");

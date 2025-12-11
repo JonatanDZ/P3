@@ -1,7 +1,6 @@
 package com.example.p3.controller;
 
 import com.example.p3.dtos.TagDto;
-
 import com.example.p3.service.TagService;
 import com.example.p3.entities.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +18,7 @@ public class TagController {
         this.tagService = tagService;
     }
 
+    //Swagger annotation
     @Operation(
             summary = "Gets a list of all tags.",
             description = "Retrieves all tags in the database, given no conditions."

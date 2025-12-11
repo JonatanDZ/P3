@@ -1,6 +1,7 @@
 import {getJurisdiction, getStage} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
+//Checks if a tool is favorited
 export async function isToolInFavorite(toolId) {
     const employee = await getCurrentEmployee();
     const employeeInitials = employee.initials;

@@ -1,7 +1,6 @@
 package com.example.p3.repository;
 
 import com.example.p3.entities.Department;
-import com.example.p3.entities.Employee;
 import com.example.p3.repositories.DepartmentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

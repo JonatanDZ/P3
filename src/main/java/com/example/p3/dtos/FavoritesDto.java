@@ -2,7 +2,6 @@ package com.example.p3.dtos;
 
 import com.example.p3.entities.*;
 import lombok.Data;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

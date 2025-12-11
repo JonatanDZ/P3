@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    // this is an annotation used for swagger. It allows for understanding the endpoint at a quick glance
+    //This is an annotation used for swagger. It allows for understanding the endpoint at a quick glance
     @Operation(
             summary = "Get employee by initials",
             description = "Looks up an employee based on their initials. Initials must be 2–4 letters, including Danish characters (Æ, Ø, Å)."
@@ -27,10 +27,10 @@ public class EmployeeController {
         if (!initials.matches("^[A-Za-zÆØÅæøå]{2,4}$")){
             return ResponseEntity.badRequest().build();
         }
-        // Calls employee servide to get the employee by initials
+        // Calls employee service to get the employee by initials
         Employee employee = employeeService.getEmployeeByInitials(initials).orElse(null);
 
-        // if the provided employee initials in the path variable is null it will return Not Found
+        //If the provided employee initials in the path variable is null it will return Not Found
         if  (employee == null) {
             return ResponseEntity.notFound().build();
         } else {

@@ -1,6 +1,5 @@
 import {isToolInFavorite} from "./isToolInFavorite.js";
 import {displayFavorites} from "./displayFavorites.js";
-import {getToolsDisplay} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 import {showTagsInDiv} from "./searchbar.js";
 

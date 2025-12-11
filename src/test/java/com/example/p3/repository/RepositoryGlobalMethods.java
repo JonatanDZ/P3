@@ -5,12 +5,9 @@ import com.example.p3.entities.Employee;
 import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Stage;
 import com.example.p3.repositories.DepartmentRepository;
-import com.example.p3.repositories.EmployeeRepository;
 import com.example.p3.repositories.JurisdictionRepository;
-//import com.example.p3.repositories.StageRepository;
 import com.example.p3.repositories.StageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class RepositoryGlobalMethods {

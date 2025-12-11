@@ -47,6 +47,29 @@ VALUES
     ('Spil Nu Stage',         '$USER$.stage.spilnu.dk',            FALSE, TRUE),
     ('Spil Nu Production',    'https://spilnu.dk',                   FALSE, TRUE);
 
+-- --- TAGS ---
+INSERT INTO tag (value)
+VALUES
+    ('Swagger'),
+    ('Documentation'),
+    ('Office'),
+    ('Communication');
+
+-- --- TOOL ↔ TAG ---
+INSERT INTO tool_tag (tool_id,tag_id)
+VALUES
+-- Communication to Slack
+(2, 4),
+
+-- Swagger to Dev
+(3, 1),(6, 1),
+
+-- Documentation to Stage
+(4, 2),(7, 2),
+
+-- Office to Outlook
+(1, 3);
+
 -- --- DEPARTMENT ↔ TOOL ---
 INSERT INTO department_tool (department_id, tool_id)
 VALUES
@@ -133,3 +156,4 @@ VALUES
 
 -- Beelzebub Komseda (BEKO)
 ('BEKO', 1),('BEKO', 2),('BEKO', 5),('BEKO', 8);
+

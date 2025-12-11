@@ -105,7 +105,7 @@ export async function enableTagSearch(){
             }
 
         })
-        //TODO : ensure that it dissapears when there is a match
+        //Ensure that it dissapears when there is a match
         if(!isCompleteMatch){
             createSubmitBtn(suggestionBox, input);
         }

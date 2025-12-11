@@ -50,7 +50,7 @@ public class Tool {
 
     @ManyToMany
     @JoinTable(
-            name = "department_tool",                                // SELECT * FROM tool t
+            name = "department_tool",                                //SELECT * FROM tool t
             joinColumns = @JoinColumn(name = "tool_id"),             //JOIN tool_department td ON t.id = td.tool_id
             inverseJoinColumns = @JoinColumn(name = "department_id") //JOIN department d ON td.department_id = d.id
 

@@ -23,7 +23,7 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    // this is an annotation used for swagger. It allows for understanding the endpoint at a quick glance
+    // This is an annotation used for swagger. It allows for understanding the endpoint at a quick glance
     @Operation(
             summary = "Gets a list of all departments",
             description = "Returns every department in the database in the form of a list."

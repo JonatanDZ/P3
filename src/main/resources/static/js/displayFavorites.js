@@ -4,7 +4,7 @@ import {displayTools} from "./displayTools.js";
 
 export async function displayFavorites () {
     // clear the list each time it is called.
-    // If this is not implemented it appends to the list each time..
+    // If this is not implemented it appends to the list each time.
     const list = document.getElementById("favorites");
     list.innerText = "";
 

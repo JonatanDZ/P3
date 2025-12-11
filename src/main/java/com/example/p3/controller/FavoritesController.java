@@ -14,6 +14,7 @@ import java.util.List;
 public class FavoritesController {
     private final FavoritesService favoritesService;
 
+    //Swagger annotation
     @Operation(
             summary = "Gets the favorite list of a user given user given proper conditions.",
             description = "Retrieves the favorite list of a user given user initials, current jurisdiction and current stage."

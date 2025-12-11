@@ -1,7 +1,6 @@
 package com.example.p3.service;
 
 import com.example.p3.entities.Jurisdiction;
-
 import org.springframework.stereotype.Service;
 import com.example.p3.repositories.JurisdictionRepository;
 

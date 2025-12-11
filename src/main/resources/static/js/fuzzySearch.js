@@ -16,7 +16,7 @@ export function wagnerFischer(s1, s2) {
         dp[i][0] = i;
     }
 
-    //Making an empty string cost the same as deletig everychar in the string
+    //Making an empty string cost the same as deleting every char in the string
     for(let j = 0; j < n; j++){
         dp[0][j] = j;
     }

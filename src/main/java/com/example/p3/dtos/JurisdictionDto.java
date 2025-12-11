@@ -2,11 +2,12 @@ package com.example.p3.dtos;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Tool;
 import lombok.Data;
 
+
+//@Data is a combination of several Lombok annotations
 @Data
 public class JurisdictionDto {
     // attributes of Jurisdiction
