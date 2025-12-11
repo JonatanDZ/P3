@@ -36,9 +36,16 @@ public class FavoritesController {
             @RequestParam String jurisdiction,
             @RequestParam String stage
     ) {
-        List<FavoritesDto> list = favoritesService.getFavorites(employeeInitials, jurisdiction, stage).stream()
+        // Calls service to get all favorites
+        // Fetch all favorites entities and convert them to DTOs
+        List<FavoritesDto> list = favoritesService.getFavorites(employeeInitials, jurisdiction, stage)
+                // Converts the list returned by the service into a stream so we can use the Streams API (map, filter, etc.).
+                .stream()
+                // For each favorite(favorite entity) in the stream, a new favoriteDto is created with the favoriteDto constructor.
                 .map(FavoritesDto::new)
+                // Collects the mapped stream and puts it into List<FavoritesDto>
                 .toList();
+        // Returns a list of FavoritesDtos wrapped in a ResponseEntity to control HTTP status, headers, etc.
         return ResponseEntity.ok().body(list);
     }
 
