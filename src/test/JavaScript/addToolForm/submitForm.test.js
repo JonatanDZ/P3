@@ -18,8 +18,6 @@ global.alert = jest.fn();
 beforeEach(()=>{
     fetch.resetMocks();
     jest.clearAllMocks();
-
-
 });
 
 describe("submitForm", () => {
