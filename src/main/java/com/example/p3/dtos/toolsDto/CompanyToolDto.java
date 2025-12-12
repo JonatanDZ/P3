@@ -4,8 +4,11 @@ import com.example.p3.entities.Department;
 import com.example.p3.entities.Jurisdiction;
 import com.example.p3.entities.Stage;
 import com.example.p3.entities.Tool;
+
 import lombok.Getter;
+
 import com.example.p3.entities.Tag;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +32,8 @@ public class CompanyToolDto implements ToolDto {
         this.name = t.getName();
         this.url = t.getUrl();
         this.pending = t.getPending();
-        this.tags = t.getTags().stream()
+        this.tags = t.getTags()
+                .stream()
                 .map(Tag::getValue)
                 .collect(Collectors.toList());
 
@@ -40,17 +44,19 @@ public class CompanyToolDto implements ToolDto {
         // if this is not present it will create issues in displaying tools and destroy the UI !!!
         this.created_by = t.getCreated_by() == null ? null : t.getCreated_by().getInitials();
 
-        this.departments = t.getDepartments().stream()
+        this.departments = t.getDepartments()
+                .stream()
                 .map(Department::getName)
                 .collect(Collectors.toList());
 
-        this.jurisdictions = t.getJurisdictions().stream()
+        this.jurisdictions = t.getJurisdictions()
+                .stream()
                 .map(Jurisdiction::getName)
                 .collect(Collectors.toList());
 
-        this.stage = t.getStages().stream()
+        this.stage = t.getStages()
+                .stream()
                 .map(Stage::getName)
                 .collect(Collectors.toList());
-
     }
 }

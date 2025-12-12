@@ -42,7 +42,6 @@ function getDepartmentsDisplay(){
             })
         })
         .catch(error => console.error('Error fetching Department:', error));
-
 }
 
 // getToolsByDepartmentJurisdictionStage endpoint and display
@@ -111,9 +110,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-
 ///////// HELPER METHODS /////////
-
 export function getJurisdiction() {
     // jurisdiction is a checkbox
     // It is UK when checked and DK when not checked
@@ -139,6 +136,3 @@ export function getDepartment(){
     // get the currently selected radio
     return container.querySelector('input[type="radio"]:checked')?.value;
 }
-
-
-

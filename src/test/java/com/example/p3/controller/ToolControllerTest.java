@@ -6,6 +6,7 @@ import com.example.p3.repositories.JurisdictionRepository;
 import com.example.p3.repositories.StageRepository;
 import com.example.p3.repository.RepositoryGlobalMethods;
 import com.example.p3.service.ToolService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,7 +21,6 @@ import java.util.*;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 
 //Tests the controller not the service.
 @WebMvcTest(ToolController.class)
@@ -78,7 +78,6 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].departments").doesNotExist())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].jurisdictions").isArray())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].stage").isArray());
-
     }
 
     // Testing: /tools/department/DEVOPS GET
@@ -127,7 +126,6 @@ public class ToolControllerTest extends RepositoryGlobalMethods {
         Jurisdiction jur = new Jurisdiction();
         jur.setName("DK");
         jurisdictionSet.add((jur));
-
 
         Set<Stage> stagesSet = new HashSet<>();
         Stage stageTest = new Stage();

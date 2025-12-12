@@ -7,6 +7,7 @@ import com.example.p3.entities.Stage;
 import com.example.p3.repositories.DepartmentRepository;
 import com.example.p3.repositories.JurisdictionRepository;
 import com.example.p3.repositories.StageRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -44,4 +45,3 @@ public class RepositoryGlobalMethods {
         return stageRepositoryTest.save(stage);
     }
 }
-

@@ -95,10 +95,7 @@ async function searchbar(inp, arr) {
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
-
-
 }
-
 
 export async function setUpSearchBar() {
     try{
@@ -164,7 +161,6 @@ export function showTagsInDiv(tags, parentElement){
         chip.appendChild(label);
         tagContainer.appendChild(chip);
     }
-
     parentElement.appendChild(tagContainer);
 
     return parentElement;

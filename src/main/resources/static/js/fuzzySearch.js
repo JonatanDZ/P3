@@ -21,7 +21,6 @@ export function wagnerFischer(s1, s2) {
         dp[0][j] = j;
     }
 
-
     for(let i = 1; i < m; i++){
         for(let j = 1; j < n; j++){
             

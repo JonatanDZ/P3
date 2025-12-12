@@ -8,7 +8,6 @@ export async function isToolInFavorite(toolId) {
     const jurisdiction = getJurisdiction();
     const stage = getStage();
 
-
     try {
         //fetches an employees favorite list
         const response = await fetch(

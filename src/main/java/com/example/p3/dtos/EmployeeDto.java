@@ -1,8 +1,8 @@
 package com.example.p3.dtos;
 
 import com.example.p3.entities.Employee;
-import lombok.Data;
 
+import lombok.Data;
 
 @Data
 public class EmployeeDto {

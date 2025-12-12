@@ -138,5 +138,3 @@ export async function displayTools(data, list) {
 
     }
 }
-
-

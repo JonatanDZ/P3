@@ -3,6 +3,7 @@ package com.example.p3.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,8 +26,6 @@ public class Tag {
     @Column(name = "value", nullable = false)
     private String value;
 
-
     @ManyToMany(mappedBy = "tags")
     private Set<Tool> tagTools = new HashSet<>();
-
 }

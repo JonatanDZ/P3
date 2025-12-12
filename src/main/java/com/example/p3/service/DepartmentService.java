@@ -8,13 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
-
 @Service
 @AllArgsConstructor
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
-
 
     public List<Department> getAllDepartments() {
         // findAll is a part of JpaRepository

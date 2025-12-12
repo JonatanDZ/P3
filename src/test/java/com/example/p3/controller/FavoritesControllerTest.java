@@ -1,7 +1,5 @@
 package com.example.p3.controller;
 
-
-
 import com.example.p3.entities.Department;
 import com.example.p3.entities.Employee;
 import com.example.p3.entities.Jurisdiction;
@@ -93,7 +91,6 @@ class FavoritesControllerTest {
 
         //Make mock employees
         Employee employee = EmployeeContructor("JD", "John Doe", "SomeEmail", hr, emptyToolSet);
-
 
         //
         // All to mock tools

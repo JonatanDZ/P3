@@ -23,7 +23,6 @@ h1 {
     color: var(--text-main);
 }
 
-
 body {
     margin: 0;
     padding-top: 80px;
@@ -231,8 +230,6 @@ section {
     margin-top: 3rem;
     margin-left: 13.75rem;
 }
-
-
 
 #allTools,
 #departmentSelected,

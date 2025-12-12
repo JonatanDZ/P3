@@ -30,7 +30,6 @@ export function toggleCards(i, currentCard){
     const newCard = allowedCards[nextIndex];
     document.querySelector(`#formCard${newCard}`).style.display = "block";
 
-
     return newCard;
 }
 
@@ -95,7 +94,6 @@ export function displayReview(){
     const isPersonal = document.querySelector("#isPersonal").checked;
     const isDynamic = document.querySelector("#isDynamic").checked;
 
-
     // What to print if is personal
     if (isPersonal){
         createParagraph(div, "Personal", isPersonal ? "Yes" : "No");
@@ -128,4 +126,3 @@ export function clearDiv(div){
         div.removeChild(div.lastChild);    
     }
 }
-
