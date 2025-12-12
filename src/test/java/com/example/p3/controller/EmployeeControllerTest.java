@@ -21,7 +21,6 @@ import static org.mockito.Mockito.*;
 
 @WebMvcTest(EmployeeController.class)
 class EmployeeControllerTest {
-
     //Constructor for employee
     public Employee EmployeeContructor(String initials, String name, String email, Department department, Set<Tool> favoriteTools) {
         Employee employee = new Employee();
@@ -70,7 +69,6 @@ class EmployeeControllerTest {
         Employee employee1 = EmployeeContructor("JD", "John Doe", "SomeEmail", hr, emptyToolSet);
         Employee employee2 = EmployeeContructor("ÅS", "Ålice Smith", "AnotherEmail", devOps, emptyToolSet);
 
-
         //When getting JD return mock employee JD and check that it matches
         when(employeeService.getEmployeeByInitials("JD")).thenReturn(Optional.ofNullable(employee1));
         mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/JD"))
@@ -100,11 +98,10 @@ class EmployeeControllerTest {
                 .thenReturn(Optional.empty());
         //Act; perform the get request to the controller with the wrong initals
         mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/" + initials))
-
                 //Assert; a http status is 404 Not Found
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
-
     }
+
     //This test is to check it returns error (400) when the input isn't 4 initials.
     // Testing: /employee/initials/ GET
     @Test
@@ -114,7 +111,6 @@ class EmployeeControllerTest {
 
         //Act - perform the get request to the controller with the bad request
         mockMvc.perform(MockMvcRequestBuilders.get("/employee/initials/" + badInput))
-
                 //Assert - the http status is 400 Bad Request
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }

@@ -2,6 +2,7 @@ package com.example.p3.controller;
 
 import com.example.p3.entities.*;
 import com.example.p3.service.TagService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -128,5 +129,4 @@ public class TagControllerTest {
                 //Assert a Bad Request 400
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
-
 }
