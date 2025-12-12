@@ -2,6 +2,7 @@ package com.example.p3.controller;
 
 import com.example.p3.entities.Department;
 import com.example.p3.service.DepartmentService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -19,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(DepartmentController.class)
 public class DepartmentControllerTest {
-
     //Constructor for department
     public Department DepartmentConstructor(int id, String name, Boolean is_dev){
         Department department = new Department();
@@ -66,6 +66,5 @@ public class DepartmentControllerTest {
                 .andExpect(jsonPath("[2].id").value(3))
                 .andExpect(jsonPath("[2].name").value("Promotions"))
                 .andExpect(jsonPath("[2]._dev").value(true)); //IDK why it is returned as "_dev" ad not "is_dev"
-
     }
 }
