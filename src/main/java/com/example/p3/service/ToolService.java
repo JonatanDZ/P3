@@ -2,8 +2,11 @@ package com.example.p3.service;
 
 import com.example.p3.entities.*;
 import com.example.p3.repositories.ToolRepository;
+
 import jakarta.transaction.Transactional;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +22,10 @@ public class ToolService {
 
     //Filters the tools so only tool with the department from the URL is returned
     public List<Tool> getAllToolsByDepartmentName(String departmentName) {
-      return toolRepository.findByDepartments_Name(departmentName);
+        return toolRepository.findByDepartments_Name(departmentName);
     }
 
-    public List<Tool> getAllToolsByDepartmentJurisdictionStage(String department, String jurisdiction, String stage){
+    public List<Tool> getAllToolsByDepartmentJurisdictionStage(String department, String jurisdiction, String stage) {
         return toolRepository.findByDepartments_NameAndJurisdictions_NameAndStages_Name(department, jurisdiction, stage);
     }
 
@@ -30,10 +33,9 @@ public class ToolService {
         return toolRepository.save(tool);
     }
 
-
-public List<Tool> findPendingToolByUserDepartment(String departmentName){
-    return toolRepository.findPendingToolByUserDepartment(departmentName);
-}
+    public List<Tool> findPendingToolByUserDepartment(String departmentName) {
+        return toolRepository.findPendingToolByUserDepartment(departmentName);
+    }
 
     // delete Pending Tool
     @Transactional
@@ -48,6 +50,4 @@ public List<Tool> findPendingToolByUserDepartment(String departmentName){
         toolRepository.setStateOfPendingFalse(toolId);
         return toolRepository.findById(toolId).orElseThrow();
     }
-
 }
-
