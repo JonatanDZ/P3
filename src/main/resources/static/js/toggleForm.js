@@ -81,7 +81,7 @@ export function displayReview(){
     });
     departmentString = departmentString.slice(0, -2); //The last two chars. In this case ", "
 
-        //We have to use "dataset.tag" because a div doesn't have the attribute value
+    //We have to use "dataset.tag" because a div doesn't have the attribute value
     const tagContainer = document.querySelector("#selectedTags");
     tagContainer.querySelectorAll('.tag-chip').forEach(tag => {
         tagString += tag.dataset.tagName + ", ";

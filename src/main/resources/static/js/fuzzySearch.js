@@ -53,7 +53,7 @@ export function fuzzySearch(input, tool){
 
     //Firstly check if it matches name
 
-    if (tool.name.toLowerCase().startsWith(input.toLowerCase() || wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.55)){
+    if (tool.name.toLowerCase().startsWith(input.toLowerCase()) || wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.55){
         return true;
     }
     //Then url. It we allow it through with a lower score because it is more difficult getting right.
