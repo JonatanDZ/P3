@@ -47,7 +47,7 @@ public class Tool {
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
-    
+
     @ManyToMany
     @JoinTable(
             name = "department_tool",                                //SELECT * FROM tool t
