@@ -30,24 +30,18 @@ document.addEventListener("DOMContentLoaded", ()=>{
                     document.removeEventListener("click", handleOutsideClick)
                 }
             });
-        }
-    )
+        });
     dynamicCheck = document.querySelector("#isDynamic");
     dynamicCheck.addEventListener("change", ()=>{
         displayURLbar(dynamicCheck.checked);
     });
-
-
 });
-
 
 function loadAllFromOptions(){
     loadOptions("departments");
     loadOptions("jurisdictions");
     enableTagSearch();
 }
-
-
 
 if (document.querySelector("#submitBtn")) {
     document.querySelector("#submitBtn").addEventListener("click",  (e) => {
@@ -94,6 +88,7 @@ export function updateAllowedCards(){
         dynamicCheck.checked = false;
         dynamicCheck.disabled = true;
         displayURLbar(document.querySelector("#isDynamic").checked);
+        // Removes the card that shows tags and departments
         window.allowedCards = [1,2,4,6]
     } else {
         dynamicCheck.disabled = false;

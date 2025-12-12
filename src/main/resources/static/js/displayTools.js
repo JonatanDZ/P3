@@ -82,13 +82,13 @@ export async function displayTools(data, list) {
         starBtn.appendChild(star)
         starClicked(starBtn, star, toolId);
 
-
         let tags = document.createElement('div');
         tags.className = 'tagsInTool';
         if (!tool.is_personal){
 
             tags = showTagsInDiv(tool.tags, tags);
         }
+
         //Circles that indicating stage and gives them the correct color
         const circles = document.createElement("div");
         circles.className = "circles";
@@ -110,10 +110,7 @@ export async function displayTools(data, list) {
         let footer = document.createElement("div");
         footer.className = "footer"
 
-        
-
         header.appendChild(nameE);
-
         header.appendChild(starBtn);
 
         const urlE = document.createElement('div');
@@ -127,12 +124,7 @@ export async function displayTools(data, list) {
         a.appendChild(header);
         a.appendChild(tags);
         a.appendChild(footer);
-
-
         li.appendChild(a);
         list.appendChild(li);
-
     }
 }
-
-
