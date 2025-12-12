@@ -1,9 +1,112 @@
-import { submitForm} from '../../../main/resources/static/js/submitForm.js';
+import { submitForm } from "../../../main/resources/static/js/submitForm.js";
 
-global.fetch = jest.fn();
+// MOCK external modules submitForm depends on:
+jest.mock("../../../main/resources/static/js/fetchTool.js", () => ({
+    poster: jest.fn()
+}));
+
+jest.mock("../../../main/resources/static/js/getCurrentEmployee.js", () => ({
+    getCurrentEmployee: jest.fn()
+}));
+
+import { poster } from "../../../main/resources/static/js/fetchTool.js";
+import { getCurrentEmployee } from "../../../main/resources/static/js/getCurrentEmployee.js";
+
+// Mock alert to avoid errors
+global.alert = jest.fn();
+
+
+beforeEach(() => {
+    fetch.resetMocks();
+    jest.clearAllMocks();
+
+    document.body.innerHTML = `
+        <div id="addToolDiv" style="display:none;"></div>
+        <button class="toggleBtn"></button>
+        <input type="checkbox" id="isPersonal">
+        <input id="toolName" value="Test Tool"/>
+        <input id="toolURL1" value="http://example."/>
+        <b id="toolUser">USER</b>
+        <input id="toolURL2" value=".com"/>
+        <div id="selectedTags" class="selected-tags"><div class="tag-chip" data-tag="3" data-tag-name="Office" style="background-color: rgb(143, 220, 198);"><span>Office</span><button type="button">x</button></div></div>
+        <input type="checkbox" id="isDynamic"/>
+        <div class="checkBoxDiv"><label>DevOps</label><input type="checkbox" id="DevOpsInput" value="1" class="departmentsChecks" checked></div>
+        <div class="checkBoxDiv">
+            <label for="stagingInput"> Staging </label>
+            <input id="stagingInput" class="stagesChecks" type="checkbox" value="2" name="Staging" checked>
+        </div>
+        <div class="checkBoxDiv"><label>DK</label><input type="checkbox" id="DKInput" value="1" class="jurisdictionsChecks" checked></div>
+        <button id="submitBtn"></button>
+    `;
+
+    // Mock required external functions
+    poster.mockResolvedValue({ id: 999, is_personal: false });
+    getCurrentEmployee.mockResolvedValue({ initials: "USER" });
+});
+
+describe("submitForm", () => {
+    test("submit form non-dynamic link", async () => {
+        fetch.mockResponseOnce(JSON.stringify({ success: true })); // personal tool post
+
+        await submitForm();
+
+        expect(poster).toHaveBeenCalled();
+        expect(fetch).not.toHaveBeenCalled();
+
+
+        const [url, jsonString] = poster.mock.calls[0];
+        const body = JSON.parse(jsonString);
+
+
+        expect(body.name).toBe("Test Tool");
+        expect(body.url).toBe("http://example.");
+        expect(body.is_dynamic).toBe(false);
+        expect(body.tags).toEqual([{ id: "3" }]);
+        expect(body.departments).toEqual([{ id: "1" }]);
+        expect(body.jurisdictions).toEqual([{ id: "1" }]);
+        expect(body.stages).toEqual([{ id: "2" }]);
+    });
+
+    test("submit form dynamic link 2", async () => {
+        // Make tool dynamic
+        document.querySelector("#isDynamic").checked = true;
+
+        // Make tool personal so fetch() is triggered
+        poster.mockResolvedValue({ id: 999, is_personal: true });
+
+        // Mock getCurrentEmployee() since fetch URL uses initials
+        getCurrentEmployee.mockResolvedValue({ initials: "USER" });
+
+        // Mock the fetch that should be triggered for personal tools
+        fetch.mockResponseOnce(JSON.stringify({ success: true }));
+
+        await submitForm();
+
+        // NOW fetch must have been called
+        expect(fetch).toHaveBeenCalled();
+
+        const [url, options] = fetch.mock.calls[0];
+
+        // This fetch has NO BODY because your code does:
+        // fetch(`employee/${initials}/favorites/${toolId}`, { method: "POST" })
+        // so body is undefined
+        // So we DON'T parse a body here
+        expect(url).toBe("employee/USER/favorites/999");
+
+        // Instead we test the dynamic URL inside JSON sent to poster:
+        const [posterUrl, posterJson] = poster.mock.calls[0];
+        const body = JSON.parse(posterJson);
+
+        expect(body.url).toBe("http://example.$USER$.com");
+        expect(body.is_dynamic).toBe(true);
+    });
+});
+
+
+
+
 
 describe('submitForm', () => {
-    let mockResponse;
     beforeEach(() => {
         jest.clearAllMocks();
 //Data used for the tests (simply hard coded HTML)
