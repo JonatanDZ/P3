@@ -30,7 +30,6 @@ export function toggleCards(i, currentCard){
     const newCard = allowedCards[nextIndex];
     document.querySelector(`#formCard${newCard}`).style.display = "block";
 
-
     return newCard;
 }
 
@@ -81,7 +80,7 @@ export function displayReview(){
     });
     departmentString = departmentString.slice(0, -2); //The last two chars. In this case ", "
 
-        //We have to use "dataset.tag" because a div doesn't have the attribute value
+    //We have to use "dataset.tag" because a div doesn't have the attribute value
     const tagContainer = document.querySelector("#selectedTags");
     tagContainer.querySelectorAll('.tag-chip').forEach(tag => {
         tagString += tag.dataset.tagName + ", ";
@@ -94,7 +93,6 @@ export function displayReview(){
 
     const isPersonal = document.querySelector("#isPersonal").checked;
     const isDynamic = document.querySelector("#isDynamic").checked;
-
 
     // What to print if is personal
     if (isPersonal){
@@ -128,4 +126,3 @@ export function clearDiv(div){
         div.removeChild(div.lastChild);    
     }
 }
-

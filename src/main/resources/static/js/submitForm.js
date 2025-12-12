@@ -2,9 +2,7 @@ import {poster} from "./fetchTool.js";
 import {addTagChip} from "./loadOptions.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 
-
 export async function submitTag(){
-
         let input = document.querySelector("#tags");
         let tag = {value: input.value.trim()};
 
@@ -17,6 +15,7 @@ export async function submitTag(){
         input.value = "";
         input.focus();
 }
+
 let jsonData;
 export async function submitForm() {
     try {
@@ -61,7 +60,6 @@ export async function submitForm() {
     //Makes sure tool can be loaded to database before displaying
 }
 
-
 //Makes form data into a JSON
 export async function formToJSON(){
     const isPersonal = document.querySelector("#isPersonal").checked;
@@ -92,7 +90,6 @@ export async function formToJSON(){
     if (stages.length === 0){throw new Error("At least one stage must be selected.");}
 
     if (jurisdictions.length === 0){throw new Error("At least one jurisdiction must be selected.");}
-
 
     return JSON.stringify({is_personal : isPersonal , name, url, is_dynamic : isDynamic, departments, stages, jurisdictions, tags, pending, created_by: createdBy});
 }

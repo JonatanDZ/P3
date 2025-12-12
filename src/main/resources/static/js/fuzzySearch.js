@@ -21,7 +21,6 @@ export function wagnerFischer(s1, s2) {
         dp[0][j] = j;
     }
 
-
     for(let i = 1; i < m; i++){
         for(let j = 1; j < n; j++){
             
@@ -52,7 +51,6 @@ export function fuzzySearch(input, tool){
     }
 
     //Firstly check if it matches name
-
     if (tool.name.toLowerCase().startsWith(input.toLowerCase() || wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.55)){
         return true;
     }

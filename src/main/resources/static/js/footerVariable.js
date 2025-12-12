@@ -24,4 +24,3 @@ window.addEventListener('DOMContentLoaded', () => {
         if (e.target.matches('input[name="branch"]')) footerUpdate();
     });
 });
-

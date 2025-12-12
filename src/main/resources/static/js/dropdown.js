@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         await reloadDropdown();
         console.log("Refreshed by interval");
     }, 1000 * 60);
-
 });
 
 async function reloadDropdown() {
@@ -143,7 +142,6 @@ function createDropdownCard(pendingTool) {
             departments.appendChild(dep);
         }
     }
-
 
     const approveBtn = document.createElement("button");
     approveBtn.id = pendingTool.id;

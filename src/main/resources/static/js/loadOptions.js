@@ -61,7 +61,6 @@ export async function enableTagSearch(){
                 matches.push(tag);
             }
         });
-        
 
         // Hide suggestion box if no matches found
         if (matches.length === 0){
@@ -95,7 +94,6 @@ export async function enableTagSearch(){
                 tagInput.value = "";
                 tagInput.focus();
                 suggestionBox.style.display = "none";
-
             });
  
             //Checks if it is a complete match with one tool. If no add button and store match
@@ -103,13 +101,12 @@ export async function enableTagSearch(){
                 isCompleteMatch = true
                 completeMatch = tag;
             }
-
-        })
+        });
         //Ensure that it dissapears when there is a match
         if(!isCompleteMatch){
             createSubmitBtn(suggestionBox, input);
         }
-    })
+    });
 
     tagInput.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
@@ -125,7 +122,7 @@ export async function enableTagSearch(){
                 }
             }
         }
-    })
+    });
 }
 
 export function clearDiv(div){
@@ -182,7 +179,6 @@ export function addTagChip(tag){
     chip.dataset.tag = tag.id;
     chip.dataset.tagName = tag.value;
     chip.style.backgroundColor = stringToColor(tag.value);
-
 
     // Create tag label
     const label = document.createElement("span");
