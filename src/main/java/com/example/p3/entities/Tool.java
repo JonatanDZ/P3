@@ -2,6 +2,7 @@ package com.example.p3.entities;
 
 import jakarta.persistence.*; //Enables hibernate
 import jakarta.validation.constraints.Size; //This allows us to set size limitations to our attributes
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,8 +47,7 @@ public class Tool {
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();
-
-
+    
     @ManyToMany
     @JoinTable(
             name = "department_tool",                                //SELECT * FROM tool t
