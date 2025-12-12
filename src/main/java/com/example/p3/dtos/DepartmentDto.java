@@ -1,6 +1,7 @@
 package com.example.p3.dtos;
 
 import com.example.p3.entities.Department;
+
 import lombok.Data;
 
 @Data
@@ -15,5 +16,4 @@ public class DepartmentDto {
         this.name = d.getName();
         this.is_dev = d.getIs_dev();
     }
-
 }

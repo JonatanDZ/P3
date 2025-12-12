@@ -1,7 +1,9 @@
 package com.example.p3.dtos;
 
 import com.example.p3.entities.*;
+
 import lombok.Data;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,19 +29,23 @@ public class FavoritesDto {
         this.is_personal = t.getIs_personal();
         // stream API collect method. It converts a set to a list. Below are all conversions from a set (in entities) to a list (DTO)
         // it also maps to the name field in order to avoid infinite object recursion.
-        this.departments = t.getDepartments().stream()
+        this.departments = t.getDepartments()
+                .stream()
                 .map(Department::getName)
                 .collect(Collectors.toList());
 
-        this.stage = t.getStages().stream()
+        this.stage = t.getStages()
+                .stream()
                 .map(Stage::getName)
                 .collect(Collectors.toList());
 
-        this.jurisdictions = t.getJurisdictions().stream()
+        this.jurisdictions = t.getJurisdictions()
+                .stream()
                 .map(Jurisdiction::getName)
                 .collect(Collectors.toList());
 
-        this.tags = t.getTags().stream()
+        this.tags = t.getTags()
+                .stream()
                 .map(Tag::getValue) // or getName(), depending on your Tag entity
                 .collect(Collectors.toList());
     }
