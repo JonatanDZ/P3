@@ -16,6 +16,19 @@ export async function submitTag(){
         input.focus();
 }
 
+export async function favoriteTool(toolId){
+    const employee = await getCurrentEmployee();
+    const initials = employee.initials;
+
+    await fetch(`employee/${initials}/favorites/${toolId}`, {
+        method: "POST", // <-- important
+        headers: {
+            "Content-Type": "application/json"
+        }
+        // nobody needed, your backend just uses path variables
+    });
+}
+
 let jsonData;
 export async function submitForm() {
     try {
@@ -25,20 +38,10 @@ export async function submitForm() {
         const toolId = tool.id;
         const toolIsPersonal = tool.is_personal;
 
-        console.log(toolId, toolIsPersonal);
 
 
         if (toolIsPersonal) {
-            const employee = await getCurrentEmployee();
-            const initials = employee.initials;
-
-            await fetch(`employee/${initials}/favorites/${toolId}`, {
-                method: "POST", // <-- important
-                headers: {
-                    "Content-Type": "application/json"
-                }
-                // nobody needed, your backend just uses path variables
-            });
+            favoriteTool(toolId);
         }
         
         let data = JSON.parse(jsonData)
@@ -55,6 +58,7 @@ export async function submitForm() {
     } catch (error) {
         console.log("Error in submitForm:",error);
         alert("Error submitting form: " + error.message);
+        throw error;
     }
 
     //Makes sure tool can be loaded to database before displaying

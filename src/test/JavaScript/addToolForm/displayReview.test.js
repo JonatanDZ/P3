@@ -4,32 +4,25 @@ function setupDOM() {
     // Did this DOM structure so the tests run in a predictable environment.
     // The mock summary
     document.body.innerHTML = `
-    <input id="toolName" value="Test Tool" />
-    <input id="toolURL1" value="https://example.com/" />
-    <input id="toolURL2" value="/end" />
-    <input id="isDynamic" type="checkbox" />
-    <input id="isPersonal" type="checkbox" />
-
-    <div class="tool-summary"></div>
-
-    <label>
-        <input class="jurisdictionsChecks" type="checkbox" checked />
-        <span>DK</span>
-    </label>
-
-    <label>
-        <input class="stagesChecks" type="checkbox" name="stage" checked />
-        <span>stage</span>
-    </label>
-
-    <label>
-        <input class="departmentsChecks" type="checkbox" checked />
-        <span>Frontend</span>
-    </label>
-
-    <span class="tag-chip" data-tag-name="JEST"></span>
-    <span class="tag-chip" data-tag-name="Swagger"></span>
-`;
+        <div id="addToolDiv" style="display:none;"></div>
+        <button class="toggleBtn"></button>
+        <input type="checkbox" id="isPersonal">
+        <input id="toolName" value="Test Tool"/>
+        <input id="toolURL1" value="http://example."/>
+        <b id="toolUser">USER</b>
+        <input id="toolURL2" value=".com"/>
+        <div id="selectedTags" class="selected-tags"><div class="tag-chip" data-tag="3" data-tag-name="Office" style="background-color: rgb(143, 220, 198);"><span>Office</span><button type="button">x</button></div></div>
+        <input type="checkbox" id="isDynamic"/>
+        <div class="checkBoxDiv"><label>DevOps</label><input type="checkbox" id="DevOpsInput" value="1" class="departmentsChecks" checked></div>
+        <div class="checkBoxDiv">
+            <label for="stagingInput"> Staging </label>
+            <input id="stagingInput" class="stagesChecks" type="checkbox" value="2" name="Staging" checked>
+        </div>
+        <div class="checkBoxDiv"><label>DK</label><input type="checkbox" id="DKInput" value="1" class="jurisdictionsChecks" checked></div>
+        <button id="submitBtn"></button>
+        <div class="tool-summary">
+        </div>
+    `;
 }
 
 beforeEach(() => {
@@ -47,12 +40,13 @@ test("Generate correct dynamic URL", () => {
         .find(p => p.textContent.startsWith("URL:"));
 
     expect(urlParagraph.textContent).toBe(
-        "URL: https://example.com/{initials}/end"
+        "URL: http://example.{initials}.com"
     );
 });
 
 // Ensures a static URL is used when isDynamic is not checked.
 test("Generate correct static URL", () => {
+    document.querySelector("#toolURL1").value = "https://example.com/";
     displayReview(); // isDynamic = false
 
     const summary = document.querySelector(".tool-summary");
@@ -65,6 +59,8 @@ test("Generate correct static URL", () => {
 // When personal mode is enabled, only personal-related fields should show.
 test("is_personal only shows personal-items", () => {
     document.querySelector("#isPersonal").checked = true;
+    document.querySelector("#toolURL1").value = "https://example.com/";
+
 
     displayReview();
 
@@ -75,7 +71,7 @@ test("is_personal only shows personal-items", () => {
     expect(textList).toContain("Name: Test Tool");
     expect(textList).toContain("URL: https://example.com/");
     expect(textList).toContain("Jurisdiction: ");
-    expect(textList).toContain("Stage: stage");
+    expect(textList).toContain("Stage: Staging");
 
     // The following should NOT appear in personal mode.
     expect(textList.some(t => t.startsWith("Tags"))).toBe(false);
@@ -87,6 +83,7 @@ test("is_personal only shows personal-items", () => {
 test("Non-personal mode shows all items", () => {
     document.querySelector("#isPersonal").checked = false;
     document.querySelector("#isDynamic").checked = false;
+    document.querySelector("#toolURL1").value = "https://example.com/";
 
     displayReview();
 
@@ -99,8 +96,8 @@ test("Non-personal mode shows all items", () => {
     expect(textList).toContain("URL: https://example.com/");
     expect(textList).toContain("Departments: ");
     expect(textList).toContain("Jurisdiction: ");
-    expect(textList).toContain("Stage: stage");
-    expect(textList).toContain("Tags: JEST, Swagger");
+    expect(textList).toContain("Stage: Staging");
+    expect(textList).toContain("Tags: Office");
 });
 
 // Ensures clearDiv wipes the container clean.

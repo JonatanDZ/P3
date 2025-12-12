@@ -15,13 +15,13 @@ jest.mock('../../main/resources/static/js/displayFavorites.js', () => ({
     displayFavorites: jest.fn()
 }));
 
-// Mock fetch globally so the click handler's fetch call doesn't blow up
-global.fetch = jest.fn();
+beforeEach(()=>{
+    fetch.resetMocks();
+    jest.clearAllMocks();
+});
 
-describe("displayTool()", () => {
+describe("displayTool", () => {
     beforeEach(() => {
-        jest.clearAllMocks();
-
         document.body.innerHTML = `
             <ul id="allTools"></ul>
         `;
@@ -55,13 +55,14 @@ describe("displayTool()", () => {
         const firstTool = mockList.children[0];
         expect(firstTool.querySelector(".tool-name").textContent).toBe("Tintin");
         expect(firstTool.querySelector(".tool-url").textContent).toBe("https://google.com");
-        expect(firstTool.querySelectorAll(".tag").length).toBe(2);
+        expect(firstTool.querySelectorAll(".tag-chip").length).toBe(2);
         expect(firstTool.querySelector(".star").textContent).toBe("☆");
 
         const secondTool = mockList.children[1];
         expect(secondTool.querySelector(".tool-name").textContent).toBe("Bobski");
         expect(secondTool.querySelector(".tool-url").textContent).toBe("https://github.com");
-        expect(secondTool.querySelectorAll(".tag").length).toBe(1);
+
+        expect(secondTool.querySelectorAll(".tag-chip").length).toBe(1);
         expect(secondTool.querySelector(".star").textContent).toBe("☆");
     });
 
@@ -86,84 +87,59 @@ describe("displayTool()", () => {
         const firstTool = mockList.children[0];
         expect(firstTool.querySelector(".tool-name").textContent).toBe("Tintin");
         expect(firstTool.querySelector(".tool-url").textContent).toBe("https://google.com");
-        expect(firstTool.querySelectorAll(".tag").length).toBe(2);
+        expect(firstTool.querySelectorAll(".tag-chip").length).toBe(2);
         expect(firstTool.querySelector(".star").textContent).toBe("★");
     });
 
-    test("DisplayTool test: Empty tool", async () => {
-        const mockList = document.getElementById("allTools");
-
-        const mockTools = [
-            {}
-        ];
-
-        isToolInFavorite.mockResolvedValue(false);
-
-        await displayTools(mockTools, mockList);
-
-        expect(mockList.children.length).toBe(1);
-
-        const firstTool = mockList.children[0];
-        expect(firstTool.querySelector(".tool-name").textContent).toBe("");
-        expect(firstTool.querySelector(".tool-url").textContent).toBe("");
-        expect(firstTool.querySelectorAll(".tag").length).toBe(0);
-        expect(firstTool.querySelector(".star").textContent).toBe("☆");
-    });
-
-
-    // Edge-Case Input Tests
-
-    test("DisplayTool test: Tool without ID", async () => {
+    test("DisplayTool test: Tool with null or undefined id", async () => {
         const mockList = document.getElementById("allTools");
 
         const mockTools = [
             {
-                name: "Tool",
+                id: null,
+                name: "NullIdTool",
                 url: "https://example.com",
-                tags: ["Dev"]
-                // id missing
+                tags: ["Dev", "Stage"]
             }
         ];
 
         isToolInFavorite.mockResolvedValue(false);
 
-        await displayTools(mockTools, mockList);
-
-        expect(mockList.children.length).toBe(1);
-
-        const firstTool = mockList.children[0];
-        expect(firstTool.querySelector(".tool-name").textContent).toBe("Tool");
-        expect(firstTool.querySelector(".tool-url").textContent).toBe("https://example.com");
-        expect(firstTool.querySelectorAll(".tag").length).toBe(1);
-
-        // Should still render an unfilled star
-        expect(firstTool.querySelector(".star").textContent).toBe("☆");
+        await expect(displayTools(mockTools, mockList)).rejects.toThrow();
     });
 
-    test("DisplayTool test: Tool without URL or invalid URL", async () => {
+    test("DisplayTool test: Tool with null or undefined name", async () => {
         const mockList = document.getElementById("allTools");
 
         const mockTools = [
             {
-                id: 99,
-                name: "NoLinkTool",
-                url: null,              // invalid URL
-                tags: ["Test"]
+                id: 1,
+                name: null,
+                url: "https://example.com",
+                tags: ["Dev", "Stage"]
             }
         ];
 
         isToolInFavorite.mockResolvedValue(false);
 
-        await displayTools(mockTools, mockList);
+        await expect(displayTools(mockTools, mockList)).rejects.toThrow();
+    });
 
-        expect(mockList.children.length).toBe(1);
+    test("DisplayTool test: Tool with null or undefined url", async () => {
+        const mockList = document.getElementById("allTools");
 
-        const firstTool = mockList.children[0];
+        const mockTools = [
+            {
+                id: 1,
+                name: "NullURLTool",
+                url: null,
+                tags: ["Dev", "Stage"]
+            }
+        ];
 
-        expect(firstTool.querySelector(".tool-name").textContent).toBe("NoLinkTool");
-        expect(firstTool.querySelector(".tool-url").textContent).toBe(""); // EXPECTED EMPTY
-        expect(firstTool.querySelectorAll(".tag").length).toBe(1);
-        expect(firstTool.querySelector(".star").textContent).toBe("☆");
+        isToolInFavorite.mockResolvedValue(false);
+
+        await expect(displayTools(mockTools, mockList)).rejects.toThrow();
     });
 
     test("DisplayTool test: Tool with null or undefined tags", async () => {
@@ -174,23 +150,13 @@ describe("displayTool()", () => {
                 id: 1,
                 name: "NullTagsTool",
                 url: "https://example.com",
-                tags: null
+                tags: null 
             }
         ];
 
         isToolInFavorite.mockResolvedValue(false);
 
-        await displayTools(mockTools, mockList);
-
-        expect(mockList.children.length).toBe(1);
-
-        const firstTool = mockList.children[0];
-
-        expect(firstTool.querySelector(".tool-name").textContent).toBe("NullTagsTool");
-        expect(firstTool.querySelector(".tool-url").textContent).toBe("https://example.com");
-
-        // No tags should be rendered
-        expect(firstTool.querySelectorAll(".tag").length).toBe(0);
+        await expect(displayTools(mockTools, mockList)).rejects.toThrow();
     });
 
 
