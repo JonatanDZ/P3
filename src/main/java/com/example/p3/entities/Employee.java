@@ -12,7 +12,7 @@ import java.util.Set;
 // This entity is an ORM-mapped representation of an Employee in the system. It maps to the P3.employee table and contains the employee's attributes/rows from the DB.
 @Getter
 @Setter
-@Entity
+@Entity //Used for declaring object class as an entity in the DB (Makes hibernate possible)
 @Table(name = "employee", schema = "P3")
 public class Employee {
     @Id
@@ -23,6 +23,7 @@ public class Employee {
     @Column(name = "name")
     private String name;
 
+    // the fetchtype is lazy which means it only gets the department when explicitly asked
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;

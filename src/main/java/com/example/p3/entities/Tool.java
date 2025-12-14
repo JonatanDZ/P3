@@ -43,7 +43,7 @@ public class Tool {
     @JoinColumn(name = "created_by", referencedColumnName = "initials")
     private Employee created_by;
 
-    // mappedBy is important here. It tells Hibernate that the User class owns this relationship. ????????????
+    // mappedBy is important here. It tells Hibernate that the User class owns this relationship, and therefor only shows op in the correct favorites lists..
     // Each tool can be favorited by many users.
     @ManyToMany(mappedBy = "favoriteTools", fetch = FetchType.LAZY)
     private Set<Employee> employeesWhoFavorited = new HashSet<>();

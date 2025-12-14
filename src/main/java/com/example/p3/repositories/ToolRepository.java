@@ -103,9 +103,7 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     //Returns only name and url from a tool (for search by tag)
     @Modifying
     @Query(value = """
-    
-    
-""")
+    """)
 
     List<Tool> findByDepartments_NameAndJurisdictions_NameAndStages_Name(String DepartmentName,
                                                                          String JurisdictionName,

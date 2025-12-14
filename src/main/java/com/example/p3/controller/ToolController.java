@@ -17,6 +17,8 @@ import java.util.List;
 
 // This is the API http/rest controller
 @RestController
+// Makes "/tools" always being a part of the endpoint call
+
 @RequestMapping("/tools")
 public class ToolController {
     private final ToolService toolService;//final means that we can't change the value after it has been initialized, in this case in the controller.
@@ -31,8 +33,8 @@ public class ToolController {
     }
 
     @Operation(
-            summary = "Gets a list of all tools in the database.",
-            description = "Retrieves a list of all tools in the database, given no conditions."
+            summary = "Gets a list of all company tools in the database.",
+            description = "Retrieves a list of all tools in the database, excluding pending and personal tools."
     )
     //GetMapping: indicates it is a get request on the given url
     @GetMapping("")

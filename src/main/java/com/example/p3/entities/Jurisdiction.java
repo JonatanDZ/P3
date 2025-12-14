@@ -12,7 +12,7 @@ import java.util.Set;
 // This entity is an ORM-mapped representation of a Jurisdiction in the system. It maps to the P3.jurisdiction table and contains the jurisdiction's attributes/rows from the DB.
 @Getter
 @Setter
-@Entity
+@Entity //Used for declaring object class as an entity in the DB (Makes hibernate possible)
 @Table(name = "jurisdiction", schema = "P3")
 public class Jurisdiction {
     @Id

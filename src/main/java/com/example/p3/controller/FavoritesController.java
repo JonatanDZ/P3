@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+// Makes "/employee" always be a part of the endpoint call
 @RequestMapping("/employee")
 public class FavoritesController {
 
