@@ -35,7 +35,6 @@
                 <label for="prod">Prod</label><br>
             </div>
         </div>
-        <!------------------------TOOGLE (NAVBAR) END------------------------------->
         <!------------------------SEARCH + USER (NAVBAR) START------------------------------->
         <div class="nav-mid">
             <h1 id="userJurisdictionNav"></h1>
@@ -43,8 +42,6 @@
                 <input id = "myInput" type="text" placeholder="Search for tools by tags">
             </div>
         </div>
-        <!------------------------SEARCH + USER (NAVBAR) END------------------------------->
-
         <!------------------------ADD + BELL (NAVBAR) START------------------------------->
         <div class="nav-right">
             <button id="addToolBtn" class="toggleBtn"> &nbsp;+&nbsp;</button>
@@ -62,21 +59,23 @@
                 <div class="dropdownContent" id="dropdownIndividualItem"></div>
             </div>
         </div>
-        <!------------------------ADD + BELL (NAVBAR) END------------------------------->
     </nav>
+<!------------------------NAVBAR END------------------------------->
 
-<!------------------------SIDEBARD START------------------------------->
 
 <div class="main">
+    <!------------------------DEPARTMENT SIDEBARD START------------------------------->
     <aside>
         <h1>Departments</h1>
         <div class = "departmentSelector"> </div>
     </aside>
 
+        <!------------------------ADD FORM START------------------------------->
         <section>
             <div class="popUpForm" id="addToolDiv" style="display: none">
                 <div class="from-container">
                     <h1>Add Tool</h1>
+                    <!------------------------NAME + IS_PERSONAL (ADD FORM)------------------------------->
                     <div class="formCards" id="formCard1" data-card="1">
                         <label for="toolName"> <h3> Tool name</h3></label>
                         <label for="isPersonal"> Is the tool personal?
@@ -84,7 +83,7 @@
                         </label>
                         <input id="toolName" type="text" placeholder="Enter Tool Name" name="toolName" class="toolName" required>
                     </div>
-
+                    <!------------------------URL + IS_DYNAMIC (ADD FORM)------------------------------->
                     <div class="formCards" id="formCard2" data-card="2" style="display: none">
                         <label for="toolURL"> <h3> Tool URL</h3></label>
                         <label for="isDynamic"> Is the URL Dynamic?
@@ -96,12 +95,12 @@
                             <input id="toolURL2" class="toolURL toolURLHide" type="text" placeholder="Enter second part of URL" name="toolURL" required>
                         </div>
                     </div>
-
+                    <!------------------------DEPARTMENT (ADD FORM)------------------------------->
                     <div class="formCards" id="formCard3" data-card="3" style="display: none">
                         <label for="departmentsInput"> <h3> Department</h3></label>
                         <div id = "departmentsInput" class="inputDiv"></div>
                     </div>
-
+                    <!------------------------STAGE + JUR (ADD FORM)------------------------------->
                     <div class="formCards" id="formCard4" data-card="4" style="display: none">
                         <label for="stagesInput"> <h3> Stages</h3></label>
                         <div id = "stagesInput" class="inputDiv">
@@ -121,7 +120,7 @@
                             <div id="jurisdictionsInput" class="inputDiv"> </div>
                         </div>
                     </div>
-
+                    <!------------------------TAG (ADD FORM)------------------------------->
                     <div class="formCards" id="formCard5" data-card="5" style="display: none">
                         <div id="tagDiv">
 
@@ -132,7 +131,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <!------------------------SUMMARY (ADD FORM)------------------------------->
                     <div class="formCards" id="formCard6" data-card="6" style="display: none">
                         <div class="tool-summary"> </div>
                         <div class="buttondiv">
@@ -146,6 +145,7 @@
                     </div>
                 </div>
             </div>
+            <!------------------------ADD FORM END------------------------------->
 
             <h1>Favorites</h1>
             <ul id="favorites"></ul>
