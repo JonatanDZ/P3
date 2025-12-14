@@ -17,7 +17,9 @@
 </head>
 
 <body>
+<!------------------------NAVBAR START------------------------------->
     <nav>
+        <!------------------------TOOGLE (NAVBAR) START------------------------------->
         <div class="nav-left">
             <input id="jurisdiction" type="checkbox" value="jurisdiction">
             <label for="jurisdiction"></label>
@@ -33,14 +35,17 @@
                 <label for="prod">Prod</label><br>
             </div>
         </div>
-
+        <!------------------------TOOGLE (NAVBAR) END------------------------------->
+        <!------------------------SEARCH + USER (NAVBAR) START------------------------------->
         <div class="nav-mid">
             <h1 id="userJurisdictionNav"></h1>
             <div id="searchbar">
                 <input id = "myInput" type="text" placeholder="Search for tools by tags">
             </div>
         </div>
+        <!------------------------SEARCH + USER (NAVBAR) END------------------------------->
 
+        <!------------------------ADD + BELL (NAVBAR) START------------------------------->
         <div class="nav-right">
             <button id="addToolBtn" class="toggleBtn"> &nbsp;+&nbsp;</button>
             <div class="dropdown">
@@ -57,9 +62,12 @@
                 <div class="dropdownContent" id="dropdownIndividualItem"></div>
             </div>
         </div>
+        <!------------------------ADD + BELL (NAVBAR) END------------------------------->
     </nav>
 
-    <div class="main">
+<!------------------------SIDEBARD START------------------------------->
+
+<div class="main">
     <aside>
         <h1>Departments</h1>
         <div class = "departmentSelector"> </div>
