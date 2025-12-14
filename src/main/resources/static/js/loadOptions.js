@@ -2,7 +2,7 @@ import {submitTag} from "./submitForm.js";
 import {stringToColor} from "./searchbar.js";
 import {fuzzySearchTags} from "./fuzzySearch.js";
 
-//Used to load department and jurisdiction in form
+//Used to load department and jurisdiction in add form
 export function loadOptions(str){
     //${str} can ex. be jurisdiction or department.
     fetch(`/${str}`)
@@ -102,7 +102,7 @@ export async function enableTagSearch(){
                 completeMatch = tag;
             }
         });
-        //Ensure that it dissapears when there is a match
+        //Ensure that it disappears when there is a match
         if(!isCompleteMatch){
             createSubmitBtn(suggestionBox, input);
         }
@@ -111,9 +111,9 @@ export async function enableTagSearch(){
     tagInput.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
             event.preventDefault();
-            if (isCompleteMatch){  // If there is a match is creates a chip from the tag
+            if (isCompleteMatch){  // If there is a match it creates a chip from the tag
                 addTagChip(completeMatch);
-            } else { // If no it creates a new tag
+            } else { // If not it creates a new tag
                 try {
                 submitTag();
                 } catch (error) {

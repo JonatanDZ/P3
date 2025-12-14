@@ -1,5 +1,6 @@
 import {getJurisdiction} from "./endpointScripts.js";
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
+//Show the current user and which jurisdiction is currently selected
 
 async function displayUserJurisdictionNav(){
     const jurisdiction = getJurisdiction();

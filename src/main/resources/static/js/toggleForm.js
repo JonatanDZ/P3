@@ -1,6 +1,6 @@
 import {updateAllowedCards} from "./addToolForm.js"
 
-//Toggles if the formular is open or not
+//Toggles if the add formular is open or not
 export function toggleForm(formIsShown){
     if (formIsShown){
         window.addToolDiv.style.display = "none";
@@ -54,17 +54,18 @@ export function displayReview(){
     const toolName = document.querySelector("#toolName").value;
 
     let toolURL = "";
+    let jurisdictionString = "";
+    let stageString = "";
+    let departmentString = "";
+    let tagString = "";
 
     if (document.querySelector("#isDynamic").checked){
         toolURL = document.querySelector("#toolURL1").value + "{initials}" + document.querySelector("#toolURL2").value;
     } else {
         toolURL = document.querySelector("#toolURL1").value;
     }
-    let jurisdictionString = "";
-    let stageString = "";
-    let departmentString = "";
-    let tagString = "";
 
+    //Collects answers as strings for summary
     document.querySelectorAll('.jurisdictionsChecks:checked').forEach(cb => {
         jurisdictionString += cb.textContent + ", ";
     });
@@ -94,7 +95,7 @@ export function displayReview(){
     const isPersonal = document.querySelector("#isPersonal").checked;
     const isDynamic = document.querySelector("#isDynamic").checked;
 
-    // What to print if is personal
+    // Prints summary for personal and company tools
     if (isPersonal){
         createParagraph(div, "Personal", isPersonal ? "Yes" : "No");
         createParagraph(div, "Name", toolName);

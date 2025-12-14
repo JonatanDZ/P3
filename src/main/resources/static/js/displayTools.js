@@ -40,14 +40,15 @@ export async function displayTools(data, list) {
     const employee = await getCurrentEmployee();
     //has to be for loop, else the async function later will not work
     for (const tool of data) {
-        //Personalize the dynamic tools
         try {
             if (tool.id === null || tool.name === null || tool.url === null) throw new Error("a value in tool is NULL");
 
+            //Personalize the dynamic tools
             if (tool.is_dynamic){
                 tool.url = tool.url.replace('$USER$', employee.initials.toLowerCase());
             }
 
+            //Link as the element
             const toolId = tool.id;
             const li = document.createElement('li');
             const a = document.createElement('a');
@@ -63,6 +64,7 @@ export async function displayTools(data, list) {
             tooltip.textContent = tool.name
             header.appendChild(tooltip)
 
+            //Name shown
             const nameE = document.createElement('div');
             nameE.className = 'tool-name';
             nameE.textContent = tool.name;
@@ -83,7 +85,7 @@ export async function displayTools(data, list) {
             starBtn.appendChild(star)
             starClicked(starBtn, star, toolId);
 
-
+            //Tags shown for tool
             let tags = document.createElement('div');
             tags.className = 'tagsInTool';
             if (!tool.is_personal){
@@ -111,8 +113,8 @@ export async function displayTools(data, list) {
             let footer = document.createElement("div");
             footer.className = "footer"
 
+            //Elements location on the tool
             header.appendChild(nameE);
-
             header.appendChild(starBtn);
 
             const urlE = document.createElement('div');

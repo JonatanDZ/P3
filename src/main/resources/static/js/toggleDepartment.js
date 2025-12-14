@@ -1,6 +1,6 @@
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 import {getToolsByDepartmentJurisdictionStage} from "./endpointScripts.js";
-
+//Toggle department in the aside
 export async function toggleDepartment() {
     // get user
     const currentEmployee = await getCurrentEmployee();
