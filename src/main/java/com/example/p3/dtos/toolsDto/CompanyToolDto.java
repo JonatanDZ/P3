@@ -33,6 +33,9 @@ public class CompanyToolDto implements ToolDto {
         this.url = t.getUrl();
         this.pending = t.getPending();
         this.tags = t.getTags()
+                // Checks all Company tools for tags and adds it to the tag list.
+                    // stream API collect method. It converts a set to a list. Below are all conversions from a set (in entities) to a list (DTO)
+                    // it also maps to the name field in order to avoid infinite object recursion.
                 .stream()
                 .map(Tag::getValue)
                 .collect(Collectors.toList());

@@ -11,21 +11,22 @@ import java.util.stream.Collectors;
 
 @Getter
 public class PersonalToolDto implements  ToolDto {
+    //Attributes of personal tool
     private Integer id;
     private Boolean is_personal = true;
     private String name;
     private String url;
     private List<String> jurisdictions;
     private List<String> stage;
-    private  Boolean pending;
 
     @Override
     public void prepare(Tool t){
         this.id = t.getId();
         this.name = t.getName();
         this.url = t.getUrl();
-        this.pending = t.getPending();
-
+        // Checks all personal tools for jurisdictions and adds it to the jurisdiction list.
+            // stream API collect method. It converts a set to a list. Below are all conversions from a set (in entities) to a list (DTO)
+            // it also maps to the name field in order to avoid infinite object recursion.
         this.jurisdictions = t.getJurisdictions()
                 .stream()
                 .map(Jurisdiction::getName)
