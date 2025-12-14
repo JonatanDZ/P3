@@ -98,11 +98,11 @@ VALUES
 (1, 8),(2, 8),(3, 8),(4, 8),(5, 8),(6, 8),(7, 8);
 
 -- --- STAGES ---
-INSERT INTO stage (id, name)
+INSERT INTO stage (name)
 VALUES
-    (1, 'Development'),
-    (2, 'Staging'),
-    (3, 'Production');
+    ('Development'),
+    ('Staging'),
+    ('Production');
 
 -- --- STAGE ↔ TOOL ---
 INSERT INTO tool_stage (stage_id, tool_id)
