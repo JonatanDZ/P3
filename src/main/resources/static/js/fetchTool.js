@@ -9,11 +9,11 @@ export async function poster(destination, jsonBody) {
             },
             body: jsonBody
         });
-        const tag = await response.json();
-        console.log("success:", tag);
-        return tag;
+        const item = await response.json();
+        console.log("success:", item);
+        return item;
     } catch (error) {
-        console.error('Error posting tag:', error);
+        console.error('Error posting item:', error);
         throw error;
     }
 }

@@ -100,13 +100,6 @@ public interface ToolRepository extends JpaRepository<Tool, Integer> {
     """, nativeQuery = true)
     List<Tool> findNonPendingNonPersonalTools();
 
-    //Returns only name and url from a tool (for search by tag)
-    @Modifying
-    @Query(value = """
-    
-    
-""")
-
     List<Tool> findByDepartments_NameAndJurisdictions_NameAndStages_Name(String DepartmentName,
                                                                          String JurisdictionName,
                                                                          String stageName);

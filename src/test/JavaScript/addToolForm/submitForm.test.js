@@ -91,7 +91,6 @@ describe("submitForm", () => {
             expect(body.is_personal).toBe(true);
             expect(body.jurisdictions).toEqual([{ id: "1" }]);
             expect(body.stages).toEqual([{ id: "2" }]);
-
         });
 
         test("submit form non-dynamic link no toolName", async () => {

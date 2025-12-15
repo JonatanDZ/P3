@@ -16,6 +16,7 @@ import java.util.Set;
 @Table(name = "employee", schema = "P3")
 public class Employee {
     @Id
+    @Size(min = 2, max = 4)
     @Column(name = "initials", nullable = false)
     private String initials;
 

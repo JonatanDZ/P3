@@ -28,7 +28,7 @@ async function searchbar(inp, arr) {
                 arr[i].url = arr[i].url.replace('$USER$', employee.initials.toLowerCase());
             }
 
-            //Checks to see if the input is included in any of the elements in the array 'tags'
+            //Checks to see if the input is included in either the name, url or tags
              if (fuzzySearch(val, arr[i])){
 
                 //show makes the whole div clickable
