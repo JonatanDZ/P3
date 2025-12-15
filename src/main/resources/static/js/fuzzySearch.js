@@ -51,7 +51,6 @@ export function fuzzySearch(input, tool){
     }
 
     //Firstly check if it matches name
-
     if (tool.name.toLowerCase().startsWith(input.toLowerCase()) || wagnerFischer(input.toLowerCase(), tool.name.toLowerCase()) > 0.55){
         return true;
     }

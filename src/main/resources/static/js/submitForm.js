@@ -48,7 +48,7 @@ export async function submitForm() {
         if(data.is_personal){
             alert("Your tool has been added")
         }else{
-            alert("Your tool is pending and waiting for approal")
+            alert("Your tool is pending and waiting for approval")
         }
 
         //ensures the tool is loaded before it is inserted
@@ -84,7 +84,6 @@ export async function formToJSON(){
     const createdBy = await getCurrentEmployee();
 
     //Validation checks
-
     if (name.trim() === ""){ throw new Error("Tool name cannot be empty"); }
 
     if (departments.length === 0 && !isPersonal){

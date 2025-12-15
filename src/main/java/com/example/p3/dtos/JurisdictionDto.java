@@ -20,6 +20,8 @@ public class JurisdictionDto {
         this.id = j.getId();
         this.name = j.getName();
         // Checks all tools for jurisdiction and adds it to the jurisdiction list.
+            // stream API collect method. It converts a set to a list. Below are all conversions from a set (in entities) to a list (DTO)
+            // it also maps to the name field in order to avoid infinite object recursion.
         this.tools = j.getJurisdictionTools()
                 .stream().
                 map(Tool::getName).

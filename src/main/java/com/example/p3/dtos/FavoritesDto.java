@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 // data transfer objects, to JSON
+//@Data is a combination of several Lombok annotations
 @Data
 public class FavoritesDto {
     // attributes of Tool

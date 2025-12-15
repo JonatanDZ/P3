@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+// Makes "/tags" always being a part of the endpoint call
 @RequestMapping("/tags")
 public class TagController {
     private final TagService tagService;

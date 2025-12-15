@@ -47,7 +47,7 @@ function getDepartmentsDisplay(){
 // getToolsByDepartmentJurisdictionStage endpoint and display
 export function getToolsByDepartmentJurisdictionStage() {
     // clear the list each time it is called.
-    // If this is not implemented it appends to the list each time..
+    // If this is not implemented it appends to the list each time.
     const list = document.getElementById('departmentSelected');
     list.innerText = "";
     // mock department, should be based on the user logged in

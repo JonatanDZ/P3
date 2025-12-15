@@ -35,8 +35,8 @@ async function reloadDropdown() {
     // Remove old badge if exists
     const containerBellNotifications = document.getElementById("bellNotifications");
     const oldBadge = containerBellNotifications.querySelector(".notificationBadge");
-    // needs if statement because the oldBadge dosnt exist the first time you load the site.
-    // == You cant remove on null. Therefore, skip if it dosnt exist.
+    // needs if statement because the oldBadge doesn't exist the first time you load the site.
+    // == You cant remove on null. Therefore, skip if it doesn't exist.
     if (oldBadge) {
         oldBadge.remove();
     }

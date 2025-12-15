@@ -3,7 +3,7 @@
 
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 import {fuzzySearch} from "./fuzzySearch.js";
-
+//searchbar using fuzzySearch and can tab trough with arrows
 async function searchbar(inp, arr) {
     const employee = await getCurrentEmployee();
     var currentFocus;
@@ -14,7 +14,7 @@ async function searchbar(inp, arr) {
         //Close potential already opened list
         closeAllLists();
         if (!val) { return false;}
-        currentFocus = -1
+        currentFocus = -1 //where the "clicker" is (for when clicking enter) currently on the search bar
         //Create div for whole list
         searchBarList = document.createElement("DIV");
         searchBarList.setAttribute("id", this.id + "searchbar-list");

@@ -12,7 +12,7 @@ import java.util.Set;
 // This entity is an ORM-mapped representation of a Stage in the system. It maps to the P3.stage table and contains the stage's attributes/rows from the DB.
 @Getter
 @Setter
-@Entity
+@Entity //Used for declaring object class as an entity in the DB (Makes hibernate possible)
 @Table(name = "stage", schema = "P3")
 public class Stage {
     @Id
@@ -24,6 +24,9 @@ public class Stage {
     @Column(name = "name")
     private String name;
 
+    // starting at a stage, Hibernate looks in tool_stage for rows whose stage_id equals this stage's id,
+    // then uses each tool_id it finds to load the corresponding Tool rows.
+    // No department is involved in this relationship.
     @ManyToMany(mappedBy = "stages")
     private Set<Tool> stageTools = new HashSet<>();
 }

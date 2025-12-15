@@ -12,7 +12,7 @@ import java.util.Set;
 // This entity is an ORM-mapped representation of a department in the system. It maps to the P3.department table and contains the department's attributes/rows from the DB.
 @Getter
 @Setter
-@Entity
+@Entity //Used for declaring object class as an entity in the DB (Makes hibernate possible)
 @Table(name = "department", schema = "P3")
 public class Department {
     @Id
