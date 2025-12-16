@@ -71,7 +71,7 @@ span.psw {
     display: flex;
     padding: 5px;
     float: right;
-    
+    gap: 10px
 }
 
 /* Modal Content/Box */
