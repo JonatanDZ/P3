@@ -16,7 +16,8 @@ npm install
 ---
 
 ## Prerequisites
-- Flyway benyttes til migrering af databasen. Hvis man vil loade mock dataen, skal MYSQL være opsat på ens computer.
+- MySQL skal være opsat på ens computer, før programmet kører via localhost. 
+- Flyway benyttes til migrering af databasen, dette sker automatisk. 
 - Dernæst skal man oprette en .env fil med følgende indhold. Den skal ligge i samme sti som "README.md" og "package.json":
 
 
