@@ -35,6 +35,7 @@ export function starClicked(starBtn, star, toolId) {
                     .forEach(s => s.textContent = notFilled ? '★' : '☆');
 
                 displayFavorites();
+                displayTools();
             }
 
         } catch (err) {
