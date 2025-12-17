@@ -1,20 +1,31 @@
-.tags{
+.tagsInTool {
+    height: 44px;
     width: 100%;
-    border: 0.1rem solid #ccc;
-    border-radius: 40px;
-    padding: 3%;
-    align-items: center;
-    outline: none;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 10px 10px 5px 0;
     box-sizing: border-box;
-    font-size: 18px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;        /* number of lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    min-height: 34px;
+    flex-shrink: 0;
+    -webkit-overflow-scrolling: touch;
 }
 
-.tags .tag:not(:last-child)::after {
-    content: ", ";
+.tagsInTool .tag {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.tagsInTool::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tagsInTool::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
 }
 
 #allTools a,
@@ -24,13 +35,9 @@
     flex-direction: column;
     background-color: var(--bg-card);
     color: var(--text-main);
-
-    /* Change the size of these to change the size of the cards */
     width: 200px;
-    height: 100px;
-
+    height: 110px;
     border: 1px solid var(--border-soft);
-    margin: 0;
     border-radius: 15px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -39,6 +46,10 @@
     padding: 10px;
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+.tags .tag:not(:last-child)::after {
+    content: ", ";
 }
 
 .tool-header {
@@ -62,16 +73,16 @@
     padding: 0;
     line-height: 1;
     cursor: pointer;
-    font-size: 24px; /* match your title size */
+    font-size: 24px;
 }
 
 .star-button .star {
-    color: gold;           /* outline color */
+    color: gold;
     transition: color 140ms ease, transform 120ms ease;
 }
 
 .star-button.is-filled .star {
-    color: gold;              /* filled color */
+    color: gold;
 }
 
 .star-button:hover .star {
@@ -89,9 +100,8 @@
     text-overflow: ellipsis;
 }
 
-/* Tooltip text */
 .tooltiptext {
-    visibility: hidden; /* Hidden by default */
+    visibility: hidden;
     min-width: 20px;
     background-color: #333;
     color: #ffffff;
@@ -106,7 +116,6 @@
     font-size: 20px
 }
 
-/* Show the tooltip text on hover */
 .tool-header:hover .tooltiptext {
     visibility: visible;
 }
