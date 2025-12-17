@@ -98,12 +98,12 @@ The server starts at **http://localhost:8080**.
 ### Dynamisk tool (valgfrit)
 - Et dynamisk tool repræsenterer et link i dit udviklingsmiljø.
 - Du udfylder den første og sidste del af linket, separeret af dine initialer.
-- Eksempel: `pedo.<INITIALER>.greathippydev.co.uk`
+- Eksempel: `pedo.greathippydev.co.uk`, hvor "pedo" er initialerne og "greathippydev.co.uk" er den sidste del af URLen; den første del er blank. En af delene skal være udfyldte.
 
 ### Vælg Department / Stage / Jurisdiction
 - Vælg **department** (toolet hører til de afkrydsede departments).
 - Toolet vises kun i **All tools**, medmindre du også markerer den pågældende department i venstre sidebar.
-- Det anbefales at krydse alle af (departments/stages/jurisdictions) ved gennemgang.
+- Det anbefales at krydse alle af (departments/stages/jurisdictions) når der tilføjes et tool.
 
 ### Tags
 - Tilføj tags efter behov.
@@ -123,7 +123,7 @@ For at se et tool der lige er oprettet i pending tool menuen (**Bell menu**), sk
 
 `P3/src/main/resources/static/js/getCurrentEmployee.js`
 
-2. Find metoden, hvor du kan ændre argumentet til initialerne på den bruger du vil “logge ind” som.
+2. Ændr argumenterne, i den ene metode i filen, med initialerne på den bruger du vil “logge ind” som.
 
 > Pending tools er filtreret pr. department.
 > Hvis du vil se (og dermed kunne godkende) et company tool du lige har uploadet, skal du være logget ind som en anden bruger fra **samme department** som toolet blev uploadet til.
