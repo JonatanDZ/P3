@@ -3,6 +3,7 @@
 
 import {getCurrentEmployee} from "./getCurrentEmployee.js";
 import {fuzzySearch} from "./fuzzySearch.js";
+
 //searchbar using fuzzySearch and can tab trough with arrows
 async function searchbar(inp, arr) {
     const employee = await getCurrentEmployee();
@@ -185,6 +186,7 @@ export function stringToColor(str) {
     const green = (hash / 7) % 127 + 127; //we devide by prime numbers to avoid number patterns  
     const blue = (hash / 11) % 127 + 127; //we devide by prime numbers to avoid number patterns
 
-    const color = `rgb(${red},${green},${blue})`; //converts it to a form js understands
-    return color
+
+     //converts it to a form js understands
+    return `rgb(${red},${green},${blue})`
 }
