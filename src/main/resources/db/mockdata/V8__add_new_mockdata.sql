@@ -30,37 +30,37 @@ VALUES
     ('Legal Contract Archive',          'https://legal.company/archive',       FALSE, FALSE, FALSE, 'LALE'),
 
     -- Happy Tiger – stage name in URL, must be UK-only in jurisdictions
-    ('Happy Tiger Player Portal (Development)', 'https://development.player.happytiger.internal', FALSE, TRUE, FALSE, 'MAGA'),
-    ('Happy Tiger Player Portal (Staging)',     'https://staging.player.happytiger.internal',     FALSE, TRUE, FALSE, 'MAGA'),
-    ('Happy Tiger Player Portal (Production)',  'https://production.player.happytiger.internal',  FALSE, TRUE, FALSE, 'MAGA'),
+    ('Happy Tiger Player Portal (Development)', 'https://development.$USER$.player.happytiger.internal', FALSE, TRUE, FALSE, 'MAGA'),
+    ('Happy Tiger Player Portal (Staging)',     'https://staging.$USER$.player.happytiger.internal',     FALSE, TRUE, FALSE, 'MAGA'),
+    ('Happy Tiger Player Portal (Production)',  'https://production.$USER$.player.happytiger.internal',  FALSE, TRUE, FALSE, 'MAGA'),
 
     -- SpilNu Casino – stage name in URL
-    ('SpilNu Casino (Development)',    'https://development.casino.spilnu.internal',    FALSE, TRUE, FALSE, 'MAGA'),
-    ('SpilNu Casino (Staging)',        'https://staging.casino.spilnu.internal',        FALSE, TRUE, FALSE, 'MAGA'),
-    ('SpilNu Casino (Production)',     'https://production.casino.spilnu.internal',     FALSE, TRUE, FALSE, 'MAGA'),
+    ('SpilNu Casino (Development)',    'https://development.$USER$.casino.spilnu.internal',    FALSE, TRUE, FALSE, 'MAGA'),
+    ('SpilNu Casino (Staging)',        'https://staging.$USER$.casino.spilnu.internal',        FALSE, TRUE, FALSE, 'MAGA'),
+    ('SpilNu Casino (Production)',     'https://production.$USER$.casino.spilnu.internal',     FALSE, TRUE, FALSE, 'MAGA'),
 
     -- DevOps / infra tools – stage name in URL
-    ('DevOps Kubernetes Dashboard (Development)', 'https://development.k8s.devops.internal', FALSE, TRUE, FALSE, 'JADE'),
-    ('DevOps Kubernetes Dashboard (Production)',  'https://production.k8s.devops.internal',  FALSE, TRUE, FALSE, 'JADE'),
+    ('DevOps Kubernetes Dashboard (Development)', 'https://development.$USER$.k8s.devops.internal', FALSE, TRUE, FALSE, 'JADE'),
+    ('DevOps Kubernetes Dashboard (Production)',  'https://production.$USER$.k8s.devops.internal',  FALSE, TRUE, FALSE, 'JADE'),
 
     -- Analytics / BI – stage name in URL
-    ('Players Analytics (Staging)',    'https://staging.analytics.players.internal',    FALSE, TRUE, FALSE, 'SPCR'),
-    ('Players Analytics (Production)', 'https://production.analytics.players.internal', FALSE, TRUE, FALSE, 'SPCR'),
+    ('Players Analytics (Staging)',    'https://staging.$USER$.analytics.players.internal',    FALSE, TRUE, FALSE, 'SPCR'),
+    ('Players Analytics (Production)', 'https://production.$USER$.analytics.players.internal', FALSE, TRUE, FALSE, 'SPCR'),
 
     -- Promotions / marketing – stage name in URL
-    ('Promotions Campaign Manager (Development)', 'https://development.campaigns.promotions.internal', FALSE, TRUE, FALSE, 'JAPR'),
-    ('Promotions Campaign Manager (Staging)',     'https://staging.campaigns.promotions.internal',     FALSE, TRUE, FALSE, 'JAPR'),
-    ('Promotions Campaign Manager (Production)',  'https://production.campaigns.promotions.internal',  FALSE, TRUE, FALSE, 'JAPR'),
+    ('Promotions Campaign Manager (Development)', 'https://development.$USER$.campaigns.promotions.internal', FALSE, TRUE, FALSE, 'JAPR'),
+    ('Promotions Campaign Manager (Staging)',     'https://staging.$USER$.campaigns.promotions.internal',     FALSE, TRUE, FALSE, 'JAPR'),
+    ('Promotions Campaign Manager (Production)',  'https://production.$USER$.campaigns.promotions.internal',  FALSE, TRUE, FALSE, 'JAPR'),
 
     -- Experimentation / feature tools – stage name in URL
-    ('Feature Flag Dashboard (Development)', 'https://development.flags.internal',       FALSE, TRUE, TRUE,  'JADE'),
-    ('A/B Test Console (Staging)',          'https://staging.abtest.internal',          FALSE, TRUE, TRUE,  'BAFR'),
-    ('Canary Release Monitor (Production)', 'https://production.canary.internal',       FALSE, TRUE, TRUE,  'JADE'),
+    ('Feature Flag Dashboard (Development)', 'https://development.$USER$.flags.internal',       FALSE, TRUE, FALSE,  'JADE'),
+    ('A/B Test Console (Staging)',          'https://staging.$USER$.abtest.internal',          FALSE, TRUE, TRUE,  'BAFR'),
+    ('Canary Release Monitor (Production)', 'https://production.$USER$.canary.internal',       FALSE, TRUE, TRUE,  'JADE'),
 
     -- Swagger / API docs tools – stage name in URL
-    ('Happy Tiger API Docs (Development)', 'https://development.api.happytiger.internal/swagger', FALSE, TRUE, FALSE, 'MAGA'),
-    ('SpilNu API Docs (Staging)',         'https://staging.api.spilnu.internal/swagger',         FALSE, TRUE, FALSE, 'MAGA'),
-    ('Platform API Docs (Development)',   'https://development.api.platform.internal/swagger',   FALSE, TRUE, FALSE, 'JADE');
+    ('Happy Tiger API Docs (Development)', 'https://development.$USER$.api.happytiger.internal/swagger', FALSE, TRUE, FALSE, 'MAGA'),
+    ('SpilNu API Docs (Staging)',         'https://staging.$USER$.api.spilnu.internal/swagger',         FALSE, TRUE, FALSE, 'MAGA'),
+    ('Platform API Docs (Development)',   'https://development.$USER$.api.platform.internal/swagger',   FALSE, TRUE, FALSE, 'JADE');
 
 -- ---------------------------------------------------------------------
 -- TAGS
