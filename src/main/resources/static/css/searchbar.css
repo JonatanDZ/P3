@@ -1,13 +1,14 @@
-#searchbar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 50rem;
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding-top: 0.4rem;
+@media screen and (width >= 90rem) {
+    #searchbar {
+        position: relative;
+        display: flex;
+        width: 50rem;
+        align-items: center;
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding-top: 0.4rem;
+    }
 }
-
 #searchbar input {
     display: flex;
     align-items: center;
