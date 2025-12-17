@@ -28,7 +28,15 @@ export function starClicked(starBtn, star, toolId) {
                 credentials: 'same-origin'
             });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            displayFavorites();
+            if (res.ok) {
+                // update all instances of this tool's star (favorites list + main list)
+                document
+                    .querySelectorAll(`.star-button[data-tool-id="${toolId}"] .star`)
+                    .forEach(s => s.textContent = notFilled ? '★' : '☆');
+
+                displayFavorites();
+            }
+
         } catch (err) {
             console.error('Favorite toggle failed:', err);
             star.textContent = filled ? '★' : '☆';
@@ -83,6 +91,7 @@ export async function displayTools(data, list) {
                 star.textContent = '☆';
             }
             starBtn.appendChild(star)
+            starBtn.dataset.toolId = toolId;
             starClicked(starBtn, star, toolId);
 
             //Tags shown for tool
