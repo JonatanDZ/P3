@@ -51,7 +51,7 @@ export function getToolsByDepartmentJurisdictionStage() {
     const list = document.getElementById('departmentSelected');
     list.innerText = "";
     // mock department, should be based on the user logged in
-    let department = getDepartment()//"DEVOPS";
+    let department = getDepartment().value//"DEVOPS";
     let jurisdiction = getJurisdiction();
     let branch = getStage();
 
@@ -75,6 +75,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     // redundant since it gets called inside the method above
     // getToolsByDepartmentJurisdictionStage();
     displayFavorites();// initial render
+    updateDepartmentTitle();
 
     // Unified change handler — since display functions reset themselves,
     // we only need to re-run them when filters change.
@@ -99,6 +100,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         departmentContainer.addEventListener('change', (e) => {
             if (e.target && e.target.matches('input[name="department"]')) {
                 onFiltersChange();
+                updateDepartmentTitle();
             }
         });
     }
@@ -109,6 +111,13 @@ window.addEventListener('DOMContentLoaded', async () => {
         jurEl.addEventListener('change', onFiltersChange);
     }
 });
+
+function updateDepartmentTitle() {
+    const department = getDepartment();
+    //const formattedDepartment = formatDepartment(department)
+    document.querySelector('.departmentTitle').textContent = department.id;
+}
+
 
 ///////// HELPER METHODS /////////
 export function getJurisdiction() {
@@ -134,5 +143,5 @@ export function getStage() {
 export function getDepartment(){
     const container = document.querySelector('.departmentSelector');
     // get the currently selected radio
-    return container.querySelector('input[type="radio"]:checked')?.value;
+    return container.querySelector('input[type="radio"]:checked');
 }
