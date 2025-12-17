@@ -67,7 +67,7 @@ The server starts at **http://localhost:8080**.
 ### 4) Favoritter
 
 - Du kan favorite/unfavorite ved at trykke på stjernen.
-- ⚠️**OBS:**: Kig på **stage** og **jurisdiction** for det tool du favoriserer, da der er **3 × 2 favoritlister** i alt.
+- ⚠️**OBS:** Kig på **stage** og **jurisdiction** for det tool du favoriserer, da der er **3 × 2 favoritlister** i alt.
 
 **Eks:**
 - Favorisér *"Happy Tiger Player Portal (Development)"*.
