@@ -1,4 +1,4 @@
-@media screen and (width >= 90rem) {
+@media screen and (width >= 75rem) {
     #searchbar {
         position: relative;
         display: flex;
