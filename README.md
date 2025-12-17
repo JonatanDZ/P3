@@ -2,7 +2,7 @@
 
 ---
 
-## Swagger / OpenAPI (Boot 3.x)
+## Swagger
 - **Swagger UI:** http://localhost:8080/swagger-ui/index.html
 - Her ses dokumentation (altså beskrivelsen og general information) omkring endpoints i back-enden.
 
