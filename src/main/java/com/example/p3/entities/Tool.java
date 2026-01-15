@@ -97,4 +97,8 @@ public class Tool {
     }
 
     public Tool() {}
+
+    public String getType(){
+        return null;
+    }
 }

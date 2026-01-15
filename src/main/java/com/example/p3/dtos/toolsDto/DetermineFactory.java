@@ -1,0 +1,43 @@
+package com.example.p3.dtos.toolsDto;
+
+import com.example.p3.entities.Tool;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class DetermineFactory {
+    //Hash map to store our different toolTypes and connected factories in
+    private final Map<String, ToolFactory> factoryRegistry = new HashMap<>();
+
+    public DetermineFactory() {
+        // set our different toolTypes and connected factories in the constructor
+        factoryRegistry.put("PERSONAL", new PersonalToolFactory());
+        factoryRegistry.put("COMPANY", new CompanyToolFactory());
+        //factoryRegistry.put("ADDITIONAL", new AdditionalToolFactory());
+        //factoryRegistry.put("ANOTHER", new AnotherToolFactory());
+
+    }
+
+    public ToolDto decideFactory(Tool t) {
+        String toolType = determineToolType(t);
+        ToolFactory factory = factoryRegistry.get(toolType);
+
+        // If we don't have a match throw execption
+        if (factory == null) {
+            throw new IllegalArgumentException("No factory for type: " + toolType);
+        }
+
+        //If we have a match use that Factory
+        return factory.determineTool(t);
+    }
+
+    private String determineToolType(Tool t) {
+        //If a tool type is declared return the tool type
+        if (t.getType() != null) {
+            return t.getType();
+        }
+        //Set a standard or error handler
+        return "COMPANY";
+    }
+}
+
