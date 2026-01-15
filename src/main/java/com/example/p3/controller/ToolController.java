@@ -22,13 +22,13 @@ import java.util.List;
 @RequestMapping("/tools")
 public class ToolController {
     private final ToolService toolService;//final means that we can't change the value after it has been initialized, in this case in the controller.
-    private final DetermineFactory  factory;
+    private final DetermineFactory determineFactory;
     private final CompanyToolFactory  companyToolFactory;
 
     // TODO: Lombock?
     public ToolController(ToolService toolService) {
         this.toolService = toolService;
-        this.factory = new DetermineFactory();
+        this.determineFactory = new DetermineFactory();
         this.companyToolFactory = new CompanyToolFactory();
     }
 
@@ -45,7 +45,7 @@ public class ToolController {
                 .stream()
                 //Map make a new array,
                 //the function in map: For each tool in toolService it calls "new toolDto"
-                .map(factory::decideFactory)
+                .map(determineFactory::decideFactory)
                 //Converts the new tools (in an array) into a list
                 .toList();
         return ResponseEntity.ok(list);

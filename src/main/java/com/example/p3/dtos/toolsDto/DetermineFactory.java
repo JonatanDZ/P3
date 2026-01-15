@@ -20,14 +20,10 @@ public class DetermineFactory {
 
     public ToolDto decideFactory(Tool t) {
         String toolType = determineToolType(t);
+
+        //Returns the factory that matches the string.
         ToolFactory factory = factoryRegistry.get(toolType);
 
-        // If we don't have a match throw execption
-        if (factory == null) {
-            throw new IllegalArgumentException("No factory for type: " + toolType);
-        }
-
-        //If we have a match use that Factory
         return factory.determineTool(t);
     }
 
