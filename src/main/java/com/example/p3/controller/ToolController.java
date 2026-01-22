@@ -61,7 +61,7 @@ public class ToolController {
     public ResponseEntity<List<ToolDto>> getAllToolsByDepartment(@PathVariable String department) {
         List<ToolDto> list = toolService.getAllToolsByDepartmentName(department)
                 .stream()
-                .map(companyToolFactory::determineTool)
+                .map(determineFactory::decideFactory)
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -78,7 +78,7 @@ public class ToolController {
     ){
         List<ToolDto> list = toolService.getAllToolsByDepartmentJurisdictionStage(department, jurisdiction, stage)
                 .stream()
-                .map(companyToolFactory::determineTool)
+                .map(determineFactory::decideFactory)
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -110,7 +110,7 @@ public class ToolController {
     ){
         List<ToolDto> list = toolService.findPendingToolByUserDepartment(department)
                 .stream()
-                .map(companyToolFactory::determineTool)
+                .map(determineFactory::decideFactory)
                 .toList();
         return ResponseEntity.ok(list);
     }
@@ -139,7 +139,7 @@ public class ToolController {
     public ResponseEntity<ToolDto> revertPendingAttribute(
             @PathVariable int toolId
     ){
-        ToolDto toolAsArgument = companyToolFactory.determineTool(toolService.revertStateOfPending(toolId));
+        ToolDto toolAsArgument = determineFactory.decideFactory(toolService.revertStateOfPending(toolId));
         return ResponseEntity.ok(toolAsArgument);
     }
 }

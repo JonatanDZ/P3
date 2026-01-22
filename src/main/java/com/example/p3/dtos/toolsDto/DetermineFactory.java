@@ -19,6 +19,7 @@ public class DetermineFactory {
     }
 
     public ToolDto decideFactory(Tool t) {
+        //Returns a key to factoryRegistry
         String toolType = determineToolType(t);
 
         //Returns the factory that matches the string.
@@ -28,12 +29,7 @@ public class DetermineFactory {
     }
 
     private String determineToolType(Tool t) {
-        //If a tool type is declared return the tool type
-        if (t.getType() != null) {
-            return t.getType();
-        }
-        //Set a standard or error handler
-        return "COMPANY";
+        return t.getIs_personal()  ? "PERSONAL" : "COMPANY";
     }
 }
 
